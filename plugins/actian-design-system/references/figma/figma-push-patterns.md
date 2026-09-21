@@ -501,12 +501,12 @@ if (subtitleText) subtitleText.characters = "Manage team members and permissions
 - **flowCoverCard** — `"Feature#46:8"`, `"Flow#46:9"`, `"User#46:10"` — all TEXT via `setProperties()`. NEVER leave as "Feature Name" / "Flow Description" / "User Persona".
 - **divider** — no properties
 
-**Brief Kit (component-brief):**
+**Brief Kit (component-brief, retired 2026-09-21, kept for the deletion PR):**
 - **briefCard** — component set, variants by Card Type. All content via nested `findOne` — find text layers by name and override `.characters`
 - **doDontPair / contrastBadge / a11yCard / colorSwatch** — all content via nested `findOne`
 - **tableHeaderRow / tableDataRow / a11ySpecRow / swatchRow** — all cells via nested `findOne`
 
-**Slide Kit (generate-presentation):** (uses Roboto font, not Inter)
+**Slide Kit (generate-presentation, retired 2026-09-10, kept for the deletion PR):** (uses Roboto font, not Inter)
 - **slideCover / slideBodyFull / slideBodyTV / slideSection / slideBack** — all single components (not sets). Content via nested `findOne` — find "Title", "Subtitle", "Body" text layers.
 
 **Rule: Use `setProperties()` with exact hash-suffixed names for exposed properties. Use `query('TEXT[name="LayerName"]').first()` for nested text. Load the correct font before setting `.characters`. NEVER leave default placeholder text.**

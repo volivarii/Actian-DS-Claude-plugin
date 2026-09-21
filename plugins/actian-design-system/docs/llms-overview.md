@@ -7,8 +7,7 @@ repo root.
 ## What this plugin is
 
 Actian's federated DS substrate, packaged as a Claude Code plugin. Provides
-7 skills (component-brief, generate-flow, design-proposal, create-component, design-audit,
-compare-flows, companion)
+4 skills (companion, generate-flow, design-proposal, design-audit)
 that author and audit Figma designs against the
 Actian DS via the official Figma MCP server.
 
@@ -32,14 +31,14 @@ in sync via the plugin's `vendor-snapshot.yml` workflow.
 | App context | `vendor/app-context/dist/app-context.json` | `app-context/` | JSON | Apps, entities, terminology, patterns |
 | FM↔DS map | `references/convert-to-hifi/fm-to-ds-map.json` | (plugin only) | JSON | Wireframe-to-DS component mapping (plugin-owned; Track E eviction) |
 | Skill behavior | `plugins/actian-design-system/skills/*/SKILL.md` | (plugin only) | MD | Per-skill instructions and references |
-| Push patterns | `references/figma/figma-push-patterns.md` + `references/component-brief/push-patterns.md` | (plugin only) | MD | Figma Plugin API patterns |
+| Push patterns | `references/figma/figma-push-patterns.md` | (plugin only) | MD | Figma Plugin API patterns |
 
 ## Reading order for new AI agents
 
 1. **Start at `/llms.txt`** — the canonical index, points at knowledge repo URLs.
 2. **For Figma write tasks:** read `figma-use` SKILL.md (upstream) → our `references/figma/figma-push-patterns.md` → relevant skill's SKILL.md.
 3. **For DS knowledge questions:** consult tokens + component registries + relevant guideline. URLs in `llms.txt` resolve to the knowledge repo; in-plugin code paths read from `vendor/`.
-4. **For brief generation specifically:** see `plugins/actian-design-system/skills/component-brief/SKILL.md`.
+4. **For the retired skills** (component-brief, create-component, compare-flows, generate-presentation, convert-to-hifi): see `plugins/actian-design-system/retired/README.md`.
 
 ## Federation status (2026-05-09)
 

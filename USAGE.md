@@ -1,10 +1,10 @@
 # Usage Guide
 
-Your design system teammate. Three input shapes — prompt, URL + intent, URL + URL — cover everything. The companion routes; you don't memorize commands.
+Your design system teammate. Two input shapes, prompt and URL + intent, cover everything. The companion routes; you don't memorize commands.
 
 ---
 
-## The three shapes
+## The two shapes
 
 ### 1. Prompt — describe what you need
 
@@ -61,16 +61,6 @@ https://figma.com/design/FILEKEY/File?node-id=123-456
 audit this — fix the copy
 ```
 *Audit with focused scope (`/design-audit --scope copy --fix all`).*
-
-### 3. URL + URL — compare two designs
-
-```
-Compare these two approaches:
-https://figma.com/design/FILEKEY/File?node-id=111-222
-https://figma.com/design/FILEKEY/File?node-id=333-444
-```
-
-The companion routes to `/compare-flows` and produces a side-by-side diff.
 
 ---
 
@@ -129,20 +119,14 @@ Runs `/design-audit` — tokens, contrast, copy, heuristics — with confidence-
 
 ### 6. Branch a variant
 
-The team wants to compare wizard vs. inline form. Paste the wizard URL:
+The team wants an inline-form variant of the wizard. Paste the wizard URL:
 
 ```
 https://figma.com/design/FILEKEY/File?node-id=42-99
 branch this as the inline variant
 ```
 
-A sibling frame appears: `[Original] — inline variant`. Then diff:
-
-```
-Compare these two approaches:
-https://figma.com/design/FILEKEY/File?node-id=42-99
-https://figma.com/design/FILEKEY/File?node-id=99-200
-```
+A sibling frame appears: `[Original] — inline variant`.
 
 ### 7. Match a reference (vision-grounded)
 
@@ -254,7 +238,7 @@ At every level, only the feature you're designing gets detailed content — side
 
 **DS-native by default:** every generation is a hi-fi HTML deliverable unless `--lofi` or `--fm` opts out; add `--push` for a Figma artifact. Regenerate later from the same brief to drop back to DS-native.
 
-**One author, one clickable prototype (`--direct`):** add `--direct` and a single author draws the whole flow as one HTML page, from the design system's own markup: the app's real header and side navigation, live state between steps (a selection selects, a save changes the list behind the panel), a strip to jump to a step, and a "Show what is new" switch that marks what the product does not have today. Scripts check the page, and the author looks at a screenshot of every step before handing over; the handover says whether anyone looked. It is HTML only: no Figma push, no audit, no compare, and two runs of one prompt differ in structure. Without the flag nothing changes.
+**One author, one clickable prototype (`--direct`):** add `--direct` and a single author draws the whole flow as one HTML page, from the design system's own markup: the app's real header and side navigation, live state between steps (a selection selects, a save changes the list behind the panel), a strip to jump to a step, and a "Show what is new" switch that marks what the product does not have today. Scripts check the page, and the author looks at a screenshot of every step before handing over; the handover says whether anyone looked. It is HTML only: no Figma push, no audit, and two runs of one prompt differ in structure. Without the flag nothing changes.
 
 **Prototype wiring:** Say "push and wire" and your flow becomes playable in Figma Presentation mode.
 
@@ -377,33 +361,6 @@ arrives attached to the decision it argues with. Re-publishing lands on the same
 
 `--evaluate` stops after the decisions. It runs the frame, the product read and the decomposition, writes `proposals/proposal-data.json` at `stage: evaluation` and says in chat what the ticket forces: no research, no options, no picks and no document. Use it to triage a stack of tickets, or to find out before the work whether a ticket carries enough to decide. Resume one with `/design-proposal --from proposals/proposal-data.json`: the resume skips the ticket and the product read, which the file already records, runs the research against the named decisions rather than the ticket in general, and authors the options, the comparisons and the picks. `--no-research` and `--concepts N` alongside `--evaluate` are accepted and do nothing, because an evaluation runs no research and authors no options; `--from` alongside it is refused, since it runs the other way, and re-evaluating a ticket is another `--evaluate`.
 
-### Component specs — brief, document, create
-
-```
-Brief the Button component from https://figma.com/design/FILEKEY/DS?node-id=123-456
-```
-
-```
-Create a Data Product Card with Default, Hover, Selected states
-Properties: title, description, quality score, owner avatar
-```
-
-```
-Add a compact size variant to the existing Badge component
-```
-
-### Compare designs — v1 vs v2
-
-```
-Compare these two approaches:
-https://figma.com/design/FILEKEY/File?node-id=111-222
-https://figma.com/design/FILEKEY/File?node-id=333-444
-```
-
-```
-Which version is better for onboarding? v1: [URL1] v2: [URL2]
-```
-
 ### Design system sync — keep tokens and docs current
 
 ```
@@ -453,10 +410,7 @@ Every capability is also a direct command. Use these when you know exactly what 
 | `/design-proposal [ticket or request] --evaluate` | Stop after the decisions: what the ticket forces, written to `proposals/proposal-data.json`, no document |
 | `/design-proposal --from proposals/proposal-data.json` | Resume an evaluation into a proposal, or re-render a finished one |
 | `/design-proposal [ticket or request] --publish` | The same document, published as a shareable page whose comments come back to Claude |
-| `/component-brief [name or URL] [--include-states]` | Jump to component spec (add `--include-states` for state matrix card) |
 | `/design-audit [URL] [--scope copy\|tokens\|a11y\|heuristic] [--fix N\|all]` | Audit with focused scope and optional auto-fix |
-| `/create-component [description]` | Jump to component creation |
-| `/compare-flows [URL1] [URL2]` | Side-by-side diff (also works between branches/variants) |
 
 ---
 

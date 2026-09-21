@@ -95,7 +95,7 @@
         },
         "variants": {
           "type": "object",
-          "description": "Sprint A surface flag --variants payload. Records the requested variant count and per-variant provenance so /compare-flows can diff between variants. Engine consumption deferred to Sprint B+.",
+          "description": "Sprint A surface flag --variants payload. Records the requested variant count and per-variant provenance so variants can be diffed against each other. Engine consumption deferred to Sprint B+.",
           "properties": {
             "count": {
               "type": ["number", "integer"],
@@ -115,7 +115,7 @@
             "siblingIds": {
               "type": "array",
               "items": { "type": "string" },
-              "description": "Figma node IDs of sibling variants for /compare-flows lookup"
+              "description": "Figma node IDs of sibling variants, for lookup"
             }
           }
         },

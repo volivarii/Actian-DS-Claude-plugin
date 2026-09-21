@@ -7,8 +7,8 @@ Shared procedure for outputting skill results to Figma. Used by all skills that 
 The Figma MCP provides official skills that handle generic Plugin API correctness. **Load them before every `use_figma` call:**
 
 - **`figma-use`** — Plugin API rules: return pattern, page navigation, font loading, color range, error handling. Always pass `skillNames: "figma-use"` when calling `use_figma`.
-- **`figma-generate-design`** — Screen building: import components by key, bind variables, one section per call, visual validation. Use when building flow screens or presentation slides.
-- **`figma-generate-library`** — Design system building: phased workflow, variable scoping, component creation, state ledger. Use when creating components via `/create-component`.
+- **`figma-generate-design`** — Screen building: import components by key, bind variables, one section per call, visual validation. Use when building flow screens.
+- **`figma-generate-library`** — Design system building: phased workflow, variable scoping, component creation, state ledger. Use when creating library components.
 
 These skills handle: `hexToRgb`, auto-layout basics, font loading, `setCurrentPageAsync`, color 0-1 range, sequential execution, error recovery. **Do not duplicate their rules here.**
 
@@ -68,7 +68,7 @@ This returns in <1 second and tells you exactly what the node is. Costs 1 `use_f
 | `type` returned | Action |
 |---|---|
 | `PAGE` | Read `children[]` — find the `COMPONENT_SET`, `FRAME`, or `SECTION` you need, use its `id` for subsequent calls |
-| `COMPONENT_SET` | Use directly — ideal target for component-brief |
+| `COMPONENT_SET` | Use directly — ideal target for component-level work |
 | `COMPONENT` | Use directly |
 | `FRAME` | Use directly — ideal target for generate-flow, design-audit |
 | `SECTION` | Read `children[]` — find the frame inside, use its `id` |
@@ -121,10 +121,7 @@ data-model.json → AI reads JSON → AI emits small use_figma calls → Figma n
 
 | Skill | Push patterns | Data model |
 |-------|--------------|------------|
-| component-brief | `references/component-brief/push-patterns.md` | brief-data.json |
 | generate-flow | `references/figma/figma-push-patterns.md` | flow-data.json |
-| generate-presentation | `references/figma/figma-push-patterns.md` | slide-data.json |
-| create-component | `references/create-component/push-patterns.md` | component-spec.json |
 
 ### Benefits
 
@@ -135,7 +132,7 @@ data-model.json → AI reads JSON → AI emits small use_figma calls → Figma n
 
 ### When to use direct calls vs. other patterns
 
-- **Output skills** (brief, flow, presentation, create-component): direct push from data model
+- **Output skills** (generate-flow; the retired brief, presentation and create-component skills used the same path): direct push from data model
 - **design-audit**: reads existing Figma nodes, doesn't build from a data model
 - **One-off operations**: direct Plugin API code (no data model needed)
 
@@ -268,7 +265,7 @@ Every output must include a visible generation metadata frame as the **first sib
 | Field | Value | How to get it |
 |-------|-------|---------------|
 | **GENERATED** | Static label | Hardcoded |
-| **Skill** | Skill name from SKILL.md frontmatter | e.g., "component-brief", "generate-flow" |
+| **Skill** | Skill name from SKILL.md frontmatter | e.g., "generate-flow" |
 | **Prompt** | User's exact input, truncated to 200 chars | The message that triggered this skill |
 | **Date** | ISO 8601 date+time when output is written | `new Date().toISOString()` |
 | **Duration** | Time from prompt to output completion | e.g., "2m 34s" |
@@ -373,11 +370,11 @@ Separate data extraction from rendering for cleaner, more debuggable `use_figma`
 3. use_figma: clone section-header, fill title="Button"; clone table rows, fill props...
 ```
 
-Skills that audit or document existing components (component-brief, design-audit) benefit most from two-tier extraction. Skills that build from scratch (generate-flow) can skip Tier 1.
+Skills that audit existing components (design-audit) benefit most from two-tier extraction. Skills that build from scratch (generate-flow) can skip Tier 1.
 
 ## Data Model Pattern (recommended for all output skills)
 
-For skills that generate both HTML and Figma output (component-brief, generate-flow, generate-presentation), use a structured JSON data model as the single source of truth:
+For skills that generate both HTML and Figma output (generate-flow; the retired brief and presentation skills followed the same pattern), use a structured JSON data model as the single source of truth:
 
 ```
 Research (AI) → data-model.json → HTML renderer (mechanical)
@@ -390,7 +387,7 @@ Research (AI) → data-model.json → HTML renderer (mechanical)
 - Post-push iteration reads the data model to understand what was generated
 - Incremental re-rendering: change one card's data → re-render only that card
 
-**Implementation:** See `component-brief/data-schema.md`, `component-brief/html-renderer.md`, and `component-brief/figma-renderer.md` in the `references/` directory. Other skills follow the same pattern with skill-specific schemas.
+**Implementation:** the retired component-brief references under `references/component-brief/` carry the worked example; generate-flow follows the same pattern with `flow-data.json`.
 
 ## Node tracking with `getSharedPluginData`
 

@@ -204,7 +204,7 @@ describe("the skill preamble (references/context/plugin-root.md)", function () {
       return fs.existsSync(path.join(SKILLS_DIR, d, "SKILL.md"));
     });
     assert.ok(
-      dirs.length >= 6,
+      dirs.length >= 4,
       "expected the skill set to be present, found " + dirs.length,
     );
 

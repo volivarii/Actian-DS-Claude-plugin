@@ -12,14 +12,6 @@ description: |
   </commentary>
   </example>
 
-  <example>
-  Context: component-brief parity check after Figma push
-  user: "push 2,4,5"
-  assistant: "Cards pushed. Dispatching parity-analyzer to check the 3 screenshots for clipping, empty text, and missing content."
-  <commentary>
-  Parity check for specific cards — the analyzer compares screenshots against expected content from the data model.
-  </commentary>
-  </example>
 model: inherit
 color: red
 tools: ["Read", "Grep", "Glob"]
@@ -34,7 +26,7 @@ Analyze Figma output screenshots for common rendering issues. The main agent tak
 You will receive:
 - **Screenshots** — one or more Figma screenshot images (provided as file paths or inline)
 - **Expected content** — what should be in each frame (from the data model or screen list)
-- **Skill context** — which skill produced this output (generate-flow, component-brief)
+- **Skill context** — which skill produced this output (generate-flow)
 
 ## Process
 
@@ -66,18 +58,6 @@ If expected content is provided, compare:
 - Every screen has FM App_header + sidebar + content area
 - Cover card present as first element with flow name
 - No screen is blank/empty unless it's intentionally an empty state
-
-**component-brief:**
-- All requested cards are present (check card numbers)
-- Variant matrix has the expected number of rows
-- Token swatches show colors (not blank rectangles)
-- Anatomy badges are positioned near their parts (not clustered)
-
-**generate-presentation (retired 2026-09-10, kept for the deletion PR):**
-- Every slide is 1920x1080
-- Cover slide has title and subtitle
-- Charts show data (not empty containers)
-- Section dividers separate major topics
 
 ## Output format
 

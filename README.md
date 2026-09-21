@@ -18,17 +18,14 @@ Iterate inside the loop with **refine** (paste a screen-frame URL + edit instruc
 
 ## Supporting capabilities
 
-- Generate component briefs with anatomy, tokens, specs, usage & content guidelines, accessibility requirements.
-- Create new Figma components with variants, properties, and correct token binding
 - Review and rewrite copy against DS content guidelines (`/design-audit --scope copy`)
-- Compare two competing designs side by side (also works between branches and variants)
 - Research UX patterns and competitor approaches on demand
 
 The guidelines hold throughout — tokens, spacing, content rules, accessibility — but the output stays creative within them.
 
 DS knowledge (tokens, components, foundations, content + accessibility guidelines) is vendored from [`volivarii/actian-ds-knowledge`](https://github.com/volivarii/actian-ds-knowledge) — the canonical source-of-truth repo synced directly from Figma. The plugin pulls a pinned snapshot nightly via `vendor-snapshot.yml`.
 
-**2026.7.13** · 7 skills (tiered generation: recognized / adapted / improvised) · 10 agents · 25 recipes · 155 design tokens across 8 collections · 3 themes · WCAG 2.2 AA · **substrate-grounded flow authoring** (app chrome, UX patterns, and entity relationships + typed properties → idiomatic lo-fi screens, with enum columns rendered as status pills) · real icon glyphs in generated flows (resolved from the vendored icon set instead of placeholder boxes) · surgical refine engine · vision-grounded references · interactive gates · federated knowledge substrate · component briefs with Section 1 supercard (anatomy + variation + tokens + specs / usages / content / motion / accessibility); Section 6 (real platform examples) deferred
+**2026.7.13** · 4 skills (tiered generation: recognized / adapted / improvised) · 6 agents · 12 recipes · 155 design tokens across 8 collections · 3 themes · WCAG 2.2 AA · **substrate-grounded flow authoring** (app chrome, UX patterns, and entity relationships + typed properties → idiomatic lo-fi screens, with enum columns rendered as status pills) · real icon glyphs in generated flows (resolved from the vendored icon set instead of placeholder boxes) · surgical refine engine · vision-grounded references · interactive gates · federated knowledge substrate
 
 ---
 
@@ -117,13 +114,12 @@ rm -rf ~/.claude/plugins/cache/actian-design-system/actian-design-system/
 
 ## How to work with the companion
 
-Three input shapes cover almost everything. The companion routes; you don't memorize commands.
+Two input shapes cover almost everything. The companion routes; you don't memorize commands.
 
 | Shape | Looks like | What you get |
 |-------|------------|--------------|
 | **Prompt** | "Design a connection setup wizard for Administration" | One screen or a flow, DS-native by default (lo-fi or Fat Marker on request), with the right app chrome |
 | **URL + intent** | `<figma url>` + "rename CTA to Publish" / "make it hifi" / "audit the copy" | Surgical refine, hifi convert, scoped audit, branch, or iterate — picked from your prose |
-| **URL + URL** | `<v1 url>` + `<v2 url>` + "compare these" | Side-by-side analysis routed to `/compare-flows` |
 
 ### Your first 30 minutes
 
@@ -160,10 +156,6 @@ How do data platforms like Atlan and Collibra handle data lineage?
 Find every empty state we use across DS Kit
 ```
 
-```
-Brief the Button component from https://figma.com/design/FILEKEY/DS?node-id=123-456
-```
-
 The companion knows canonical layout patterns (dashboard, detail, browse, creation form, table view, explorer homepage, overlays), the registries (333 DS Kit + 287 FM Kit + 28 Meta Kit components — 73 / 33 / 11 component sets), and the content guidelines. Naming a pattern in your prompt gets you the right skeleton on the first try.
 
 ---
@@ -179,14 +171,6 @@ Every capability is also available as a direct command. Use these when you know 
 | `/generate-flow` | Sketch — one or more DS-native screens (n≥1), real DS components and tokens, correct app chrome; `--lofi` for the gray skin, `--fm` for Fat Marker authoring. Interactive gates (v1.63.0+) replace most CLI flags: variants, ref, states, breakpoints, hifi/audit chaining are picked through prompt-flow. Still flag-callable: `--from <url>` (iterate), `--from <url> --branch X` (fork), `--from proposals/proposal-data.json` (seed from a design proposal's picks). URL + prose = refine shape (v1.56.0+: surgical — only changed screen frames are recreated, validator findings stay scoped). Vision-grounded `--ref <url>` (v1.57.0+) extracts a structural fingerprint and biases recipe + density. |
 | `/design-proposal` | Propose: a short document for PMs and designers that opens with what was asked and leads with what ships (the answer in one sentence, then one block per part with the chosen drawing, why and what it costs, what to settle before building and what changes, then, folded until opened, the other options with their comparison and the research), in plain words held to word limits. HTML only, opens offline; for component-scale tickets. `--evaluate` stops after the decisions: what the ticket forces, written to `proposals/proposal-data.json` and no document, resumed with `--from`. The picks become a flow without being retyped: `/generate-flow --from proposals/proposal-data.json`. |
 | `/design-audit` | Audit — tokens, contrast, copy, a11y, heuristic. `--scope <copy\|tokens\|a11y\|heuristic>` narrows; `--fix N\|all` auto-applies. |
-
-**Supporting:**
-
-| Command | What it does |
-|---------|-------------|
-| `/component-brief` | Component spec organized into 6 sections (v1.67.0+): Header → §1 Anatomy / Variation / Tokens / Specs (single supercard with sub-section dividers and Draft tags on generated content) → §2 Usages → §3 Content guidelines & examples → §4 Motion (conditional, only when a motion pattern exists) → §5 Accessibility → §6 Real platform examples (deferred). Two-pass (v1.62.0+): Phase A transcribes synced guidelines into the data model with provenance badges; Phase B fills gaps and (opt-in) attaches cross-DS research insights. Stub-aware: components with auto-generated stub guidelines route through Phase B fallback and surface a stub footer cue. |
-| `/create-component` | Build Figma components with variants and correct token binding, with a build plan review before push |
-| `/compare-flows` | Side-by-side analysis of two Figma flows — v1 vs v2, competing approaches, branches, variants |
 
 ---
 
@@ -240,11 +224,9 @@ Agents are dispatched automatically by skills — they run as background subproc
 | `flow-researcher` | Research UX patterns and competitors | Flow generation (opt-in research phase) |
 | `flow-consistency` | Check HTML for chrome/terminology correctness | Flow generation (after HTML) |
 | `wiring-analyzer` | Analyze flow structure for prototype wiring | Flow push (wire step) |
-| `brief-researcher` | Research cross-DS patterns (Material, Carbon, Polaris, Atlassian, Stripe) for brief gap-fill | Brief generation (opt-in via research gate) |
-| `brief-data-validator` | Validate component brief data model | Brief generation (after data model) |
-| `parity-analyzer` | Check Figma output for rendering issues | All skills (after push) |
-| `card-generator` | Generate brief cards in parallel batches (Phase B only) | Brief generation (5+ Phase B cards) |
 | `screen-generator` | Generate one flow screen per instance, all in parallel | Flow generation (every screen count, one agent per screen) |
+| `ds-researcher` | Research a design question across competitors, public design systems, the Actian substrate and supplied references | Design proposal (the lanes the reader opts into) |
+| `prototype-author` | Draw the whole flow as one clickable HTML page from the design system's own markup, check it and look at it | Flow generation with `--direct` |
 
 ---
 
@@ -272,7 +254,7 @@ Companion + skills read at runtime
 | Layer | Font | Components | Used for |
 |-------|------|-----------|----------|
 | **Fat Marker (lo-fi)** | Inter | 287 FM Kit components (33 sets) | Wireframe flows |
-| **DS Kit (hi-fi)** | Roboto | 333 DS Kit components (73 sets) | Component briefs, audits, hifi conversion |
+| **DS Kit (hi-fi)** | Roboto | 333 DS Kit components (73 sets) | DS-native screens, audits, proposals |
 | **Meta Kit** | Inter | 28 Meta Kit components (11 sets) | All output skills (cards, headers, badges) |
 
 3 themes: **Actian**, **Studio**, **Explorer** — tokens switch via `[data-theme]` CSS or Figma variable modes.
@@ -281,11 +263,9 @@ Companion + skills read at runtime
 - **Foundations MD-as-SoT** (v1.60.0+): `foundations.md` is the editable source; CI regenerates 79 derived JSONs and posts a PR comment confirming the regen.
 - **Substrate-grounded glossary**: before authoring, `prepare-flow.js` writes one brief (`flows/.brief.json`) joining the app chrome, the matched UX pattern, the entity's relationships and typed properties, the page recipe or archetype per screen and the captured sections each screen is made of, and the property rules of the components each screen needs, plus a per-screen slice (`flows/.brief/<n>.json`); a `screen-generator` agent authors each screen from its own slice, one agent per screen, in parallel, so screens are idiomatic to the app with consistent terminology.
 - **Validation** — `validate-flow-data.js` runs before every push: banned placeholder text (P0, blocks push), unresolved token references (P1), terminology violations checked against `app-context.json` (P1), avoid-word warnings from `vendor/content/dist/words-to-avoid.json` (non-blocking; `--skip-avoid-words` to suppress), plus non-blocking **grounding advisories** that flag when a flow drifts from the substrate — ungrounded chrome/patterns, or tables/forms that don't reflect the entity's relationships, properties, or typed (enum→pill) rendering.
-- **Stub-aware brief validation** (v1.64.0+) — when a brief is generated against an auto-stub guideline, the validator downgrades severity for missing-content findings and adds a `stub-guideline-used` finding so the designer sees "this came from a stub" rather than "this is broken."
 - **Scope-aware filtering** (v1.55.0+) — refines pass `--scope single-unit:<id>` so findings on untouched screens don't drown out findings on the screen the designer actually edited.
 - **Refine engine** (v1.56.0+) — `resolve-unit.js` maps a Figma URL to a `pushedNodes` entry, `snapshot-store.js` reads/writes a `flow-data.snapshot.json` sidecar, `derive-scope.js` diffs before/after by `screens[].id` to produce the canonical scope tag. Surgical push deletes and recreates only the changed screen frames.
 - **Vision-grounded references** (v1.57.0+) — `--ref <figma-url>` triggers a structural fingerprint extraction (`density`, `hierarchy_depth`, `primary_components`, `layout_archetype`) that biases recipe + density. Refine path reuses the cached fingerprint when the URL is unchanged.
-- **Brief two-pass routing** (v1.62.0+) — Phase A transcribes the synced guideline into the brief data model and tags fields with `_source: figma | guideline | derived`; Phase B generates remaining cards, with optional `brief-researcher` insights tagged on `_research`. Provenance badges + research-insights sub-sections render in the brief output.
 - **Auto-bump on sync** (v1.63.1+) — sync detects additive/breaking verdicts and bumps `plugin.json` automatically; missing component-guideline files are auto-stubbed (v1.64.0+) so new components land with a placeholder ready for authoring.
 - **Design changelog** — `changelog.js` compares the current push against the previous `.last-push.json` manifest, reporting source data changes, token drift, and component additions/removals.
 
@@ -303,14 +283,14 @@ actian-design-system-plugin/
 │   ├── .claude-plugin/plugin.json
 │   ├── ARCHITECTURE.md                    # canonical map (read first)
 │   ├── CLAUDE.md
-│   ├── skills/                            # 7 skills (companion + 6 specialized)
+│   ├── skills/                            # 4 skills (companion + 3 specialized)
 │   ├── agents/                            # parallel-generation + validation/research agents
-│   ├── recipes/                           # flow + brief + presentation recipes
+│   ├── recipes/                           # flow recipes (brief and presentation recipes belong to retired skills)
 │   ├── scripts/
 │   │   ├── lib/                           # paths.js, shared-constants, registry loaders, palette, buildGenLog
 │   │   ├── hooks/                         # Claude Code hook guards
 │   │   ├── vendor/                        # vendor-snapshot pipeline (pulls knowledge repo)
-│   │   ├── validation/                    # validate-flow-data, validate-schema, validateBriefData
+│   │   ├── validation/                    # validate-flow-data, validate-schema (validateBriefData belongs to a retired skill)
 │   │   ├── transformers/                  # fm-tree-to-flow-data, transform-to-hifi
 │   │   ├── renderers/                     # assemble-preview + html-renderers + render-component-reference
 │   │   ├── bridges/                       # proposal-to-flow: a proposal's picks as a generate-flow seed
@@ -319,13 +299,13 @@ actian-design-system-plugin/
 │   │   ├── figma/                         # MCP workflow, push patterns, parity, prototype, annotations
 │   │   ├── ds-rules/                      # tokens, layout, component-instance rules, quality checklist
 │   │   ├── context/                       # companion-context.md, knowledge bases
-│   │   ├── component-brief/               # skill-specific
-│   │   ├── create-component/              # skill-specific
+│   │   ├── component-brief/               # retired skill (see retired/README.md)
+│   │   ├── create-component/              # retired skill (see retired/README.md)
 │   │   ├── design-audit/                  # skill-specific
 │   │   ├── generate-flow/                 # skill-specific
 │   │   └── design-proposal/               # skill-specific
-│   ├── schemas/                           # JSON schemas (brief-data, flow-data, proposal-data, slide-data)
-│   ├── templates/                         # HTML wrappers (flow, fm, component-playground, annotation-layer, proposal-document)
+│   ├── schemas/                           # JSON schemas (flow-data, proposal-data; brief-data and slide-data belong to retired skills)
+│   ├── templates/                         # HTML wrappers (flow, fm, annotation-layer, proposal-document; component-playground belongs to a retired skill)
 │   ├── vendor/                            # pinned knowledge-repo snapshot — the DS substrate
 │   │   ├── components/                    # registries (dskit/fmkit/metakit) + 58 guideline docs + bundles
 │   │   ├── foundations/                   # foundations.md (source of truth) + 79 derived JSONs

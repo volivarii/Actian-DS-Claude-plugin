@@ -204,8 +204,8 @@ Each `screens[]` entry carries its content as a structured `content[]` array (th
 `contentHtml` string is still accepted as a fallback). The renderer maps every node in
 `content[]` through the **shared structural-node renderer**,
 `scripts/renderers/html-renderers/render-node.js` (`renderNode(node, { defaultFont: "Inter" })`),
-which is the single source of truth for the Figma-node → HTML mapping (shared with
-generate-presentation). It handles these `node.type` values:
+which is the single source of truth for the Figma-node → HTML mapping (the retired
+generate-presentation skill used it too). It handles these `node.type` values:
 
 | `type` | Emits | Notes |
 |---|---|---|

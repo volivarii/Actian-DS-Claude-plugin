@@ -602,5 +602,3 @@ Source: Design Consistency 2026 — Forms (file key in `.figma-keys.json` -> `de
 | **generate-flow** | Match screen type to pattern, use FM content nodes as starting point |
 | **companion** | Reference patterns when suggesting layouts for new features |
 | **design-audit** | Check if existing designs follow these canonical patterns |
-| **component-brief** | Show components in context using these layout patterns |
-| **create-component** | Ensure new components fit within these structural patterns |

@@ -51,7 +51,7 @@ Gates are batched per **pipeline phase**, not per flag. Reasons:
 - Designers see the full configuration surface at once
 - Easier to type one combined response than answer N sequential questions
 
-The proven precedent: `/component-brief` Step 1.5 batches card selection + research scope into one prompt with one combined parser. This convention generalizes that.
+The precedent: the retired component-brief skill's card gate batched card selection + research scope into one prompt with one combined parser. This convention generalizes that.
 
 **Per-skill batching:**
 - `/generate-flow`: ~3 interactive gates — (1) research opt-in, (2) research findings (only when research is opted in), (3) single merged screen-list + detail + config gate (the old pre-gen Step 0.5 config questions are folded into this gate). Plus one **combined post-build gate** (Step 7.5) offering push to Figma and audit after the HTML deliverable is rendered. `--no-prompt` suppresses Gate 3 and the Step 7.5 gate. Special-case flags `--from` and `--branch` are NOT gated; they're detected by companion or absent by default.
@@ -67,7 +67,7 @@ Each gate prompt should:
 4. **Document the keystroke for "default"** — typically just enter
 5. **Re-prompt on parse failure** — 3 retries, then abort with a message pointing at `--no-prompt` or the flag form
 
-Example shape (adapted from `/component-brief` Step 1.5):
+Example shape (adapted from the retired component-brief skill's card gate):
 
 ```
 Configure generation for [feature]:
@@ -147,6 +147,5 @@ When adopting this convention in a new skill:
 
 ## Out of scope for this convention
 
-- `/component-brief` Step 1.5 already batches its gates; it does NOT need `--no-prompt` until a future iteration adds it for parity.
-- `/compare-flows`, `/create-component` don't currently have gateable flags — adopt the convention if/when they grow them.
+- The retired skills (`/component-brief`, `/compare-flows`, `/create-component`; see `retired/README.md`) are outside this convention.
 - Gates inside refine flows (URL + prose) — refine intent is already explicit; no gate needed.

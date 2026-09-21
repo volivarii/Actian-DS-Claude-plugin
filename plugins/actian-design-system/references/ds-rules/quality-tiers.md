@@ -44,7 +44,7 @@ Non-feature chrome is ALWAYS placeholder — muted text, generic labels, greyed-
 - **Feature content:** Real data, all states, complete form validation, full tables (5-8 rows).
 - **Non-feature:** Contextual but visually secondary.
 
-## Other skill tiers
+## Other skill tiers (retired skills, kept for the deletion PR)
 
 | Tier | component-brief | create-component |
 |------|-----------------|------------------|

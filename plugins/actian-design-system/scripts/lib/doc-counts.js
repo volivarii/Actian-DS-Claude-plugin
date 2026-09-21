@@ -59,11 +59,43 @@ function deriveAgents() {
   }).length;
 }
 
+// Only the recipe kinds a live skill reads are counted. A kind is live when a
+// skills/*/SKILL.md names a path under recipes/<kind>/ (its catalog, or a file
+// in it: generate-flow names recipes/flow/_index.json, the retired brief skill
+// names recipes/brief/<file>). recipes/brief and recipes/presentation belong to
+// retired skills, whose SKILL.md files sit under retired/ and are not scanned,
+// so they stay on disk for the deletion PR without inflating the number the
+// docs advertise, and a restored skill brings its kind back with no edit here.
+// Two limits, both visible: a prose mention of another kind's path in a live
+// SKILL.md would count it, and losing the only mention leaves no kind at all,
+// which deriveRecipes turns into a thrown error so that neither the fixer (it
+// runs first in the nightly vendor workflow) nor the guard writes or accepts 0.
+function liveRecipeKinds() {
+  var kinds = {};
+  listDirs(path.join(PLUGIN_ROOT, "skills")).forEach(function (d) {
+    var p = path.join(PLUGIN_ROOT, "skills", d, "SKILL.md");
+    if (!fs.existsSync(p)) return;
+    var re = /recipes\/([a-z][a-z0-9-]*)\//g;
+    var text = fs.readFileSync(p, "utf8");
+    var m;
+    while ((m = re.exec(text)) !== null) kinds[m[1]] = true;
+  });
+  return Object.keys(kinds).sort();
+}
+
 function deriveRecipes() {
   var root = path.join(PLUGIN_ROOT, "recipes");
   var total = 0;
-  listDirs(root).forEach(function (kind) {
-    fs.readdirSync(path.join(root, kind)).forEach(function (f) {
+  var kinds = liveRecipeKinds();
+  if (kinds.length === 0) {
+    throw new Error(
+      "doc-counts: no live skills/*/SKILL.md names a path under recipes/<kind>/, so the recipe count cannot be derived; a mention was lost, not a recipe",
+    );
+  }
+  kinds.forEach(function (kind) {
+    var dir = path.join(root, kind);
+    if (!fs.existsSync(dir)) return;
+    fs.readdirSync(dir).forEach(function (f) {
       if (f.endsWith(".json") && f !== "_index.json") total++;
     });
   });
@@ -279,7 +311,7 @@ function buildChecks(c) {
         },
         { str: c.RECIPES + " recipes", fixRx: /\d+ recipes/g },
         { str: "WCAG 2.2 AA" },
-        { str: "brief-researcher" },
+        { str: "prototype-author" },
       ],
       notContains: ["WCAG 2.1 AA", "sync-design-system", "24 recipes"],
     },

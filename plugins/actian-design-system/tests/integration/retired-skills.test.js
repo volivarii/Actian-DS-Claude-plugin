@@ -2,8 +2,10 @@
 /**
  * retired-skills.test.js: generate-presentation and convert-to-hifi were hidden
  * from the skill set on 2026-09-10 (moved to retired/, deletion follows the
- * 2026-09-15 demo). Nothing under skills/ or agents/ may reintroduce them, and
- * the companion may not route to them.
+ * 2026-09-15 demo); compare-flows, component-brief and create-component
+ * followed on 2026-09-21 (roadmap 711) with the four agents only they
+ * dispatched. Nothing under skills/ or agents/ may reintroduce them, and the
+ * companion may not route to them.
  */
 var { describe, it } = require("node:test");
 var assert = require("node:assert");
@@ -12,27 +14,44 @@ var path = require("path");
 var PLUGIN_ROOT = path.resolve(__dirname, "..", "..");
 
 describe("retired skills stay hidden", function () {
-  it("skills/ holds neither generate-presentation nor convert-to-hifi", function () {
+  it("skills/ holds none of the five retired skills", function () {
     var dirs = fs.readdirSync(path.join(PLUGIN_ROOT, "skills"));
-    assert.ok(
-      dirs.indexOf("generate-presentation") === -1,
-      "generate-presentation is retired",
-    );
-    assert.ok(
-      dirs.indexOf("convert-to-hifi") === -1,
-      "convert-to-hifi is retired",
-    );
+    [
+      "generate-presentation",
+      "convert-to-hifi",
+      "compare-flows",
+      "component-brief",
+      "create-component",
+    ].forEach(function (name) {
+      assert.ok(dirs.indexOf(name) === -1, name + " is retired");
+    });
   });
-  it("agents/ no longer holds slide-generator.md", function () {
-    assert.ok(
-      !fs.existsSync(path.join(PLUGIN_ROOT, "agents", "slide-generator.md")),
-    );
+  it("agents/ no longer holds the five agents only retired skills dispatched", function () {
+    [
+      "slide-generator.md",
+      "brief-researcher.md",
+      "card-generator.md",
+      "brief-data-validator.md",
+      "parity-analyzer.md",
+    ].forEach(function (name) {
+      assert.ok(
+        !fs.existsSync(path.join(PLUGIN_ROOT, "agents", name)),
+        "agents/" + name + " is retired",
+      );
+    });
   });
-  it("retired/ carries both skills, the agent and a README that names the deletion plan", function () {
+  it("retired/ carries the five skills, the five agents and a README that names the deletion plan", function () {
     [
       "skills/generate-presentation/SKILL.md",
       "skills/convert-to-hifi/SKILL.md",
+      "skills/compare-flows/SKILL.md",
+      "skills/component-brief/SKILL.md",
+      "skills/create-component/SKILL.md",
       "agents/slide-generator.md",
+      "agents/brief-researcher.md",
+      "agents/card-generator.md",
+      "agents/brief-data-validator.md",
+      "agents/parity-analyzer.md",
       "README.md",
     ].forEach(function (rel) {
       assert.ok(
@@ -44,14 +63,23 @@ describe("retired skills stay hidden", function () {
       path.join(PLUGIN_ROOT, "retired", "README.md"),
       "utf8",
     );
-    assert.ok(/2026-09-1\d/.test(readme), "README dates the retirement");
+    assert.ok(/2026-09-10/.test(readme), "README dates the first retirement");
+    assert.ok(/2026-09-21/.test(readme), "README dates the second retirement");
     assert.ok(/Slice 5/.test(readme), "README names the deletion plan");
+    assert.ok(/711/.test(readme), "README names roadmap 711");
   });
   it("no loading skill or agent names a retired skill by its bare name", function () {
     var bareNames = [
       "convert-to-hifi",
       "generate-presentation",
       "slide-generator",
+      "compare-flows",
+      "component-brief",
+      "create-component",
+      "brief-researcher",
+      "card-generator",
+      "brief-data-validator",
+      "parity-analyzer",
     ];
     var skillFiles = fs
       .readdirSync(path.join(PLUGIN_ROOT, "skills"))
@@ -75,13 +103,13 @@ describe("retired skills stay hidden", function () {
     assert.ok(files.length > 0, "file list must not be empty");
     assert.strictEqual(
       skillFiles.length,
-      7,
-      "expected 7 skills/*/SKILL.md files, found " + skillFiles.length,
+      4,
+      "expected 4 skills/*/SKILL.md files, found " + skillFiles.length,
     );
     assert.strictEqual(
       agentFiles.length,
-      10,
-      "expected 10 agents/*.md files, found " + agentFiles.length,
+      6,
+      "expected 6 agents/*.md files, found " + agentFiles.length,
     );
 
     files.forEach(function (rel) {
@@ -89,21 +117,15 @@ describe("retired skills stay hidden", function () {
       var lines = fs.readFileSync(abs, "utf8").split("\n");
       lines.forEach(function (line, idx) {
         bareNames.forEach(function (name) {
-          var at = line.indexOf(name);
-          if (at === -1) return;
-          // A mention immediately followed by "(retired" on the same line is the
-          // parity-analyzer heading documenting the retirement itself; allowed.
-          var after = line.slice(at + name.length);
-          var allowed = /^\s*\(retired/.test(after);
-          assert.ok(
-            allowed,
-            rel +
-              ":" +
-              (idx + 1) +
-              ' names retired skill "' +
-              name +
-              '" without a "(retired" marker: ' +
-              line,
+          // Any mention fails: a loading skill or agent has no reason to name a
+          // retired skill or agent, marked or not. The scan covers skills/ and
+          // agents/ only; references that mark a retired skill as retired are
+          // outside it, and the retirement itself is documented in
+          // retired/README.md.
+          assert.strictEqual(
+            line.indexOf(name),
+            -1,
+            rel + ":" + (idx + 1) + ' names retired "' + name + '": ' + line,
           );
         });
       });
