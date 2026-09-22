@@ -161,7 +161,7 @@ describe("resolve-patterns (CLI)", function () {
     assert.strictEqual(code, 1);
   });
 
-  // The --entity branch is the surface generate-flow Step 3.5 actually calls.
+  // The --entity branch is the surface actian-ux-prototype Step 3.5 actually calls.
   // Testing only the exported resolvers would prove the functions work and
   // never that anything reachable from the pipeline reads them.
   it("--entity prints { entity, patterns, components, join } and exits 0", function () {

@@ -1,6 +1,6 @@
 // scripts/renderers/html-renderers/render-node.js
 // Shared structural-node renderer — the single source of truth for the
-// Figma-node → HTML mapping consumed by BOTH generate-flow (flow-renderer.js)
+// Figma-node → HTML mapping consumed by BOTH actian-ux-prototype (flow-renderer.js)
 // and generate-presentation (presentation-renderer.js).
 //
 // This is a superset of the two previously-duplicated implementations

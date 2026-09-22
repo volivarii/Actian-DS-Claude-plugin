@@ -18,7 +18,7 @@ Iterate inside the loop with **refine** (paste a screen-frame URL + edit instruc
 
 ## Supporting capabilities
 
-- Review and rewrite copy against DS content guidelines (`/design-audit --scope copy`)
+- Review and rewrite copy against DS content guidelines (`/actian-ux-audit --scope copy`)
 - Research UX patterns and competitor approaches on demand
 
 The guidelines hold throughout — tokens, spacing, content rules, accessibility — but the output stays creative within them.
@@ -114,7 +114,7 @@ rm -rf ~/.claude/plugins/cache/actian-design-system/actian-design-system/
 
 ## How to work with the companion
 
-Two input shapes cover almost everything. The companion routes; you don't memorize commands.
+Two input shapes cover almost everything. The companion (`/actian-ux`) routes; you don't memorize commands.
 
 | Shape | Looks like | What you get |
 |-------|------------|--------------|
@@ -168,9 +168,9 @@ Every capability is also available as a direct command. Use these when you know 
 
 | Command | What it does |
 |---------|-------------|
-| `/generate-flow` | Sketch — one or more DS-native screens (n≥1), real DS components and tokens, correct app chrome; `--lofi` for the gray skin, `--fm` for Fat Marker authoring. Interactive gates (v1.63.0+) replace most CLI flags: variants, ref, states, breakpoints, hifi/audit chaining are picked through prompt-flow. Still flag-callable: `--from <url>` (iterate), `--from <url> --branch X` (fork), `--from proposals/proposal-data.json` (seed from a design proposal's picks). URL + prose = refine shape (v1.56.0+: surgical — only changed screen frames are recreated, validator findings stay scoped). Vision-grounded `--ref <url>` (v1.57.0+) extracts a structural fingerprint and biases recipe + density. |
-| `/design-proposal` | Propose: a short document for PMs and designers that opens with what was asked and leads with what ships (the answer in one sentence, then one block per part with the chosen drawing, why and what it costs, what to settle before building and what changes, then, folded until opened, the other options with their comparison and the research), in plain words held to word limits. HTML only, opens offline; for component-scale tickets. `--evaluate` stops after the decisions: what the ticket forces, written to `proposals/proposal-data.json` and no document, resumed with `--from`. The picks become a flow without being retyped: `/generate-flow --from proposals/proposal-data.json`. |
-| `/design-audit` | Audit — tokens, contrast, copy, a11y, heuristic. `--scope <copy\|tokens\|a11y\|heuristic>` narrows; `--fix N\|all` auto-applies. |
+| `/actian-ux-prototype` | Sketch — one or more DS-native screens (n≥1), real DS components and tokens, correct app chrome; `--lofi` for the gray skin, `--fm` for Fat Marker authoring. Interactive gates (v1.63.0+) replace most CLI flags: variants, ref, states, breakpoints, hifi/audit chaining are picked through prompt-flow. Still flag-callable: `--from <url>` (iterate), `--from <url> --branch X` (fork), `--from proposals/proposal-data.json` (seed from a design proposal's picks). URL + prose = refine shape (v1.56.0+: surgical — only changed screen frames are recreated, validator findings stay scoped). Vision-grounded `--ref <url>` (v1.57.0+) extracts a structural fingerprint and biases recipe + density. |
+| `/actian-ux-proposal` | Propose: a short document for PMs and designers that opens with what was asked and leads with what ships (the answer in one sentence, then one block per part with the chosen drawing, why and what it costs, what to settle before building and what changes, then, folded until opened, the other options with their comparison and the research), in plain words held to word limits. HTML only, opens offline; for component-scale tickets. `--evaluate` stops after the decisions: what the ticket forces, written to `proposals/proposal-data.json` and no document, resumed with `--from`. The picks become a flow without being retyped: `/actian-ux-prototype --from proposals/proposal-data.json`. |
+| `/actian-ux-audit` | Audit — tokens, contrast, copy, a11y, heuristic. `--scope <copy\|tokens\|a11y\|heuristic>` narrows; `--fix N\|all` auto-applies. |
 
 ---
 
@@ -269,7 +269,7 @@ Companion + skills read at runtime
 - **Auto-bump on sync** (v1.63.1+) — sync detects additive/breaking verdicts and bumps `plugin.json` automatically; missing component-guideline files are auto-stubbed (v1.64.0+) so new components land with a placeholder ready for authoring.
 - **Design changelog** — `changelog.js` compares the current push against the previous `.last-push.json` manifest, reporting source data changes, token drift, and component additions/removals.
 
-**DS-native by default:** `/generate-flow X` authors screens against the DS Kit vocabulary and renders real components with real tokens in the HTML deliverable; `--push` adds the Figma frames. `--lofi` renders the same tree in a focus-aware lo-fi skin, and `--fm` opts back into FatMarker authoring (required for a lo-fi Figma push). The Figma-URL conversion skill was retired on 2026-09-10 (see `plugins/actian-design-system/retired/README.md`).
+**DS-native by default:** `/actian-ux-prototype X` authors screens against the DS Kit vocabulary and renders real components with real tokens in the HTML deliverable; `--push` adds the Figma frames. `--lofi` renders the same tree in a focus-aware lo-fi skin, and `--fm` opts back into FatMarker authoring (required for a lo-fi Figma push). The Figma-URL conversion skill was retired on 2026-09-10 (see `plugins/actian-design-system/retired/README.md`).
 
 ---
 
@@ -283,7 +283,7 @@ actian-design-system-plugin/
 │   ├── .claude-plugin/plugin.json
 │   ├── ARCHITECTURE.md                    # canonical map (read first)
 │   ├── CLAUDE.md
-│   ├── skills/                            # 4 skills (companion + 3 specialized)
+│   ├── skills/                            # 4 skills (actian-ux + 3 specialized)
 │   ├── agents/                            # parallel-generation + validation/research agents
 │   ├── recipes/                           # flow recipes (brief and presentation recipes belong to retired skills)
 │   ├── scripts/
@@ -293,7 +293,7 @@ actian-design-system-plugin/
 │   │   ├── validation/                    # validate-flow-data, validate-schema (validateBriefData belongs to a retired skill)
 │   │   ├── transformers/                  # fm-tree-to-flow-data, transform-to-hifi
 │   │   ├── renderers/                     # assemble-preview + html-renderers + render-component-reference
-│   │   ├── bridges/                       # proposal-to-flow: a proposal's picks as a generate-flow seed
+│   │   ├── bridges/                       # proposal-to-flow: a proposal's picks as an actian-ux-prototype seed
 │   │   └── changelog/                     # push-to-push diffing
 │   ├── references/
 │   │   ├── figma/                         # MCP workflow, push patterns, parity, prototype, annotations
@@ -301,9 +301,9 @@ actian-design-system-plugin/
 │   │   ├── context/                       # companion-context.md, knowledge bases
 │   │   ├── component-brief/               # retired skill (see retired/README.md)
 │   │   ├── create-component/              # retired skill (see retired/README.md)
-│   │   ├── design-audit/                  # skill-specific
-│   │   ├── generate-flow/                 # skill-specific
-│   │   └── design-proposal/               # skill-specific
+│   │   ├── actian-ux-audit/               # skill-specific
+│   │   ├── actian-ux-prototype/           # skill-specific
+│   │   └── actian-ux-proposal/            # skill-specific
 │   ├── schemas/                           # JSON schemas (flow-data, proposal-data; brief-data and slide-data belong to retired skills)
 │   ├── templates/                         # HTML wrappers (flow, fm, annotation-layer, proposal-document; component-playground belongs to a retired skill)
 │   ├── vendor/                            # pinned knowledge-repo snapshot — the DS substrate

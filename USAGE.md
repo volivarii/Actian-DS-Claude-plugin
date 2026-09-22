@@ -1,6 +1,6 @@
 # Usage Guide
 
-Your design system teammate. Two input shapes, prompt and URL + intent, cover everything. The companion routes; you don't memorize commands.
+Your design system teammate. Two input shapes, prompt and URL + intent, cover everything. The companion (`/actian-ux`) routes; you don't memorize commands.
 
 ---
 
@@ -25,12 +25,12 @@ Build me a ship-ready user registration flow end-to-end
 ```
 Show me three ways to do a notification preferences page
 ```
-*Proposal: a plan in chat, then a document that leads with what ships (`/design-proposal`).*
+*Proposal: a plan in chat, then a document that leads with what ships (`/actian-ux-proposal`).*
 
 ```
 Show a logged-in user their roles and permissions in the account menu, a few approaches
 ```
-*Proposal: what it would build, part by part, then a document that leads with what ships (`/design-proposal`).*
+*Proposal: what it would build, part by part, then a document that leads with what ships (`/actian-ux-proposal`).*
 
 Single-screen output is first-class — `mock me X` produces one screen, `design a flow for X` produces multiple.
 
@@ -60,7 +60,7 @@ branch this for the admin variant
 https://figma.com/design/FILEKEY/File?node-id=123-456
 audit this — fix the copy
 ```
-*Audit with focused scope (`/design-audit --scope copy --fix all`).*
+*Audit with focused scope (`/actian-ux-audit --scope copy --fix all`).*
 
 ---
 
@@ -111,7 +111,7 @@ DS-native is already the default for a new flow; this re-rolls an existing `--fm
 audit this
 ```
 
-Runs `/design-audit` — tokens, contrast, copy, heuristics — with confidence-scored findings. Auto-fix what's safe, flag what needs judgment.
+Runs `/actian-ux-audit` — tokens, contrast, copy, heuristics — with confidence-scored findings. Auto-fix what's safe, flag what needs judgment.
 
 > **Content designer's path:** `audit this --scope copy --fix all` rewrites strings against `vendor/content/content.md` — sentence case, action verbs, error-message patterns, empty-state CTAs — applied automatically.
 >
@@ -248,7 +248,7 @@ At every level, only the feature you're designing gets detailed content — side
 Show me three takes on the data contract creation page
 ```
 
-Reached by the explicit `--variants 3` flag on `/generate-flow` (the companion sends "three ways to do X" to `/design-proposal`). Each variant uses a different recipe or composition, laid out side-by-side. Range 2–5 (n=1 is just generation; n>5 is refused). Useful for early-stage shape-finding before committing to a direction.
+Reached by the explicit `--variants 3` flag on `/actian-ux-prototype` (the companion sends "three ways to do X" to `/actian-ux-proposal`). Each variant uses a different recipe or composition, laid out side-by-side. Range 2–5 (n=1 is just generation; n>5 is refused). Useful for early-stage shape-finding before committing to a direction.
 
 ### State coverage and responsive breakpoints
 
@@ -257,13 +257,13 @@ https://figma.com/design/FILEKEY/File?node-id=42-100
 add empty + error states
 ```
 
-Routes to `/generate-flow <url> --states empty,error,loading`. Generates each state as additional screens.
+Routes to `/actian-ux-prototype <url> --states empty,error,loading`. Generates each state as additional screens.
 
 ```
 Design a Studio dashboard with popular items, breakpoints tablet,mobile
 ```
 
-Routes to `/generate-flow ... --breakpoints tablet,mobile`. Lo-fi level = structural decisions only (collapse, stack). Hifi level applies the structural decisions to DS Kit responsive variants.
+Routes to `/actian-ux-prototype ... --breakpoints tablet,mobile`. Lo-fi level = structural decisions only (collapse, stack). Hifi level applies the structural decisions to DS Kit responsive variants.
 
 ### Vision-grounded references — match a reference's structure
 
@@ -345,7 +345,7 @@ Research wizard patterns for multi-step configuration
 DIP-I-496: show the user's roles and permissions. Research first, then a few approaches, and pick one.
 ```
 
-Routes to `/design-proposal`. It first says in chat what it would build, part by part, with the pick for each and the options it looked at, and it stops there and asks whether to change anything before it draws: that is the cheap moment to move a pick, because after it every option is drawn. `--no-prompt` draws straight through. Then `proposals/<slug>.html`, which opens with what was asked and the ticket it came from, then leads with what ships: the answer in one sentence, What ships (one row per part), one block per part with the chosen drawing, why, where it breaks and what it costs, how the parts connect, what to settle before building, what changes, the background, then, folded until you open them, the other options with their comparison and the research (in the lanes you asked for at the research gate), and the sources. No question is printed as a heading, and its prose is held to word limits. Research is a gate now, asked before the sweep is paid for: four lanes, `competitors` (the product space),
+Routes to `/actian-ux-proposal`. It first says in chat what it would build, part by part, with the pick for each and the options it looked at, and it stops there and asks whether to change anything before it draws: that is the cheap moment to move a pick, because after it every option is drawn. `--no-prompt` draws straight through. Then `proposals/<slug>.html`, which opens with what was asked and the ticket it came from, then leads with what ships: the answer in one sentence, What ships (one row per part), one block per part with the chosen drawing, why, where it breaks and what it costs, how the parts connect, what to settle before building, what changes, the background, then, folded until you open them, the other options with their comparison and the research (in the lanes you asked for at the research gate), and the sources. No question is printed as a heading, and its prose is held to word limits. Research is a gate now, asked before the sweep is paid for: four lanes, `competitors` (the product space),
 `designSystems` (the public canon), `ours` (our own substrate, no web search) and `yours` (references you
 paste, which is the fastest lane when you already know the space). Answer `all`, `none`, a subset, or just
 paste links. `--research <lanes>` answers it without being asked and `--no-prompt` runs `ours` alone, so an
@@ -357,9 +357,9 @@ design and move inside it from anywhere. Edit `proposals/proposal-data.json` and
 to adjust. No Figma push. The document can also be published
 as a page: Step 6 offers it, `--publish` skips the ask, and what the link buys over the file is the way
 back, because a reader can comment on any part of the document and send the thread to Claude, where it
-arrives attached to the decision it argues with. Re-publishing lands on the same link. "Make it a flow" is now a command rather than a hand-off: `/generate-flow --from proposals/proposal-data.json` composes every decision's pick into one screen list and a brief, merging the screens two decisions land on into one that carries both notes. `--decision <id>` seeds from one decision alone, and `--option <id>` beside it draws a rejected option, which is how you argue with a pick rather than only read it.
+arrives attached to the decision it argues with. Re-publishing lands on the same link. "Make it a flow" is now a command rather than a hand-off: `/actian-ux-prototype --from proposals/proposal-data.json` composes every decision's pick into one screen list and a brief, merging the screens two decisions land on into one that carries both notes. `--decision <id>` seeds from one decision alone, and `--option <id>` beside it draws a rejected option, which is how you argue with a pick rather than only read it.
 
-`--evaluate` stops after the decisions. It runs the frame, the product read and the decomposition, writes `proposals/proposal-data.json` at `stage: evaluation` and says in chat what the ticket forces: no research, no options, no picks and no document. Use it to triage a stack of tickets, or to find out before the work whether a ticket carries enough to decide. Resume one with `/design-proposal --from proposals/proposal-data.json`: the resume skips the ticket and the product read, which the file already records, runs the research against the named decisions rather than the ticket in general, and authors the options, the comparisons and the picks. `--no-research` and `--concepts N` alongside `--evaluate` are accepted and do nothing, because an evaluation runs no research and authors no options; `--from` alongside it is refused, since it runs the other way, and re-evaluating a ticket is another `--evaluate`.
+`--evaluate` stops after the decisions. It runs the frame, the product read and the decomposition, writes `proposals/proposal-data.json` at `stage: evaluation` and says in chat what the ticket forces: no research, no options, no picks and no document. Use it to triage a stack of tickets, or to find out before the work whether a ticket carries enough to decide. Resume one with `/actian-ux-proposal --from proposals/proposal-data.json`: the resume skips the ticket and the product read, which the file already records, runs the research against the named decisions rather than the ticket in general, and authors the options, the comparisons and the picks. `--no-research` and `--concepts N` alongside `--evaluate` are accepted and do nothing, because an evaluation runs no research and authors no options; `--from` alongside it is refused, since it runs the other way, and re-evaluating a ticket is another `--evaluate`.
 
 ### Design system sync — keep tokens and docs current
 
@@ -395,22 +395,22 @@ Every capability is also a direct command. Use these when you know exactly what 
 
 | Command | When to use |
 |---------|------------|
-| `/generate-flow [description]` | Generate one or more lo-fi screens from a prompt |
-| `/generate-flow [URL] [instruction]` | Refine — surgical edit on a prior push |
-| `/generate-flow --from [URL]` | Iterate — re-roll the same flow |
-| `/generate-flow --from proposals/proposal-data.json` | Seed a flow from a design proposal: every decision's pick composed into one screen list and a brief (`--decision <id>`, `--option <id>`) |
-| `/generate-flow --from [URL] --branch [name]` | Branch — fork into a sibling frame |
-| `/generate-flow [description] --variants 3` | Three structurally-distinct alternatives |
-| `/generate-flow [description] --ref [URL]` | Vision-grounded reference — fingerprint extraction biases recipe + density (Figma URLs only; image URLs planned) |
-| `/generate-flow [URL] --states empty,error` | Add state coverage to a pushed flow |
-| `/generate-flow [description] --breakpoints tablet,mobile` | Add responsive breakpoint variants |
-| `/generate-flow [description]` | DS-native hi-fi HTML deliverable by default (`--lofi` for a lo-fi skin, `--fm` for FatMarker authoring); add `--push` for a Figma artifact |
-| `/generate-flow --direct [description]` | One clickable HTML prototype drawn by a single author from the design system's own markup, checked and looked at before it is handed over. HTML only: no Figma push, and two runs of one prompt differ in structure |
-| `/design-proposal [ticket or request] [--concepts N] [--no-research]` | A document that leads with what ships: the answer, one block per part (the chosen drawing, why, cost), what to settle before building, what changes, then, folded, the other options and the research |
-| `/design-proposal [ticket or request] --evaluate` | Stop after the decisions: what the ticket forces, written to `proposals/proposal-data.json`, no document |
-| `/design-proposal --from proposals/proposal-data.json` | Resume an evaluation into a proposal, or re-render a finished one |
-| `/design-proposal [ticket or request] --publish` | The same document, published as a shareable page whose comments come back to Claude |
-| `/design-audit [URL] [--scope copy\|tokens\|a11y\|heuristic] [--fix N\|all]` | Audit with focused scope and optional auto-fix |
+| `/actian-ux-prototype [description]` | Generate one or more lo-fi screens from a prompt |
+| `/actian-ux-prototype [URL] [instruction]` | Refine — surgical edit on a prior push |
+| `/actian-ux-prototype --from [URL]` | Iterate — re-roll the same flow |
+| `/actian-ux-prototype --from proposals/proposal-data.json` | Seed a flow from a design proposal: every decision's pick composed into one screen list and a brief (`--decision <id>`, `--option <id>`) |
+| `/actian-ux-prototype --from [URL] --branch [name]` | Branch — fork into a sibling frame |
+| `/actian-ux-prototype [description] --variants 3` | Three structurally-distinct alternatives |
+| `/actian-ux-prototype [description] --ref [URL]` | Vision-grounded reference — fingerprint extraction biases recipe + density (Figma URLs only; image URLs planned) |
+| `/actian-ux-prototype [URL] --states empty,error` | Add state coverage to a pushed flow |
+| `/actian-ux-prototype [description] --breakpoints tablet,mobile` | Add responsive breakpoint variants |
+| `/actian-ux-prototype [description]` | DS-native hi-fi HTML deliverable by default (`--lofi` for a lo-fi skin, `--fm` for FatMarker authoring); add `--push` for a Figma artifact |
+| `/actian-ux-prototype --direct [description]` | One clickable HTML prototype drawn by a single author from the design system's own markup, checked and looked at before it is handed over. HTML only: no Figma push, and two runs of one prompt differ in structure |
+| `/actian-ux-proposal [ticket or request] [--concepts N] [--no-research]` | A document that leads with what ships: the answer, one block per part (the chosen drawing, why, cost), what to settle before building, what changes, then, folded, the other options and the research |
+| `/actian-ux-proposal [ticket or request] --evaluate` | Stop after the decisions: what the ticket forces, written to `proposals/proposal-data.json`, no document |
+| `/actian-ux-proposal --from proposals/proposal-data.json` | Resume an evaluation into a proposal, or re-render a finished one |
+| `/actian-ux-proposal [ticket or request] --publish` | The same document, published as a shareable page whose comments come back to Claude |
+| `/actian-ux-audit [URL] [--scope copy\|tokens\|a11y\|heuristic] [--fix N\|all]` | Audit with focused scope and optional auto-fix |
 
 ---
 

@@ -8,7 +8,7 @@ description: |
   calling skill shapes into its own format.
 
   <example>
-  Context: /design-proposal was invoked and the reader answered the Step 3
+  Context: /actian-ux-proposal was invoked and the reader answered the Step 3
   gate with "competitors, ours"
   user: "DIP-I-496"
   assistant: "Dispatching ds-researcher for the competitors and ours lanes
@@ -114,5 +114,5 @@ Write this JSON to `outputPath`, nothing else:
 
 ## Callers
 
-`design-proposal` consumes this today. `generate-flow` still runs its own `flow-researcher`;
+`actian-ux-proposal` consumes this today. `actian-ux-prototype` still runs its own `flow-researcher`;
 converging it onto this agent is tracked separately.

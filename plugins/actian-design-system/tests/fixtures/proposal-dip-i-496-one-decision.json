@@ -9,7 +9,7 @@
     ],
     "prompt": "Propose a design for this ticket: DIP-I-496",
     "model": "claude-sonnet-5",
-    "skill": "design-proposal"
+    "skill": "actian-ux-proposal"
   },
   "answer": "Show each permission group as a badge under the user's name in the account menu.",
   "context": {

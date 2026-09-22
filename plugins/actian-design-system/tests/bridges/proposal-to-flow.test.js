@@ -66,7 +66,7 @@ describe("proposal-to-flow: what the picks imply", function () {
   it("emits the app as template (the chrome name) and keeps the archetype separately", function () {
     var out = compose(flat(), {});
     var menu = named(out.screens, MENU);
-    assert.strictEqual(menu.template, "explorer", "template is the chrome name /generate-flow reads");
+    assert.strictEqual(menu.template, "explorer", "template is the chrome name /actian-ux-prototype reads");
     assert.strictEqual(menu.archetype, "overlay", "the proposal's archetype is kept, not dropped");
     assert.strictEqual(menu.app, "explorer");
     assert.strictEqual(menu.entity, null);

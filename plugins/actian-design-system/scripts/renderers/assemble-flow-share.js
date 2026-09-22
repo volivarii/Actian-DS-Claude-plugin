@@ -78,7 +78,7 @@ function assembleFlowShare(data) {
 
   // Flow-level hi-fi signal → per-screen library flag.
   // Sources (in priority order):
-  //   1. meta.library:"ds"    — generate-flow skill stamps this for DS-native flows
+  //   1. meta.library:"ds"    — actian-ux-prototype skill stamps this for DS-native flows
   //                             (being wired this week); direct and authoritative.
   //   2. meta._glossary.library — legacy glossary path, kept for back-compat.
   //   3. meta.hifi:true       — older boolean shorthand; maps to "ds".
@@ -161,9 +161,9 @@ function assembleFlowShare(data) {
   // Full provenance lives in a leading comment (satisfies the gen-card rule).
   var metaComment =
     "<!--\n" +
-    "  Actian Design System — generate-flow (shareable deliverable)\n" +
+    "  Actian Design System — actian-ux-prototype (shareable deliverable)\n" +
     "  skill:    " +
-    maskComment(meta.skill || "generate-flow") +
+    maskComment(meta.skill || "actian-ux-prototype") +
     "\n" +
     "  feature:  " +
     maskComment(meta.feature || "") +

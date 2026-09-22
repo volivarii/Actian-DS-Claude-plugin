@@ -2,7 +2,7 @@
 
 // flow-share-appearance.test.js — DELIVERABLE-level proof that Phase 1B's
 // captured-appearance renderer is actually WIRED into the canonical
-// generate-flow deliverable (assembleFlowShare, server-side Node render).
+// actian-ux-prototype deliverable (assembleFlowShare, server-side Node render).
 //
 // The specimen is a non-override, non-BUILT_SLUGS slug, so it falls to the
 // default: case in ds-html-map.js — which (as of Task 6) must build the

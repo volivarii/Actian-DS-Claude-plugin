@@ -1924,7 +1924,7 @@ function checkChromeActive(screen, glossaryChrome, findings) {
 
 // A prop is authored under its exact hashed registry name (e.g.
 // "Label#1411:32") or under its base name before the "#" (e.g. "Label").
-// The generate-flow skill's own Examples author the base name and the
+// The actian-ux-prototype skill's own Examples author the base name and the
 // renderer reads it the same way, so both the missing-required-override
 // check and the default-true-boolean-unset check (Pass 1 below) accept
 // either spelling as satisfying the override.

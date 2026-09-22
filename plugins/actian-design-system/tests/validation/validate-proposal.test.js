@@ -1174,7 +1174,7 @@ describe("plain words: part and length", function () {
 // back and held against the one the validator exports.
 describe("the word limits table in the authoring reference", function () {
   it("prints exactly the limits the validator enforces", function () {
-    var ref = fs.readFileSync(path.join(ROOT, "references", "design-proposal", "document-authoring.md"), "utf8");
+    var ref = fs.readFileSync(path.join(ROOT, "references", "actian-ux-proposal", "document-authoring.md"), "utf8");
     var printed = {};
     ref.split("\n").forEach(function (line) {
       var m = /^\| `([^`]+)` \| (\d+) \|$/.exec(line.trim());

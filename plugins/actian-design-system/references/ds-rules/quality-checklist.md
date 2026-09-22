@@ -73,7 +73,7 @@ Items specific to the retired `component-brief` skill, in addition to Universal.
 
 ## Generate Flow
 
-Items specific to the `generate-flow` skill, in addition to Universal.
+Items specific to the `actian-ux-prototype` skill, in addition to Universal.
 
 | # | Check | Pass criteria |
 |---|-------|---------------|

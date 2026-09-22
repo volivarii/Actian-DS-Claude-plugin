@@ -54,7 +54,7 @@ describe("render-node-figma — DS tier", function () {
   });
 
   it("emits a real DS Kit instance for a dsSlug-only node (canonical --hifi flow shape, no ref)", function () {
-    // This is the CANONICAL shape from generate-flow --hifi recipes.
+    // This is the CANONICAL shape from actian-ux-prototype --hifi recipes.
     // The node carries dsSlug (kebab) and NO ref — the emitter must derive
     // the lookup ref via slugToRef("button","ds") = "dsButton".
     var expectedKey = DS_KEYS[shared.slugToRef("button", "ds")].key;

@@ -565,7 +565,7 @@ describe("assembleProposal, the DIP-I-496 acceptance document", function () {
     // A named list, so this is a regression gate on the words that were there, not a
     // general Voice gate: a document naming some other file still passes. The general
     // version needs a rule for what counts as a file name, and there is no such rule.
-    var MADE_OF = ["proposal-data.json", "--from", "/generate-flow", "assemble-preview", "schemas/", "Follow-ups"];
+    var MADE_OF = ["proposal-data.json", "--from", "/actian-ux-prototype", "assemble-preview", "schemas/", "Follow-ups"];
     it("never names the file, the flag or the command that built it", function () {
       var FULL_PATH = path.join(ROOT, "tests", "fixtures", "proposal-dip-i-496.json");
       [load(), twoDecisions(), JSON.parse(fs.readFileSync(FULL_PATH, "utf8"))].forEach(function (d) {

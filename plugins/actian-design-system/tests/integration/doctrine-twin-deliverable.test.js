@@ -22,7 +22,7 @@ test("figma-output.md no longer asserts HTML is preview-only without the twin ca
 });
 
 test("html-reference.md documents the shareable flow-share deliverable", function () {
-  var doc = read("references/generate-flow/html-reference.md");
+  var doc = read("references/actian-ux-prototype/html-reference.md");
   assert.ok(/flow-share/.test(doc), "names the flow-share deliverable");
 });
 

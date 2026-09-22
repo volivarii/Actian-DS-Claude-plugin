@@ -9,7 +9,7 @@
  * renderLayered), screenshots it at 1440x960, and writes a two-column HTML
  * page next to the vendored product capture it is being compared against.
  * This is a look, not a pixel diff: the deliverable is a page a person (or
- * the gate step in references/generate-flow/gates.md) reads and describes
+ * the gate step in references/actian-ux-prototype/gates.md) reads and describes
  * "what differs in structure, three lines" from. The product screenshot is
  * a reference for page structure only, never appearance: the render draws
  * the design system's Figma components on purpose, and production may

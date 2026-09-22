@@ -18,7 +18,7 @@ Place this tag in `<head>` — before the closing `</head>` tag, after all `<sty
 
 ## Flow Prototypes
 
-Flow prototypes add just enough interactivity to a static HTML flow to make it testable — screen transitions, basic form validation, and decision paths. The underlying static HTML (from the generate-flow skill) is the source of truth and must not be altered structurally.
+Flow prototypes add just enough interactivity to a static HTML flow to make it testable — screen transitions, basic form validation, and decision paths. The underlying static HTML (from the actian-ux-prototype skill) is the source of truth and must not be altered structurally.
 
 ### Template
 
@@ -272,7 +272,7 @@ Initial state in `x-data` must include `theme: 'actian'` as the default.
 
 1. **Prototypes are for testing only.** Never push a `-prototype.html` or `-playground.html` file to Figma. These files live in the local project directory and are served via `ensure-server.sh`.
 
-2. **Static HTML is the source of truth.** The prototype layer adds Alpine directives to the existing HTML from the generate-flow skill output. It does not rewrite structure, change class names, or alter the visual design.
+2. **Static HTML is the source of truth.** The prototype layer adds Alpine directives to the existing HTML from the actian-ux-prototype skill output. It does not rewrite structure, change class names, or alter the visual design.
 
 3. **Keep it simple.** Add only the minimum interactivity needed to test the flow or component. If a prototype requires more than 30 lines of custom JS, stop and question whether the complexity belongs in a prototype at all.
 

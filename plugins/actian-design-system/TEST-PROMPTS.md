@@ -133,7 +133,7 @@ Generate a connection settings flow in Studio --hifi
 ```
 
 ```
-/generate-flow Admin dashboard for Administration --hifi
+/actian-ux-prototype Admin dashboard for Administration --hifi
 ```
 
 ### At the action gate
@@ -163,20 +163,20 @@ Make this flow interactive https://figma.com/design/FILEKEY/Flow?node-id=123-456
 ### From a ticket
 
 ```
-/design-proposal DIP-I-496 Ability to show user roles and permissions for a logged-in user
+/actian-ux-proposal DIP-I-496 Ability to show user roles and permissions for a logged-in user
 ```
 
 ### With research and a chosen count
 
 ```
-/design-proposal show a user their roles in the account menu --concepts 2
+/actian-ux-proposal show a user their roles in the account menu --concepts 2
 ```
 (answer "yes" at the research gate)
 
 ### Re-render after editing the data file
 
 ```
-/design-proposal --from proposals/proposal-data.json
+/actian-ux-proposal --from proposals/proposal-data.json
 ```
 
 ---
@@ -278,9 +278,9 @@ Fix all auto-fixable findings
 ## Direct skill invocation (power-user shortcuts)
 
 ```
-/generate-flow Admin Dashboard for Administration
-/generate-flow Connection settings in Studio --hifi
-/design-audit https://figma.com/design/FILEKEY/File?node-id=123-456
+/actian-ux-prototype Admin Dashboard for Administration
+/actian-ux-prototype Connection settings in Studio --hifi
+/actian-ux-audit https://figma.com/design/FILEKEY/File?node-id=123-456
 /release-notes
 ```
 

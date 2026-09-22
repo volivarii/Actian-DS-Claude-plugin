@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 "use strict";
 
-// Verifies the --push / --no-push flag parser used by /generate-flow to
+// Verifies the --push / --no-push flag parser used by /actian-ux-prototype to
 // decide whether to push the generated flow to Figma. The default is no
 // push (HTML deliverable only); --push opts in explicitly; --no-push wins
 // ties when both flags are present.

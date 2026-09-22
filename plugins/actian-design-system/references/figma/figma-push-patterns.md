@@ -300,7 +300,7 @@ inst.name = "Generation Log";
 // Bare keys silently fail. Look up exact suffixes in `vendor/components/dist/registries/metakit.json`
 // for any imported component before calling setProperties.
 inst.setProperties({
-  "Skill#3:0": "Skill: generate-flow",
+  "Skill#3:0": "Skill: actian-ux-prototype",
   "Date#3:2": "2026-04-08T00:00:00Z"
 });
 

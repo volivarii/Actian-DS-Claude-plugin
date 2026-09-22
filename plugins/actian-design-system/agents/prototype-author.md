@@ -1,11 +1,11 @@
 ---
 name: prototype-author
 description: |
-  Use this agent to draw a whole flow as one clickable HTML prototype, straight from the design system's own markup. Dispatched once by generate-flow on a `--direct` run. It reads one brief, writes four small files, runs the scripts that assemble and check the page, and looks at screenshots of every step before handing over.
+  Use this agent to draw a whole flow as one clickable HTML prototype, straight from the design system's own markup. Dispatched once by actian-ux-prototype on a `--direct` run. It reads one brief, writes four small files, runs the scripts that assemble and check the page, and looks at screenshots of every step before handing over.
 
   <example>
-  Context: generate-flow was called with --direct and the screen list is approved
-  user: "/generate-flow --direct let a steward describe several catalog items at once"
+  Context: actian-ux-prototype was called with --direct and the screen list is approved
+  user: "/actian-ux-prototype --direct let a steward describe several catalog items at once"
   assistant: "Dispatching one prototype-author agent with the brief; it draws all four steps, checks them and looks at them."
   <commentary>
   One author holds the whole flow, so its steps cannot disagree, and it sees what it drew.
@@ -44,7 +44,7 @@ You draw one flow as one page: the product's real screen with the feature workin
 5. `direct.assets.tokensCss` and `direct.assets.baseCss` when you need a token or a class name: look the name up, never invent one. `direct.assets.icons` lists the icon slugs.
 6. `references`, when given: what reference screens are built like. They inform how you arrange a page that has no capture, never how anything looks.
 
-You never read `references/generate-flow/html-reference.md`, `references/generate-flow/ds-components-authoring.md` or a skeleton: they belong to the data-file route.
+You never read `references/actian-ux-prototype/html-reference.md`, `references/actian-ux-prototype/ds-components-authoring.md` or a skeleton: they belong to the data-file route.
 
 ## Two rules about sources
 

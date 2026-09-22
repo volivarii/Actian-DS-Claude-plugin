@@ -38,12 +38,12 @@ var RENDERER = require(path.join(SCRIPTS_DIR, "lib", "renderer.js"));
 
 var SKILL_FILES = [
   {
-    name: "generate-flow",
-    path: path.join(PLUGIN_ROOT, "skills", "generate-flow", "SKILL.md"),
+    name: "actian-ux-prototype",
+    path: path.join(PLUGIN_ROOT, "skills", "actian-ux-prototype", "SKILL.md"),
   },
   {
-    name: "design-proposal",
-    path: path.join(PLUGIN_ROOT, "skills", "design-proposal", "SKILL.md"),
+    name: "actian-ux-proposal",
+    path: path.join(PLUGIN_ROOT, "skills", "actian-ux-proposal", "SKILL.md"),
   },
 ];
 
@@ -138,7 +138,7 @@ describe("Contract Tests", function () {
 
   // ---------------------------------------------------------------------------
   // Part 2 — REMOVED. Previously cross-checked template names against
-  // references/generate-flow/figma-spec-builder.md, which was deleted in
+  // references/actian-ux-prototype/figma-spec-builder.md, which was deleted in
   // fc6bcad ("superseded by push-patterns"). Template name documentation is
   // now informal — this contract no longer applies.
   // ---------------------------------------------------------------------------
@@ -338,8 +338,8 @@ describe("Pattern 14 + Pattern 9 module exports", function () {
   });
 });
 
-describe("design-proposal is a document, not a gated board", function () {
-  var skill = fs.readFileSync(path.join(PLUGIN_ROOT, "skills", "design-proposal", "SKILL.md"), "utf8");
+describe("actian-ux-proposal is a document, not a gated board", function () {
+  var skill = fs.readFileSync(path.join(PLUGIN_ROOT, "skills", "actian-ux-proposal", "SKILL.md"), "utf8");
   // Research was deliberately ungated when this skill became a document rather than a board,
   // on the reasoning that a gate is a turn a reader has to spend. 2026-09-15 put a gate back,
   // for the opposite reason: the sweep costs minutes the reader may not want spent, and the
@@ -383,13 +383,13 @@ describe("design-proposal is a document, not a gated board", function () {
     assert.ok(skill.indexOf("<!-- plugin-root:begin -->") !== -1 && skill.indexOf("<!-- plugin-root:end -->") !== -1);
   });
   it("names references that exist and no retired one", function () {
-    assert.ok(fs.existsSync(path.join(PLUGIN_ROOT, "references", "design-proposal", "document-authoring.md")));
-    assert.ok(!fs.existsSync(path.join(PLUGIN_ROOT, "references", "design-proposal", "board-authoring.md")));
+    assert.ok(fs.existsSync(path.join(PLUGIN_ROOT, "references", "actian-ux-proposal", "document-authoring.md")));
+    assert.ok(!fs.existsSync(path.join(PLUGIN_ROOT, "references", "actian-ux-proposal", "board-authoring.md")));
     assert.ok(skill.indexOf("board-authoring.md") === -1);
     assert.ok(fs.existsSync(path.join(PLUGIN_ROOT, "templates", "proposal-document.html")));
   });
   it("the gate reference no longer lists the proposal as gated", function () {
     var gates = fs.readFileSync(path.join(PLUGIN_ROOT, "references", "ds-rules", "interactive-gates.md"), "utf8");
-    assert.ok(gates.indexOf("1 single gate, research skip or yes") === -1, gates.split("\n").filter(function (l) { return l.indexOf("design-proposal") !== -1; }).join("\n"));
+    assert.ok(gates.indexOf("1 single gate, research skip or yes") === -1, gates.split("\n").filter(function (l) { return l.indexOf("actian-ux-proposal") !== -1; }).join("\n"));
   });
 });

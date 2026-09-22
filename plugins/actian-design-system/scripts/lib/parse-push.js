@@ -2,7 +2,7 @@
 
 // Parses the --push / --no-push flags from CLI args.
 //
-// Used by /generate-flow to decide whether to push the generated flow to
+// Used by /actian-ux-prototype to decide whether to push the generated flow to
 // Figma. The default is no push (HTML deliverable only); --push opts in.
 // --no-push wins on ties (both flags present).
 //

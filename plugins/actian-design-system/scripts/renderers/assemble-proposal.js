@@ -540,7 +540,7 @@ function assembleProposal(data, options) {
   var context = [meta.ticket || "", meta.apps.map(function (a) { return appLabel(apps, a); }).join(", "), meta.date]
     .filter(Boolean).join("  ·  ");
   var metaComment =
-    "<!--\n  Actian Design System, design-proposal (document deliverable)\n" +
+    "<!--\n  Actian Design System, actian-ux-proposal (document deliverable)\n" +
     "  skill:   " + maskComment(meta.skill) + "\n" +
     "  ticket:  " + maskComment(meta.ticket || "") + "\n" +
     "  prompt:  " + maskComment(meta.prompt || "") + "\n" +

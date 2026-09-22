@@ -1,7 +1,7 @@
 "use strict";
 
 // flow-share-a1-overrides.test.js — DELIVERABLE-level proof for the Hi-Fi A1
-// degraded-slug leaf overrides. The canonical generate-flow deliverable is the
+// degraded-slug leaf overrides. The canonical actian-ux-prototype deliverable is the
 // server-side flow-share render (Node, no window). A leaf can pass every unit
 // test yet be inert in this path (Slice-1 durable lesson), so we assert each
 // override's signature class appears in assembleFlowShare output — and that the

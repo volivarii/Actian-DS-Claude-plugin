@@ -1,10 +1,10 @@
 ---
 name: flow-consistency
 description: |
-  Use this agent to check a generated flow's HTML for consistency with Actian app context — correct chrome, terminology, empty states, and UX patterns. Dispatch after generate-flow Step 4 (HTML generation) before the preview gate.
+  Use this agent to check a generated flow's HTML for consistency with Actian app context — correct chrome, terminology, empty states, and UX patterns. Dispatch after actian-ux-prototype Step 4 (HTML generation) before the preview gate.
 
   <example>
-  Context: generate-flow just created the HTML for a Studio catalog flow
+  Context: actian-ux-prototype just created the HTML for a Studio catalog flow
   user: "Generate a flow for browsing the catalog in Studio"
   assistant: "HTML generated. Dispatching flow-consistency to verify chrome, terminology, and patterns before preview."
   <commentary>
@@ -121,7 +121,7 @@ For FM (lo-fi) flows:
 ## Rules
 
 - Do NOT modify the HTML — validation only
-- Do NOT check visual styling (colors, spacing) — that's design-audit territory
+- Do NOT check visual styling (colors, spacing) — that's actian-ux-audit territory
 - Focus on structural and content correctness
 - P0 = definitely wrong, P1 = should fix before preview, P2 = improvement suggestion
 - Keep the report actionable — every issue has a specific fix

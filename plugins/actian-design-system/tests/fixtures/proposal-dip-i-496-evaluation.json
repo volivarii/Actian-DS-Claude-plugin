@@ -9,7 +9,7 @@
     ],
     "prompt": "Propose a design for this ticket: DIP-I-496",
     "model": "claude-opus-5",
-    "skill": "design-proposal",
+    "skill": "actian-ux-proposal",
     "stage": "evaluation"
   },
   "source": {

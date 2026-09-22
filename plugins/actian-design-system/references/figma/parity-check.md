@@ -142,7 +142,7 @@ omit it fall through to greenfield with a documented warning.
 
 **Field notes:**
 
-- `skill` — the slug of the skill that performed the push (`generate-flow`; manifests written by retired skills keep their own slug)
+- `skill` — the slug of the skill that performed the push (`actian-ux-prototype`, or `generate-flow` in a manifest written before 2026.9.59, the same skill; manifests written by retired skills keep their own slug)
 - `fileKey` — Figma file key used for all `use_figma` calls in this session
 - `pageNodeId` — node ID of the Figma page (not a frame — the top-level page)
 - `pushedNodes` — one entry per node pushed. Each entry contains:
@@ -174,14 +174,14 @@ omit it fall through to greenfield with a documented warning.
 
 | Skill | Manifest path |
 |---|---|
-| `generate-flow` | `{project_dir}/flows/.last-push.json` |
+| `actian-ux-prototype` | `{project_dir}/flows/.last-push.json` |
 
 Write the manifest as the final step. Do not prompt the designer for confirmation before writing it.
 
 ### Snapshot sidecar (v1.56.0+)
 
 Alongside `.last-push.json`, a sibling file `flow-data.snapshot.json` carries the full
-`flow-data.json` snapshot at push time. The `/generate-flow` skill writes it via
+`flow-data.json` snapshot at push time. The `/actian-ux-prototype` skill writes it via
 `scripts/lib/snapshot-store.js` as the very last step of the push sequence (after
 `.last-push.json`). The refine path (`SKILL.md` Refine shape Behavior) reads it via
 `snapshot-store.read()` to load the prior data model for AI editing.
@@ -218,7 +218,7 @@ For `componentKeys`: during the push step, collect the component key from every 
 For `propertyDefaultsHash`: include the JSON object produced by `PROPERTY_DEFAULTS_HASH` above as the `propertyDefaultsHash` field. It is a `{ fm, ds, meta }` object of SHA-256 hex strings.
 
 `$SOURCE_FILE` is the path to the source data file:
-- `generate-flow`: the `flow-data.json` file
+- `actian-ux-prototype`: the `flow-data.json` file
 
 ### Tier summary line
 

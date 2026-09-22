@@ -3,7 +3,7 @@
 // prepare-flow.js: one brief per flow. Joins the four app-context resolvers,
 // the recipe selectors and the property-rules inspector so the author agent
 // reads one JSON instead of the app-context prose, the captures and the
-// registries. Step 3.5 of generate-flow runs this once.
+// registries. Step 3.5 of actian-ux-prototype runs this once.
 var fs = require("fs");
 var path = require("path");
 var chrome = require("./resolve-chrome.js");

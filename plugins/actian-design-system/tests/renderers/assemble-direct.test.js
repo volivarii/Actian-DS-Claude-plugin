@@ -134,7 +134,7 @@ describe("assemble-direct", () => {
     fs.writeFileSync(
       runPath,
       JSON.stringify({
-        skill: "generate-flow --direct",
+        skill: "actian-ux-prototype --direct",
         feature: "Describe items",
         prompt: "describe items",
         date: "2026-09-19",
@@ -739,7 +739,7 @@ describe("assemble-direct: the page carries its provenance", () => {
 
   it("the page opens with its provenance, and a comment cannot be closed from inside", () => {
     const html = page(BODY_OK, "", {
-      skill: "generate-flow --direct",
+      skill: "actian-ux-prototype --direct",
       feature: "Describe items",
       prompt: "describe --> <script>x</script>",
       date: "2026-09-19",

@@ -225,17 +225,28 @@ assert(
 );
 
 // ---------------------------------------------------------------------------
-// Test: Validator catches const mismatch
+// Test: Validator catches const mismatch (on an inline schema: flow-data's
+// skill became an enum at the 2026.9.59 rename, covered next)
 // ---------------------------------------------------------------------------
 
-const badConst = {
-  meta: { feature: "Test", skill: "wrong-skill" },
-  screens: [{ name: "S1", content: [] }],
+const constSchema = {
+  type: "object",
+  properties: { skill: { type: "string", const: "only-this" } },
 };
-const constErrors = validate(badConst, schemas["flow-data.schema.json"]);
+const constErrors = validate({ skill: "wrong-skill" }, constSchema);
 assert(
   constErrors.some((e) => e.includes("expected const")),
   "Detects const mismatch for skill field",
+);
+
+const badSkill = {
+  meta: { feature: "Test", skill: "wrong-skill" },
+  screens: [{ name: "S1", content: [] }],
+};
+const skillErrors = validate(badSkill, schemas["flow-data.schema.json"]);
+assert(
+  skillErrors.some((e) => e.includes("skill") && e.includes("not in enum")),
+  "Detects a skill name outside the enum for flow-data",
 );
 
 // ---------------------------------------------------------------------------

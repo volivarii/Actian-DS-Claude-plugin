@@ -1,10 +1,10 @@
 ---
 name: screen-generator
 description: |
-  Use this agent to generate one flow screen. Dispatched by generate-flow once per screen, in parallel, regardless of screen count. Each instance reads its own brief slice and produces a partial JSON with its one screen.
+  Use this agent to generate one flow screen. Dispatched by actian-ux-prototype once per screen, in parallel, regardless of screen count. Each instance reads its own brief slice and produces a partial JSON with its one screen.
 
   <example>
-  Context: generate-flow is building a 5-screen flow for data pipeline creation
+  Context: actian-ux-prototype is building a 5-screen flow for data pipeline creation
   user: "Generate a flow for creating data pipelines in Studio"
   assistant: "Dispatching 5 screen-generator agents in parallel, one per screen."
   <commentary>
@@ -45,8 +45,8 @@ The dispatcher pastes none of the brief or slice content; read the slice file yo
 ## Reads
 
 - Your slice (above): `index`, `total`, `glossary` (`chrome`, `useCases`, `entityProperties`, `relationships`, `entityPatterns`, `entityComponents`, `patterns`, already narrowed to the one pattern this screen realizes, or empty), `join`, `labels`, `flow` (every screen's `{ n, id, name }`), and `screen` (`name`, `template`, `pattern`, `archetype` (null on a freehand slice or a layered slice with no `pattern`), `pageRecipe`, `components`, `propertyRules`, `layer` when the screen is a surface over another, and `exit` (`via`, `toId`, `toName`) when the screen leads to the next one).
-- `references/generate-flow/html-reference.md`: content node spec, FM component table, `goto`/`layer` authoring examples.
-- Under `library: "ds"`, also `references/generate-flow/ds-components-authoring.md`.
+- `references/actian-ux-prototype/html-reference.md`: content node spec, FM component table, `goto`/`layer` authoring examples.
+- Under `library: "ds"`, also `references/actian-ux-prototype/ds-components-authoring.md`.
 
 Nothing else. Never open `recipes/**`, `schemas/**`, `vendor/**`, `scripts/**`, or the full `.brief.json`. The slice already carries everything your screen needs.
 
@@ -105,7 +105,7 @@ Also orient the screen's empty state + primary CTA around the `jobs` in `glossar
 
 ## Step 1: Generate your screen
 
-1. Read `references/generate-flow/html-reference.md` for the content node spec and FM component table.
+1. Read `references/actian-ux-prototype/html-reference.md` for the content node spec and FM component table.
 2. Use `screen.archetype.skeleton` or `screen.pageRecipe.skeleton` from your slice as the starting point (pageRecipe wins when present).
 3. Generate the screen object following the node spec in `html-reference.md`.
 4. Write the partial JSON to your output path.
@@ -132,7 +132,7 @@ Also orient the screen's empty state + primary CTA around the `jobs` in `glossar
 
 ## DS-native mode (dispatch payload `library: "ds"`)
 
-When your dispatch payload carries `library: "ds"` (set by generate-flow when `--hifi` is active), author content INSTANCE nodes using the DS vocabulary instead of the FM vocabulary.
+When your dispatch payload carries `library: "ds"` (set by actian-ux-prototype when `--hifi` is active), author content INSTANCE nodes using the DS vocabulary instead of the FM vocabulary.
 
 ### DS INSTANCE node shape
 
@@ -148,7 +148,7 @@ When your dispatch payload carries `library: "ds"` (set by generate-flow when `-
 ```
 
 - **No `ref` field**: DS nodes use `dsSlug`, not `ref`. Omit `ref` entirely.
-- **Read `references/generate-flow/ds-components-authoring.md` first**: it lists the available slugs, which are built vs chip, and what props each built leaf consumes. Your slice's `propertyRules` names are the plain prop names that doc lists.
+- **Read `references/actian-ux-prototype/ds-components-authoring.md` first**: it lists the available slugs, which are built vs chip, and what props each built leaf consumes. Your slice's `propertyRules` names are the plain prop names that doc lists.
 - **Prefer BUILT leaves** (built leaves produce full CSS-styled HTML). Unbuilt slugs with a vendored appearance doc render their real captured colors; the labeled chip is only the last-resort fallback when no appearance doc exists.
 
 ### DS detail bar (hi-fi authoring standards)
@@ -184,7 +184,7 @@ Write a JSON file containing:
 
 ## Rules
 
-- Follow `references/generate-flow/html-reference.md` for content node types (FRAME, TEXT, INSTANCE, DIVIDER)
+- Follow `references/actian-ux-prototype/html-reference.md` for content node types (FRAME, TEXT, INSTANCE, DIVIDER)
 - Use FM component refs from the ref table: never hardcode component keys
 - Use your slice's skeleton as an accelerator: deviate when the screen needs a novel layout
 - All buttons must set `"👁 Leading Icon": false, "👁 Trailing Icon": false`

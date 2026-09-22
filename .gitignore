@@ -78,6 +78,6 @@ demo-flows/*.flow.json
 # GSD planning artifacts (codebase maps, phase plans) — never tracked
 .planning/
 
-# design-proposal writes its data file and document into the project working directory.
+# actian-ux-proposal writes its data file and document into the project working directory.
 # They are a deliverable for the reader, not repo source.
 proposals/

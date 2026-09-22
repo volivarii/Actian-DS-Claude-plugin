@@ -203,12 +203,12 @@ describe("shared-constants", function () {
   describe("buildGenLog", function () {
     it("returns an INSTANCE node with correct props", function () {
       var node = sc.buildGenLog(
-        { skill: "generate-flow", prompt: "test prompt", duration: "1m" },
+        { skill: "actian-ux-prototype", prompt: "test prompt", duration: "1m" },
         {},
       );
       assert.strictEqual(node.type, "INSTANCE");
       assert.strictEqual(node.ref, "genLog");
-      assert.ok(node.props.Skill.indexOf("generate-flow") !== -1);
+      assert.ok(node.props.Skill.indexOf("actian-ux-prototype") !== -1);
       assert.ok(node.props.Prompt.indexOf("test prompt") !== -1);
     });
   });

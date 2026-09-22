@@ -1,7 +1,7 @@
 ---
 name: wiring-analyzer
 description: |
-  Use this agent to analyze a Figma flow's structure from get_metadata XML output and produce a prototype wiring plan. Dispatch during the push step (generate-flow Step 7) or standalone wiring to offload the analysis algorithm from the main agent.
+  Use this agent to analyze a Figma flow's structure from get_metadata XML output and produce a prototype wiring plan. Dispatch during the push step (actian-ux-prototype Step 7) or standalone wiring to offload the analysis algorithm from the main agent.
 
   <example>
   Context: User wants to wire an existing Figma flow as a prototype
@@ -13,7 +13,7 @@ description: |
   </example>
 
   <example>
-  Context: generate-flow just pushed frames and user said "push and wire"
+  Context: actian-ux-prototype just pushed frames and user said "push and wire"
   user: "push and wire"
   assistant: "Frames pushed. Dispatching wiring-analyzer to build the smart wiring plan."
   <commentary>

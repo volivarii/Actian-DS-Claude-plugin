@@ -1,5 +1,5 @@
 // scripts/html-renderers/flow-renderer.js
-// Client-side renderer for generate-flow screen chrome.
+// Client-side renderer for actian-ux-prototype screen chrome.
 // Reads flow-data.json from #spec-data, builds screen frames into #flow-container.
 // The AI writes either contentHtml (legacy) or content[] (structured nodes).
 

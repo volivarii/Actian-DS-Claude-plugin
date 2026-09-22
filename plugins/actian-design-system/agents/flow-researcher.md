@@ -1,10 +1,10 @@
 ---
 name: flow-researcher
 description: |
-  Use this agent to research UX patterns and competitor approaches for a flow feature during generate-flow Step 2. Returns structured research with screen recommendations, applicable patterns, and competitor findings.
+  Use this agent to research UX patterns and competitor approaches for a flow feature during actian-ux-prototype Step 2. Returns structured research with screen recommendations, applicable patterns, and competitor findings.
 
   <example>
-  Context: generate-flow is building a data product creation flow and needs research
+  Context: actian-ux-prototype is building a data product creation flow and needs research
   user: "Generate a flow for creating a data product in Studio"
   assistant: "I'll dispatch the flow-researcher agent to research UX patterns for this creation flow while I prepare the screen list."
   <commentary>
@@ -13,7 +13,7 @@ description: |
   </example>
 
   <example>
-  Context: User opted into research at the generate-flow gate
+  Context: User opted into research at the actian-ux-prototype gate
   user: "Yes, research competitor patterns"
   assistant: "Dispatching the flow-researcher to analyze how Atlan, Collibra, and Stripe handle similar workflows."
   <commentary>
@@ -27,7 +27,7 @@ tools: ["Read", "Grep", "Glob", "WebSearch", "WebFetch"]
 
 # Flow Researcher
 
-Research UX patterns, competitor approaches, and Actian product context for a flow feature. Return a structured summary that the generate-flow skill can use to build the screen list.
+Research UX patterns, competitor approaches, and Actian product context for a flow feature. Return a structured summary that the actian-ux-prototype skill can use to build the screen list.
 
 ## Input
 

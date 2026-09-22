@@ -75,13 +75,14 @@
           ]
         },
         "skill": {
-          "description": "Always design-proposal; lets a reader tell this file from a flow-data.json",
+          "description": "Always actian-ux-proposal (design-proposal before 2026.9.59, still accepted); lets a reader tell this file from a flow-data.json",
           "type": "string",
           "enum": [
+            "actian-ux-proposal",
             "design-proposal"
           ],
           "examples": [
-            "design-proposal"
+            "actian-ux-proposal"
           ]
         },
         "stage": {
@@ -685,7 +686,7 @@
                       ]
                     },
                     "html": {
-                      "description": "The Fat Marker fragment: fm-* classes and --fm-* tokens only, drawn in flow, no script, no external loads; see references/design-proposal/document-authoring.md",
+                      "description": "The Fat Marker fragment: fm-* classes and --fm-* tokens only, drawn in flow, no script, no external loads; see references/actian-ux-proposal/document-authoring.md",
                       "type": "string",
                       "examples": [
                         "<div class=\"fm-menu\"><div class=\"fm-menu-item\">Support</div></div>"
@@ -707,7 +708,7 @@
                 },
                 "screens": {
                   "type": "array",
-                  "description": "The screen list a flow of this option would render: each entry names a flow archetype (its own `template`, from recipes/flow/_index.json), an app and an entity. scripts/bridges/proposal-to-flow.js composes this into generate-flow's own screen-list shape, which reads `template` as a chrome name rather than an archetype; one to four entries",
+                  "description": "The screen list a flow of this option would render: each entry names a flow archetype (its own `template`, from recipes/flow/_index.json), an app and an entity. scripts/bridges/proposal-to-flow.js composes this into actian-ux-prototype's own screen-list shape, which reads `template` as a chrome name rather than an archetype; one to four entries",
                   "minItems": 1,
                   "items": {
                     "type": "object",

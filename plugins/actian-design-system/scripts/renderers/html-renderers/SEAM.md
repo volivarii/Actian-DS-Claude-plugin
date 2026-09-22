@@ -68,7 +68,7 @@ render through this seam unchanged; only their coverage targets differ.
 forms, P2 display/feedback, P3 chrome — tracked by `ds-coverage`'s
 `NOT_YET_IMPLEMENTED`); the DS-native authoring feeder + its authorable-dskit
 coverage gate;
-user-facing `--hifi` skill wiring in generate-flow; the durable anatomy-geometry
+user-facing `--hifi` skill wiring in actian-ux-prototype; the durable anatomy-geometry
 JSON substrate (ds-base.css's px comments are the interim record); icon-name→SVG
 mapping (generic SVGs for now). Static interactive states approximate via CSS
 pseudo-classes.

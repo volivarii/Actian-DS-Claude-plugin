@@ -50,8 +50,9 @@
         },
         "skill": {
           "type": "string",
-          "const": "generate-flow",
-          "description": "Skill identifier"
+          "enum": ["actian-ux-prototype", "generate-flow"],
+          "description": "Skill identifier. actian-ux-prototype since 2026.9.59; generate-flow, the name before the rename, is still accepted so earlier files keep validating.",
+          "examples": ["actian-ux-prototype"]
         },
         "mode": {
           "type": "string",
@@ -218,7 +219,7 @@
         },
         "_glossary": {
           "type": "object",
-          "description": "Shared vocabulary for cross-screen terminology consistency. Built by generate-flow after Gate 3, consumed by screen-generator agents.",
+          "description": "Shared vocabulary for cross-screen terminology consistency. Built by actian-ux-prototype after Gate 3, consumed by screen-generator agents.",
           "properties": {
             "entity": {
               "type": "string",

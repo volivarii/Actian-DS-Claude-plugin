@@ -2,7 +2,7 @@
 "use strict";
 
 // Verifies the --no-prompt flag parser used by skills with interactive gates
-// (/generate-flow, /design-audit, /convert-to-hifi). The parser strips the
+// (/actian-ux-prototype, /actian-ux-audit, /convert-to-hifi). The parser strips the
 // flag and reports whether it was present, so callers can decide whether to
 // run the gate prose or skip with defaults.
 //

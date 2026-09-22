@@ -1,0 +1,150 @@
+---
+name: actian-ux-audit
+description: Audit a Figma design against DS rules — tokens, spacing, a11y, component usage, copy, heuristic UX. Finds inconsistencies and can fix specific findings. Formerly /design-audit.
+argument-hint: "[Figma URL] [--scope copy|tokens|a11y|heuristic|all] [--fix <id|all>] [--no-prompt]"
+---
+
+# Design System Audit
+
+<!-- plugin-root:begin -->
+## Where the plugin lives
+
+Bare `references/`, `vendor/`, `agents/`, `recipes/`, `templates/` and `scripts/` paths in this file are relative to the plugin root: the directory holding `.claude-plugin/plugin.json`, the parent of the `skills/` directory named in the base directory above. They are never relative to the project working directory. Every command in this file expects `CLAUDE_PLUGIN_ROOT` to name that root. In Cowork, bash runs inside a VM where the plugin is mounted under `/sessions/<vm>/mnt/.remote-plugins/<plugin id>/`, so set the variable once per shell before anything else:
+The line is idempotent: when a later bash call finds the variable empty, run the line again before the command.
+
+```bash
+{ [ -n "${CLAUDE_PLUGIN_ROOT:-}" ] && [ -f "${CLAUDE_PLUGIN_ROOT}/.claude-plugin/plugin.json" ]; } || export CLAUDE_PLUGIN_ROOT="$(for d in ${CLAUDE_REMOTE_PLUGINS_ROOT:-/sessions/*/mnt/.remote-plugins}/*/; do grep -qs '"name": *"actian-design-system"' "${d}.claude-plugin/plugin.json" && printf '%s' "${d%/}" && break; done)"; [ -n "$CLAUDE_PLUGIN_ROOT" ] || echo "plugin root not found: export CLAUDE_PLUGIN_ROOT=<the directory holding .claude-plugin/plugin.json>" >&2
+```
+<!-- plugin-root:end -->
+
+Audit a Figma file or section against the Actian Design System 2026 and/or Fat Marker conventions. Determine which library the file uses (FM = Workflow A, DS Kit = Workflow B), then apply corresponding rules.
+
+> **Always pass `skillNames: "figma-use"` on every `mcp__claude_ai_Figma__use_figma` invocation.** This is mandatory per Figma's official contract — the `figma-use` skill carries the load-bearing Plugin API rules (atomic-on-error, color 0–1 range, HUG-after-append, font preload, await-all-promises, page-context-reset, return-all-IDs, explicit `variable.scopes`). Skipping it produces hard-to-debug failures.
+> (Source: https://help.figma.com/hc/en-us/articles/39287396773399)
+
+## Flags
+
+| Flag | Type | Default | Behavior |
+|------|------|---------|----------|
+| `--scope <list>` | string list | `all` | Limits findings to a subset: `copy`, `tokens`, `a11y`, `heuristic`, `all`. Multi-value supported (`--scope copy,tokens`). `heuristic` is a new finding category covering UX principles, IA clarity, task efficiency — full implementation is engine work; for now, surfaces a placeholder section in the report. |
+| `--fix <id\|all>` | string | none | Auto-applies fixes. `id` = single finding number (e.g., `--fix 3`). `all` = all P0 + P1 findings where `autoFixable: true`. Without `--fix`, the audit reports without modifying the design (passive audit is the default). |
+| `--no-prompt` | boolean | false | Skip the interactive scope + fix gates (Step 0.5 + Step 5.5). Use defaults for any unset flags. See `references/ds-rules/interactive-gates.md`. |
+
+## Step 0 — Parse args
+
+Parse args. Note whether `--scope`, `--fix`, and `--no-prompt` were explicitly passed. The `--no-prompt` flag is parsed via `scripts/lib/parse-no-prompt.js`.
+
+## Step 0.5 — Scope gate (interactive)
+
+**Skipped if:** `--scope` is explicitly passed OR `--no-prompt` is set.
+
+Otherwise, present this prompt verbatim before running any audit checks:
+
+```
+Audit scope for <target>:
+
+  all (default) — copy + tokens + a11y + heuristic
+  copy          — content guidelines, banned terms, label patterns
+  tokens        — color/spacing/radius binding, hardcoded values
+  a11y          — WCAG 2.2 AA, contrast, ARIA, keyboard
+  heuristic     — UX patterns, layout, intent
+
+Reply: scope name, comma-separated list, or enter for all.
+Examples:
+  copy
+  copy,a11y
+  tokens
+```
+
+Parser:
+- Empty / "all" → `--scope all`
+- One token from {copy, tokens, a11y, heuristic} → `--scope <token>`
+- Comma-separated list of valid tokens → `--scope <list>`
+- Invalid token → re-prompt with the valid set
+- 3 retries → abort with: "Aborting. Run again with `--no-prompt` to use scope=all, or `--scope <list>` to set directly."
+
+## Pipeline
+
+1. Parse URL → extract `fileKey` + `nodeId` (per `../../references/figma/figma-output.md`)
+2. Classify node via `use_figma` (see figma-output.md) → get type, name, children. Route: if PAGE/SECTION/GROUP, pick the target frame/component from children.
+3. `get_screenshot` of resolved target → visual reference
+4. `get_design_context` on resolved target → inspect tokens, typography, spacing, components
+5. Check each dimension below → structured report with severity (P0/P1/P2)
+6. Present findings to user
+7. **Step 5.5 — Fix gate** (see below) → resolve `--fix` value
+8. Apply fixes per resolved value
+
+## What to check
+
+When `--scope` is set, run only the listed dimensions; otherwise run all.
+
+- **Component guidelines** (scope: `tokens`, `all`): Read `../../vendor/components/dist/guidelines/<slug>.json` (the merged per-component guideline doc) for per-component rules — `domains.content` / `domains.usage` / `domains.design` carry the authored guidance; a domain with `status: inherited` or `not-started` has no body. Knowledge ships registry-key alias copies, so look up by the registry slug directly.
+- **Component consistency** (scope: `tokens`, `all`): FM-prefixed components used consistently, no detached instances or ad-hoc recreations, names match catalog (`../../vendor/components/dist/fm-components.md`)
+- **Token usage** (scope: `tokens`, `all`): No hardcoded hex colors, typography uses Inter (FM) or Roboto (DS Kit) text style tokens, spacing on scale (4/8/12/16/24/28/32), border radius uses radius tokens
+- **Flow structure** (scope: `all`): Dark cover card with Feature/Flow/User, screen naming `[Persona] - [Page] - [State]`, 1440x960 or 1440x700, left-to-right reading order
+- **Forms layout** (scope: `all`): Simple inputs 480px max-width, extended elements full-width, action footer sticky bottom with primary right
+- **Missing states** (scope: `heuristic`, `all`): Empty, error, loading, confirmation states; form validation, disabled, required indicators
+- **Accessibility** (scope: `a11y`, `all`): Two layers. **(1) Universal (always, every target):** WCAG 2.2 AA contrast, visible focus states, no text below 11px. **(2) Component-specific (DS Kit targets):** for the DS component slugs detected in the audited target (the same slugs resolved for the Component guidelines and Copy review steps), run `source "$CLAUDE_PLUGIN_ROOT/scripts/lib/resolve-node.sh" && "$NODE_BIN" "$CLAUDE_PLUGIN_ROOT/scripts/lib/a11y/resolve-a11y.js" --slugs <slug,slug,...>`. It returns `{ slugs: { <slug>: { resolved, a11y: [ { section, wcag, rules, note } ] } }, categories }`, sourced from the vendored knowledge graph plus accessibility bundle (each component gets its specific a11y section plus its category's cross-cutting concerns). Apply each returned section's `wcag` and `rules` as the a11y ruleset for the components present; every finding cites the specific rule text, and the WCAG criterion when the section carries one (some cross-cutting sections have real rules but an empty `wcag` array) (per the evidence standard in `references/actian-ux-audit/evidence-and-fixes.md`). Slugs with `resolved: false` (non-component slugs, or Fat Marker targets) get the universal rules only. Accessibility findings are report-only (not `autoFixable`).
+- **Copy review** (scope: `copy`, `all`): Two-layer audit. (1) For each component present in the audited target (a single component, a screen, or a multi-screen flow), read its merged guideline doc `../../vendor/components/dist/guidelines/<slug>.json` and use `domains.content` (when `status` is `approved`/`draft`) for component-specific copy rules. A component with no guideline doc, or a `content` domain that is `inherited`/`not-started`, has no component-specific copy guidance — rely on layer (2). (2) Always apply the cross-cutting rules from `../../vendor/content/dist/global.md`: sentence case on all UI text; verb + object button labels ("Save changes" not "Save Changes" or bare "Save"); no banned words — apply the full avoid-list in `../../vendor/content/dist/words-to-avoid.json` (do not inline a subset); error messages state what went wrong + how to fix it; empty states include headline + body + CTA; placeholder text models expected input and never repeats the field label; terminology consistent with `vendor/app-context/dist/app-context.json` glossary.
+- **Heuristic UX** (scope: `heuristic`, `all`) — *placeholder, full impl is engine work*: Surface a section in the report titled "Heuristic findings (preview)" describing IA clarity, task efficiency, and feedback patterns. Findings here are advisory until the engine work lands.
+
+## Output format
+
+```
+## Audit: [File/Section Name]
+
+### Summary
+- X issues found: Y critical, Z warnings
+- Token compliance: [percentage]
+
+### Findings
+| # | Severity | Confidence | Finding | Rule | Fix |
+|---|----------|------------|---------|------|-----|
+| 1 | P0 | 0.95 | Button uses hardcoded #0F5FDC | Zero hardcoded hex | Bind theme-primary variable |
+```
+
+## Step 5.5 — Fix gate (interactive)
+
+**Skipped if:** `--fix` is explicitly passed OR `--no-prompt` is set OR no findings to fix.
+
+Otherwise, after presenting findings, present this prompt verbatim:
+
+```
+N findings (P0: A, P1: B, P2: C). Fix?
+
+  skip (default) — report only, no edits
+  N              — fix finding number N (e.g. "3")
+  all            — fix all auto-fixable findings (P0 + P1)
+
+Reply: skip / N / all
+```
+
+Parser:
+- Empty / "skip" → no fixes (exit cleanly with the report)
+- Integer matching a finding number → `--fix <N>`
+- "all" → `--fix all`
+- Invalid → re-prompt
+- 3 retries → abort with: "Aborting. Run again with `--no-prompt` to skip fixes, or `--fix N|all` to set directly."
+
+## Fixing findings (flag form)
+
+The user can also request fixes via prose or flags directly:
+- `--fix 3` or `"fix #3"` — fix a specific finding
+- `--fix all` or `"fix all auto-fixable"` — batch fix all `autoFixable: true` findings (P0 + P1)
+- Free-text: `"fix the hardcoded blue on the login button"`
+
+Fix types, evidence standard, confidence scores, JSON output format, and verification procedure: see `../../references/actian-ux-audit/evidence-and-fixes.md`.
+
+## Key rules
+
+- Every finding needs evidence: node ID, expected value, actual value, rule quoted
+- Findings below confidence 0.5 go to "Needs manual review" section
+- Batch fixes run sequentially (never parallel `use_figma`), P0 first
+
+## References
+
+- `references/actian-ux-audit/evidence-and-fixes.md` — confidence scores, evidence standard, JSON output, fix types, verification
+- `scripts/lib/a11y/resolve-a11y.js` — resolves per-component a11y rulesets (WCAG + prose rules) from the vendored knowledge graph + accessibility bundle; run by the Accessibility check
+- `references/figma/figma-output.md` — Figma URL parsing, token binding
+- `references/ds-rules/quality-checklist.md` — cleanup pass checklist
+- `references/figma/parity-check.md` — post-fix verification
