@@ -4,8 +4,10 @@
 //
 // Written as a superset of two earlier implementations (flow's
 // renderContentNode and the retired presentation renderer's renderSpecNode).
-// It is parameterized by `opts.defaultFont` ("Inter" for flow) and keeps the
-// extra branches (textCase:"UPPER", size-as-object, counterAxisAlign alias).
+// `opts.defaultFont` and the branches that came from the deck side
+// (textCase:"UPPER", size-as-object, counterAxisAlign alias) are kept on
+// purpose: an authored `content[]` node may carry any of them, and the
+// renderer's contract is the node shape, not one caller's habits.
 //
 // UMD: registers on `module.exports` in Node or `window.renderNode` in the
 // browser, mirroring fm-html-map.js so it can be inlined by assemble-preview.js.

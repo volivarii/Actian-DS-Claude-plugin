@@ -175,7 +175,6 @@ content. Category defaults are seeded engineering drafts at
 refine via PRs that flip the field to `team-reviewed` or
 `team-authored`.
 
-Two transformers read these defaults: `validate-flow-data.js` reads
-`scripts/transformers/brief-sourcing.js` for stub-guideline detection, and
 `scripts/lib/knowledge/a11y.js` resolves accessibility refs through
-`scripts/transformers/category-defaults-loader.js`.
+`scripts/transformers/category-defaults-loader.js`; `validate-flow-data.js` flags a
+component whose guideline doc is a stub through `scripts/lib/stub-guideline.js`.

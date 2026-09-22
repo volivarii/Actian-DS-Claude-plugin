@@ -136,12 +136,18 @@ do"), prefix the block with `<!-- doc-lint:ignore-block -->` on its own line.
 `references/component-brief/`, `references/create-component/`, `references/convert-to-hifi/`
 (its `fm-to-ds-map.json` moved to `references/actian-ux-prototype/`), `evals/`, `scripts/evals/`,
 `scripts/lib/{anatomy-filter,anatomy-scale,dimension-line,gutter-layout,specs-extraction,token-tag}.js`,
-`validateBriefData` in `validate-schema.js`, and the `brief` and `presentation` types of
-`assemble-preview.js` and `merge-partials.js`. Nothing live read any of it (each removal was
-preceded by a requirer check; `brief-sourcing.js` and `category-defaults-loader.js` stay because
-the flow validator and the accessibility resolver read them). A data file of a retired skill
-(`brief-data.json`, `slide-data.json`) no longer validates here. Restore point: git history,
-`git log --diff-filter=D --stat -- plugins/actian-design-system`.
+`validateBriefData` in `validate-schema.js`, `scripts/lib/resolve-python.sh`,
+`scripts/transformers/brief-sourcing.js` (its one live function, `isStubGuideline`, now lives in
+`scripts/lib/stub-guideline.js`), and the `brief` and `presentation` types of `assemble-preview.js`
+and `merge-partials.js`. Nothing live read any of it (each removal was preceded by a requirer
+check; `category-defaults-loader.js` stays because the accessibility resolver reads it). A data
+file of a retired skill (`brief-data.json`, `slide-data.json`) no longer validates here. Restore
+point: git history, `git log --diff-filter=D --stat -- plugins/actian-design-system`.
+
+A checkout that ever ran the eval lane or the Office renderer keeps ignored leftovers that a pull
+does not remove (`evals/component-brief/workspace/`, `scripts/office/**/__pycache__`,
+`.pytest_cache`). They are harmless, and `rm -rf plugins/actian-design-system/evals
+plugins/actian-design-system/scripts/office plugins/actian-design-system/.pytest_cache` clears them.
 
 ### The skills renamed to `actian-ux-*` (2026.9.59)
 

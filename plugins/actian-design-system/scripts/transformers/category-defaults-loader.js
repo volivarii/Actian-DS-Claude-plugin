@@ -10,9 +10,9 @@
  * The category-defaults artifacts (one JSON per category at
  * vendor/components/dist/categories/<slug>-defaults.json) carry coarse
  * anatomy + variants + motion_refs + a11y_refs refs that apply to
- * every component in the category. Stub components with no curated
- * guidelines lift these into a grounding payload via brief-sourcing.js,
- * a baseline to adapt rather than improvise from scratch.
+ * every component in the category: a baseline for a component with no
+ * curated guidelines. The accessibility resolver (scripts/lib/knowledge/
+ * a11y.js) reads the a11y refs through this loader.
  *
  * Refs are resolved by SLUG via the substrate's build-time `bySlug` index
  * (knowledge #188): motion.json and a11y-index.json each carry a top-level

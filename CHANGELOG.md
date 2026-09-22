@@ -21,12 +21,14 @@ are summarized at the release level.
 
 ### Removed
 
-- **The retired skills' code is deleted, and with it 5.2 MB the install carried for nothing.** ([#413](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/413))
+- **The retired skills' code is deleted, and with it 4.9 MB the install carried for nothing.** ([#413](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/413))
   `retired/` and everything only the retired skills read leave the repository: the Python Office
   renderer with its ISO schemas and the Actian template deck, logos and backgrounds (`scripts/office`,
-  `assets/office`, `references/office`, 4.5 MB); the presentation and brief recipes, schemas, renderers
-  and references; the figma-table renderer; the component-brief eval lane; six `scripts/lib` modules
+  `assets/office`, `references/office`, 4.3 MB); the presentation and brief recipes, schemas, renderers
+  and references; the figma-table renderer; the component-brief eval lane; the brief transcription
+  module (its one live function moved to `scripts/lib/stub-guideline.js`); six `scripts/lib` modules
   only the brief renderer required; the playground and FM wrappers; and their tests and fixtures.
+  Sizes are git blob totals.
   A plugin install copies every tracked file (there is no exclusion mechanism), so what is not in
   the repository is what stops shipping. `assemble-preview.js` keeps `flow-share`, `proposal` and
   `flow`; `merge-partials.js` keeps `flow`; the FM-to-DS map moves to

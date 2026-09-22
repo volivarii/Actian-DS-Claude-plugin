@@ -1,8 +1,0 @@
-{
-  "component": "Button",
-  "slug": "button",
-  "fileKey": "test-file-key",
-  "nodeId": "1:1",
-  "nodeDescription": null,
-  "guidelinesJsonPath": "vendor/components/dist/guidelines/button.json"
-}

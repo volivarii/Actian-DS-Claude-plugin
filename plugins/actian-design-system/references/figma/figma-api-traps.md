@@ -78,7 +78,7 @@ node.fills = [newPaint, ...node.fills.slice(1)];
 ## Plan-dependent limits
 
 - **Variable collection mode count**: Free-tier files cap at fewer modes
-  than Org-tier. Pattern 14's per-mode binding can throw on Free files.
+  than Org-tier. Per-mode variable binding can throw on Free files.
 - **Variable count per collection**: Plan-dependent; expect up to 1000
   on Org, fewer on Free.
 

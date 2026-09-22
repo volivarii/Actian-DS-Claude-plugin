@@ -40,25 +40,44 @@ describe("retired skills stay hidden", function () {
       );
     });
   });
-  it("the retired code is gone: no retired/ directory and none of its machinery", function () {
+  it("the retired code is gone: none of the files only the retired skills read is tracked or on disk", function () {
+    // Files, not directories: a checkout that once ran the eval lane or the
+    // Office renderer keeps ignored leftovers (evals/**/workspace/, __pycache__)
+    // that a pull does not remove, and those must not fail this gate.
     [
-      "retired",
-      "scripts/office",
-      "assets/office",
-      "scripts/evals",
-      "evals",
-      "recipes/brief",
-      "recipes/presentation",
-      "scripts/renderers/figma-table",
-      "scripts/renderers/html-renderers/brief-renderer.js",
-      "scripts/renderers/html-renderers/presentation-renderer.js",
-      "schemas/brief-data.schema.json",
+      "retired/README.md",
+      "scripts/office/render-office.py",
+      "assets/office/Actian-Template-2026.pptx",
+      "references/office/PROVENANCE.md",
+      "references/generate-presentation/templates.md",
+      "recipes/presentation/_index.json",
       "schemas/slide-data.schema.json",
-      "references/component-brief",
-      "references/create-component",
-      "references/convert-to-hifi",
-      "references/generate-presentation",
-      "references/office",
+      "scripts/renderers/html-renderers/presentation-renderer.js",
+      "scripts/renderers/html-renderers/presentation-renderer.css",
+      "examples/slide-data-example.json",
+      "tests/office/conftest.py",
+      "scripts/lib/resolve-python.sh",
+      "recipes/brief/_index.json",
+      "schemas/brief-data.schema.json",
+      "scripts/renderers/html-renderers/brief-renderer.js",
+      "scripts/renderers/html-renderers/brief-renderer.css",
+      "scripts/renderers/figma-table/render-html.js",
+      "templates/component-playground-wrapper.html",
+      "templates/fm-wrapper.html",
+      "references/component-brief/push-patterns.md",
+      "references/create-component/push-patterns.md",
+      "references/convert-to-hifi/anatomy/catalog-slice.json",
+      "evals/component-brief/evals.json",
+      "scripts/evals/run-component-brief.sh",
+      "scripts/transformers/brief-sourcing.js",
+      "scripts/lib/anatomy-filter.js",
+      "scripts/lib/anatomy-scale.js",
+      "scripts/lib/dimension-line.js",
+      "scripts/lib/gutter-layout.js",
+      "scripts/lib/specs-extraction.js",
+      "scripts/lib/token-tag.js",
+      "examples/brief-data-example.json",
+      "tests/fixtures/button-brief-data.json",
     ].forEach(function (rel) {
       assert.ok(
         !fs.existsSync(path.join(PLUGIN_ROOT, rel)),
