@@ -34,11 +34,9 @@ jobs:
       - uses: actions/setup-node@v5
         with:
           node-version: '22'
-      - name: Install plugin deps
-        working-directory: plugins/actian-design-system
-        run: npm install --no-audit --no-fund
       - name: Run test suite
-        working-directory: plugins/actian-design-system
+        # package.json is at the repository root: the suite lives at tests/, outside
+        # the plugin directory, so an install does not carry it.
         run: npm test
 
   notify-red-main:

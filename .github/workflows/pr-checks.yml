@@ -2,7 +2,7 @@ name: PR checks
 
 # Tier 1 PR gates for the Actian Design System plugin.
 # Six parallel jobs:
-#   1. test            — runs the plugin's full test suite
+#   1. test            — runs the plugin's full test suite (tests/ at the repo root)
 #   2. json-syntax     — validates that all checked-in JSON files parse
 #   3. version-bump    — ensures plugin.json is bumped when source changes
 #   4. plugin-validate — `claude plugin validate` on the manifests (offline)
@@ -32,11 +32,9 @@ jobs:
       - uses: actions/setup-node@v5
         with:
           node-version: '22'
-      - name: Install plugin deps
-        working-directory: plugins/actian-design-system
-        run: npm install --no-audit --no-fund
       - name: Run test suite
-        working-directory: plugins/actian-design-system
+        # package.json is at the repository root: the suite lives at tests/, outside
+        # the plugin directory, so an install does not carry it.
         run: npm test
 
   json-syntax:
@@ -126,5 +124,5 @@ jobs:
         if: always()
         with:
           name: fidelity-pixel-diffs
-          path: plugins/actian-design-system/tests/renderers/__fidelity__/diffs/
+          path: tests/renderers/__fidelity__/diffs/
           if-no-files-found: ignore

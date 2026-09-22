@@ -36,8 +36,7 @@ function thresholdFor(slug, def, overrides) {
     : def;
 }
 var LEDGER = path.join(
-  PLUGIN_DIR,
-  "tests",
+  require("../lib/tests-root.js"),
   "renderers",
   "__fidelity__",
   "ledger.jsonl",

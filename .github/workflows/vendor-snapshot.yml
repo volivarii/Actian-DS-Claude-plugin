@@ -211,7 +211,7 @@ jobs:
         # could update (#358, #363). The PR auto-merges, so the list of goldens
         # that moved goes to the PR body (through this step's `notes` output,
         # like the bank's) and not only to the run summary.
-        working-directory: plugins/actian-design-system
+        # From the repository root: package.json and tests/ both live there.
         run: |
           npm run update-snapshots
           stat="$(git diff --stat -- tests/renderers/__goldens__ tests/renderers/fixtures)"
@@ -277,9 +277,9 @@ jobs:
             plugins/actian-design-system/references/context/companion-context.md
             plugins/actian-design-system/references/figma/figma-push-patterns.md
             plugins/actian-design-system/references/actian-ux-prototype/ds-components-authoring.md
-            plugins/actian-design-system/tests/renderers/blank-box-baseline.json
-            plugins/actian-design-system/tests/renderers/__goldens__/**
-            plugins/actian-design-system/tests/renderers/fixtures/**
+            tests/renderers/blank-box-baseline.json
+            tests/renderers/__goldens__/**
+            tests/renderers/fixtures/**
 
       - name: Enable auto-merge
         if: steps.diff.outputs.changed == 'true' && steps.cpr.outputs.pull-request-number
@@ -323,7 +323,7 @@ jobs:
           OPENED_OP: ${{ steps.cpr.outputs.pull-request-operation }}
         # Best-effort by contract: it must never fail the refresh itself. Kept in
         # a script, not inline, so its branches are testable:
-        # plugins/actian-design-system/tests/vendor/vendor-queue-alarm.test.js
+        # tests/vendor/vendor-queue-alarm.test.js
         #
         # `bash <path> || true` and not a bare path: GitHub runs a `run:` under
         # `bash -e`, so a lost exec bit (a Windows checkout, a rebase, a future

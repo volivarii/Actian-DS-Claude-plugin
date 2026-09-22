@@ -49,7 +49,7 @@
 #     replaced, so nothing but a positive healthy reading may clear.
 #
 # It lives in a file rather than inline in the workflow so its branches can be
-# tested: see tests/vendor/vendor-queue-alarm.test.js, which runs it against a
+# tested: see tests/vendor/vendor-queue-alarm.test.js (repo root), which runs it against a
 # stubbed gh and pins both the verdicts and the queries.
 #
 # Requires: gh on PATH, GH_TOKEN in the environment. The step passes in

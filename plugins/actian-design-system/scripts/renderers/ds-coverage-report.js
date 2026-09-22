@@ -1006,11 +1006,8 @@ if (require.main === module) {
     // that drives this command never touches the committed record.
     var out = process.env.BLANK_BOX_BASELINE
       ? pathW.resolve(process.env.BLANK_BOX_BASELINE)
-      : pathW.resolve(
-          __dirname,
-          "..",
-          "..",
-          "tests",
+      : pathW.join(
+          require("../lib/tests-root.js"),
           "renderers",
           "blank-box-baseline.json",
         );

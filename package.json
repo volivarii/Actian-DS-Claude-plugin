@@ -1,0 +1,7 @@
+{
+  "private": true,
+  "scripts": {
+    "test": "bash plugins/actian-design-system/scripts/quality/run-suite.sh",
+    "update-snapshots": "UPDATE_GOLDENS=1 node --test tests/renderers/golden-snapshot.test.js tests/renderers/ds-screen-tree.test.js tests/renderers/render-screen-parity.test.js tests/renderers/twin-parity-emit.test.js"
+  }
+}

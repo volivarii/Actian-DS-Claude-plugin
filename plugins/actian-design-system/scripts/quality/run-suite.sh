@@ -14,8 +14,14 @@
 # tests directory, a bad cwd, a glob that matches nothing.
 set -uo pipefail
 
+# The test tree lives at the repository root, next to plugins/, so an installed plugin
+# does not carry it. This runner is inside the plugin, so it climbs out to find it and
+# runs from there: no test depends on the working directory, but the one that shells
+# out to git names its pathspecs from the repository root.
+REPO_ROOT="$(cd "$(dirname "$0")/../../../.." && pwd)" || exit 1
+cd "$REPO_ROOT" || exit 1
 if [ ! -d tests ]; then
-  echo "SUITE FAILED: no tests directory here ($(pwd)). Run this from the plugin root." >&2
+  echo "SUITE FAILED: no tests directory at $REPO_ROOT. The suite lives at <repo>/tests." >&2
   exit 1
 fi
 

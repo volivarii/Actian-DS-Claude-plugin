@@ -71,10 +71,7 @@ if (notBuilt.length) {
 }
 
 var DIFF_DIR = path.join(
-  __dirname,
-  "..",
-  "..",
-  "tests",
+  require("../lib/tests-root.js"),
   "renderers",
   "__fidelity__",
   "diffs",
