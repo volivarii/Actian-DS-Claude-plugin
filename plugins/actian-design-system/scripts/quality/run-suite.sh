@@ -25,6 +25,17 @@ if [ ! -d tests ]; then
   exit 1
 fi
 
+# A test added under the old path (a branch rebased across the move, a stale worktree)
+# would otherwise never run and would ship in the install, with this runner green.
+# Files, not the directory: a checkout that ran the quality gates before the move keeps
+# ignored leftovers under the old tests/renderers/__fidelity__/ that a pull does not remove.
+stray="$(find plugins/actian-design-system/tests -name '*.test.js' -type f 2>/dev/null | wc -l | tr -d ' ')"
+if [ "$stray" -gt 0 ]; then
+  echo "SUITE FAILED: ${stray} *.test.js under plugins/actian-design-system/tests/. The suite lives at <repo>/tests; a test under the plugin never runs and ships in the install." >&2
+  find plugins/actian-design-system/tests -name '*.test.js' -type f >&2
+  exit 1
+fi
+
 log="$(mktemp)" || { echo "SUITE FAILED: mktemp could not create a log file." >&2; exit 1; }
 trap 'rm -f "$log"' EXIT
 

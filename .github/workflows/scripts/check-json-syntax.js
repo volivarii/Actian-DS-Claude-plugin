@@ -6,10 +6,12 @@
  * files and fails fast on any file that doesn't parse. Catches malformed
  * JSON from manual edits or merge conflicts before merge.
  *
- * Scope: every .json file under plugins/actian-design-system/ except those
- * that live inside ignore prefixes (node_modules, .git). Includes registries,
- * recipes, schemas, fixtures, the plugin manifest, and the foundations
- * generated outputs.
+ * Scope: every .json file under plugins/actian-design-system/ and under
+ * tests/ at the repository root (the suite lives outside the plugin so an
+ * install does not carry it), except those inside ignore prefixes
+ * (node_modules, .git). Includes registries, recipes, schemas, the plugin
+ * manifest, the foundations generated outputs, and the test fixtures,
+ * goldens and baseline.
  *
  * Output: one line per failing file with the parser message + position.
  * Exit 0 on success, 1 if any file fails.
@@ -18,14 +20,9 @@
 var fs = require("fs");
 var path = require("path");
 
-var PLUGIN_ROOT = path.resolve(
-  __dirname,
-  "..",
-  "..",
-  "..",
-  "plugins",
-  "actian-design-system",
-);
+var REPO_ROOT = path.resolve(__dirname, "..", "..", "..");
+var PLUGIN_ROOT = path.join(REPO_ROOT, "plugins", "actian-design-system");
+var TESTS_ROOT = path.join(REPO_ROOT, "tests");
 
 // Directories whose contents we never want to walk (huge, third-party, or
 // not version-controlled). Path comparisons are name-based at any depth.
@@ -59,7 +56,7 @@ function walk(dir, out) {
 }
 
 function relPath(p) {
-  return path.relative(PLUGIN_ROOT, p);
+  return path.relative(REPO_ROOT, p);
 }
 
 function main() {
@@ -69,8 +66,15 @@ function main() {
     );
     process.exit(2);
   }
+  if (!fs.existsSync(TESTS_ROOT)) {
+    process.stderr.write(
+      "[check-json-syntax] tests root not found: " + TESTS_ROOT + "\n",
+    );
+    process.exit(2);
+  }
   var files = [];
   walk(PLUGIN_ROOT, files);
+  walk(TESTS_ROOT, files);
 
   var failures = [];
   for (var i = 0; i < files.length; i++) {

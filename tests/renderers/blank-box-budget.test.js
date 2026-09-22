@@ -66,7 +66,8 @@ function ratchetHint() {
     "\n\nIf this change is correct, bank it:\n" +
     "  cd plugins/actian-design-system && \\\n" +
     "    node scripts/renderers/ds-coverage-report.js --write-baseline\n" +
-    "then commit tests/renderers/blank-box-baseline.json, so the diff records " +
+    "then, from the repository root, commit tests/renderers/blank-box-baseline.json " +
+    "(the baseline lives in the test tree there, not under the plugin), so the diff records " +
     "which slugs moved and in which direction. It refuses to write only while a " +
     "slug has regressed or demoted to a chip."
   );

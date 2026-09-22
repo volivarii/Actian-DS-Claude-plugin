@@ -9,7 +9,6 @@ var P = require("./pixel-diff");
 var S = require("./structural-check");
 var PATHS = require("../lib/paths");
 
-var PLUGIN_DIR = path.resolve(__dirname, "..", "..");
 // Resolve the Gate-1 oracle: prefer the single-component default.webp; fall
 // back to the legacy preview.webp board (which runPixel still skips on aspect
 // mismatch). Returns null when neither exists. `exists` is injectable for tests.

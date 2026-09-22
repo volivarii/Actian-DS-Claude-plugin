@@ -1,8 +1,0 @@
-{
-  "name": "actian-design-system-tests",
-  "version": "1.0.0",
-  "private": true,
-  "scripts": {
-    "test": "find . -name '*.test.js' -type f -print0 | xargs -0 node --test"
-  }
-}

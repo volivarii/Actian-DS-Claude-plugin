@@ -51,6 +51,9 @@ var ROOT_PREFIXES = [
   ".claude-plugin/",
   "hooks/",
   "agents/",
+  // tests/ lives at the repository root, outside the plugin. Only the plugin's
+  // own docs (SCAN_FILES) may name it: a skill, reference or template is read
+  // by an installed plugin, which has no test tree, so there it must not resolve.
   "tests/",
   "release-notes/",
   // schemas/ was missing, so every bare schemas/... path written in prose had no declared
@@ -158,7 +161,7 @@ function extractPaths(lineText) {
 /**
  * Resolve a path reference to an absolute path.
  */
-function resolvePath(refPath, mdFileDir) {
+function resolvePath(refPath, mdFileDir, mdFile) {
   if (refPath.indexOf("./") === 0 || refPath.indexOf("../") === 0) {
     var resolved = path.resolve(mdFileDir, refPath);
     if (refPath.indexOf("*") !== -1) {
@@ -168,8 +171,10 @@ function resolvePath(refPath, mdFileDir) {
   }
 
   // The test tree lives at the repository root, not under the plugin, so an
-  // install does not carry it; prose that names a test still resolves.
-  if (refPath.indexOf("tests/") === 0) {
+  // install does not carry it. The plugin's own docs (SCAN_FILES) are read in
+  // the repository and may name a test; anything else falls through to the
+  // plugin root, where no tests/ exists, and fails.
+  if (refPath.indexOf("tests/") === 0 && SCAN_FILES.indexOf(mdFile) !== -1) {
     var resolvedT = path.join(REPO_ROOT, refPath);
     return refPath.indexOf("*") !== -1 ? path.dirname(resolvedT) : resolvedT;
   }
@@ -223,7 +228,7 @@ for (var f = 0; f < allMdFiles.length; f++) {
     var refs = extractPaths(lines[ln]);
     for (var r = 0; r < refs.length; r++) {
       var refPath = refs[r];
-      var resolved = resolvePath(refPath, mdDir);
+      var resolved = resolvePath(refPath, mdDir, mdFile);
       totalPaths++;
 
       if (!fs.existsSync(resolved)) {

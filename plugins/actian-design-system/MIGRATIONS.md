@@ -130,8 +130,8 @@ do"), prefix the block with `<!-- doc-lint:ignore-block -->` on its own line.
 
 `plugins/actian-design-system/tests/` is `tests/` at the repository root since 2026-09-22, plugin
 #415, and `package.json` moved with it: `npm test` runs from the repository root, not from the plugin
-directory. A plugin install copies every tracked file under the plugin directory, so the suite (3.5
-MB, 384 files) shipped to every user for nothing. Every test still names the same targets, through
+directory. A plugin install copies every tracked file under the plugin directory, so the suite (2.3 MB
+of tracked files, 352 of them, 3.2 MB on disk) shipped to every user for nothing. Every test still names the same targets, through
 `path.resolve(__dirname, "..", "..", "plugins", "actian-design-system")` and
 `require("../../plugins/actian-design-system/scripts/...")`. Scripts that read or write test data
 (the blank-box baseline, the fidelity ledger and diffs) resolve the tree through
