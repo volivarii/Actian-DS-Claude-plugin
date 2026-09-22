@@ -427,7 +427,6 @@ Generation tasks pause for review before pushing to Figma:
 | **"preview"** | Open HTML preview first |
 | **"push and wire"** | Push + wire prototype connections |
 | **"prototype"** | Generate clickable HTML prototype |
-| **"playground"** | Generate component state explorer |
 | **feedback** | Describe changes, get updated output |
 
 ### Visual annotations

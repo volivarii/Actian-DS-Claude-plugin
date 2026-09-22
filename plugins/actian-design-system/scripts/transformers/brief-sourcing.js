@@ -280,8 +280,8 @@ function formatForBrief(cardKey, sourceResult, ctx) {
     var content = sourceResult.content || {};
     var sections = Array.isArray(content.sections) ? content.sections : [];
     // Map the guideline doc's content sections (heading + mixed items) onto
-    // the canonical card_content shape that renderCard7, the card-generator
-    // recipe, and the brief-data schema all share:
+    // the card_content shape the retired brief renderer, recipe and schema
+    // shared (kept as written so the output stays stable):
     //   rules:       [ { title, description, do?, dont? } ]
     //   terminology: [ { term, use } ]
     // Per section: string + { note } items join into a rule `description`

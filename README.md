@@ -184,7 +184,6 @@ Every generation task pauses for review before pushing to Figma:
 | **`push 2,4,5`** | Send specific items only |
 | **`push and wire`** | Push + wire prototype connections automatically |
 | **`prototype`** | Generate a clickable Alpine.js prototype for testing |
-| **`playground`** | Generate a component state explorer with live token readout |
 | **`apply annotations`** | Apply visual annotations from the browser |
 | feedback | Describe changes, get updated output |
 

@@ -16,7 +16,7 @@ sections below are authoritative as of v1.62.1.
 | `.claude-plugin/` | Plugin manifest (`plugin.json`) — name, version, marketplace metadata. |
 | `agents/` | Subagents dispatched by skills. One `.md` per agent. |
 | `commands/` | (none currently — slash commands are co-located with skills) |
-| `vendor/` | Vendored snapshot of `volivarii/actian-ds-knowledge` — design docs (`foundations/`, `content/`, `accessibility/`), merged per-component multi-domain guideline docs (`components/dist/guidelines/`, resolved via `PATHS.components.guidelineDoc.byKey`; the scraped `components/src/guidelines/` layer was retired in Phase 5, knowledge v0.11.0), component registries (`components/dist/registries/`), tokens (`tokens/`), app context (`app-context/`). Refreshed nightly via `vendor-snapshot.yml`. Treat as read-only — edits belong upstream. (The FM↔DS map + presentation guide are no longer vendored — they were evicted to the plugin in Track E; the FM↔DS map now lives at `references/convert-to-hifi/fm-to-ds-map.json`.) |
+| `vendor/` | Vendored snapshot of `volivarii/actian-ds-knowledge` — design docs (`foundations/`, `content/`, `accessibility/`), merged per-component multi-domain guideline docs (`components/dist/guidelines/`, resolved via `PATHS.components.guidelineDoc.byKey`; the scraped `components/src/guidelines/` layer was retired in Phase 5, knowledge v0.11.0), component registries (`components/dist/registries/`), tokens (`tokens/`), app context (`app-context/`). Refreshed nightly via `vendor-snapshot.yml`. Treat as read-only — edits belong upstream. (The FM↔DS map + presentation guide are no longer vendored — they were evicted to the plugin in Track E; the FM↔DS map now lives at `references/actian-ux-prototype/fm-to-ds-map.json`.) |
 | `examples/` | Reference outputs for skills (a sample flow). |
 | `hooks/` | `hooks.json` — PreToolUse/PostToolUse hooks wired to scripts under `scripts/` (will move to `scripts/hooks/` in PR-2). |
 | `recipes/` | Per-skill JSON recipes (`flow/`). |
@@ -59,7 +59,7 @@ Retired and deleted: `/generate-presentation`, `/convert-to-hifi` and `agents/sl
 - `figma/` — Workflow docs about reading from / writing to Figma. Push patterns, screenshot rules, prototype wiring, parity checks. New "how to talk to Figma" docs go here.
 - `ds-rules/` — Design system constraints. Component instance rules, layout grids, quality gates, FM-Kit CSS variables. New rules-of-the-system docs go here.
 - `context/` — Knowledge bases consumed by multiple skills as background. Apps + entities + terminology, UX pattern catalogs. New "what does the user know" docs go here.
-- `<skill-name>/` — Skill-specific reference docs. Schema docs, push patterns unique to that skill, playgrounds. One subdir per skill that has its own reference material.
+- `<skill-name>/` — Skill-specific reference docs. Schema docs, push patterns unique to that skill. One subdir per skill that has its own reference material.
 
 ### When to add a new skill subdir under `references/`
 

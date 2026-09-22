@@ -31,7 +31,6 @@ are summarized at the release level.
   the repository is what stops shipping. `assemble-preview.js` keeps `flow-share`, `proposal` and
   `flow`; `merge-partials.js` keeps `flow`; the FM-to-DS map moves to
   `references/actian-ux-prototype/`. Git history is the restore point.
-  `TEST-PROMPTS.md` is untracked, as its ignore rule always intended.
 
 ### Changed
 

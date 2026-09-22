@@ -30,8 +30,6 @@ function parseArgs(argv) {
       args.partialsDir = argv[++i];
     } else if (argv[i] === "--output") {
       args.output = argv[++i];
-    } else if (argv[i] === "--partial") {
-      args.partial = true;
     } else if (argv[i] === "--incremental") {
       args.incremental = true;
     } else if (argv[i] === "--screen-list") {

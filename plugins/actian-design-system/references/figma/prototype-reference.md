@@ -1,6 +1,6 @@
-# Interactive Prototype & Playground Reference
+# Interactive Prototype Reference
 
-Generation guidelines for Alpine.js prototypes and component playgrounds. Read this file before generating any `-prototype.html` or `-playground.html` file.
+Generation guidelines for Alpine.js prototypes. Read this file before generating any `-prototype.html` file.
 
 ---
 
@@ -136,12 +136,12 @@ These elements must remain static. Adding Alpine to them creates scope creep and
 
 ## Rules
 
-1. **Prototypes are for testing only.** Never push a `-prototype.html` or `-playground.html` file to Figma. These files live in the local project directory and are served via `ensure-server.sh`.
+1. **Prototypes are for testing only.** Never push a `-prototype.html` file to Figma. These files live in the local project directory and are served via `ensure-server.sh`.
 
 2. **Static HTML is the source of truth.** The prototype layer adds Alpine directives to the existing HTML from the actian-ux-prototype skill output. It does not rewrite structure, change class names, or alter the visual design.
 
 3. **Keep it simple.** Add only the minimum interactivity needed to test the flow or component. If a prototype requires more than 30 lines of custom JS, stop and question whether the complexity belongs in a prototype at all.
 
-4. **Same server.** Serve prototypes and playgrounds from the same `ensure-server.sh` instance used for static flows. Do not start a separate server. Pass the project working directory — never `.` — to avoid serving the plugin cache.
+4. **Same server.** Serve prototypes from the same `ensure-server.sh` instance used for static flows. Do not start a separate server. Pass the project working directory — never `.` — to avoid serving the plugin cache.
 
-5. **One self-contained HTML file.** Each prototype or playground is a single `.html` file with all CSS, JS, and Alpine logic inline. No external JS files, no imports, no build step. The only allowed external resource is the pinned Alpine.js CDN URL and Google Fonts.
+5. **One self-contained HTML file.** Each prototype is a single `.html` file with all CSS, JS, and Alpine logic inline. No external JS files, no imports, no build step. The only allowed external resource is the pinned Alpine.js CDN URL and Google Fonts.
