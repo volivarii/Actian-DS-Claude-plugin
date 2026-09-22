@@ -193,6 +193,18 @@ function run(slugs, opts) {
   if (!resolved.chrome) {
     R.requireAll(resolved); // throws clear setup msg
   }
+  // The ledger sits in the repository's test tree, which an installed plugin does
+  // not carry. With no directory to append to, the run still measures and reports;
+  // it says once, on stderr, that nothing was recorded, instead of dying on ENOENT.
+  var writeLedger = opts.write !== false;
+  if (writeLedger && !fs.existsSync(path.dirname(LEDGER))) {
+    writeLedger = false;
+    process.stderr.write(
+      "[run-fidelity] ledger not written: no test tree at " +
+        path.dirname(LEDGER) +
+        " (it lives in the repository's tests/, outside an installed plugin)\n",
+    );
+  }
   var tmp = fs.mkdtempSync(path.join(os.tmpdir(), "fid-"));
   try {
     var rows = slugs.map(function (slug) {
@@ -205,8 +217,7 @@ function run(slugs, opts) {
       // component has no single-component oracle to compare against.
       var gate1 = runPixel(slug, resolved.chrome, tmp, opts, oracle);
       var row = ledgerRow(slug, gate1, gate2, oracle);
-      if (opts.write !== false)
-        fs.appendFileSync(LEDGER, JSON.stringify(row) + "\n");
+      if (writeLedger) fs.appendFileSync(LEDGER, JSON.stringify(row) + "\n");
       return row;
     });
     return rows;
