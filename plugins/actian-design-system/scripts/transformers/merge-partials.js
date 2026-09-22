@@ -5,15 +5,13 @@
  * merge-partials.js — Merge partial JSON outputs into a single file.
  *
  * Usage:
- *   node merge-partials.js --type brief|flow|presentation --partials-dir <dir> --output <file> [--partial]
+ *   node merge-partials.js --type flow --partials-dir <dir> --output <file>
  *
- * Three merge strategies:
- *   brief:        flat object merge of card keys; validates all 7 DS card keys unless --partial
- *   flow:         sorts partials by _index, concatenates screens[] arrays
- *   presentation: sorts partials by _index, concatenates slides[] arrays
+ * One merge strategy (the brief and presentation strategies left with their
+ * skills on 2026-09-22):
+ *   flow: sorts partials by _index, concatenates screens[] arrays
  *
- * Exits non-zero on: no partials found, missing meta, missing card keys (brief without --partial),
- * empty array (flow/presentation).
+ * Exits non-zero on: no partials found, missing meta, empty array.
  */
 
 const fs = require("fs");
@@ -21,20 +19,6 @@ const path = require("path");
 
 // ---------------------------------------------------------------------------
 // Constants
-// ---------------------------------------------------------------------------
-
-const DS_CARD_KEYS = [
-  "card_header",
-  "variants",
-  "anatomy",
-  "tokens",
-  "usage",
-  "card_content",
-  "accessibility",
-];
-
-// ---------------------------------------------------------------------------
-// CLI argument parsing
 // ---------------------------------------------------------------------------
 
 function parseArgs(argv) {
@@ -85,34 +69,6 @@ function readPartials(dir) {
 // ---------------------------------------------------------------------------
 // Merge strategies
 // ---------------------------------------------------------------------------
-
-function mergeBrief(partials, partial) {
-  const merged = {};
-  let meta = null;
-
-  for (const p of partials) {
-    if (p.meta && !meta) meta = p.meta;
-    for (const [key, value] of Object.entries(p)) {
-      if (key === "meta") continue;
-      merged[key] = value;
-    }
-  }
-
-  if (!meta) die("no meta found in any partial");
-
-  // Validate all card keys present unless --partial
-  if (!partial) {
-    const missing = DS_CARD_KEYS.filter((k) => !(k in merged));
-    if (missing.length > 0) {
-      die("missing card keys: " + missing.join(", "));
-    }
-  }
-
-  const result = { meta, ...merged };
-  const cardCount = Object.keys(result).length - 1; // minus meta
-  log("Merged " + partials.length + " partials \u2192 " + cardCount + " cards");
-  return result;
-}
 
 function mergeArray(partials, arrayKey) {
   // Sort by _index
@@ -312,7 +268,7 @@ function mergeIncrementalFlow(partialsDir, screenListPath) {
 function main() {
   const args = parseArgs(process.argv);
 
-  if (!args.type) die("--type is required (brief|flow|presentation)");
+  if (!args.type) die("--type is required (flow)");
   if (!args.partialsDir) die("--partials-dir is required");
   if (!args.output) die("--output is required");
 
@@ -337,17 +293,11 @@ function main() {
   let result;
 
   switch (args.type) {
-    case "brief":
-      result = mergeBrief(partials, args.partial);
-      break;
     case "flow":
       result = mergeArray(partials, "screens");
       break;
-    case "presentation":
-      result = mergeArray(partials, "slides");
-      break;
     default:
-      die("unknown type: " + args.type + " (expected brief|flow|presentation)");
+      die("unknown type: " + args.type + " (expected flow)");
   }
 
   // Ensure output directory exists

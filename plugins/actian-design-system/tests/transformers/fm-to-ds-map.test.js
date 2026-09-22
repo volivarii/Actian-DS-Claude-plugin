@@ -39,7 +39,7 @@ var REGISTRIES_DIR = path.join(
 var FM_TO_DS_MAP_PATH = path.join(
   PLUGIN_ROOT,
   "references",
-  "convert-to-hifi",
+  "actian-ux-prototype",
   "fm-to-ds-map.json",
 );
 

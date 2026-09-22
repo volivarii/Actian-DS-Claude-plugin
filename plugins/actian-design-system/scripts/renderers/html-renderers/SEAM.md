@@ -8,8 +8,7 @@
 > vendored back; the plugin reaches them through `scripts/lib/renderer.js`
 > and keeps no copy of either tier. Paths named below for both tiers are
 > historical. What stays in this directory is the structural renderers
-> (`render-node.js`, `flow-renderer.js`, `brief-renderer.js`,
-> `presentation-renderer.js`) and the Figma twin emitter.
+> (`render-node.js`, `flow-renderer.js`) and the Figma twin emitter.
 
 
 The render pipeline is one **tier-agnostic component-node spec** consumed by

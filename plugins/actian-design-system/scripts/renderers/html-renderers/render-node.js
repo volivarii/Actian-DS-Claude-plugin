@@ -1,13 +1,11 @@
 // scripts/renderers/html-renderers/render-node.js
 // Shared structural-node renderer — the single source of truth for the
-// Figma-node → HTML mapping consumed by BOTH actian-ux-prototype (flow-renderer.js)
-// and generate-presentation (presentation-renderer.js).
+// Figma-node → HTML mapping consumed by actian-ux-prototype (flow-renderer.js).
 //
-// This is a superset of the two previously-duplicated implementations
-// (flow's renderContentNode + presentation's renderSpecNode). It is
-// parameterized by `opts.defaultFont` ("Inter" for flow, "Roboto" for
-// presentation) and merges presentation's extra branches (textCase:"UPPER",
-// size-as-object, counterAxisAlign alias) into flow's (richer) bodies.
+// Written as a superset of two earlier implementations (flow's
+// renderContentNode and the retired presentation renderer's renderSpecNode).
+// It is parameterized by `opts.defaultFont` ("Inter" for flow) and keeps the
+// extra branches (textCase:"UPPER", size-as-object, counterAxisAlign alias).
 //
 // UMD: registers on `module.exports` in Node or `window.renderNode` in the
 // browser, mirroring fm-html-map.js so it can be inlined by assemble-preview.js.

@@ -269,7 +269,7 @@ Companion + skills read at runtime
 - **Auto-bump on sync** (v1.63.1+) — sync detects additive/breaking verdicts and bumps `plugin.json` automatically; missing component-guideline files are auto-stubbed (v1.64.0+) so new components land with a placeholder ready for authoring.
 - **Design changelog** — `changelog.js` compares the current push against the previous `.last-push.json` manifest, reporting source data changes, token drift, and component additions/removals.
 
-**DS-native by default:** `/actian-ux-prototype X` authors screens against the DS Kit vocabulary and renders real components with real tokens in the HTML deliverable; `--push` adds the Figma frames. `--lofi` renders the same tree in a focus-aware lo-fi skin, and `--fm` opts back into FatMarker authoring (required for a lo-fi Figma push). The Figma-URL conversion skill was retired on 2026-09-10 (see `plugins/actian-design-system/retired/README.md`).
+**DS-native by default:** `/actian-ux-prototype X` authors screens against the DS Kit vocabulary and renders real components with real tokens in the HTML deliverable; `--push` adds the Figma frames. `--lofi` renders the same tree in a focus-aware lo-fi skin, and `--fm` opts back into FatMarker authoring (required for a lo-fi Figma push). The Figma-URL conversion skill was retired on 2026-09-10 and its code deleted on 2026-09-22 (see the CHANGELOG).
 
 ---
 
@@ -285,12 +285,12 @@ actian-design-system-plugin/
 │   ├── CLAUDE.md
 │   ├── skills/                            # 4 skills (actian-ux + 3 specialized)
 │   ├── agents/                            # parallel-generation + validation/research agents
-│   ├── recipes/                           # flow recipes (brief and presentation recipes belong to retired skills)
+│   ├── recipes/                           # flow recipes
 │   ├── scripts/
 │   │   ├── lib/                           # paths.js, shared-constants, registry loaders, palette, buildGenLog
 │   │   ├── hooks/                         # Claude Code hook guards
 │   │   ├── vendor/                        # vendor-snapshot pipeline (pulls knowledge repo)
-│   │   ├── validation/                    # validate-flow-data, validate-schema (validateBriefData belongs to a retired skill)
+│   │   ├── validation/                    # validate-flow-data, validate-schema, validate-proposal
 │   │   ├── transformers/                  # fm-tree-to-flow-data, transform-to-hifi
 │   │   ├── renderers/                     # assemble-preview + html-renderers + render-component-reference
 │   │   ├── bridges/                       # proposal-to-flow: a proposal's picks as an actian-ux-prototype seed
@@ -299,13 +299,11 @@ actian-design-system-plugin/
 │   │   ├── figma/                         # MCP workflow, push patterns, parity, prototype, annotations
 │   │   ├── ds-rules/                      # tokens, layout, component-instance rules, quality checklist
 │   │   ├── context/                       # companion-context.md, knowledge bases
-│   │   ├── component-brief/               # retired skill (see retired/README.md)
-│   │   ├── create-component/              # retired skill (see retired/README.md)
 │   │   ├── actian-ux-audit/               # skill-specific
 │   │   ├── actian-ux-prototype/           # skill-specific
 │   │   └── actian-ux-proposal/            # skill-specific
-│   ├── schemas/                           # JSON schemas (flow-data, proposal-data; brief-data and slide-data belong to retired skills)
-│   ├── templates/                         # HTML wrappers (flow, fm, annotation-layer, proposal-document; component-playground belongs to a retired skill)
+│   ├── schemas/                           # JSON schemas (flow-data, proposal-data, proposal-evaluation)
+│   ├── templates/                         # HTML wrappers (flow, annotation-layer, proposal-document)
 │   ├── vendor/                            # pinned knowledge-repo snapshot — the DS substrate
 │   │   ├── components/                    # registries (dskit/fmkit/metakit) + 58 guideline docs + bundles
 │   │   ├── foundations/                   # foundations.md (source of truth) + 79 derived JSONs

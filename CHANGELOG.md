@@ -19,6 +19,20 @@ are summarized at the release level.
 
 ## [Unreleased]
 
+### Removed
+
+- **The retired skills' code is deleted, and with it 5.2 MB the install carried for nothing.** ([#413](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/413))
+  `retired/` and everything only the retired skills read leave the repository: the Python Office
+  renderer with its ISO schemas and the Actian template deck, logos and backgrounds (`scripts/office`,
+  `assets/office`, `references/office`, 4.5 MB); the presentation and brief recipes, schemas, renderers
+  and references; the figma-table renderer; the component-brief eval lane; six `scripts/lib` modules
+  only the brief renderer required; the playground and FM wrappers; and their tests and fixtures.
+  A plugin install copies every tracked file (there is no exclusion mechanism), so what is not in
+  the repository is what stops shipping. `assemble-preview.js` keeps `flow-share`, `proposal` and
+  `flow`; `merge-partials.js` keeps `flow`; the FM-to-DS map moves to
+  `references/actian-ux-prototype/`. Git history is the restore point.
+  `TEST-PROMPTS.md` is untracked, as its ignore rule always intended.
+
 ### Changed
 
 - **The four skills are renamed `actian-ux`, `actian-ux-prototype`, `actian-ux-proposal` and `actian-ux-audit`** (was `companion`, `generate-flow`, `design-proposal`, `design-audit`). ([#412](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/412))

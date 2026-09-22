@@ -28,8 +28,7 @@ var SCRIPT = path.join(
   "assemble-preview.js",
 );
 var FIXTURES = path.join(__dirname, "..", "fixtures");
-var BRIEF_FIXTURE = path.join(FIXTURES, "button-brief-data.json");
-var PRES_FIXTURE = path.join(FIXTURES, "sample-presentation.json");
+var FLOW_FIXTURE = path.join(FIXTURES, "admin-dashboard.json");
 
 // ---------------------------------------------------------------------------
 // Helper: run the script and return { status, stdout, stderr, html }
@@ -64,42 +63,13 @@ function run(args) {
 // ---------------------------------------------------------------------------
 
 describe("preview-tokens-inlined", function () {
-  describe("Brief preview", function () {
+  describe("Flow-share deliverable", function () {
     it("inlines vendored tokens.css (--zen-color-primary-500 present)", function () {
-      var r = run([BRIEF_FIXTURE, "--type", "brief"]);
+      var r = run([FLOW_FIXTURE, "--type", "flow-share"]);
       assert.strictEqual(r.status, 0, "exits cleanly");
       assert.ok(
         r.html.includes("--zen-color-primary-500"),
         "HTML contains --zen-color-primary-500 from vendor/tokens/tokens.css",
-      );
-    });
-
-    it("token-pill color is bound to var(--zen-color-text-primary", function () {
-      var r = run([BRIEF_FIXTURE, "--type", "brief"]);
-      assert.strictEqual(r.status, 0, "exits cleanly");
-      assert.ok(
-        r.html.includes("var(--zen-color-text-primary"), // prefix match — the resolved value comes from vendored tokens
-        "brief HTML contains var(--zen-color-text-primary for token-pill color",
-      );
-    });
-  });
-
-  describe("Presentation preview", function () {
-    it("inlines vendored tokens.css (--zen-color-primary-500 present)", function () {
-      var r = run([PRES_FIXTURE, "--type", "presentation"]);
-      assert.strictEqual(r.status, 0, "exits cleanly");
-      assert.ok(
-        r.html.includes("--zen-color-primary-500"),
-        "HTML contains --zen-color-primary-500 from vendor/tokens/tokens.css",
-      );
-    });
-
-    it("brand palette var binds to var(--zen-color-primary-500", function () {
-      var r = run([PRES_FIXTURE, "--type", "presentation"]);
-      assert.strictEqual(r.status, 0, "exits cleanly");
-      assert.ok(
-        r.html.includes("var(--zen-color-primary-500"), // prefix match — the resolved value comes from vendored tokens
-        "presentation HTML contains var(--zen-color-primary-500 for brand binding",
       );
     });
   });

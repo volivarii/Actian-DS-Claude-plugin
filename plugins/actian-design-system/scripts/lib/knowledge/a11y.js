@@ -135,7 +135,7 @@ function _loadGuidelineDoc(slug) {
 }
 
 // Resolve linked criteria for a component. opts.{guidelinesJson, categoryDefaults}
-// let a caller (e.g. component-brief) pass already-loaded data; otherwise load
+// let a caller pass already-loaded data; otherwise load
 // by slug. Graceful throughout — unknown slug -> { ..., resolved: false }.
 function linkedCriteriaForComponent(slug, opts) {
   opts = opts || {};

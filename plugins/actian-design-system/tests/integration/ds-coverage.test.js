@@ -25,7 +25,7 @@ var MAP = path.join(
   "..",
   "..",
   "references",
-  "convert-to-hifi",
+  "actian-ux-prototype",
   "fm-to-ds-map.json",
 );
 var DS_HTML_MAP = require("../../scripts/lib/renderer.js").modulePath(

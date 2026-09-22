@@ -35,7 +35,7 @@ var t = require(
   path.join(PLUGIN_ROOT, "scripts", "transformers", "transform-to-hifi"),
 );
 var mapData = require(
-  path.join(PLUGIN_ROOT, "references", "convert-to-hifi", "fm-to-ds-map.json"),
+  path.join(PLUGIN_ROOT, "references", "actian-ux-prototype", "fm-to-ds-map.json"),
 );
 var dsRegistry = require(
   path.join(

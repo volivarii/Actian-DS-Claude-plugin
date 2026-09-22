@@ -11,9 +11,8 @@
  * vendor/components/dist/categories/<slug>-defaults.json) carry coarse
  * anatomy + variants + motion_refs + a11y_refs refs that apply to
  * every component in the category. Stub components with no curated
- * guidelines lift these into the brief grounding payload via
- * brief-sourcing.js, giving Phase B card-generators a baseline to adapt
- * rather than improvise from scratch.
+ * guidelines lift these into a grounding payload via brief-sourcing.js,
+ * a baseline to adapt rather than improvise from scratch.
  *
  * Refs are resolved by SLUG via the substrate's build-time `bySlug` index
  * (knowledge #188): motion.json and a11y-index.json each carry a top-level

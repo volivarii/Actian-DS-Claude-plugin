@@ -1,11 +1,11 @@
 "use strict";
 /**
  * retired-skills.test.js: generate-presentation and convert-to-hifi were hidden
- * from the skill set on 2026-09-10 (moved to retired/, deletion follows the
- * 2026-09-15 demo); compare-flows, component-brief and create-component
- * followed on 2026-09-21 (roadmap 711) with the four agents only they
- * dispatched. Nothing under skills/ or agents/ may reintroduce them, and the
- * companion may not route to them.
+ * from the skill set on 2026-09-10; compare-flows, component-brief and
+ * create-component followed on 2026-09-21 (roadmap 711) with the four agents
+ * only they dispatched. Their code was deleted on 2026-09-22 (git history is
+ * the restore point). Nothing under skills/ or agents/ may reintroduce them,
+ * and the companion may not route to them.
  */
 var { describe, it } = require("node:test");
 var assert = require("node:assert");
@@ -40,33 +40,31 @@ describe("retired skills stay hidden", function () {
       );
     });
   });
-  it("retired/ carries the five skills, the five agents and a README that names the deletion plan", function () {
+  it("the retired code is gone: no retired/ directory and none of its machinery", function () {
     [
-      "skills/generate-presentation/SKILL.md",
-      "skills/convert-to-hifi/SKILL.md",
-      "skills/compare-flows/SKILL.md",
-      "skills/component-brief/SKILL.md",
-      "skills/create-component/SKILL.md",
-      "agents/slide-generator.md",
-      "agents/brief-researcher.md",
-      "agents/card-generator.md",
-      "agents/brief-data-validator.md",
-      "agents/parity-analyzer.md",
-      "README.md",
+      "retired",
+      "scripts/office",
+      "assets/office",
+      "scripts/evals",
+      "evals",
+      "recipes/brief",
+      "recipes/presentation",
+      "scripts/renderers/figma-table",
+      "scripts/renderers/html-renderers/brief-renderer.js",
+      "scripts/renderers/html-renderers/presentation-renderer.js",
+      "schemas/brief-data.schema.json",
+      "schemas/slide-data.schema.json",
+      "references/component-brief",
+      "references/create-component",
+      "references/convert-to-hifi",
+      "references/generate-presentation",
+      "references/office",
     ].forEach(function (rel) {
       assert.ok(
-        fs.existsSync(path.join(PLUGIN_ROOT, "retired", rel)),
-        "retired/" + rel,
+        !fs.existsSync(path.join(PLUGIN_ROOT, rel)),
+        rel + " was deleted with the retired skills",
       );
     });
-    var readme = fs.readFileSync(
-      path.join(PLUGIN_ROOT, "retired", "README.md"),
-      "utf8",
-    );
-    assert.ok(/2026-09-10/.test(readme), "README dates the first retirement");
-    assert.ok(/2026-09-21/.test(readme), "README dates the second retirement");
-    assert.ok(/Slice 5/.test(readme), "README names the deletion plan");
-    assert.ok(/711/.test(readme), "README names roadmap 711");
   });
   it("no loading skill or agent names a retired skill by its bare name", function () {
     var bareNames = [
@@ -121,7 +119,7 @@ describe("retired skills stay hidden", function () {
           // retired skill or agent, marked or not. The scan covers skills/ and
           // agents/ only; references that mark a retired skill as retired are
           // outside it, and the retirement itself is documented in
-          // retired/README.md.
+          // MIGRATIONS.md and the CHANGELOG.
           assert.strictEqual(
             line.indexOf(name),
             -1,

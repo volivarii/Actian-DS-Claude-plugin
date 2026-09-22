@@ -5,8 +5,8 @@
  * Nothing enforced it: this gate does, for proposal-data.schema.json and
  * proposal-evaluation.schema.json.
  *
- * Scoped deliberately. Measured 2026-09-14 under the rule below, the other three schemas
- * are 373 violations short between them (brief-data 235, flow-data 103, slide-data 35),
+ * Scoped deliberately. Measured 2026-09-14 under the rule below, flow-data.schema.json is
+ * 103 violations short (brief-data and slide-data left with their skills on 2026-09-22),
  * which is real debt but is not this branch's to pay, and a repo-wide gate that fails on
  * day one teaches everyone to skip it. The figure is dated because it is a measurement,
  * not a property: widening the rule moves it, and it already did once. An earlier draft

@@ -15,8 +15,6 @@ var RDIR = path.join(
 );
 var CSS_FILES = [
   "flow-renderer.css",
-  "brief-renderer.css",
-  "presentation-renderer.css",
   "render-node.css",
 ].map(function (f) {
   return path.join(RDIR, f);
@@ -27,14 +25,11 @@ var CSS_FILES = [
 CSS_FILES.push(require("../../scripts/lib/renderer.js").cssPaths.base);
 CSS_FILES.push(require("../../scripts/lib/renderer.js").cssPaths.fmBase);
 
-// Renderer JS also hand-writes inline `var(--…)` (e.g. brief-renderer SVG/style
-// strings). The spec called for the gate to cover renderer CSS *and JS*; JS only
+// Renderer JS also hand-writes inline `var(--…)` in style strings. The spec called for the gate to cover renderer CSS *and JS*; JS only
 // REFERENCES vars (it never DEFINES them), so these are scanned for references
 // against the CSS+tokens `defined` set.
 var JS_FILES = [
   "flow-renderer.js",
-  "presentation-renderer.js",
-  "brief-renderer.js",
   "render-node-figma.js", // render-node-figma.js emits {r,g,b} literals (no var(--…) today); listed so any future token leak into the emitter is auto-caught.
   "render-node.js",
 ].map(function (f) {

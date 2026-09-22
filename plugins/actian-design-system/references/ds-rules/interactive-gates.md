@@ -51,7 +51,7 @@ Gates are batched per **pipeline phase**, not per flag. Reasons:
 - Designers see the full configuration surface at once
 - Easier to type one combined response than answer N sequential questions
 
-The precedent: the retired component-brief skill's card gate batched card selection + research scope into one prompt with one combined parser. This convention generalizes that.
+The precedent: an earlier skill's card gate batched card selection + research scope into one prompt with one combined parser. This convention generalizes that.
 
 **Per-skill batching:**
 - `/actian-ux-prototype`: ~3 interactive gates — (1) research opt-in, (2) research findings (only when research is opted in), (3) single merged screen-list + detail + config gate (the old pre-gen Step 0.5 config questions are folded into this gate). Plus one **combined post-build gate** (Step 7.5) offering push to Figma and audit after the HTML deliverable is rendered. `--no-prompt` suppresses Gate 3 and the Step 7.5 gate. Special-case flags `--from` and `--branch` are NOT gated; they're detected by companion or absent by default.
@@ -67,7 +67,7 @@ Each gate prompt should:
 4. **Document the keystroke for "default"** — typically just enter
 5. **Re-prompt on parse failure** — 3 retries, then abort with a message pointing at `--no-prompt` or the flag form
 
-Example shape (adapted from the retired component-brief skill's card gate):
+Example shape:
 
 ```
 Configure generation for [feature]:
@@ -147,5 +147,4 @@ When adopting this convention in a new skill:
 
 ## Out of scope for this convention
 
-- The retired skills (`/component-brief`, `/compare-flows`, `/create-component`; see `retired/README.md`) are outside this convention.
 - Gates inside refine flows (URL + prose) — refine intent is already explicit; no gate needed.

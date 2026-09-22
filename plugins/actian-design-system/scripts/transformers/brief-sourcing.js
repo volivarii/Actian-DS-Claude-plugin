@@ -2,7 +2,9 @@
 "use strict";
 
 /**
- * brief-sourcing.js — Phase A transcription utility for /component-brief.
+ * brief-sourcing.js — transcription utility, written for the retired
+ * /component-brief skill; validate-flow-data.js reads its stub-guideline
+ * detection.
  *
  * Pure module — no MCP, no network. Caller pre-fetches all required context
  * (Figma node.description from get_design_context or dskit.json, the merged
@@ -135,7 +137,7 @@ var CATEGORY_DEFAULTS_PHASE_B_CARDS = {
 // of the content-bearing statuses (approved/draft/synthesized — synthesized
 // added in knowledge v0.15.0 for pattern-fan-out-only components). Replaces
 // the `_stub` boolean from the retired Figma-scraped guideline layer. Used
-// by the component-brief skill to set `meta._stubGuideline` (drives the
+// to set `meta._stubGuideline` (drives the
 // "Guidance pending curation" footer cue). Note: resolveSection's
 // all-cards-to-Phase-B short-circuit fires only for the *present-but-stub*
 // case — see the guard there for why a fully absent doc is handled per-card

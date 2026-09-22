@@ -50,28 +50,7 @@ When generating HTML for local preview, the checklist translates to:
 
 ---
 
-## Component Brief (retired skill, kept for the deletion PR)
-
-Items specific to the retired `component-brief` skill, in addition to Universal.
-
-| # | Check | Pass criteria |
-|---|-------|---------------|
-| 1 | **All declared cards present** | Every card in the selection is generated and complete — no empty or placeholder cards. |
-| 2 | **Card titles match templates** | Card title + subtitle match the HTML template titles exactly. |
-| 3 | **Variant matrix complete** | Card 2 shows ALL variant rows from the HTML (e.g., Standalone, Inline, With icon) × all states. Same row count in Figma as HTML. |
-| 4 | **Token tables include swatches** | Card 4 color token rows include a 12px swatch dot (rectangle, cornerRadius 3) filled with the hex value next to the token name. Text-only token names without swatches = fail. |
-| 5 | **Anatomy has all 4 sub-sections** | Card 3 includes: Structure (badges), Specs (pink `#E91E8C` dimension lines), States (grid), Parts reference (table). Missing Specs = P0 fail. |
-| 6 | **Component API has REQ/OPT badges** | Card 5 props table shows colored badges (REQ = red, OPT = grey) as styled frames, not plain text. |
-| 7 | **Do/Don't pairs styled** | Cards 6-7 Do/Don't pairs have colored header bars (green `#047800` for Do, red `#C10C0D` for Don't). |
-| 8 | **Code spec uses `--zen-*` tokens** | Card 9 CSS code block references `--zen-*` token names, not raw hex. |
-| 9 | **Accessibility cards complete** | Card 8 covers all applicable WCAG requirements with P0/P1/P2 severity. |
-| 10 | **Contrast ratio table with swatches** | Card 8 includes foreground/background contrast table with 12px swatch dots, ratio values, and Pass/Exempt badges. |
-| 11 | **Card frames named by title** | Each card frame is renamed to its card title (`"Anatomy"`, `"Design tokens"`, etc.) — not left as `"Meta / Chrome / Brief Card"`. |
-| 12 | **Figma↔HTML parity** | Every sub-section, table, visual element, and row count in the Figma output matches what the HTML spec contains. Omissions = P0. |
-
----
-
-## Generate Flow
+## Generate Flow (actian-ux-prototype)
 
 Items specific to the `actian-ux-prototype` skill, in addition to Universal.
 
@@ -89,34 +68,3 @@ Items specific to the `actian-ux-prototype` skill, in addition to Universal.
 | 10 | **Accessibility basics** | Interactive elements have focus indicators. Form inputs have labels. No text below 11px. Color is not the only status indicator. |
 
 ---
-
-## Generate Presentation (retired 2026-09-10, kept for the deletion PR)
-
-Items specific to the `generate-presentation` skill, in addition to Universal.
-
-| # | Check | Pass criteria |
-|---|-------|---------------|
-| 1 | **Slide count matches outline** | Final deck has the planned number of slides — no missing or extra slides. |
-| 2 | **Cover slide complete** | Cover has title, subtitle, date, and creators fields filled. |
-| 3 | **Charts use semantic palette tokens** | Chart series rotate through `primary-500`, `success-500`, `warning-500`, `error-500`, `annotation-annotation`, `neutral-600` (CSS form: `--zen-color-{name}`). Never hardcoded chart colors. |
-| 4 | **Review report completed** | Step 5 review report presented and approved before Figma output. |
-| 5 | **Content follows guidelines** | Every headline passes "So what?" test. 1 message per slide. Active voice. Max 6 bullets or 150 words per text area. Every metric has context. |
-| 6 | **Slide templates correct** | Cover and Back cover use gradient backgrounds. Section dividers use light gradient. Body slides use white background. |
-| 7 | **Narrative arc present** | Deck follows situation -> complication -> resolution -> evidence -> next steps structure. |
-
----
-
-## Create Component (retired skill, kept for the deletion PR)
-
-Items specific to the retired `create-component` skill, in addition to Universal.
-
-| # | Check | Pass criteria |
-|---|-------|---------------|
-| 1 | **Naming convention** | FM prefix for Fat Marker components, no prefix for DS Kit. Matches existing catalog naming patterns. |
-| 2 | **Variant axes consistent** | All variant axis names and values align with existing catalog conventions. |
-| 3 | **Text properties exposed** | `isProperty: true` set on all user-facing text fields (titles, labels, descriptions, button text). |
-| 4 | **Boolean properties on toggles** | All optional/toggleable elements (badge, description, footer, icon) have boolean property toggles. |
-| 5 | **Sizing uses hug/fill** | Layout uses `"hug"` / `"fill"` sizing — no unnecessary fixed pixel values. |
-| 6 | **All variants defined** | Every declared variant has a complete definition with all required children. No empty variants. |
-| 7 | **Default text is realistic** | Placeholder text is contextual and realistic, not "Lorem ipsum" or generic "Text". |
-| 8 | **Touch targets adequate** | Interactive children meet minimum 44px touch target size. |

@@ -6,7 +6,7 @@
  * from a data JSON file + static assets (CSS, renderers, annotation layer).
  *
  * Usage:
- *   node scripts/assemble-preview.js <data.json> --type <flow-share|proposal|brief|presentation> -o <output.html>
+ *   node scripts/assemble-preview.js <data.json> --type <flow-share|proposal|flow> -o <output.html>
  *
  * Supported types:
  *   flow-share    — CANONICAL deliverable: self-contained two-view file
@@ -20,8 +20,6 @@
  *                   decision table, the briefing, one block per decision in
  *                   decisions[], what is still open, what this changes, the
  *                   latitude line; assemble-proposal.js)
- *   brief         — Component brief preview (fm-brief.css, fm-html-map + brief-renderer)
- *   presentation  — DS presentation preview (ds-presentation.css, presentation-renderer)
  *
  * Output: A single self-contained HTML file with all CSS, JS, and data inlined.
  * Logs:   Progress messages to stderr.
@@ -42,7 +40,6 @@ var buildDsAnatomyDocMap = anatomyMapHelpers.buildDsAnatomyDocMap;
 
 var TEMPLATES_DIR = shared.TEMPLATES_DIR;
 var RENDERERS_DIR = shared.RENDERERS_DIR;
-var FIGMA_TABLE_DIR = shared.FIGMA_TABLE_DIR;
 var readFileChecked = shared.readFileChecked;
 var escapeJsonForScript = shared.escapeJsonForScript;
 
@@ -88,50 +85,6 @@ var TYPE_CONFIGS = {
     title: function (data) {
       var meta = data.meta || {};
       return (meta.feature || "Flow") + " — " + (meta.app || "Preview");
-    },
-  },
-  brief: {
-    css: [
-      rendererModule.modulePath("fm-base.css"),
-      path.join(RENDERERS_DIR, "brief-renderer.css"),
-    ],
-    renderers: [
-      rendererModule.modulePath("html-renderers/fm-html-map.js"),
-      // renderTableHtml UMD must load BEFORE brief-renderer.js so the IIFE
-      // can pick it up via window.renderTableHtml during card rendering.
-      path.join(FIGMA_TABLE_DIR, "render-html.js"),
-      path.join(RENDERERS_DIR, "brief-renderer.js"),
-    ],
-    containerHtml:
-      '<div class="brief-row"><div id="cards-container"></div></div>',
-    fonts: "Inter:wght@400;500;600;700",
-    title: function (data) {
-      var header = data.card_header || data.card1_header || {};
-      return (
-        (header.componentName || header.name || "Component") +
-        " — Component Brief"
-      );
-    },
-  },
-  presentation: {
-    css: [
-      path.join(RENDERERS_DIR, "render-node.css"),
-      path.join(RENDERERS_DIR, "presentation-renderer.css"),
-    ],
-    renderers: [
-      // render-node.js UMD must load BEFORE presentation-renderer.js so the
-      // IIFE can pick it up via window.renderNode (shared structural-node
-      // renderer). render-node carries its own esc fallback, so fm-html-map is
-      // not required here; INSTANCE nodes (rare in decks) render empty as they
-      // did before, since this bundle ships no fm-html-map.
-      path.join(RENDERERS_DIR, "render-node.js"),
-      path.join(RENDERERS_DIR, "presentation-renderer.js"),
-    ],
-    containerHtml: '<div id="deck-container"></div>',
-    fonts: "Roboto:wght@400;500;700",
-    title: function (data) {
-      var meta = data.meta || {};
-      return (meta.title || "Presentation") + " — Presentation";
     },
   },
 };
@@ -242,7 +195,7 @@ function main() {
               required: true,
               description:
                 "Preview type. Canonical deliverables: flow-share (two-view encapsulated offline file), proposal (design proposal document). " +
-                "Internal/fallback renderer: flow. Also: brief, presentation.",
+                "Internal/fallback renderer: flow.",
             },
             {
               name: "-o",
@@ -288,21 +241,21 @@ function main() {
   if (!args.input) {
     process.stderr.write("ERROR: Missing input JSON file.\n");
     process.stderr.write(
-      "Usage: node scripts/assemble-preview.js <data.json> --type <flow-share|proposal|brief|presentation> -o <output.html>\n",
+      "Usage: node scripts/assemble-preview.js <data.json> --type <flow-share|proposal|flow> -o <output.html>\n",
     );
     process.exit(1);
   }
   if (!args.type) {
     process.stderr.write("ERROR: Missing --type argument.\n");
     process.stderr.write(
-      "Usage: node scripts/assemble-preview.js <data.json> --type <flow-share|proposal|brief|presentation> -o <output.html>\n",
+      "Usage: node scripts/assemble-preview.js <data.json> --type <flow-share|proposal|flow> -o <output.html>\n",
     );
     process.exit(1);
   }
   if (!args.output) {
     process.stderr.write("ERROR: Missing -o / --output argument.\n");
     process.stderr.write(
-      "Usage: node scripts/assemble-preview.js <data.json> --type <flow-share|proposal|brief|presentation> -o <output.html>\n",
+      "Usage: node scripts/assemble-preview.js <data.json> --type <flow-share|proposal|flow> -o <output.html>\n",
     );
     process.exit(1);
   }
@@ -346,7 +299,7 @@ function main() {
     process.stderr.write(
       'ERROR: Unknown type "' +
         args.type +
-        '". Must be one of: flow, brief, presentation, flow-share, proposal.\n',
+        '". Must be one of: flow, flow-share, proposal.\n',
     );
     process.exit(1);
   }

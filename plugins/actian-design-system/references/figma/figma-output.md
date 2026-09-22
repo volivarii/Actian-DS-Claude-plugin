@@ -132,7 +132,7 @@ data-model.json → AI reads JSON → AI emits small use_figma calls → Figma n
 
 ### When to use direct calls vs. other patterns
 
-- **Output skills** (actian-ux-prototype; the retired brief, presentation and create-component skills used the same path): direct push from data model
+- **Output skills** (actian-ux-prototype): direct push from data model
 - **actian-ux-audit**: reads existing Figma nodes, doesn't build from a data model
 - **One-off operations**: direct Plugin API code (no data model needed)
 
@@ -387,7 +387,7 @@ Research (AI) → data-model.json → HTML renderer (mechanical)
 - Post-push iteration reads the data model to understand what was generated
 - Incremental re-rendering: change one card's data → re-render only that card
 
-**Implementation:** the retired component-brief references under `references/component-brief/` carry the worked example; actian-ux-prototype follows the same pattern with `flow-data.json`.
+**Implementation:** actian-ux-prototype tracks nodes this way with `flow-data.json`.
 
 ## Node tracking with `getSharedPluginData`
 
