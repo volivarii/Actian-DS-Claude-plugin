@@ -14,8 +14,28 @@
 # tests directory, a bad cwd, a glob that matches nothing.
 set -uo pipefail
 
+# The test tree lives at the repository root, next to plugins/, so an installed plugin
+# does not carry it. This runner is inside the plugin, so it climbs out to find it and
+# runs from there: no test depends on the working directory, but the one that shells
+# out to git names its pathspecs from the repository root.
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)" || exit 1
+REPO_ROOT="$(cd "$SCRIPT_DIR/../../../.." && pwd)" || exit 1
+# From here on $0 is stale when it was relative: everything below the cd uses SCRIPT_DIR.
+cd "$REPO_ROOT" || exit 1
 if [ ! -d tests ]; then
-  echo "SUITE FAILED: no tests directory here ($(pwd)). Run this from the plugin root." >&2
+  echo "SUITE FAILED: no tests directory at $REPO_ROOT. The suite lives at <repo>/tests." >&2
+  exit 1
+fi
+
+# A file added under the old path (a branch rebased across the move, a stale worktree)
+# would otherwise ship in the install, and a test there would never run, with this runner
+# green. Any regular file counts, a fixture or a golden as much as a test. Files, not the
+# directory, and not the ignored fidelity leftovers (ledger, pixel diffs) a checkout that
+# ran the quality gates before the move keeps under the old path, which a pull does not remove.
+stray="$(find plugins/actian-design-system/tests -type f -not -path '*/__fidelity__/*' 2>/dev/null | wc -l | tr -d ' ')"
+if [ "$stray" -gt 0 ]; then
+  echo "SUITE FAILED: ${stray} file(s) under plugins/actian-design-system/tests/. The suite lives at <repo>/tests; a file under the plugin ships in the install, and a test there never runs." >&2
+  find plugins/actian-design-system/tests -type f -not -path '*/__fidelity__/*' >&2
   exit 1
 fi
 
@@ -33,7 +53,7 @@ fi
 # the one gate that catches a suite crashing on load, so a runner that cannot start is the
 # worst way to fail. resolve-node.sh finds the interpreter the same way every script here does.
 # shellcheck source=../lib/resolve-node.sh
-. "$(dirname "$0")/../lib/resolve-node.sh"
+. "$SCRIPT_DIR/../lib/resolve-node.sh"
 if [ -z "${NODE_BIN:-}" ]; then
   echo "SUITE FAILED: resolve-node.sh found no node interpreter." >&2
   exit 1

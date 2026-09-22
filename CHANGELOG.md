@@ -19,6 +19,10 @@ are summarized at the release level.
 
 ## [Unreleased]
 
+### Changed
+
+- **The test suite lives at the repository root, outside the plugin directory.** `plugins/actian-design-system/tests/` is now `tests/`, and `package.json` moved with it, so `npm test` runs from the repository root. A plugin install copies every tracked file under the plugin directory, and 2.3 MB of tests (352 tracked files, 3.2 MB on disk) shipped to every user for nothing. No test changed what it checks: every relative path was recomputed to its original target, and the three scripts that read or write test data resolve the tree through `scripts/lib/tests-root.js`. A test-only change no longer needs a version bump. ([#415](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/415))
+
 ### Removed
 
 - **The retired skills' code is deleted, and with it 4.9 MB the install carried for nothing.** ([#413](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/413))

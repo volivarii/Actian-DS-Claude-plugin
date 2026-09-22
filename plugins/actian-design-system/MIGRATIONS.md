@@ -126,6 +126,20 @@ do"), prefix the block with `<!-- doc-lint:ignore-block -->` on its own line.
 
 ## Schema migrations
 
+### The test suite moved out of the plugin directory (2026.9.62)
+
+`plugins/actian-design-system/tests/` is `tests/` at the repository root since 2026-09-22, plugin
+#415, and `package.json` moved with it: `npm test` runs from the repository root, not from the plugin
+directory. A plugin install copies every tracked file under the plugin directory, so the suite (2.3 MB
+of tracked files, 352 of them, 3.2 MB on disk) shipped to every user for nothing. Every test still names the same targets, through
+`path.resolve(__dirname, "..", "..", "plugins", "actian-design-system")` and
+`require("../../plugins/actian-design-system/scripts/...")`. Scripts that read or write test data
+(the blank-box baseline, the fidelity ledger and diffs) resolve the tree through
+`scripts/lib/tests-root.js`. A change under `tests/` alone no longer needs a version bump: the CI
+gate counts files under the plugin directory, and the tests are no longer under it. A local branch
+that adds a test under the old path lands it outside the suite: `run-suite.sh` runs `<repo>/tests`
+only.
+
 ### The retired skills' code deleted (2026.9.60)
 
 `retired/` and every file only the retired skills read left the repository on 2026-09-22, plugin

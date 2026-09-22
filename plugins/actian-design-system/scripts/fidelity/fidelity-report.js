@@ -3,10 +3,7 @@ var fs = require("node:fs");
 var path = require("node:path");
 
 var LEDGER = path.join(
-  __dirname,
-  "..",
-  "..",
-  "tests",
+  require("../lib/tests-root.js"),
   "renderers",
   "__fidelity__",
   "ledger.jsonl",

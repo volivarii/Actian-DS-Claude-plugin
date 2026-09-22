@@ -1,0 +1,961 @@
+/**
+ * Recipe validation test
+ *
+ * Validates every recipe referenced in recipes/_index.json:
+ * - Index entries have required fields
+ * - Referenced recipe files exist
+ * - Recipe files have valid structure and content
+ *
+ * Zero dependencies — uses only Node.js built-ins.
+ */
+
+const assert = require("node:assert");
+const fs = require("node:fs");
+const os = require("node:os");
+const path = require("node:path");
+const { describe, it } = require("node:test");
+const PATHS = require("../../plugins/actian-design-system/scripts/lib/paths.js");
+
+const RECIPES_DIR = path.resolve(__dirname, "..", "..", "plugins", "actian-design-system", "recipes");
+const INDEX_PATH = path.join(RECIPES_DIR, "flow", "_index.json");
+
+const VALID_NODE_TYPES = new Set([
+  "FRAME",
+  "TEXT",
+  "INSTANCE",
+  "DIVIDER",
+  "ELLIPSE",
+  "RECT",
+]);
+const SPACING_SCALE = new Set([0, 4, 8, 12, 16, 24, 28, 32]);
+
+// ── helpers ──────────────────────────────────────────────────────────
+
+function validateContentNode(node, nodePath) {
+  const errors = [];
+
+  if (!node.type || !VALID_NODE_TYPES.has(node.type)) {
+    errors.push(
+      `${nodePath}: invalid type "${node.type}" (expected one of ${[...VALID_NODE_TYPES].join(", ")})`,
+    );
+  }
+
+  if (node.type === "INSTANCE" && !node.ref) {
+    // DS-native nodes use library:"ds" + dsSlug instead of ref — accept either form
+    const isDsNative =
+      node.library === "ds" &&
+      typeof node.dsSlug === "string" &&
+      node.dsSlug.length > 0;
+    if (!isDsNative) {
+      errors.push(
+        `${nodePath}: INSTANCE node missing "ref" (or use library:"ds" + dsSlug for DS-native nodes)`,
+      );
+    }
+  }
+
+  if (node.type === "FRAME") {
+    if (!node.layout) {
+      errors.push(`${nodePath}: FRAME node missing "layout"`);
+    }
+    if (!node.sizing) {
+      errors.push(`${nodePath}: FRAME node missing "sizing"`);
+    }
+  }
+
+  // Check spacing values
+  if (node.spacing !== undefined && !SPACING_SCALE.has(node.spacing)) {
+    errors.push(
+      `${nodePath}: spacing ${node.spacing} not in scale [${[...SPACING_SCALE].join(", ")}]`,
+    );
+  }
+  if (node.paddingX !== undefined && !SPACING_SCALE.has(node.paddingX)) {
+    errors.push(
+      `${nodePath}: paddingX ${node.paddingX} not in scale [${[...SPACING_SCALE].join(", ")}]`,
+    );
+  }
+  if (node.paddingY !== undefined && !SPACING_SCALE.has(node.paddingY)) {
+    errors.push(
+      `${nodePath}: paddingY ${node.paddingY} not in scale [${[...SPACING_SCALE].join(", ")}]`,
+    );
+  }
+
+  // Recurse into children
+  if (Array.isArray(node.content)) {
+    node.content.forEach((child, i) => {
+      errors.push(...validateContentNode(child, `${nodePath}.content[${i}]`));
+    });
+  }
+
+  return errors;
+}
+
+// Pure: an archetype's section role must equal the section file's own role.
+// entries is [role, slug] pairs (an archetype index's sections map,
+// flattened); readSection(slug) resolves the file's own {role, ...}. One
+// error string per pair whose file disagrees; empty when every pair agrees.
+function checkSectionRoles(entries, readSection) {
+  const errors = [];
+  for (const [role, slug] of entries) {
+    const section = readSection(slug);
+    if (section && section.role !== role) {
+      errors.push(
+        `section "${slug}" is mapped to role "${role}" but the file's own role is "${section.role}"`,
+      );
+    }
+  }
+  return errors;
+}
+
+module.exports = { checkSectionRoles };
+
+// The present-collection branch below cannot run on this branch's snapshot
+// (the sections collection is not vendored yet), so the join it performs is
+// proven here instead: a temp fixture with one matching and one mismatching
+// section file, read through the same readSection seam.
+describe("checkSectionRoles (Slice 6B follow-through)", function () {
+  it("flags a section whose own role disagrees with the archetype's role key; agreement flags nothing", function () {
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "section-roles-"));
+    fs.writeFileSync(
+      path.join(dir, "item-header.json"),
+      JSON.stringify({ role: "header" }),
+    );
+    fs.writeFileSync(
+      path.join(dir, "facet-tabs.json"),
+      JSON.stringify({ role: "control-bar" }),
+    );
+    const readSection = (slug) =>
+      JSON.parse(fs.readFileSync(path.join(dir, `${slug}.json`), "utf8"));
+    const errors = checkSectionRoles(
+      [
+        ["header", "item-header"],
+        ["tabs", "facet-tabs"],
+      ],
+      readSection,
+    );
+    assert.deepStrictEqual(errors, [
+      'section "facet-tabs" is mapped to role "tabs" but the file\'s own role is "control-bar"',
+    ]);
+  });
+});
+
+// ── main ─────────────────────────────────────────────────────────────
+
+let passed = 0;
+let failed = 0;
+
+// Load index
+let index;
+try {
+  const raw = fs.readFileSync(INDEX_PATH, "utf-8");
+  index = JSON.parse(raw);
+} catch (err) {
+  console.error(`FAIL  _index.json could not be loaded: ${err.message}`);
+  process.exit(1);
+}
+
+// Validate index is an array
+assert.ok(Array.isArray(index), "_index.json must be an array");
+
+for (const entry of index) {
+  const label = entry.file || "(unknown)";
+  const errors = [];
+
+  // ── index-level checks ──
+  if (typeof entry.file !== "string")
+    errors.push('index entry missing "file" (string)');
+  if (typeof entry.archetype !== "string")
+    errors.push('index entry missing "archetype" (string)');
+  if (typeof entry.pattern !== "number")
+    errors.push('index entry missing "pattern" (number)');
+  if (!Array.isArray(entry.tags))
+    errors.push('index entry missing "tags" (array)');
+
+  // ── sections role map (Slice 6B) ──
+  const ROLES = new Set(["header", "tabs", "aside", "control-bar", "drawer-header", "footer"]);
+  if (entry.sections !== undefined) {
+    if (!entry.sections || typeof entry.sections !== "object" || Array.isArray(entry.sections)) {
+      errors.push('"sections" must be an object of role -> section slug');
+    } else {
+      for (const [role, slug] of Object.entries(entry.sections)) {
+        if (!ROLES.has(role)) errors.push(`sections role "${role}" is not one of ${[...ROLES].join(", ")}`);
+        if (typeof slug !== "string" || !/^[a-z][a-z0-9-]*$/.test(slug))
+          errors.push(`sections["${role}"] must be a kebab-case section slug, got ${JSON.stringify(slug)}`);
+      }
+    }
+  }
+
+  // ── recipe file existence ──
+  const recipePath = path.join(RECIPES_DIR, "flow", entry.file);
+  if (!fs.existsSync(recipePath)) {
+    errors.push(`recipe file not found: flow/${entry.file}`);
+    // Cannot validate further without the file
+    console.log(`FAIL  ${label}`);
+    errors.forEach((e) => console.log(`        ${e}`));
+    failed++;
+    continue;
+  }
+
+  // ── load recipe ──
+  let recipe;
+  try {
+    recipe = JSON.parse(fs.readFileSync(recipePath, "utf-8"));
+  } catch (err) {
+    errors.push(`recipe file is not valid JSON: ${err.message}`);
+    console.log(`FAIL  ${label}`);
+    errors.forEach((e) => console.log(`        ${e}`));
+    failed++;
+    continue;
+  }
+
+  // ── required fields ──
+  const requiredStrings = ["archetype", "description"];
+  for (const field of requiredStrings) {
+    if (typeof recipe[field] !== "string") {
+      errors.push(`missing or invalid field "${field}" (expected string)`);
+    }
+  }
+  if (typeof recipe.pattern !== "number") {
+    errors.push('missing or invalid field "pattern" (expected number)');
+  }
+  if (!Array.isArray(recipe.tags)) {
+    errors.push('missing or invalid field "tags" (expected array)');
+  }
+  if (
+    typeof recipe.slots !== "object" ||
+    recipe.slots === null ||
+    Array.isArray(recipe.slots)
+  ) {
+    errors.push('missing or invalid field "slots" (expected object)');
+  } else {
+    // Validate slot values are strings
+    for (const [key, val] of Object.entries(recipe.slots)) {
+      if (typeof val !== "string") {
+        errors.push(`slots["${key}"] must be a string, got ${typeof val}`);
+      }
+    }
+  }
+  if (typeof recipe.skeleton !== "object" || recipe.skeleton === null) {
+    errors.push('missing or invalid field "skeleton" (expected object)');
+  } else if (!Array.isArray(recipe.skeleton.content)) {
+    errors.push('skeleton missing "content" array');
+  } else {
+    // Recursively validate content nodes
+    recipe.skeleton.content.forEach((node, i) => {
+      errors.push(...validateContentNode(node, `skeleton.content[${i}]`));
+    });
+  }
+  if (!Array.isArray(recipe.notes)) {
+    errors.push('missing or invalid field "notes" (expected array)');
+  }
+  if (!Array.isArray(recipe.missing_states)) {
+    errors.push('missing or invalid field "missing_states" (expected array)');
+  }
+
+  // ── archetype match ──
+  if (
+    typeof recipe.archetype === "string" &&
+    recipe.archetype !== entry.archetype
+  ) {
+    errors.push(
+      `archetype mismatch: index says "${entry.archetype}", recipe says "${recipe.archetype}"`,
+    );
+  }
+
+  // ── report ──
+  if (errors.length === 0) {
+    console.log(`PASS  ${label}`);
+    passed++;
+  } else {
+    console.log(`FAIL  ${label}`);
+    errors.forEach((e) => console.log(`        ${e}`));
+    failed++;
+  }
+}
+
+// Every section slug an archetype names must exist in the vendored
+// collection, once the snapshot ships one. Before that, say so and assert
+// nothing (absence must not read as a pass on the join).
+{
+  const named = new Set();
+  for (const entry of index) for (const slug of Object.values(entry.sections || {})) named.add(slug);
+  if (typeof PATHS.appContextSections !== "function") {
+    console.log("INFO  sections collection not vendored yet; " + named.size + " archetype section slugs unchecked against dist");
+  } else {
+    for (const slug of named) {
+      const file = PATHS.appContextSections(slug);
+      assert.ok(file && fs.existsSync(file), `archetype names section "${slug}" but the vendored collection has no ${slug}.json`);
+    }
+    assert.ok(named.size > 0, "no archetype names a section; the join is vacuous");
+    const roleEntries = [];
+    for (const entry of index) for (const pair of Object.entries(entry.sections || {})) roleEntries.push(pair);
+    const roleErrors = checkSectionRoles(roleEntries, (slug) => JSON.parse(fs.readFileSync(PATHS.appContextSections(slug), "utf8")));
+    assert.deepStrictEqual(roleErrors, [], roleErrors.join("; "));
+  }
+}
+
+// ── Task 5: composition-detail-table recipe ─────────────────────────
+
+{
+  const label = "composition-detail-table.json (composition checks)";
+  const errors = [];
+  const recipePath = path.join(
+    RECIPES_DIR,
+    "flow",
+    "composition-detail-table.json",
+  );
+
+  if (!fs.existsSync(recipePath)) {
+    errors.push("recipe file must exist at flow/composition-detail-table.json");
+  } else {
+    let recipe;
+    try {
+      recipe = JSON.parse(fs.readFileSync(recipePath, "utf-8"));
+    } catch (err) {
+      errors.push(`recipe file is not valid JSON: ${err.message}`);
+    }
+
+    if (recipe) {
+      // Required composition fields
+      if (recipe.archetype !== "composition-detail-table") {
+        errors.push(
+          `archetype must be "composition-detail-table", got "${recipe.archetype}"`,
+        );
+      }
+      if (recipe.kind !== "composition") {
+        errors.push(`kind must be "composition", got "${recipe.kind}"`);
+      }
+      try {
+        assert.deepStrictEqual(recipe.composes, ["detail-view", "table-list"]);
+      } catch (_) {
+        errors.push(
+          `composes must equal ["detail-view","table-list"], got ${JSON.stringify(recipe.composes)}`,
+        );
+      }
+      if (
+        typeof recipe.description !== "string" ||
+        recipe.description.length === 0
+      ) {
+        errors.push("description must be a non-empty string");
+      }
+      if (!Array.isArray(recipe.tags)) {
+        errors.push("tags must be an array");
+      }
+
+      // Slots describing each composed recipe's role
+      if (
+        typeof recipe.slots !== "object" ||
+        recipe.slots === null ||
+        Array.isArray(recipe.slots)
+      ) {
+        errors.push("slots field required (object)");
+      } else if (Object.keys(recipe.slots).length < 2) {
+        errors.push(
+          "slots must have at least 2 entries (one per composed recipe role)",
+        );
+      }
+    }
+  }
+
+  if (errors.length === 0) {
+    console.log(`PASS  ${label}`);
+    passed++;
+  } else {
+    console.log(`FAIL  ${label}`);
+    errors.forEach((e) => console.log(`        ${e}`));
+    failed++;
+  }
+}
+
+{
+  const label = "_index.json registers composition-detail-table";
+  const errors = [];
+
+  try {
+    const idx = JSON.parse(fs.readFileSync(INDEX_PATH, "utf-8"));
+    if (!Array.isArray(idx)) {
+      errors.push("index is not a flat array");
+    } else {
+      const entry = idx.find((e) => e.archetype === "composition-detail-table");
+      if (!entry) {
+        errors.push(
+          "composition-detail-table must be registered in _index.json",
+        );
+      } else {
+        if (entry.file !== "composition-detail-table.json") {
+          errors.push(
+            `entry.file must be "composition-detail-table.json", got "${entry.file}"`,
+          );
+        }
+        if (entry.kind !== "composition") {
+          errors.push(`entry.kind must be "composition", got "${entry.kind}"`);
+        }
+        try {
+          assert.deepStrictEqual(entry.composes, ["detail-view", "table-list"]);
+        } catch (_) {
+          errors.push(
+            `entry.composes must equal ["detail-view","table-list"], got ${JSON.stringify(entry.composes)}`,
+          );
+        }
+      }
+    }
+  } catch (err) {
+    errors.push(`_index.json could not be parsed: ${err.message}`);
+  }
+
+  if (errors.length === 0) {
+    console.log(`PASS  ${label}`);
+    passed++;
+  } else {
+    console.log(`FAIL  ${label}`);
+    errors.forEach((e) => console.log(`        ${e}`));
+    failed++;
+  }
+}
+
+// ── Task 6: composition-form-with-footer recipe ─────────────────────
+
+{
+  const label = "composition-form-with-footer.json (composition checks)";
+  const errors = [];
+  const recipePath = path.join(
+    RECIPES_DIR,
+    "flow",
+    "composition-form-with-footer.json",
+  );
+
+  if (!fs.existsSync(recipePath)) {
+    errors.push(
+      "recipe file must exist at flow/composition-form-with-footer.json",
+    );
+  } else {
+    let recipe;
+    try {
+      recipe = JSON.parse(fs.readFileSync(recipePath, "utf-8"));
+    } catch (err) {
+      errors.push(`recipe file is not valid JSON: ${err.message}`);
+    }
+
+    if (recipe) {
+      if (recipe.archetype !== "composition-form-with-footer") {
+        errors.push(
+          `archetype must be "composition-form-with-footer", got "${recipe.archetype}"`,
+        );
+      }
+      if (recipe.kind !== "composition") {
+        errors.push(`kind must be "composition", got "${recipe.kind}"`);
+      }
+      try {
+        assert.deepStrictEqual(recipe.composes, [
+          "form-create",
+          "sticky-footer",
+        ]);
+      } catch (_) {
+        errors.push(
+          `composes must equal ["form-create","sticky-footer"], got ${JSON.stringify(recipe.composes)}`,
+        );
+      }
+      if (recipe.tier !== "adapted") {
+        errors.push(`tier must be "adapted", got "${recipe.tier}"`);
+      }
+      if (
+        typeof recipe.description !== "string" ||
+        recipe.description.length === 0
+      ) {
+        errors.push("description must be a non-empty string");
+      }
+      if (!Array.isArray(recipe.tags)) {
+        errors.push("tags must be an array");
+      }
+      if (
+        typeof recipe.slots !== "object" ||
+        recipe.slots === null ||
+        Array.isArray(recipe.slots)
+      ) {
+        errors.push("slots field required (object)");
+      } else if (Object.keys(recipe.slots).length < 2) {
+        errors.push(
+          "slots must have at least 2 entries (one per composed recipe role)",
+        );
+      }
+      if (
+        typeof recipe.embed_config !== "object" ||
+        recipe.embed_config === null ||
+        Array.isArray(recipe.embed_config)
+      ) {
+        errors.push("embed_config field required (object)");
+      }
+      if (
+        !recipe.skeleton ||
+        typeof recipe.skeleton !== "object" ||
+        recipe.skeleton.composition !== true
+      ) {
+        errors.push("skeleton.composition must be true");
+      }
+      if (!Array.isArray(recipe.notes) || recipe.notes.length === 0) {
+        errors.push("notes must be a non-empty array");
+      } else if (
+        typeof recipe.notes[0] !== "string" ||
+        !recipe.notes[0].includes("skeleton.composition: true")
+      ) {
+        errors.push(
+          "first note must document the skeleton.composition: true flag",
+        );
+      }
+      if (
+        !Array.isArray(recipe.missing_states) ||
+        recipe.missing_states.length === 0
+      ) {
+        errors.push("missing_states must be a non-empty array");
+      }
+    }
+  }
+
+  if (errors.length === 0) {
+    console.log(`PASS  ${label}`);
+    passed++;
+  } else {
+    console.log(`FAIL  ${label}`);
+    errors.forEach((e) => console.log(`        ${e}`));
+    failed++;
+  }
+}
+
+{
+  const label = "_index.json registers composition-form-with-footer";
+  const errors = [];
+
+  try {
+    const idx = JSON.parse(fs.readFileSync(INDEX_PATH, "utf-8"));
+    if (!Array.isArray(idx)) {
+      errors.push("index is not a flat array");
+    } else {
+      const entry = idx.find(
+        (e) => e.archetype === "composition-form-with-footer",
+      );
+      if (!entry) {
+        errors.push(
+          "composition-form-with-footer must be registered in _index.json",
+        );
+      } else {
+        if (entry.file !== "composition-form-with-footer.json") {
+          errors.push(
+            `entry.file must be "composition-form-with-footer.json", got "${entry.file}"`,
+          );
+        }
+        if (entry.kind !== "composition") {
+          errors.push(`entry.kind must be "composition", got "${entry.kind}"`);
+        }
+        try {
+          assert.deepStrictEqual(entry.composes, [
+            "form-create",
+            "sticky-footer",
+          ]);
+        } catch (_) {
+          errors.push(
+            `entry.composes must equal ["form-create","sticky-footer"], got ${JSON.stringify(entry.composes)}`,
+          );
+        }
+        if (!Array.isArray(entry.tags)) {
+          errors.push("entry.tags must be an array");
+        } else {
+          // Tags must match the recipe file's tags exactly
+          try {
+            const recipe = JSON.parse(
+              fs.readFileSync(
+                path.join(
+                  RECIPES_DIR,
+                  "flow",
+                  "composition-form-with-footer.json",
+                ),
+                "utf-8",
+              ),
+            );
+            assert.deepStrictEqual(entry.tags, recipe.tags);
+          } catch (_) {
+            errors.push(
+              "entry.tags must match recipe file's tags array exactly",
+            );
+          }
+        }
+      }
+    }
+  } catch (err) {
+    errors.push(`_index.json could not be parsed: ${err.message}`);
+  }
+
+  if (errors.length === 0) {
+    console.log(`PASS  ${label}`);
+    passed++;
+  } else {
+    console.log(`FAIL  ${label}`);
+    errors.forEach((e) => console.log(`        ${e}`));
+    failed++;
+  }
+}
+
+// ── intent annotations on recipes ──────────────────────────────────
+
+var validIntents = [
+  "destructive-action",
+  "success-confirmation",
+  "error-state",
+  "default",
+];
+
+function collectIntents(node, out) {
+  if (!node || typeof node !== "object") return;
+  if (Array.isArray(node)) {
+    node.forEach(function (n) {
+      collectIntents(n, out);
+    });
+    return;
+  }
+  if (node.intent !== undefined) out.push(node.intent);
+  if (node.children) collectIntents(node.children, out);
+}
+
+// Test: overlay.json confirmationSkeleton uses valid intent values
+var overlayTestErrors = [];
+var overlayRecipe;
+try {
+  overlayRecipe = JSON.parse(
+    fs.readFileSync(
+      path.join(__dirname, "..", "..", "plugins", "actian-design-system", "recipes", "flow", "overlay.json"),
+      "utf8",
+    ),
+  );
+} catch (err) {
+  overlayTestErrors.push(`Failed to load overlay.json: ${err.message}`);
+}
+
+if (!overlayTestErrors.length && !overlayRecipe.confirmationSkeleton) {
+  overlayTestErrors.push("confirmationSkeleton block missing");
+}
+
+if (!overlayTestErrors.length) {
+  var overlayIntents = [];
+  collectIntents(overlayRecipe.confirmationSkeleton.content, overlayIntents);
+  if (overlayIntents.length === 0) {
+    overlayTestErrors.push("expected at least one intent annotation");
+  } else {
+    overlayIntents.forEach(function (i) {
+      if (validIntents.indexOf(i) === -1) {
+        overlayTestErrors.push("invalid intent: " + i);
+      }
+    });
+    if (overlayIntents.indexOf("destructive-action") === -1) {
+      overlayTestErrors.push(
+        "expected destructive-action somewhere in confirmationSkeleton",
+      );
+    }
+  }
+}
+
+if (overlayTestErrors.length === 0) {
+  console.log("PASS  overlay.json confirmationSkeleton intent annotations");
+  passed++;
+} else {
+  console.log("FAIL  overlay.json confirmationSkeleton intent annotations");
+  overlayTestErrors.forEach((e) => console.log(`        ${e}`));
+  failed++;
+}
+
+// Test: sticky-footer.json destructiveSkeleton uses valid intent values
+var stickyTestErrors = [];
+var stickyRecipe;
+try {
+  stickyRecipe = JSON.parse(
+    fs.readFileSync(
+      path.join(__dirname, "..", "..", "plugins", "actian-design-system", "recipes", "flow", "sticky-footer.json"),
+      "utf8",
+    ),
+  );
+} catch (err) {
+  stickyTestErrors.push(`Failed to load sticky-footer.json: ${err.message}`);
+}
+
+if (!stickyTestErrors.length && !stickyRecipe.destructiveSkeleton) {
+  stickyTestErrors.push("destructiveSkeleton block missing");
+}
+
+if (!stickyTestErrors.length) {
+  var stickyIntents = [];
+  collectIntents(stickyRecipe.destructiveSkeleton.content, stickyIntents);
+  if (stickyIntents.length === 0) {
+    stickyTestErrors.push("expected at least one intent annotation");
+  } else {
+    stickyIntents.forEach(function (i) {
+      if (validIntents.indexOf(i) === -1) {
+        stickyTestErrors.push("invalid intent: " + i);
+      }
+    });
+    if (stickyIntents.indexOf("destructive-action") === -1) {
+      stickyTestErrors.push(
+        "expected destructive-action in destructiveSkeleton",
+      );
+    }
+  }
+}
+
+if (stickyTestErrors.length === 0) {
+  console.log(
+    "PASS  sticky-footer.json destructiveSkeleton intent annotations",
+  );
+  passed++;
+} else {
+  console.log(
+    "FAIL  sticky-footer.json destructiveSkeleton intent annotations",
+  );
+  stickyTestErrors.forEach((e) => console.log(`        ${e}`));
+  failed++;
+}
+
+// ── Task 0.12: no recipe fill under recipes/flow/ is a hex literal ─────
+
+var FLOW_FILES = fs
+  .readdirSync(path.join(RECIPES_DIR, "flow"))
+  .filter(function (f) {
+    return f.endsWith(".json") && f !== "_index.json";
+  })
+  .sort();
+
+var FILL_KEYS = [
+  "fills",
+  "fill",
+  "color",
+  "stroke",
+  "background",
+  "backgroundColor",
+  "borderColor",
+];
+var HEX_LITERAL_RE = /#[0-9a-f]{3,8}\b/i;
+
+function collectHexFills(node, nodePath, out) {
+  if (node === null || typeof node !== "object") return;
+  if (Array.isArray(node)) {
+    node.forEach(function (child, i) {
+      collectHexFills(child, `${nodePath}[${i}]`, out);
+    });
+    return;
+  }
+  Object.keys(node).forEach(function (key) {
+    var val = node[key];
+    if (FILL_KEYS.indexOf(key) !== -1) {
+      if (typeof val === "string" && HEX_LITERAL_RE.test(val)) {
+        out.push({ path: `${nodePath}.${key}`, value: val });
+      } else if (Array.isArray(val)) {
+        val.forEach(function (v, i) {
+          if (typeof v === "string" && HEX_LITERAL_RE.test(v)) {
+            out.push({ path: `${nodePath}.${key}[${i}]`, value: v });
+          }
+        });
+      }
+    }
+    collectHexFills(val, `${nodePath}.${key}`, out);
+  });
+}
+
+var hexTestErrors = [];
+FLOW_FILES.forEach(function (file) {
+  var filePath = path.join(RECIPES_DIR, "flow", file);
+  var recipe;
+  try {
+    recipe = JSON.parse(fs.readFileSync(filePath, "utf8"));
+  } catch (err) {
+    hexTestErrors.push(`${file}: could not be parsed: ${err.message}`);
+    return;
+  }
+  var hits = [];
+  collectHexFills(recipe, "$", hits);
+  hits.forEach(function (hit) {
+    hexTestErrors.push(
+      `${file} ${hit.path}: hardcoded hex ${hit.value} (bind a var(--fm-*) token instead)`,
+    );
+  });
+});
+
+if (hexTestErrors.length === 0) {
+  console.log("PASS  no recipe fill under recipes/flow/ is a hex literal");
+  passed++;
+} else {
+  console.log("FAIL  no recipe fill under recipes/flow/ is a hex literal");
+  hexTestErrors.forEach((e) => console.log(`        ${e}`));
+  failed++;
+}
+
+// ── Task 11: no fmTab instance under recipes/flow/ carries the unread
+// "Tab label" prop -- fm-html-map.js's fmTab case reads "Tab Text", "Label"
+// or "Text"; "Tab label" was never one of them, so every recipe that set it
+// rendered an empty tab. ─────────────────────────────────────────────────
+
+var UNREAD_TAB_PROP = "Tab label";
+
+function collectUnreadTabLabel(node, nodePath, out) {
+  if (node === null || typeof node !== "object") return;
+  if (Array.isArray(node)) {
+    node.forEach(function (child, i) {
+      collectUnreadTabLabel(child, `${nodePath}[${i}]`, out);
+    });
+    return;
+  }
+  if (
+    node.type === "INSTANCE" &&
+    node.ref === "fmTab" &&
+    node.props &&
+    Object.prototype.hasOwnProperty.call(node.props, UNREAD_TAB_PROP)
+  ) {
+    out.push({ path: `${nodePath}.props`, value: UNREAD_TAB_PROP });
+  }
+  Object.keys(node).forEach(function (key) {
+    collectUnreadTabLabel(node[key], `${nodePath}.${key}`, out);
+  });
+}
+
+var tabLabelTestErrors = [];
+FLOW_FILES.forEach(function (file) {
+  var filePath = path.join(RECIPES_DIR, "flow", file);
+  var recipe;
+  try {
+    recipe = JSON.parse(fs.readFileSync(filePath, "utf8"));
+  } catch (err) {
+    return; // already reported above
+  }
+  var hits = [];
+  collectUnreadTabLabel(recipe, "$", hits);
+  hits.forEach(function (hit) {
+    tabLabelTestErrors.push(
+      `${file} ${hit.path}: carries "${hit.value}" (fm-html-map.js's fmTab case reads "Tab Text", never "Tab label")`,
+    );
+  });
+});
+
+if (tabLabelTestErrors.length === 0) {
+  console.log(
+    'PASS  no fmTab instance under recipes/flow/ carries the unread "Tab label" prop',
+  );
+  passed++;
+} else {
+  console.log(
+    'FAIL  no fmTab instance under recipes/flow/ carries the unread "Tab label" prop',
+  );
+  tabLabelTestErrors.forEach((e) => console.log(`        ${e}`));
+  failed++;
+}
+
+// ── Task 0.12: every FM variant axis value exists in the fmkit registry ─
+
+// Mirrors scripts/lib/shared-constants.js `slugToRef` (also duplicated in
+// fm-coverage.test.js) so this gate stays dependency-free.
+function slugToFmRef(slug) {
+  var prefix = "fm";
+  var stripped =
+    slug.indexOf(prefix + "-") === 0 ? slug.slice(prefix.length + 1) : slug;
+  return (
+    prefix +
+    stripped.charAt(0).toUpperCase() +
+    stripped.slice(1).replace(/-([a-z])/g, function (_, c) {
+      return c.toUpperCase();
+    })
+  );
+}
+
+var fmkitRegistry = JSON.parse(
+  fs.readFileSync(PATHS.components.registries.fmkit, "utf8"),
+);
+var fmRefToVariants = {};
+Object.keys(fmkitRegistry.components).forEach(function (slug) {
+  if (slug.indexOf("fm-") !== 0) return;
+  fmRefToVariants[slugToFmRef(slug)] =
+    fmkitRegistry.components[slug].variants || {};
+});
+
+var axisTestErrors = [];
+
+function collectFmVariantIssues(node, nodePath, file) {
+  if (node === null || typeof node !== "object") return;
+  if (Array.isArray(node)) {
+    node.forEach(function (child, i) {
+      collectFmVariantIssues(child, `${nodePath}[${i}]`, file);
+    });
+    return;
+  }
+  if (
+    node.type === "INSTANCE" &&
+    typeof node.ref === "string" &&
+    node.ref.indexOf("fm") === 0 &&
+    typeof node.variant === "string"
+  ) {
+    var variants = fmRefToVariants[node.ref];
+    node.variant
+      .split(",")
+      .map(function (s) {
+        return s.trim();
+      })
+      .filter(Boolean)
+      .forEach(function (pair) {
+        var eq = pair.indexOf("=");
+        if (eq === -1) {
+          axisTestErrors.push(
+            `${file} ${nodePath} (${node.ref}): unparseable variant segment "${pair}"`,
+          );
+          return;
+        }
+        var axis = pair.slice(0, eq).trim();
+        var value = pair.slice(eq + 1).trim();
+        if (!variants) {
+          axisTestErrors.push(
+            `${file} ${nodePath}: ref "${node.ref}" not found in the fmkit registry`,
+          );
+          return;
+        }
+        if (!variants[axis]) {
+          axisTestErrors.push(
+            `${file} ${nodePath} (${node.ref}): axis "${axis}" does not exist (available: ${Object.keys(variants).join(", ")})`,
+          );
+          return;
+        }
+        if (variants[axis].indexOf(value) === -1) {
+          axisTestErrors.push(
+            `${file} ${nodePath} (${node.ref}): value "${axis}=${value}" not in the fmkit registry (available: ${variants[axis].join(", ")})`,
+          );
+        }
+      });
+  }
+  Object.keys(node).forEach(function (key) {
+    if (key === "variant") return;
+    collectFmVariantIssues(node[key], `${nodePath}.${key}`, file);
+  });
+}
+
+FLOW_FILES.forEach(function (file) {
+  var filePath = path.join(RECIPES_DIR, "flow", file);
+  var recipe;
+  try {
+    recipe = JSON.parse(fs.readFileSync(filePath, "utf8"));
+  } catch (err) {
+    return; // already reported above
+  }
+  collectFmVariantIssues(recipe, "$", file);
+});
+
+if (axisTestErrors.length === 0) {
+  console.log(
+    "PASS  every FM variant axis value in a recipe exists in the fmkit registry",
+  );
+  passed++;
+} else {
+  console.log(
+    "FAIL  every FM variant axis value in a recipe exists in the fmkit registry",
+  );
+  axisTestErrors.forEach((e) => console.log(`        ${e}`));
+  failed++;
+}
+
+// ── summary ──────────────────────────────────────────────────────────
+
+console.log("");
+console.log(`${passed + failed} recipes: ${passed} passed, ${failed} failed`);
+
+if (failed > 0) {
+  process.exit(1);
+}

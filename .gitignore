@@ -48,9 +48,15 @@ release-notes/
 token-drift.json
 
 # DS Quality Score trend ledger — appended locally, not committed
-plugins/actian-design-system/tests/renderers/__fidelity__/quality-ledger.jsonl
+tests/renderers/__fidelity__/quality-ledger.jsonl
 
 # Fidelity pixel-diff artifacts — produced by quality-gates-cli, uploaded by CI, never committed
+tests/renderers/__fidelity__/diffs/
+
+# The same two, at the path the tests had before 2026-09-22 (plugin #415): a checkout that ran the
+# quality gates before the move keeps them there, a pull does not remove them, and unignored they
+# would ride a stage-everything commit back into the plugin directory, which is the install.
+plugins/actian-design-system/tests/renderers/__fidelity__/quality-ledger.jsonl
 plugins/actian-design-system/tests/renderers/__fidelity__/diffs/
 
 # Superpowers working files (plans, specs, audits) — never tracked

@@ -3,9 +3,8 @@
 This document is the canonical map of the plugin. If you're onboarding,
 debugging, or adding a new artifact, start here.
 
-Structure conventions (`scripts/`, `tests/`) will be filled in as PRs 2
-and 3 of the reorganization sprint land. The `references/` and skill
-sections below are authoritative as of v1.62.1.
+The test suite is not in this directory: it lives at `tests/` at the repository
+root, next to `plugins/`, so an installed plugin does not carry it (see section 3).
 
 ---
 
@@ -26,7 +25,7 @@ sections below are authoritative as of v1.62.1.
 | `scripts/` | Node + shell scripts. PR-2 will reorganize into purpose buckets. |
 | `skills/` | One subdir per user-facing skill, each with a `SKILL.md`. |
 | `templates/` | Per-skill HTML/JSON templates. |
-| `tests/` | Bun test suite. PR-3 will mirror `scripts/` structure. |
+| `../../tests/` | The test suite, at the repository root (moved out of the plugin on 2026-09-22, plugin #415). `npm test` runs from the repository root. |
 | `vendored.json` | Pinned knowledge-repo SHA + sync metadata for the current vendor snapshot. |
 
 ---
@@ -85,7 +84,9 @@ Retired and deleted: `/generate-presentation`, `/convert-to-hifi` and `agents/sl
   - `lib/app-context/` — substrate-grounding resolvers (`resolve-chrome.js`, `resolve-patterns.js`, `resolve-relationships.js`, `resolve-properties.js`) that read the structured `vendor/app-context/dist/app-context.json` and populate the flow's `meta._glossary` (chrome, UX pattern, entity relationships, typed entity properties, and the entity-to-components join) before screen generation. Each exposes a `--entity`/`--app` CLI and a `loadAppContext(ctx)` injection seam. Consumed by `actian-ux-prototype` Step 3.5 + the `screen-generator` agent; grounding is checked (advisory, non-blocking) by `scripts/validation/validate-flow-data.js`.
   - `lib/a11y/` — `scripts/lib/a11y/resolve-a11y.js` resolves per-component accessibility rulesets (WCAG criteria + prose rules) from `graph.json` + `accessibility.bundle.json`: for a component slug it unions the component's own a11y section (its graph `a11y_ref` edge) with its category's cross-cutting sections. Exposes a `resolveA11y(slugs, opts)` function (injection seam: `opts.graph`/`opts.bundle`) + a `--slugs <slug,slug,...>` CLI. Consumed by the `actian-ux-audit` skill's Accessibility check.
 
-### `tests/` subdirs
+### `tests/` subdirs (at the repository root)
+
+The suite lives at `<repo>/tests/`, not under the plugin: a plugin install copies every tracked file under `plugins/actian-design-system/`, and 2.3 MB of tests (352 tracked files) shipped to every user for nothing until 2026-09-22 (plugin #415). Tests reach the plugin through `path.resolve(__dirname, "..", "..", "plugins", "actian-design-system")` and `require("../../plugins/actian-design-system/scripts/...")`; the three scripts that read or write test data (`ds-coverage-report.js --write-baseline`, `quality-gates-cli.js`, the fidelity ledger) resolve the tree through `scripts/lib/tests-root.js`. `npm test` runs from the repository root, where `package.json` now lives; `scripts/quality/run-suite.sh` climbs out of the plugin to find the tree.
 
 Tests mirror `scripts/` 1:1 — open `scripts/<bucket>/foo.js`, the test lives at `tests/<bucket>/foo.test.js`. Plus a cross-cutting `integration/` bucket for tests that exercise multiple scripts/skills.
 
@@ -106,6 +107,6 @@ No `tests/hooks/` — shell guards aren't unit-tested.
 4. If it has structured data outputs, add a JSON Schema to `schemas/<name>-data.schema.json`.
 5. If it has recipes, add `recipes/<name>/`.
 6. If it has HTML/JSON templates, add files under `templates/`.
-7. Add tests under `tests/` (PR-3 will create the integration/ subdir for cross-cutting tests).
+7. Add tests under `tests/` at the repository root (cross-cutting ones in `tests/integration/`).
 8. Update this `ARCHITECTURE.md` Section 2 with the new row.
 9. Bump version in `.claude-plugin/plugin.json` (calendar `YYYY.MM.PATCH` — see CLAUDE.md "Versioning").

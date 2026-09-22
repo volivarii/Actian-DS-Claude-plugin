@@ -1,0 +1,113 @@
+#!/usr/bin/env node
+"use strict";
+
+/**
+ * skill-size-guard.test.js — Every skills/<name>/SKILL.md must stay under the
+ * Anthropic 500-line "optimal performance" ceiling. The body is loaded in full
+ * whenever the skill triggers, so detail belongs in references/ (progressive
+ * disclosure), not inline. Fails loudly when a skill grows past the ceiling.
+ * Run: node --test tests/integration/skill-size-guard.test.js
+ */
+
+const { describe, it } = require("node:test");
+const assert = require("node:assert");
+const fs = require("fs");
+const path = require("path");
+
+const PLUGIN_ROOT = path.resolve(__dirname, "..", "..", "plugins", "actian-design-system");
+const SKILLS_DIR = path.join(PLUGIN_ROOT, "skills");
+const MAX_LINES = 500;
+
+// Count lines the way `wc -l` does (newline count), so the reported number
+// matches what authors see in their editor and the documented ceiling. NOTE:
+// `split("\n").length` would be wc -l + 1 on a newline-terminated file, which
+// would false-positive a legitimately-499-line skill against the < 500 ceiling.
+function lineCount(file) {
+  return (fs.readFileSync(file, "utf8").match(/\n/g) || []).length;
+}
+
+describe("SKILL.md size ceiling (progressive disclosure)", () => {
+  const dirs = fs
+    .readdirSync(SKILLS_DIR)
+    .filter((d) => fs.existsSync(path.join(SKILLS_DIR, d, "SKILL.md")));
+
+  it("finds at least one skill with a SKILL.md", () => {
+    assert.ok(dirs.length > 0, "found no skills with a SKILL.md");
+  });
+
+  for (const d of dirs) {
+    it(`${d}/SKILL.md is under ${MAX_LINES} lines`, () => {
+      const lines = lineCount(path.join(SKILLS_DIR, d, "SKILL.md"));
+      assert.ok(
+        lines < MAX_LINES,
+        `${d}/SKILL.md is ${lines} lines (ceiling ${MAX_LINES}). ` +
+          `Move detail to references/ via progressive disclosure.`,
+      );
+    });
+  }
+});
+
+const MAX_BYTES = 30000;
+const MAX_REACHABLE_BYTES = 48000;
+const HTML_ONLY_SET = [
+  "skills/actian-ux-prototype/SKILL.md",
+  "references/actian-ux-prototype/gates.md",
+  "references/actian-ux-prototype/share.md",
+  "references/ds-rules/quality-tiers.md",
+];
+// What a --direct run loads on top of the gates: the skill and its route file.
+const MAX_DIRECT_BYTES = 40000;
+const DIRECT_SET = [
+  "skills/actian-ux-prototype/SKILL.md",
+  "references/actian-ux-prototype/direct.md",
+];
+
+describe("actian-ux-prototype byte ceilings (what an HTML-only run loads)", () => {
+  it(`SKILL.md is under ${MAX_BYTES} bytes`, () => {
+    const bytes = fs.statSync(
+      path.join(PLUGIN_ROOT, "skills/actian-ux-prototype/SKILL.md"),
+    ).size;
+    assert.ok(
+      bytes < MAX_BYTES,
+      `actian-ux-prototype/SKILL.md is ${bytes} bytes (ceiling ${MAX_BYTES})`,
+    );
+  });
+  it(`the HTML-only reachable set is under ${MAX_REACHABLE_BYTES} bytes`, () => {
+    const total = HTML_ONLY_SET.reduce(
+      (n, rel) => n + fs.statSync(path.join(PLUGIN_ROOT, rel)).size,
+      0,
+    );
+    assert.ok(
+      total < MAX_REACHABLE_BYTES,
+      `reachable set is ${total} bytes (ceiling ${MAX_REACHABLE_BYTES}): ${HTML_ONLY_SET.join(", ")}`,
+    );
+  });
+  it(`the --direct set is under ${MAX_DIRECT_BYTES} bytes`, () => {
+    const total = DIRECT_SET.reduce(
+      (n, rel) => n + fs.statSync(path.join(PLUGIN_ROOT, rel)).size,
+      0,
+    );
+    assert.ok(
+      total < MAX_DIRECT_BYTES,
+      `--direct set is ${total} bytes (ceiling ${MAX_DIRECT_BYTES}): ${DIRECT_SET.join(", ")}`,
+    );
+  });
+});
+
+// screen-generator is dispatched once per screen (in parallel); it reads only
+// its own brief slice plus html-reference.md (and ds-components-authoring.md
+// under --hifi), never the full brief, so it carries a much smaller ceiling
+// than a skill body loaded once per run.
+const MAX_AGENT_BYTES = 22000;
+
+describe("screen-generator agent byte ceiling", () => {
+  it(`agents/screen-generator.md is under ${MAX_AGENT_BYTES} bytes`, () => {
+    const bytes = fs.statSync(
+      path.join(PLUGIN_ROOT, "agents/screen-generator.md"),
+    ).size;
+    assert.ok(
+      bytes < MAX_AGENT_BYTES,
+      `agents/screen-generator.md is ${bytes} bytes (ceiling ${MAX_AGENT_BYTES})`,
+    );
+  });
+});

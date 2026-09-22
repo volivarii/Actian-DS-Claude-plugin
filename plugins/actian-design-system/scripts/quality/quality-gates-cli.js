@@ -71,10 +71,7 @@ if (notBuilt.length) {
 }
 
 var DIFF_DIR = path.join(
-  __dirname,
-  "..",
-  "..",
-  "tests",
+  require("../lib/tests-root.js"),
   "renderers",
   "__fidelity__",
   "diffs",
@@ -114,7 +111,7 @@ if (process.argv.indexOf("--json") !== -1) {
 } else {
   process.stdout.write(q.formatReport(row) + "\n");
   process.stdout.write(
-    "(pixel diffs, if any, written to tests/renderers/__fidelity__/diffs/ — review-only)\n",
+    "(pixel diffs, if any, written to " + DIFF_DIR + ", review-only)\n",
   );
 }
 

@@ -94,7 +94,7 @@ The plugin reads design-system knowledge from the vendored substrate. Two rules 
 - **Reference doc that's used by ≥2 skills?** Goes in `references/figma/`, `references/ds-rules/`, or `references/context/` depending on subject. Workflow → `figma/`, system constraints → `ds-rules/`, knowledge base → `context/`.
 - **Reference doc specific to one skill?** Goes in `references/<skill-name>/`.
 - **New skill?** Follow the checklist in `ARCHITECTURE.md` Section 4. New skill = new `skills/<name>/`, new `references/<name>/` (only if it has skill-specific docs), entry added to `ARCHITECTURE.md` Section 2.
-- **Script bucketing** (`scripts/<bucket>/`) and **test bucketing** are described in `ARCHITECTURE.md` Section 3 once PRs 2 and 3 land.
+- **Script bucketing** (`scripts/<bucket>/`) and the test suite's layout are described in `ARCHITECTURE.md` Section 3. The suite lives at `tests/` at the **repository root**, next to `plugins/`, not under this directory: a plugin install copies every tracked file under the plugin, and the tests are not shipped. Run `npm test` from the repository root. A path written here as `tests/...` names that tree.
 
 When generating code or docs in this plugin, consult `ARCHITECTURE.md` for placement and update Section 2 if you add a new artifact.
 
