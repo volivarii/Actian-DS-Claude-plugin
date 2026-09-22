@@ -16,7 +16,7 @@
  *       same line by "Step N" (either case, "Step" or "step"): the target
  *       is that path; or
  *   (b) a bare `<skill-name>` (a directory under skills/, e.g.
- *       "actian-ux-prototype Step 5.5" or "`/component-brief` Step 1.5"),
+ *       "actian-ux-prototype Step 5.5" or "`/actian-ux-proposal` Step 3"),
  *       optionally backtick-wrapped and/or slash-prefixed, followed within
  *       60 characters by "Step N" (either case): the target is that
  *       skill's SKILL.md.

@@ -45,7 +45,7 @@ passes first.
 Pipeline: Chrome headless screenshot → ImageMagick `compare` (RMSE per region) → pass/fail
 threshold → [if pass] optional vision additive checklist → ledger row.
 
-`fidelity-report.js` (transplant `scripts/evals/summarize.js`) + drift loop on the nightly
+`fidelity-report.js` + drift loop on the nightly
 media-sync capture the corpus PNG pairs.
 
 See counter-research assessment:

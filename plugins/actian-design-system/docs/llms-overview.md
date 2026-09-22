@@ -29,7 +29,7 @@ in sync via the plugin's `vendor-snapshot.yml` workflow.
 | Content guidelines | `vendor/content/dist/global.md` + per-component `vendor/components/dist/guidelines/<slug>.json` `domains.content` | `content/` + `components/` | MD + JSON | Voice, tone, copy patterns |
 | Accessibility | `vendor/accessibility/src/<slug>.md` (per-section, ordered via `_order.json`) | `accessibility/src/` | MD | WCAG 2.2 AA conformance rules |
 | App context | `vendor/app-context/dist/app-context.json` | `app-context/` | JSON | Apps, entities, terminology, patterns |
-| FM↔DS map | `references/convert-to-hifi/fm-to-ds-map.json` | (plugin only) | JSON | Wireframe-to-DS component mapping (plugin-owned; Track E eviction) |
+| FM↔DS map | `references/actian-ux-prototype/fm-to-ds-map.json` | (plugin only) | JSON | Wireframe-to-DS component mapping (plugin-owned; Track E eviction) |
 | Skill behavior | `plugins/actian-design-system/skills/*/SKILL.md` | (plugin only) | MD | Per-skill instructions and references |
 | Push patterns | `references/figma/figma-push-patterns.md` | (plugin only) | MD | Figma Plugin API patterns |
 
@@ -38,7 +38,7 @@ in sync via the plugin's `vendor-snapshot.yml` workflow.
 1. **Start at `/llms.txt`** — the canonical index, points at knowledge repo URLs.
 2. **For Figma write tasks:** read `figma-use` SKILL.md (upstream) → our `references/figma/figma-push-patterns.md` → relevant skill's SKILL.md.
 3. **For DS knowledge questions:** consult tokens + component registries + relevant guideline. URLs in `llms.txt` resolve to the knowledge repo; in-plugin code paths read from `vendor/`.
-4. **For the retired skills** (component-brief, create-component, compare-flows, generate-presentation, convert-to-hifi): see `plugins/actian-design-system/retired/README.md`.
+4. **For the retired skills** (component-brief, create-component, compare-flows, generate-presentation, convert-to-hifi): their code was deleted on 2026-09-22; `MIGRATIONS.md` and the CHANGELOG record it, and git history holds it.
 
 ## Federation status (2026-05-09)
 

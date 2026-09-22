@@ -60,12 +60,10 @@ function deriveAgents() {
 }
 
 // Only the recipe kinds a live skill reads are counted. A kind is live when a
-// skills/*/SKILL.md names a path under recipes/<kind>/ (its catalog, or a file
-// in it: actian-ux-prototype names recipes/flow/_index.json, the retired brief skill
-// names recipes/brief/<file>). recipes/brief and recipes/presentation belong to
-// retired skills, whose SKILL.md files sit under retired/ and are not scanned,
-// so they stay on disk for the deletion PR without inflating the number the
-// docs advertise, and a restored skill brings its kind back with no edit here.
+// skills/<name>/SKILL.md names a path under recipes/<kind>/ (its catalog, or a
+// file in it: actian-ux-prototype names recipes/flow/_index.json). A kind no
+// live skill names is not counted even if its directory exists, so a new skill
+// brings its kind in with no edit here.
 // Two limits, both visible: a prose mention of another kind's path in a live
 // SKILL.md would count it, and a total of zero (no kind named, or a named kind
 // whose directory is missing or empty) is thrown rather than returned, so that

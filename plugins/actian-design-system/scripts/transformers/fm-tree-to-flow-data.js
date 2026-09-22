@@ -191,7 +191,7 @@ function convert(fmTree) {
   return {
     meta: {
       feature: fmTree.name || "HiFi conversion",
-      skill: "convert-to-hifi",
+      skill: "actian-ux-prototype",
       generatedAt: new Date().toISOString(),
     },
     screens: [screen],

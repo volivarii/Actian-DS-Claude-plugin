@@ -22,12 +22,6 @@ var RENDERERS_DIR = path.join(
   "renderers",
   "html-renderers",
 );
-var FIGMA_TABLE_DIR = path.join(
-  PLUGIN_ROOT,
-  "scripts",
-  "renderers",
-  "figma-table",
-);
 
 // ---------------------------------------------------------------------------
 // Shared helpers
@@ -126,7 +120,6 @@ module.exports = {
   PLUGIN_ROOT: PLUGIN_ROOT,
   TEMPLATES_DIR: TEMPLATES_DIR,
   RENDERERS_DIR: RENDERERS_DIR,
-  FIGMA_TABLE_DIR: FIGMA_TABLE_DIR,
   readFileChecked: readFileChecked,
   escapeJsonForScript: escapeJsonForScript,
   buildDsIconsScript: buildDsIconsScript,

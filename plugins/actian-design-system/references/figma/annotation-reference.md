@@ -30,7 +30,7 @@ Add the Alpine.js CDN script first, then the inline annotation layer:
 </body>
 ```
 
-**Prototypes and playgrounds (Alpine.js already loaded):**
+**Prototypes (Alpine.js already loaded):**
 Alpine is already present — include only the annotation layer (no CDN script):
 
 ```html

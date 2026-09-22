@@ -153,28 +153,6 @@ var PAIRS = [
     ],
   },
   {
-    name: "Brief",
-    js: [
-      path.join(RENDERERS_DIR, "brief-renderer.js"),
-      RENDERER.modulePath("html-renderers/fm-html-map.js"),
-    ],
-    css: [
-      RENDERER.cssPaths.fmBase,
-      path.join(RENDERERS_DIR, "brief-renderer.css"),
-    ],
-  },
-  {
-    name: "Presentation",
-    js: [
-      path.join(RENDERERS_DIR, "presentation-renderer.js"),
-      path.join(RENDERERS_DIR, "render-node.js"),
-    ],
-    css: [
-      path.join(RENDERERS_DIR, "render-node.css"),
-      path.join(RENDERERS_DIR, "presentation-renderer.css"),
-    ],
-  },
-  {
     name: "DS",
     // Vendored since renderer-relocation phase 2: knowledge owns the DS
     // renderer and its styling source. The plugin's own flow chrome above

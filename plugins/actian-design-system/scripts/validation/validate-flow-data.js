@@ -7,10 +7,10 @@ var path = require("path");
 var PATHS = require(path.join(__dirname, "..", "lib", "paths.js"));
 var rules = require(path.join(__dirname, "component-property-rules.js"));
 var resolver = require(path.join(__dirname, "..", "lib", "intent-resolver.js"));
-var briefSourcing = require(
-  path.join(__dirname, "..", "transformers", "brief-sourcing.js"),
+var stubGuideline = require(
+  path.join(__dirname, "..", "lib", "stub-guideline.js"),
 );
-var isStubGuideline = briefSourcing.isStubGuideline;
+var isStubGuideline = stubGuideline.isStubGuideline;
 var chromeResolver = require(
   path.join(__dirname, "..", "lib", "app-context", "resolve-chrome.js"),
 );
@@ -2354,8 +2354,7 @@ function validate(data, opts) {
     // a stub: this validation context wants the PRESENT-but-stub semantic.
     // Many fmKit refs (e.g. fmButton -> fm-button) have no dist/ guideline
     // doc at all, and we don't want to downgrade their warnings or emit
-    // stub-guideline-used for them. Mirrors the brief-sourcing short-circuit
-    // at scripts/transformers/brief-sourcing.js:155.
+    // stub-guideline-used for them (scripts/lib/stub-guideline.js).
     if (g && isStubGuideline(g)) {
       stubSlugsUsed[_kebab(slug)] = true;
       if (f.severity === "warning") {

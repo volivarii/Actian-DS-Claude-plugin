@@ -28,4 +28,4 @@ When creating a component instance in Figma (via `content[]` spec nodes or `use_
 
 ## Real component instances (P0)
 
-When briefing an existing component (Figma URL provided), import real library instances — never approximate with text placeholders like `[ Save ]`. Use `get_design_context` to extract the component set key, then `importComponentSetByKeyAsync()` in `use_figma`. This rule belonged to the retired component-brief skill (Cards 2 and 3) and is kept for the deletion PR; actian-ux-prototype places library instances by registry key through its push patterns.
+When an existing component is referenced (Figma URL provided), import real library instances — never approximate with text placeholders like `[ Save ]`. Use `get_design_context` to extract the component set key, then `importComponentSetByKeyAsync()` in `use_figma`. This rule came from the retired component-brief skill; actian-ux-prototype places library instances by registry key through its push patterns.

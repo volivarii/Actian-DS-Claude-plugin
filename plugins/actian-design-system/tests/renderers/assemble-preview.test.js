@@ -29,8 +29,6 @@ var SCRIPT = path.join(
 );
 var FIXTURES = path.join(__dirname, "..", "fixtures");
 var FLOW_FIXTURE = path.join(FIXTURES, "admin-dashboard.json");
-var BRIEF_FIXTURE = path.join(FIXTURES, "button-brief-data.json");
-var PRES_FIXTURE = path.join(FIXTURES, "sample-presentation.json");
 
 // ---------------------------------------------------------------------------
 // Helper: run the script and return { status, stdout, stderr, html }
@@ -106,114 +104,6 @@ describe("assemble-preview", function () {
       assert.ok(
         r.html.includes("Administration</title>"),
         "title includes app name",
-      );
-    });
-  });
-
-  describe("Brief type assembly", function () {
-    it("generates valid HTML with brief-specific markers", function () {
-      var r = run([BRIEF_FIXTURE, "--type", "brief"]);
-      assert.strictEqual(r.status, 0, "exits cleanly");
-      assert.ok(
-        r.html.includes('id="cards-container"'),
-        "has cards container div",
-      );
-      assert.ok(r.html.includes("brief-row"), "has brief-row wrapper");
-      assert.ok(
-        r.html.includes("/* fm-html-map.js */"),
-        "has fm-html-map renderer marker",
-      );
-      assert.ok(
-        r.html.includes("/* brief-renderer.js */"),
-        "has brief-renderer marker",
-      );
-      assert.ok(r.html.includes("family=Inter"), "loads Inter font");
-    });
-
-    it("derives title from component name", function () {
-      var r = run([BRIEF_FIXTURE, "--type", "brief"]);
-      assert.ok(
-        r.html.includes("<title>Button"),
-        "title includes component name",
-      );
-      assert.ok(
-        r.html.includes("Component Brief</title>"),
-        "title includes brief suffix",
-      );
-    });
-
-    it("stub footer code path is inlined in the embedded brief-renderer", function () {
-      // brief-renderer.js runs client-side in the browser; the test verifies
-      // the source code containing the stub-footer branch is present in the
-      // assembled HTML so it will execute when meta._stubGuideline === true.
-      var r = run([BRIEF_FIXTURE, "--type", "brief"]);
-      assert.strictEqual(r.status, 0, "exits cleanly");
-      assert.ok(
-        r.html.includes("_stubGuideline"),
-        "embedded renderer references meta._stubGuideline",
-      );
-      assert.ok(
-        r.html.includes("Guidance pending curation"),
-        "embedded renderer contains the stub-footer copy",
-      );
-    });
-
-    it("brief render with meta._stubGuideline=true succeeds + embeds the flag", function () {
-      // Smoke-test the stub branch end-to-end: a stub-marked fixture should
-      // assemble cleanly and the meta._stubGuideline=true flag should appear
-      // in the embedded JSON so the client renders the footer at runtime.
-      var tmpJson = path.join(
-        os.tmpdir(),
-        "stub-brief-test-" + Date.now() + ".json",
-      );
-      var payload = {
-        meta: {
-          component: "Tooltip",
-          slug: "tooltip",
-          _stubGuideline: true,
-          pluginVersion: "1.64.0",
-          skill: "component-brief",
-          generatedAt: "2026-05-04T00:00:00Z",
-          duration: "1s",
-          model: "claude-opus-4-7",
-        },
-        card_header: { name: "Tooltip", description: "Brief popup" },
-      };
-      fs.writeFileSync(tmpJson, JSON.stringify(payload), "utf8");
-      var r = run([tmpJson, "--type", "brief"]);
-      fs.unlinkSync(tmpJson);
-      assert.strictEqual(r.status, 0, "exits cleanly with stub meta");
-      assert.ok(
-        r.html.indexOf('"_stubGuideline":true') !== -1,
-        "embedded JSON carries meta._stubGuideline:true",
-      );
-    });
-  });
-
-  describe("Presentation type assembly", function () {
-    it("generates valid HTML with presentation-specific markers", function () {
-      var r = run([PRES_FIXTURE, "--type", "presentation"]);
-      assert.strictEqual(r.status, 0, "exits cleanly");
-      assert.ok(
-        r.html.includes('id="deck-container"'),
-        "has deck container div",
-      );
-      assert.ok(
-        r.html.includes("/* presentation-renderer.js */"),
-        "has presentation-renderer marker",
-      );
-      assert.ok(r.html.includes("family=Roboto"), "loads Roboto font");
-    });
-
-    it("derives title from meta.title", function () {
-      var r = run([PRES_FIXTURE, "--type", "presentation"]);
-      assert.ok(
-        r.html.includes("<title>Design System Progress"),
-        "title includes presentation title",
-      );
-      assert.ok(
-        r.html.includes("Presentation</title>"),
-        "title includes presentation suffix",
       );
     });
   });

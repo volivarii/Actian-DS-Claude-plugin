@@ -175,8 +175,6 @@ content. Category defaults are seeded engineering drafts at
 refine via PRs that flip the field to `team-reviewed` or
 `team-authored`.
 
-The retired component-brief skill read these defaults at brief time through
-`scripts/transformers/category-defaults-loader.js` and `brief-sourcing.js`. Both transformers are
-shared and stay whatever the deletion PR removes: `validate-flow-data.js` reads `brief-sourcing.js`
-for stub-guideline detection, and `scripts/lib/knowledge/a11y.js` resolves accessibility refs
-through the loader.
+`scripts/lib/knowledge/a11y.js` resolves accessibility refs through
+`scripts/transformers/category-defaults-loader.js`; `validate-flow-data.js` flags a
+component whose guideline doc is a stub through `scripts/lib/stub-guideline.js`.

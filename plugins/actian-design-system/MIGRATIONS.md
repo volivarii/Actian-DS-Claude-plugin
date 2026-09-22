@@ -96,34 +96,11 @@ bearing, not ceremonial.
 If the PR is a refactor / docs-only / test-only change with no AI-facing
 behavioral effect, mark the section `N/A — <one-line reason>` and proceed.
 
-### Component-brief / push-pattern PRs: automated eval lane
+### Component-brief / push-pattern PRs: automated eval lane (deleted 2026-09-22)
 
-> Retired 2026-09-21: `/component-brief` is hidden under `retired/` (see `retired/README.md`).
-> The lane below runs against the installed marketplace cache and its prompts never invoke
-> `/component-brief`, so once an installed build carries this retirement the subagent improvises a brief and
-> the grader scores that: a run after this point measures nothing. The lane and this section
-> stay for the deletion PR.
-
-For PRs that touch `references/component-brief/`,
-`scripts/renderers/figma-table/`, or the brief skill itself, the smoke
-evidence is the output of the component-brief eval lane:
-
-```bash
-plugins/actian-design-system/scripts/evals/run-component-brief.sh plan
-# dispatch the printed subagent prompts via the Agent tool, then:
-plugins/actian-design-system/scripts/evals/run-component-brief.sh summarize <iteration-id>
-```
-
-Paste the resulting `benchmark.md` into the Smoke evidence section. See
-`evals/component-brief/README.md` for the full operator workflow.
-
-**Marketplace-cache constraint:** `/component-brief` reads its skill code
-from the installed plugin marketplace cache, NOT from the feature
-branch. So the eval tests the LATEST released version of the brief
-skill. For brief-skill-changing PRs, the smoke evidence has to come
-from a run made AFTER marketplace propagation of that PR's commit.
-Pre-merge eval runs against feature branches catch eval-infra
-regressions, not skill-behavior regressions.
+The component-brief eval lane (`scripts/evals/`, `evals/component-brief/`) left the repository
+with the brief skill's code on 2026-09-22 (plugin 2026.9.60). Smoke evidence for push-pattern,
+renderer and migration PRs is the suite plus a look at the deliverable, as the section above says.
 
 ## Rule 4 — Doc/runtime convention parity
 
@@ -148,6 +125,29 @@ For intentional anti-pattern examples (e.g. CLAUDE.md showing "what NOT to
 do"), prefix the block with `<!-- doc-lint:ignore-block -->` on its own line.
 
 ## Schema migrations
+
+### The retired skills' code deleted (2026.9.60)
+
+`retired/` and every file only the retired skills read left the repository on 2026-09-22, plugin
+#413: `scripts/office/`, `assets/office/`, `references/office/`, `references/generate-presentation/`,
+`recipes/presentation/`, `schemas/slide-data.schema.json`, the presentation renderer;
+`recipes/brief/`, `schemas/brief-data.schema.json`, the brief renderer, `scripts/renderers/figma-table/`,
+`templates/component-playground-wrapper.html`, `templates/fm-wrapper.html`,
+`references/component-brief/`, `references/create-component/`, `references/convert-to-hifi/`
+(its `fm-to-ds-map.json` moved to `references/actian-ux-prototype/`), `evals/`, `scripts/evals/`,
+`scripts/lib/{anatomy-filter,anatomy-scale,dimension-line,gutter-layout,specs-extraction,token-tag}.js`,
+`validateBriefData` in `validate-schema.js`, `scripts/lib/resolve-python.sh`,
+`scripts/transformers/brief-sourcing.js` (its one live function, `isStubGuideline`, now lives in
+`scripts/lib/stub-guideline.js`), and the `brief` and `presentation` types of `assemble-preview.js`
+and `merge-partials.js`. Nothing live read any of it (each removal was preceded by a requirer
+check; `category-defaults-loader.js` stays because the accessibility resolver reads it). A data
+file of a retired skill (`brief-data.json`, `slide-data.json`) no longer validates here. Restore
+point: git history, `git log --diff-filter=D --stat -- plugins/actian-design-system`.
+
+A checkout that ever ran the eval lane or the Office renderer keeps ignored leftovers that a pull
+does not remove (`evals/component-brief/workspace/`, `scripts/office/**/__pycache__`,
+`.pytest_cache`). They are harmless, and `rm -rf plugins/actian-design-system/evals
+plugins/actian-design-system/scripts/office plugins/actian-design-system/.pytest_cache` clears them.
 
 ### The skills renamed to `actian-ux-*` (2026.9.59)
 

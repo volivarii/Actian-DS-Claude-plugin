@@ -1,9 +1,7 @@
 <!--
 PR template for Actian Design System plugin.
-The "Smoke evidence" section is mandatory for any PR that touches:
-  - retired/skills/component-brief/** or references/component-brief/** (the brief
-    skill is retired since 2026-09-21 and its eval lane cannot dispatch it: say so)
-  - any push-pattern, renderer, or migration ("Phase X") work
+The "Smoke evidence" section is mandatory for any PR that touches
+any push-pattern, renderer, or migration ("Phase X") work.
 For docs-only / refactor / test-only changes, mark "Smoke evidence" as N/A
 with a one-line justification. Do not delete the section.
 

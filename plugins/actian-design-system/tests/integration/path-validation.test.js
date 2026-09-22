@@ -48,7 +48,6 @@ var ROOT_PREFIXES = [
   "references/",
   "skills/",
   ".claude-plugin/",
-  "evals/",
   "hooks/",
   "agents/",
   "tests/",

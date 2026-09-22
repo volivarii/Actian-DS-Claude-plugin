@@ -14,7 +14,7 @@ var validate = require(
 // retired Figma-scraped JSON used a `_stub: true` boolean at root; the merged
 // guideline doc (components/dist/guidelines/<slug>.json) reads as a stub when
 // `domains.content.status` is not `approved`/`draft` (i.e. `not-started` or
-// `inherited`). brief-sourcing.isStubGuideline() is the canonical check.
+// `inherited`). scripts/lib/stub-guideline.js is the canonical check.
 function stubGuidelineDoc(slug) {
   return {
     _schema_version: 1,

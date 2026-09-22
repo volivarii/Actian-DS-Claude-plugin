@@ -39,7 +39,7 @@ var MAP_PATH = path.resolve(
   __dirname,
   "../..",
   "references",
-  "convert-to-hifi",
+  "actian-ux-prototype",
   "fm-to-ds-map.json",
 );
 // DS Kit registry — vendored from the substrate (PATHS.components.registries.dskit).

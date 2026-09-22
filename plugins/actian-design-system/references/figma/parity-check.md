@@ -165,7 +165,7 @@ omit it fall through to greenfield with a documented warning.
 - `htmlFile` — path relative to the project root of the static HTML output file
 - `prototypeFile` — path relative to the project root of the prototype file, or `null` if none was generated
 - `pushedAt` — ISO 8601 timestamp at the moment the manifest is written (e.g. `2026-03-27T14:32:00Z`)
-- `sourceHash` — SHA-256 hex digest of the source data file (e.g., `flow-data.json`, `brief-data.json`) at push time. Enables detecting if source data changed since last push.
+- `sourceHash` — SHA-256 hex digest of the source data file (`flow-data.json`) at push time. Enables detecting if source data changed since last push.
 - `componentKeys` — deduplicated array of Figma component keys imported during this push. Enables usage analytics and changelog diffs between pushes.
 - `tokenHash` — SHA-256 hex digest of `vendor/tokens/tokens.json` at push time. Enables detecting token drift — if tokens changed since last push, outputs may need regeneration.
 - `propertyDefaultsHash` — per-kit SHA-256 hex digests of component property defaults (text/boolean default values) at push time. Computed via `computePropertyDefaultsHashes({ fm, ds, meta })` from `scripts/changelog/changelog.js`. Enables detecting when a designer edits component default values upstream between syncs.

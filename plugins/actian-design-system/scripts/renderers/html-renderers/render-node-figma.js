@@ -5,8 +5,7 @@
  * render-node-figma.js — Deterministic Figma Plugin API code emitter for
  * component-node trees (the `content[]` array from a screen spec).
  *
- * Mirrors the CLI contract of figma-table/render-figma.js exactly so the AI
- * can call both the same way (capture stdout, pass to use_figma).
+ * CLI contract: capture stdout, pass to use_figma.
  *
  * Usage:
  *   echo '{"content":[...]}' | node render-node-figma.js [--parent-id <id>]
@@ -33,7 +32,7 @@ var DS_KEYS = sharedConstants.buildKeyMapFromRegistry("dskit", "ds");
 // ---------------------------------------------------------------------------
 // Lookup-ref derivation
 // For FM nodes: always node.ref (camelCase, e.g. "fmButton").
-// For DS nodes: node.ref if present (convert-to-hifi path), else derive from
+// For DS nodes: node.ref if present (transform-to-hifi path), else derive from
 // node.dsSlug via slugToRef (canonical actian-ux-prototype --hifi path).
 // ---------------------------------------------------------------------------
 function resolveDsRef(node) {
@@ -45,7 +44,7 @@ function resolveDsRef(node) {
 }
 
 // ---------------------------------------------------------------------------
-// CLI — copied verbatim from figma-table/render-figma.js lines 38-70
+// CLI
 // ---------------------------------------------------------------------------
 
 function parseArgv(argv) {

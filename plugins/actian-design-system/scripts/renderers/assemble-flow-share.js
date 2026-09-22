@@ -82,7 +82,7 @@ function assembleFlowShare(data) {
   //                             (being wired this week); direct and authoritative.
   //   2. meta._glossary.library — legacy glossary path, kept for back-compat.
   //   3. meta.hifi:true       — older boolean shorthand; maps to "ds".
-  //   4. meta.mode:"hifi"     — /convert-to-hifi transform output carries this signal
+  //   4. meta.mode:"hifi"     — a transform-to-hifi output carries this signal
   //                             (transform-to-hifi.js stamps mode, not library).
   // Authored per-screen `library` always wins (screen-level overrides meta-level).
   var metaLibrary =

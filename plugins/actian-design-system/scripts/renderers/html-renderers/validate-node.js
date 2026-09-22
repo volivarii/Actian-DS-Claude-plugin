@@ -1,7 +1,7 @@
 "use strict";
 
-// Tier-agnostic component-node validator. Pure, never throws. Mirrors the
-// hand-rolled, error-accumulating style of figma-table/render-figma.js.
+// Tier-agnostic component-node validator. Pure, never throws, hand-rolled and
+// error-accumulating.
 // See ./SEAM.md for the contract.
 
 var NODE_TYPES = ["FRAME", "TEXT", "INSTANCE", "RECT", "ELLIPSE", "DIVIDER"];
