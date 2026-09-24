@@ -38,6 +38,19 @@
 - [Component media](components/dist/media/): per-component preview and default-variant captures (webp)
 - [Knowledge graph](graph/dist/graph.json): typed cross-domain nodes and edges; also graph/dist/graph.jsonld (JSON-LD linked-data view)
 
+## Building a screen
+
+Everything needed to draw an Actian product screen as HTML, in the order a reader uses it:
+
+- [App chrome and navigation](app-context/src/apps/): one file per app (Studio, Explorer, Administration) with its header, side navigation and use cases
+- [Captured product pages](app-context/dist/recipes/): one real page per file, with its regions (`slots`), what the renderer reads (`renderNotes`) and a node tree; a captured page's product screenshot, when it ships one, is in [app-context/src/recipes/captures/](app-context/src/recipes/captures/), and it is the fastest way to see what the page looks like
+- [Captured page sections](app-context/dist/sections/): the parts the product repeats across pages (item header, control bar, drawer header)
+- [Component markup](components/render/dist/fragments/): one HTML file per component, one cell per variant the renderer draws, in the design system's own classes
+- [Stylesheet](components/render/dist/render.css): the tokens and the component styles in one file, themed with `data-theme` (`actian`, `studio`, `explorer`); [fonts](components/render/dist/render-fonts.css) are separate
+- [Icons](components/dist/icons/icons.json): SVG geometry per icon slug
+- [What each component draws](components/render/dist/render-contract.json): the props and variant values the renderer honours, per component
+- [Product terminology](app-context/src/terminology.yml), with the content buckets above: the words a screen uses
+
 ## Manifest
 
 - [paths-manifest.json](paths-manifest.json): machine-readable contract for consumers
