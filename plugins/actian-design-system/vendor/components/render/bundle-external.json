@@ -1,0 +1,67 @@
+{
+  "$description": "Cards that exist in a Claude Design design-system project but that build-bundle.js cannot produce, because the slug has no `case \"<slug>\":` branch in components/render/renderer/html-renderers/ds-html-map.js and therefore is not in RENDER_SLUGS. A rebuild omits them silently and a push never deletes, so without this file they survive unexplained. Found by diffing the generated bundle against the live dogfood project on 2026-09-23. status: keep = stays hand-made outside the substrate; author = a leaf is owed in knowledge; retire = should leave the project; undecided = not yet ruled on. tests/render/bundle-external.test.js keeps this honest.",
+  "$reviewed": "2026-09-23",
+  "$project": "Actian Product Design System (dogfood)",
+  "cards": [
+    {
+      "slug": "card-for-items",
+      "path": "Data Display/card-for-items.html",
+      "status": "author",
+      "reason": "Kept deliberately (Vincent, 2026-09-23): important for scaffolding specific screens. The substrate has no case branch for it, only comments naming it as a precedent, so a rebuild drops it. A leaf is owed so knowledge produces what the screens depend on."
+    },
+    {
+      "slug": "chat-with-ai-steward",
+      "path": "Overlays/chat-with-ai-steward.html",
+      "status": "author",
+      "reason": "Kept deliberately (Vincent, 2026-09-23): important for scaffolding specific screens. Guidance already exists at components/dist/guidelines/chat-with-ai-steward.json; only the render is missing. This is the AI vocabulary absent from both the plugin and the DS Kit."
+    },
+    {
+      "slug": "tag-catalog",
+      "path": "Data Display/tag-catalog.html",
+      "status": "undecided",
+      "reason": "Studio product vocabulary rather than a DS primitive. The substrate carries a Tags family (interactive-tag, item-type-tag, read-only-tag); whether this is a first-class component or a composition of that family is open."
+    },
+    {
+      "slug": "tag-catalog-item-type",
+      "path": "Data Display/tag-catalog-item-type.html",
+      "status": "undecided",
+      "reason": "Studio product vocabulary rather than a DS primitive. The substrate carries a Tags family (interactive-tag, item-type-tag, read-only-tag); whether this is a first-class component or a composition of that family is open."
+    },
+    {
+      "slug": "tag-glossary-item-type",
+      "path": "Data Display/tag-glossary-item-type.html",
+      "status": "undecided",
+      "reason": "Studio product vocabulary rather than a DS primitive. The substrate carries a Tags family (interactive-tag, item-type-tag, read-only-tag); whether this is a first-class component or a composition of that family is open."
+    },
+    {
+      "slug": "tag-shared",
+      "path": "Data Display/tag-shared.html",
+      "status": "undecided",
+      "reason": "Studio product vocabulary rather than a DS primitive, and Share/Unshare is a real product concept. Whether this is a first-class component or a composition of the Tags family is open."
+    },
+    {
+      "slug": "tag-stage",
+      "path": "Data Display/tag-stage.html",
+      "status": "undecided",
+      "reason": "Studio product vocabulary rather than a DS primitive, and lifecycle Stage is a real product concept. Whether this is a first-class component or a composition of the Tags family is open."
+    },
+    {
+      "slug": "tag-status",
+      "path": "Data Display/tag-status.html",
+      "status": "undecided",
+      "reason": "Studio product vocabulary rather than a DS primitive. Whether this is a first-class component or a composition of the Tags family is open."
+    },
+    {
+      "slug": "calendar-date-input",
+      "path": "Form/calendar-date-input.html",
+      "status": "retire",
+      "reason": "Listed in ds-retired-slugs.js and has no case branch or markup in the substrate. The card in the project predates the retirement and should leave once its replacement is confirmed."
+    },
+    {
+      "slug": "rich-text",
+      "path": "Form/rich-text.html",
+      "status": "retire",
+      "reason": "Listed in ds-retired-slugs.js. rich-text-froala is the substrate's component and is now in the bundle, so this card is a stale duplicate and should leave once the replacement is confirmed as reading correctly."
+    }
+  ]
+}

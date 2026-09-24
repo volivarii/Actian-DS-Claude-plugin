@@ -76,3 +76,25 @@ all knowledge domains.
 Semver in `paths-manifest.json#knowledge_version` (= `package.json#version`).
 Patch = data/derived refresh; minor = additive contract; major = breaking.
 Pin a range; major/minor jumps are explicit consumer-side bumps.
+
+## 7. Building a screen
+
+A consumer that draws an Actian product screen as HTML (a generator, or an assistant
+reading this repository directly) needs these, by logical name:
+
+| Logical name | What it gives |
+|---|---|
+| `collections.appContextSrc` (`apps/`) | One file per app: header, side navigation, use cases |
+| `collections.appContextRecipes` | Captured product pages: regions (`slots`), what the renderer reads (`renderNotes`), a node tree |
+| `collections.appContextRecipesSrc` (`captures/`) | A captured page's product screenshot, when it ships one |
+| `collections.appContextSections` | The parts the product repeats across pages |
+| `collections.components.render.fragments` | One HTML file per component, one cell per variant the renderer draws, in the design system's own classes |
+| `paths.components.render.css` | The tokens and the component styles in one stylesheet, themed with `data-theme` |
+| `paths.components.render.fontsCss` | The embedded fonts |
+| `paths.components.icons.svg` | SVG geometry per icon slug |
+| `paths.components.render.contract` | The props and variant values the renderer honours, per component |
+
+Read a captured page's screenshot, when it has one, before its node tree: the tree is written for the
+plugin's JSON renderer, the screenshot and the `slots` prose carry the page. Where a
+capture and the design system disagree, the capture decides structure and the design
+system decides appearance.
