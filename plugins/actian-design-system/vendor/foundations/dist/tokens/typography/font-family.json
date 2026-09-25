@@ -40,8 +40,8 @@
         },
         {
           "Token": "--zen-font-family-brand",
-          "Value": "HCLTech Roobert",
-          "Usage": "Brand accent font. Use sparingly for high-impact moments — landing/marketing pages (e.g. Explorer landing), hero and display headers, and occasional accent headings. Never for body copy, UI controls, or data.",
+          "Value": "Roboto",
+          "Usage": "Brand accent in the apps: high-impact moments such as the Explorer landing, hero and display headers, occasional accent headings. Never body copy, UI controls or data. Resolves to Roboto, the apps' font; brand typefaces are for marketing and communication materials.",
           "status_note": "Proposed",
           "status": "proposed"
         },

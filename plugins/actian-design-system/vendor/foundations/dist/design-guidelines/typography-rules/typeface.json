@@ -21,5 +21,5 @@
     "source": "foundations/src/",
     "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
   },
-  "body": "Use --zen-font-family-text (Roboto) as the default for all UI text. Use --zen-font-family-mono (Roboto Mono) for code snippets, data tables with identifiers, and technical strings. Roobert is the brand typeface only for marketing and communication materials like website, PPTs, and flyers."
+  "body": "Use --zen-font-family-text (Roboto) as the default for all UI text. Use --zen-font-family-mono (Roboto Mono) for code snippets, data tables with identifiers, and technical strings. --zen-font-family-brand, for the brand accents the tokens table lists, resolves to Roboto, the apps&#39; font. Roobert is the brand typeface only for marketing and communication materials like website, PPTs, and flyers."
 }
