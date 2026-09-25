@@ -3352,10 +3352,10 @@
         }
       },
       "brand": {
-        "$value": "AllRpungGothic",
+        "$value": "Roboto",
         "$type": "fontFamily",
         "$extensions": {
-          "com.actian.status": "figma-only"
+          "com.actian.status": "Proposed"
         }
       },
       "mono": {

@@ -13,7 +13,8 @@ node scripts/render/build-bundle.js --out <dir>
 
 Writes one self-contained HTML file per rendered component (grouped by DS category,
 e.g. `Action/button.html`), plus three foundations cards (`Colors/palette.html`,
-`Type/type.html`, `Spacing/spacing.html`). Output is gitignored
+`Type/type.html`, `Spacing/spacing.html`), plus `styles.css` at the root: the fonts and
+`render.css`, the same two stylesheets every card inlines. Output is gitignored
 (`components/render/dist/bundle/`); build on demand, not committed.
 
 ## The `.prompt.md` sibling: usage notes reach Claude Design's own generation, not just a human reader
@@ -41,30 +42,51 @@ grounding for Claude Design's *own* AI-driven composition (steering it to use ea
 component per Actian's real "when to use" / "when not to use" / style rules), not only
 documentation for a human browsing the project.
 
-## `buildBundle()`'s return shape, and the `register_assets` name/subtitle enrichment
+## What Claude Design's index reads: the marker and the root stylesheet
 
 `buildBundle(outDir)` returns `{ written, assets }`. `written` is the flat list of
 relative paths written (what `write_files` needs). `assets` is one entry per `.html`
-card, `{name, path, group, subtitle}`, for `DesignSync`'s `register_assets` call.
+card, `{name, path, group, subtitle}`, for `DesignSync`'s legacy `register_assets` call.
 
-The `@dsCard`-marker auto-compile that builds `_ds_manifest.json` only carries
-`{path, group}` per card, so a card shows up in Claude Design's Design System pane
-labeled by its bare slug. `register_assets` (marked "legacy" in the `DesignSync` tool
-description, since the marker auto-compile supersedes it for registration, but it is
-still live and is the only path that carries a name/subtitle) is how a card gets a
-human-readable name and a one-line subtitle instead. `name` comes from the guideline
-doc's `component` field (falling back to a humanized slug, e.g. `account-dropdown` ->
-`Account Dropdown`, for the few rendered components with no guideline doc); `subtitle`
-is the usage note's first sentence, capped to a short label. Both are derived, not
-separately authored: nothing new to keep in sync as guideline content changes.
+Each card's first line is its marker, and it carries the card's name and subtitle:
+`<!-- @dsCard group="Action" name="Buttons" subtitle="..." -->`. `name` comes from the
+guideline doc's `component` field, which names a family: when several rendered
+components share one (`card`, `card-for-grouped-content` and `card-for-perimeter` all
+read "Cards"), each takes a humanized slug instead (`Card For Perimeter`), as does a
+component with no guideline doc (`account-dropdown` -> `Account Dropdown`). `subtitle`
+is the usage note's first sentence, capped to a short label, and is left out when there
+is no note. Both are derived, not separately authored.
+
+Checked against the dogfood project on 2026-09-24, first with a probe card and a probe
+stylesheet, then with this bundle, read back from the compiled `_ds_manifest.json`:
+
+- The index keeps a marker's `name`, `subtitle` and `viewport`. A card whose marker has
+  only a group is listed by its file name. `register_assets` changed nothing on this
+  project, whose manifest is `"source": "spa"`, so the marker is the path that works.
+- A stylesheet at the project root is recorded in `globalCssPaths`, its custom
+  properties become the system's `tokens` (typed, e.g. `color`, `spacing`) and its
+  `@font-face` rules its `fonts`. Before `styles.css` the index held no tokens and no
+  fonts, although every card carries both inline. `styles.css` declares 231 tokens in
+  `:root, [data-theme="actian"]` and 46 each in a `studio` and an `explorer` override
+  block. The index lists the 231, then each override again with a `scope` naming its
+  theme block, and records Studio and Explorer as `themes`. Its fonts are Roboto (400,
+  500, 700) and Inter (400, 500, 600).
+- The same read showed a gap in the tokens themselves: `--zen-font-family-brand` named
+  `AllRpungGothic` (a misspelling of AllRoundGothic, hard-coded in the derive) and
+  `--zen-font-family-mono` named Roboto Mono, neither with a `@font-face` in the render
+  dist, so the index marked both `no-face`. The brand token has since been set to
+  Roboto, the apps' font, which the render dist embeds; mono stays Roboto Mono, still
+  without a face.
 
 ## Pushing to Claude Design
 
-Via the `DesignSync` tool: `list_files` -> `finalize_plan` -> `write_files` ->
-`register_assets` (assets, using `buildBundle()`'s returned metadata). Incrementally:
-write only the paths that changed, never delete or overwrite `templates/`,
-`_ds_manifest.json` (Claude Design compiles this itself from each card's `@dsCard`
-marker, then layers `register_assets` metadata on top), or `_adherence.oxlintrc.json`
-(a Claude-Design-managed adherence-lint scaffold, currently empty; relevant once a real
-component/token registry exists to populate it). The live reference instance is the
-"Actian Product Design System (dogfood)" project.
+Via the `DesignSync` tool: `list_files` -> `finalize_plan` -> `write_files`.
+Incrementally: write only the paths that changed, never delete or overwrite
+`templates/`, `_ds_manifest.json` or `_adherence.oxlintrc.json` (a
+Claude-Design-managed adherence-lint scaffold, currently empty). The index in
+`_ds_manifest.json` is not rebuilt by the push: Claude Design compiles it in its
+"Check design system" step, which runs as a chat turn inside the project, so a push is
+followed by that turn and then a read of the manifest. `npm run bundle:reconcile`
+compares the live listing with what this script produces and with
+`bundle-external.json`. The live reference instance is the "Actian Product Design
+System (dogfood)" project.

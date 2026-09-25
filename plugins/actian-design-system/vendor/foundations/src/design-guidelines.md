@@ -30,7 +30,7 @@ motion_refs:
 
 #### Typeface
 
-Use `--zen-font-family-text` (Roboto) as the default for all UI text. Use `--zen-font-family-mono` (Roboto Mono) for code snippets, data tables with identifiers, and technical strings. Roobert is the brand typeface only for marketing and communication materials like website, PPTs, and flyers.
+Use `--zen-font-family-text` (Roboto) as the default for all UI text. Use `--zen-font-family-mono` (Roboto Mono) for code snippets, data tables with identifiers, and technical strings. `--zen-font-family-brand`, for the brand accents the tokens table lists, resolves to Roboto, the apps' font. Roobert is the brand typeface only for marketing and communication materials like website, PPTs, and flyers.
 
 #### Language Support
 
