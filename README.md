@@ -8,11 +8,10 @@ Built on Claude and connected directly to Figma, the Actian DS Plugin knows the 
 
 ## The core loop
 
-**Sketch → Hifi → Audit.** Most design work flows through this loop.
+**Sketch → Audit.** Most design work flows through this loop.
 
-1. **Sketch.** Describe a feature; get a DS-native flow (one screen or many) with correct app chrome, structured around real layout patterns from the product. `--lofi` renders the same tree in a gray skin; `--fm` opts into Fat Marker authoring.
-2. **Hifi.** Convert the wireframe to high-fidelity — DS Kit components, real tokens, production-ready.
-3. **Audit.** Check tokens, contrast, copy, and DS rules. Auto-fix what's safe, report what needs judgment.
+1. **Sketch.** Describe a feature; get a DS-native flow (one screen or many) with correct app chrome, structured around real layout patterns from the product. `--lofi` renders the same tree in a gray skin; `--fm` opts into Fat Marker authoring. Converting a Figma URL to hi-fi is retired: a `--lofi` or `--fm` flow is regenerated DS-native from its brief.
+2. **Audit.** Check tokens, contrast, copy, and DS rules. Auto-fix what's safe, report what needs judgment.
 
 Iterate inside the loop with **refine** (paste a screen-frame URL + edit instruction — only that screen is recreated, the rest stay byte-identical), **branch** (fork into a sibling for parallel exploration), or **variants** (three structurally-distinct alternatives side-by-side).
 
@@ -25,7 +24,7 @@ The guidelines hold throughout — tokens, spacing, content rules, accessibility
 
 DS knowledge (tokens, components, foundations, content + accessibility guidelines) is vendored from [`volivarii/actian-ds-knowledge`](https://github.com/volivarii/actian-ds-knowledge) — the canonical source-of-truth repo synced directly from Figma. The plugin pulls a pinned snapshot nightly via `vendor-snapshot.yml`.
 
-**2026.7.13** · 4 skills (tiered generation: recognized / adapted / improvised) · 6 agents · 12 recipes · 155 design tokens across 8 collections · 3 themes · WCAG 2.2 AA · **substrate-grounded flow authoring** (app chrome, UX patterns, and entity relationships + typed properties → idiomatic lo-fi screens, with enum columns rendered as status pills) · real icon glyphs in generated flows (resolved from the vendored icon set instead of placeholder boxes) · surgical refine engine · vision-grounded references · interactive gates · federated knowledge substrate
+4 skills (tiered generation: recognized / adapted / improvised) · 6 agents · 12 recipes · 155 design tokens across 8 collections · 3 themes · WCAG 2.2 AA · **substrate-grounded flow authoring** (app chrome, UX patterns, and entity relationships + typed properties → idiomatic lo-fi screens, with enum columns rendered as status pills) · real icon glyphs in generated flows (resolved from the vendored icon set instead of placeholder boxes) · surgical refine engine · vision-grounded references · interactive gates · federated knowledge substrate
 
 ---
 
@@ -37,7 +36,7 @@ DS knowledge (tokens, components, foundations, content + accessibility guideline
 2. Click **+** > add marketplace: `volivarii/Actian-DS-Claude-plugin`
 3. Install **Actian Design System** from the marketplace
 
-The plugin is available in both **Cowork** and **Code** tabs after install. At this time, **Code** is recommended for best results.
+The plugin is available in both **Cowork** and **Code** tabs after install. At this time, **Code** is recommended for best results. In the Actian org's Cowork, the plugin cannot take screenshots of its own output (there is no browser in the Cowork sandbox, so the `--direct` route hands over without looking at its page), and updates arrive on their own: a version cannot be held there.
 
 > **Figma integration:** The plugin's Figma read/write uses the `claude.ai Figma` connector. On **Claude Desktop / Cowork** it's built in — you'll be prompted to authorize your Figma account on first use (no separate install). On the **Claude Code CLI**, connect it via `/mcp` (it's a Claude-managed connector, surfaced under `/mcp`). Works with Figma files in the browser and Figma desktop.
 
@@ -52,7 +51,7 @@ claude plugin install actian-design-system@actian-design-system
 
 For the plugin to produce real DS output (not hex fallbacks), you need:
 
-- **Figma desktop running** — for canvas read/write.
+- **A Figma file open** (in the browser or Figma desktop) — for canvas read/write.
 - **A Figma editor seat with the DS / FM / Meta libraries enabled.** Without it — or if a file isn't connected to the libraries — output falls back to raw hex values instead of bound design-system styles. That's a setup issue, not a plugin bug.
 - **The Figma MCP connected** — built in on Desktop / Cowork; on CLI connect via `/mcp` (see the Figma integration note above).
 - **Node.js available** — used by the local preview/validation scripts. The plugin auto-resolves nvm / Volta / asdf / fnm / Homebrew / system installs; if it can't find node, install it from [nodejs.org](https://nodejs.org) or set `NODE_BIN`.
@@ -98,7 +97,7 @@ claude plugin marketplace update actian-design-system
 claude plugin update actian-design-system@actian-design-system
 ```
 
-**Cowork / Desktop:** an org owner can turn on **Organization settings > Plugins > Sync automatically** (the GitHub marketplace then re-syncs whenever a PR merges); otherwise use the manual **Update** button. Changes reach each member on their next session (up to ~30 min).
+**Cowork / Desktop:** an org owner can turn on **Organization settings > Plugins > Sync automatically** (the GitHub marketplace then re-syncs whenever a PR merges); otherwise use the manual **Update** button. Changes reach each member on their next session (up to ~30 min). With automatic sync on, members cannot hold an older version.
 
 **Fallback (rarely needed):** if an update still doesn't land, refresh the marketplace with `/plugin marketplace update` or, as a last resort, clear the cached copy and restart Claude:
 
@@ -119,7 +118,7 @@ Two input shapes cover almost everything. The companion (`/actian-ux`) routes; y
 | Shape | Looks like | What you get |
 |-------|------------|--------------|
 | **Prompt** | "Design a connection setup wizard for Administration" | One screen or a flow, DS-native by default (lo-fi or Fat Marker on request), with the right app chrome |
-| **URL + intent** | `<figma url>` + "rename CTA to Publish" / "make it hifi" / "audit the copy" | Surgical refine, hifi convert, scoped audit, branch, or iterate — picked from your prose |
+| **URL + intent** | `<figma url>` + "rename CTA to Publish" / "audit the copy" / "branch this" | Surgical refine, scoped audit, branch, or iterate — picked from your prose |
 
 ### Your first 30 minutes
 
@@ -127,11 +126,10 @@ Two input shapes cover almost everything. The companion (`/actian-ux`) routes; y
 Design a connection setup wizard for Administration
 push
 <screen-3 url>  rename "Submit" to "Connect" and tighten the help text
-make it hifi
 audit this --scope copy --fix all
 ```
 
-Sketch → push → refine one screen → hifi → auto-fix copy. Every step is a single message. **Full walkthrough in [USAGE.md](USAGE.md#a-feature-from-sketch-to-ship--worked-example).**
+Sketch → push → refine one screen → auto-fix copy. Every step is a single message. **Full walkthrough in [USAGE.md](USAGE.md#a-feature-from-sketch-to-ship--worked-example).**
 
 ### A few starting prompts
 
@@ -168,7 +166,7 @@ Every capability is also available as a direct command. Use these when you know 
 
 | Command | What it does |
 |---------|-------------|
-| `/actian-ux-prototype` | Sketch — one or more DS-native screens (n≥1), real DS components and tokens, correct app chrome; `--lofi` for the gray skin, `--fm` for Fat Marker authoring. Interactive gates (v1.63.0+) replace most CLI flags: variants, ref, states, breakpoints, hifi/audit chaining are picked through prompt-flow. Still flag-callable: `--from <url>` (iterate), `--from <url> --branch X` (fork), `--from proposals/proposal-data.json` (seed from a design proposal's picks). URL + prose = refine shape (v1.56.0+: surgical — only changed screen frames are recreated, validator findings stay scoped). Vision-grounded `--ref <url>` (v1.57.0+) extracts a structural fingerprint and biases recipe + density. |
+| `/actian-ux-prototype` | Sketch — one or more DS-native screens (n≥1), real DS components and tokens, correct app chrome; `--lofi` for the gray skin, `--fm` for Fat Marker authoring. Interactive gates (v1.63.0+) replace most CLI flags: variants, ref, states, breakpoints, hifi/audit chaining are picked through prompt-flow. Still flag-callable: `--from <url>` (iterate), `--from <url> --branch X` (fork), `--from proposals/proposal-data.json` (seed from a design proposal's picks). URL + prose = refine shape (v1.56.0+: surgical — only changed screen frames are recreated, validator findings stay scoped). Vision-grounded `--ref <url>` (v1.57.0+) extracts a structural fingerprint and biases recipe + density. `--direct` (opt-in): one author draws the whole flow as one clickable HTML page. |
 | `/actian-ux-proposal` | Propose: a short document for PMs and designers that opens with what was asked and leads with what ships (the answer in one sentence, then one block per part with the chosen drawing, why and what it costs, what to settle before building and what changes, then, folded until opened, the other options with their comparison and the research), in plain words held to word limits. HTML only, opens offline; for component-scale tickets. `--evaluate` stops after the decisions: what the ticket forces, written to `proposals/proposal-data.json` and no document, resumed with `--from`. The picks become a flow without being retyped: `/actian-ux-prototype --from proposals/proposal-data.json`. |
 | `/actian-ux-audit` | Audit — tokens, contrast, copy, a11y, heuristic. `--scope <copy\|tokens\|a11y\|heuristic>` narrows; `--fix N\|all` auto-applies. |
 
@@ -225,7 +223,7 @@ Agents are dispatched automatically by skills — they run as background subproc
 | `wiring-analyzer` | Analyze flow structure for prototype wiring | Flow push (wire step) |
 | `screen-generator` | Generate one flow screen per instance, all in parallel | Flow generation (every screen count, one agent per screen) |
 | `ds-researcher` | Research a design question across competitors, public design systems, the Actian substrate and supplied references | Design proposal (the lanes the reader opts into) |
-| `prototype-author` | Draw the whole flow as one clickable HTML page from the design system's own markup, check it and look at it | Flow generation with `--direct` |
+| `prototype-author` | Draw the whole flow as one clickable HTML page from the design system's own markup, check it, and look at it where a browser is available (not in Cowork) | Flow generation with `--direct` |
 
 ---
 
@@ -265,7 +263,7 @@ Companion + skills read at runtime
 - **Scope-aware filtering** (v1.55.0+) — refines pass `--scope single-unit:<id>` so findings on untouched screens don't drown out findings on the screen the designer actually edited.
 - **Refine engine** (v1.56.0+) — `resolve-unit.js` maps a Figma URL to a `pushedNodes` entry, `snapshot-store.js` reads/writes a `flow-data.snapshot.json` sidecar, `derive-scope.js` diffs before/after by `screens[].id` to produce the canonical scope tag. Surgical push deletes and recreates only the changed screen frames.
 - **Vision-grounded references** (v1.57.0+) — `--ref <figma-url>` triggers a structural fingerprint extraction (`density`, `hierarchy_depth`, `primary_components`, `layout_archetype`) that biases recipe + density. Refine path reuses the cached fingerprint when the URL is unchanged.
-- **Auto-bump on sync** (v1.63.1+) — sync detects additive/breaking verdicts and bumps `plugin.json` automatically; missing component-guideline files are auto-stubbed (v1.64.0+) so new components land with a placeholder ready for authoring.
+- **Auto-bump on vendor refresh** — the nightly `vendor-snapshot.yml` bumps `plugin.json` whenever the knowledge snapshot changes.
 - **Design changelog** — `changelog.js` compares the current push against the previous `.last-push.json` manifest, reporting source data changes, token drift, and component additions/removals.
 
 **DS-native by default:** `/actian-ux-prototype X` authors screens against the DS Kit vocabulary and renders real components with real tokens in the HTML deliverable; `--push` adds the Figma frames. `--lofi` renders the same tree in a focus-aware lo-fi skin, and `--fm` opts back into FatMarker authoring (required for a lo-fi Figma push). The Figma-URL conversion skill was retired on 2026-09-10 and its code deleted on 2026-09-22 (see the CHANGELOG).
@@ -304,13 +302,13 @@ actian-design-system-plugin/
 │   ├── schemas/                           # JSON schemas (flow-data, proposal-data, proposal-evaluation)
 │   ├── templates/                         # HTML wrappers (flow, annotation-layer, proposal-document)
 │   ├── vendor/                            # pinned knowledge-repo snapshot — the DS substrate
-│   │   ├── components/                    # registries (dskit/fmkit/metakit) + 58 guideline docs + bundles
+│   │   ├── components/                    # registries (dskit/fmkit/metakit) + 61 guideline docs + bundles
 │   │   ├── foundations/                   # foundations.md (source of truth) + 79 derived JSONs
 │   │   ├── tokens/                        # W3C DTCG JSON + CSS custom properties
 │   │   ├── accessibility/                 # per-section WCAG 2.2 AA docs
 │   │   ├── content/                       # global.md + words-to-avoid.json
 │   │   └── app-context/                   # app-context.json
-│   └── docs/                              # llms-overview.md (AI orientation) + superpowers/ (specs, plans, audits)
+│   └── docs/                              # llms-overview.md (AI orientation)
 └── USAGE.md                               # detailed usage guide
 ```
 
@@ -322,9 +320,7 @@ actian-design-system-plugin/
 
 ```bash
 git clone https://github.com/volivarii/Actian-DS-Claude-plugin.git
-cd Actian-DS-Claude-plugin/plugins/actian-design-system
-cp .figma-keys.json.example .figma-keys.json
-# Edit .figma-keys.json with your team's Figma file keys
+cd Actian-DS-Claude-plugin
 ```
 
 ### Local testing
@@ -333,15 +329,23 @@ cp .figma-keys.json.example .figma-keys.json
 claude --plugin-dir plugins/actian-design-system
 ```
 
+### Tests
+
+```bash
+npm test
+```
+
+Run from the repository root: the suite lives in `tests/`, outside the plugin directory, so it does not ship with the install.
+
 ### Maintaining
 
 | What changed | What to do |
 |-------------|------------|
 | Tokens/components in Figma | Knowledge repo's `sync-from-figma.yml` runs nightly (07:00 UTC) and opens an additive PR; the plugin's `vendor-snapshot.yml` then propagates it (09:00 UTC) and auto-bumps `plugin.json`. To force a refresh, manually trigger `vendor-snapshot.yml` in the plugin repo. |
-| Single component's guidelines | Edit upstream in `volivarii/actian-ds-knowledge` (`components/guidelines/<slug>.json`); the next vendor-snapshot pulls the change. |
-| Foundation docs | Edit upstream in `volivarii/actian-ds-knowledge` (`foundations/foundations.md`); CI regenerates derived JSONs on PR; the next vendor-snapshot pulls them. |
+| Single component's guidelines | Edit upstream in `volivarii/actian-ds-knowledge` (`components/src/<slug>/`); the next vendor-snapshot pulls the change. |
+| Foundation docs | Edit upstream in `volivarii/actian-ds-knowledge` (`foundations/src/*.md`); CI regenerates `foundations/dist/` on PR; the next vendor-snapshot pulls them. |
 | New skill | Add `skills/<name>/SKILL.md` and update `ARCHITECTURE.md` Section 2 |
-| Version bump | Handled automatically by `vendor-snapshot.yml` on knowledge-repo data change; manual bumps in `.claude-plugin/plugin.json` |
+| Version bump | Handled automatically by `vendor-snapshot.yml` on knowledge-repo data change. Any other PR that changes a file under `plugins/actian-design-system/` bumps `.claude-plugin/plugin.json` by hand (CI gate `check-version-bump.js`); a change to `tests/` alone needs no bump. |
 
 ---
 

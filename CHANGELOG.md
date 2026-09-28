@@ -19,6 +19,10 @@ are summarized at the release level.
 
 ## [Unreleased]
 
+### Fixed
+
+- **The docs match the plugin again.** The README and USAGE no longer describe retired features: converting a Figma URL to hi-fi (retired; a lo-fi flow is regenerated DS-native from its brief) and a user-run design system sync (sync is nightly and automatic). They now say what the plugin cannot do in the Actian org's Cowork: it cannot take screenshots of its own output, so `--direct` hands over without looking at its page, and updates arrive on their own, so a version cannot be held. `llms.txt` pointed AI agents at nine knowledge-repository paths that no longer exist; every link now resolves. The README's development setup copied a file deleted in v1.79.0 and now says where the tests run (`npm test` from the repository root). `ARCHITECTURE.md`, `llms-overview.md`, the plugin's `CLAUDE.md` and `TEST-PROMPTS.md` lose stale paths, counts and the retired `--hifi` prompts, and gain `--direct`. Docs only: no skill, agent, script or manifest description changed. ([#423](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/423))
+
 ### Changed
 
 - **The test suite lives at the repository root, outside the plugin directory.** `plugins/actian-design-system/tests/` is now `tests/`, and `package.json` moved with it, so `npm test` runs from the repository root. A plugin install copies every tracked file under the plugin directory, and 2.3 MB of tests (352 tracked files, 3.2 MB on disk) shipped to every user for nothing. No test changed what it checks: every relative path was recomputed to its original target, and the three scripts that read or write test data resolve the tree through `scripts/lib/tests-root.js`. A test-only change no longer needs a version bump. ([#415](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/415))

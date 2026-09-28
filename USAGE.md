@@ -84,7 +84,7 @@ The companion proposes 4 screens, asks if you want competitor research, and surf
 push
 ```
 
-Lo-fi screens land in Figma — Fat Marker frames with the right Administration chrome (header, nav, page title) structured around recipes (`form-create` for input screens, `confirmation` for success). Each screen gets a stable `screenId` stamped into `.last-push.json` so later refines target the right one.
+DS-native screens land in Figma with the right Administration chrome (header, nav, page title) structured around recipes (`form-create` for input screens, `confirmation` for success). Each screen gets a stable `screenId` stamped into `.last-push.json` so later refines target the right one.
 
 ### 3. Refine one screen — surgical edit
 
@@ -113,7 +113,7 @@ audit this
 
 Runs `/actian-ux-audit` — tokens, contrast, copy, heuristics — with confidence-scored findings. Auto-fix what's safe, flag what needs judgment.
 
-> **Content designer's path:** `audit this --scope copy --fix all` rewrites strings against `vendor/content/content.md` — sentence case, action verbs, error-message patterns, empty-state CTAs — applied automatically.
+> **Content designer's path:** `audit this --scope copy --fix all` rewrites strings against `vendor/content/dist/global.md` and each component's content rules — sentence case, action verbs, error-message patterns, empty-state CTAs — applied automatically.
 >
 > **A11y specialist's path:** `audit this --scope a11y` focuses on contrast (4.5:1 normal, 3:1 large), focus order, and target sizes (44×44px min). Other findings stay quiet.
 
@@ -238,7 +238,7 @@ At every level, only the feature you're designing gets detailed content — side
 
 **DS-native by default:** every generation is a hi-fi HTML deliverable unless `--lofi` or `--fm` opts out; add `--push` for a Figma artifact. Regenerate later from the same brief to drop back to DS-native.
 
-**One author, one clickable prototype (`--direct`):** add `--direct` and a single author draws the whole flow as one HTML page, from the design system's own markup: the app's real header and side navigation, live state between steps (a selection selects, a save changes the list behind the panel), a strip to jump to a step, and a "Show what is new" switch that marks what the product does not have today. Scripts check the page, and the author looks at a screenshot of every step before handing over; the handover says whether anyone looked. It is HTML only: no Figma push, no audit, and two runs of one prompt differ in structure. Without the flag nothing changes.
+**One author, one clickable prototype (`--direct`):** add `--direct` and a single author draws the whole flow as one HTML page, from the design system's own markup: the app's real header and side navigation, live state between steps (a selection selects, a save changes the list behind the panel), a strip to jump to a step, and a "Show what is new" switch that marks what the product does not have today. Scripts check the page, and where a browser is available the author looks at a screenshot of every step before handing over (in Cowork there is none); the handover says whether anyone looked. It is HTML only: no Figma push, no audit, and two runs of one prompt differ in structure. Without the flag nothing changes.
 
 **Prototype wiring:** Say "push and wire" and your flow becomes playable in Figma Presentation mode.
 
@@ -361,19 +361,9 @@ arrives attached to the decision it argues with. Re-publishing lands on the same
 
 `--evaluate` stops after the decisions. It runs the frame, the product read and the decomposition, writes `proposals/proposal-data.json` at `stage: evaluation` and says in chat what the ticket forces: no research, no options, no picks and no document. Use it to triage a stack of tickets, or to find out before the work whether a ticket carries enough to decide. Resume one with `/actian-ux-proposal --from proposals/proposal-data.json`: the resume skips the ticket and the product read, which the file already records, runs the research against the named decisions rather than the ticket in general, and authors the options, the comparisons and the picks. `--no-research` and `--concepts N` alongside `--evaluate` are accepted and do nothing, because an evaluation runs no research and authors no options; `--from` alongside it is refused, since it runs the other way, and re-evaluating a ticket is another `--evaluate`.
 
-### Design system sync — keep tokens and docs current
+### Design system sync — automatic
 
-```
-Sync the design system
-```
-
-```
-Sync the Button guidelines
-```
-
-```
-Check if local files are up to date with Figma
-```
+There is nothing to run. The knowledge repository syncs from Figma every night, and the plugin takes the new snapshot the same morning. Asking the plugin to "sync the design system" gets that explanation.
 
 ### Guideline proposals — evolve the DS
 
@@ -395,7 +385,7 @@ Every capability is also a direct command. Use these when you know exactly what 
 
 | Command | When to use |
 |---------|------------|
-| `/actian-ux-prototype [description]` | Generate one or more lo-fi screens from a prompt |
+| `/actian-ux-prototype [description]` | Generate one or more DS-native screens from a prompt (`--lofi` or `--fm` for lo-fi) |
 | `/actian-ux-prototype [URL] [instruction]` | Refine — surgical edit on a prior push |
 | `/actian-ux-prototype --from [URL]` | Iterate — re-roll the same flow |
 | `/actian-ux-prototype --from proposals/proposal-data.json` | Seed a flow from a design proposal: every decision's pick composed into one screen list and a brief (`--decision <id>`, `--option <id>`) |
@@ -405,7 +395,7 @@ Every capability is also a direct command. Use these when you know exactly what 
 | `/actian-ux-prototype [URL] --states empty,error` | Add state coverage to a pushed flow |
 | `/actian-ux-prototype [description] --breakpoints tablet,mobile` | Add responsive breakpoint variants |
 | `/actian-ux-prototype [description]` | DS-native hi-fi HTML deliverable by default (`--lofi` for a lo-fi skin, `--fm` for FatMarker authoring); add `--push` for a Figma artifact |
-| `/actian-ux-prototype --direct [description]` | One clickable HTML prototype drawn by a single author from the design system's own markup, checked and looked at before it is handed over. HTML only: no Figma push, and two runs of one prompt differ in structure |
+| `/actian-ux-prototype --direct [description]` | One clickable HTML prototype drawn by a single author from the design system's own markup, checked, and looked at where a browser is available (not in Cowork), before it is handed over. HTML only: no Figma push, and two runs of one prompt differ in structure |
 | `/actian-ux-proposal [ticket or request] [--concepts N] [--no-research]` | A document that leads with what ships: the answer, one block per part (the chosen drawing, why, cost), what to settle before building, what changes, then, folded, the other options and the research |
 | `/actian-ux-proposal [ticket or request] --evaluate` | Stop after the decisions: what the ticket forces, written to `proposals/proposal-data.json`, no document |
 | `/actian-ux-proposal --from proposals/proposal-data.json` | Resume an evaluation into a proposal, or re-render a finished one |
@@ -442,6 +432,8 @@ Click directly on elements in the preview instead of describing issues in text:
 ### Running in Cowork
 
 In the Cowork tab, bash runs inside a VM where the plugin is mounted under a sessions directory, not at the path the skill header names. Every skill now starts with a "Where the plugin lives" block that sets `CLAUDE_PLUGIN_ROOT` for that shell, so the renderer and validator scripts are found on the first try. If a run ever says the scripts are not available, run that block's bash line by hand and retry.
+
+Two limits in the Actian org's Cowork. The plugin cannot see its own output: the Cowork sandbox has no browser, browser downloads are blocked, and Claude in Chrome is switched off, so any step that screenshots a page (such as `--direct`'s look) is skipped and the handover says so. Look at the page yourself. And the plugin updates on its own there, so a version cannot be held.
 
 ---
 

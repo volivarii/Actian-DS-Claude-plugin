@@ -17,12 +17,12 @@ root, next to `plugins/`, so an installed plugin does not carry it (see section 
 | `commands/` | (none currently — slash commands are co-located with skills) |
 | `vendor/` | Vendored snapshot of `volivarii/actian-ds-knowledge` — design docs (`foundations/`, `content/`, `accessibility/`), merged per-component multi-domain guideline docs (`components/dist/guidelines/`, resolved via `PATHS.components.guidelineDoc.byKey`; the scraped `components/src/guidelines/` layer was retired in Phase 5, knowledge v0.11.0), component registries (`components/dist/registries/`), tokens (`tokens/`), app context (`app-context/`). Refreshed nightly via `vendor-snapshot.yml`. Treat as read-only — edits belong upstream. (The FM↔DS map + presentation guide are no longer vendored — they were evicted to the plugin in Track E; the FM↔DS map now lives at `references/actian-ux-prototype/fm-to-ds-map.json`.) |
 | `examples/` | Reference outputs for skills (a sample flow). |
-| `hooks/` | `hooks.json` — PreToolUse/PostToolUse hooks wired to scripts under `scripts/` (will move to `scripts/hooks/` in PR-2). |
+| `hooks/` | `hooks.json` — PreToolUse/PostToolUse hooks wired to the shell guards in `scripts/hooks/`. |
 | `recipes/` | Per-skill JSON recipes (`flow/`). |
 | `references/` | Reference docs split into cross-cutting subdirs (`figma/`, `ds-rules/`, `context/`) and per-skill subdirs. |
 | `release-notes/` | Per-version markdown release notes (gitignored). |
 | `schemas/` | JSON Schemas (`flow-data.schema.json`, `proposal-data.schema.json`, `proposal-evaluation.schema.json`). |
-| `scripts/` | Node + shell scripts. PR-2 will reorganize into purpose buckets. |
+| `scripts/` | Node + shell scripts in purpose buckets (see section 3). |
 | `skills/` | One subdir per user-facing skill, each with a `SKILL.md`. |
 | `templates/` | Per-skill HTML/JSON templates. |
 | `../../tests/` | The test suite, at the repository root (moved out of the plugin on 2026-09-22, plugin #415). `npm test` runs from the repository root. |
@@ -37,7 +37,7 @@ Each row is a user-facing skill (slash command). Use this table to find every fi
 | Skill | SKILL.md | Agents | Recipes | Templates | Schemas | References (skill-specific) | Cross-cutting refs used |
 |---|---|---|---|---|---|---|---|
 | `/actian-ux-prototype` | `skills/actian-ux-prototype/SKILL.md` | `agents/{screen-generator,prototype-author,flow-consistency,flow-researcher,wiring-analyzer}.md` | `recipes/flow/` | `templates/flow-*.html` (incl. `flow-prototype-wrapper.html` — two-view Prototype + Overview shell used by `--type flow-share`); `templates/vendor/alpinejs-3.14.9.min.js` (MIT, inlined into the deliverable) | (none) | `references/actian-ux-prototype/` | `references/figma/*`, `references/ds-rules/{layout-patterns,quality-checklist,quality-tiers}.md`, `references/context/{app-context,ux-patterns}.md` |
-| `/actian-ux-proposal` | `skills/actian-ux-proposal/SKILL.md` | (none) | (none) | `templates/proposal-document.html` | `schemas/proposal-data.schema.json`, `schemas/proposal-evaluation.schema.json` (the `--evaluate` stage, selected by `meta.stage`) | `references/actian-ux-proposal/` | `references/ds-rules/fm-css-reference.md`, `references/context/ux-patterns.md` |
+| `/actian-ux-proposal` | `skills/actian-ux-proposal/SKILL.md` | `agents/ds-researcher.md` | (none) | `templates/proposal-document.html` | `schemas/proposal-data.schema.json`, `schemas/proposal-evaluation.schema.json` (the `--evaluate` stage, selected by `meta.stage`) | `references/actian-ux-proposal/` | `references/ds-rules/fm-css-reference.md`, `references/context/ux-patterns.md` |
 | `/actian-ux-audit` | `skills/actian-ux-audit/SKILL.md` | (none) | (none) | (none) | (none) | `references/actian-ux-audit/` | `references/figma/{figma-output,parity-check}.md`, `references/ds-rules/quality-checklist.md` |
 | `/actian-ux` | `skills/actian-ux/SKILL.md` | (none) | (none) | (none) | (none) | (none) | `references/figma/figma-output.md`, `references/context/{companion-context,ux-patterns}.md` |
 
@@ -79,7 +79,7 @@ Retired and deleted: `/generate-presentation`, `/convert-to-hifi` and `agents/sl
 - `migrations/` — One-shot converters for a data file whose schema changed under it. Each exports its `isOldShape` detector so the matching validator can name the converter in one P0 instead of printing a wall of schema errors, and each converts structure only: a field the old shape never carried is written empty for the author, never guessed. `proposal-approaches-to-decisions.js` (pre-`decisions[]` `proposal-data.json`) is the first. New converters go here, one per break, named for the break.
 - `bridges/`: one skill's output read as another skill's input. `proposal-to-flow.js` composes a `proposals/proposal-data.json` into the screen list and brief `/actian-ux-prototype` takes: picks selected, screens sharing a name merged into one carrying every note, disagreeing fields a P0, order following the proposal's breadboard. Exports `compose(data, opts)` and carries a CLI. New cross-skill composers go here, named `<source>-to-<target>.js`.
 
-> **Removed in Federation Phase 1.5 (v1.79.0):** `sync/`, `foundations/`, `changelog/` — moved to `volivarii/actian-ds-knowledge` CI.
+> **Removed in Federation Phase 1.5 (v1.79.0):** `sync/`, `foundations/` — moved to `volivarii/actian-ds-knowledge` CI.
 - `lib/` — Shared utilities used by 2+ scripts (constants, ID stamping, scope derivation, snapshot store, intent resolver, unit resolver, Node binary resolver). New shared utilities go here.
   - `lib/app-context/` — substrate-grounding resolvers (`resolve-chrome.js`, `resolve-patterns.js`, `resolve-relationships.js`, `resolve-properties.js`) that read the structured `vendor/app-context/dist/app-context.json` and populate the flow's `meta._glossary` (chrome, UX pattern, entity relationships, typed entity properties, and the entity-to-components join) before screen generation. Each exposes a `--entity`/`--app` CLI and a `loadAppContext(ctx)` injection seam. Consumed by `actian-ux-prototype` Step 3.5 + the `screen-generator` agent; grounding is checked (advisory, non-blocking) by `scripts/validation/validate-flow-data.js`.
   - `lib/a11y/` — `scripts/lib/a11y/resolve-a11y.js` resolves per-component accessibility rulesets (WCAG criteria + prose rules) from `graph.json` + `accessibility.bundle.json`: for a component slug it unions the component's own a11y section (its graph `a11y_ref` edge) with its category's cross-cutting sections. Exposes a `resolveA11y(slugs, opts)` function (injection seam: `opts.graph`/`opts.bundle`) + a `--slugs <slug,slug,...>` CLI. Consumed by the `actian-ux-audit` skill's Accessibility check.
@@ -90,10 +90,11 @@ The suite lives at `<repo>/tests/`, not under the plugin: a plugin install copie
 
 Tests mirror `scripts/` 1:1 — open `scripts/<bucket>/foo.js`, the test lives at `tests/<bucket>/foo.test.js`. Plus a cross-cutting `integration/` bucket for tests that exercise multiple scripts/skills.
 
-- `sync/`, `validation/`, `renderers/`, `transformers/`, `migrations/`, `bridges/`, `foundations/`, `changelog/`, `lib/`, `lint/`, `quality/`, `fidelity/` — unit tests for the corresponding `scripts/<bucket>/` modules.
+- `validation/`, `renderers/`, `transformers/`, `migrations/`, `bridges/`, `lib/`, `lint/`, `quality/`, `fidelity/`, `flows/`, `vendor/` — unit tests for the corresponding `scripts/<bucket>/` modules.
 - `integration/` — cross-cutting tests not bound to a single script: recipe shape contracts, schema/tier integration, path-validation across the whole tree, CSS-staleness checks, brief-flow end-to-end, etc. New tests that span ≥2 buckets go here. Two vendor-path guards live in `tests/integration/`: `no-bare-vendor-paths.test.js` (code must use `PATHS`, not literals) + `vendor-paths-resolve.test.js` (every `vendor/…` reference in prose/code — skills, references, agents, scripts, plus the plugin's own docs: `CLAUDE.md`, `ARCHITECTURE.md`, `README.md`, `docs/` — must resolve). See CLAUDE.md "Knowledge access".
 - `fixtures/` — shared test fixtures (unchanged location; tests reach via `__dirname/../fixtures/...`).
-- `snapshots/` — golden snapshot files (unchanged location).
+- `helpers/` — shared test helpers.
+- Golden snapshot files live beside their tests, in `renderers/__goldens__/`.
 
 No `tests/hooks/` — shell guards aren't unit-tested.
 

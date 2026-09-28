@@ -126,14 +126,20 @@ Mock up a mobile notification screen for scanner alerts
 Design a compact modal for connection deletion confirmation
 ```
 
-### With hifi conversion
+### Lo-fi on request (DS-native is the default)
 
 ```
-Generate a connection settings flow in Studio --hifi
+Generate a connection settings flow in Studio --lofi
 ```
 
 ```
-/actian-ux-prototype Admin dashboard for Administration --hifi
+/actian-ux-prototype Admin dashboard for Administration --fm
+```
+
+### One clickable prototype (`--direct`)
+
+```
+/actian-ux-prototype --direct let a steward describe several catalog items at once
 ```
 
 ### At the action gate
@@ -279,9 +285,9 @@ Fix all auto-fixable findings
 
 ```
 /actian-ux-prototype Admin Dashboard for Administration
-/actian-ux-prototype Connection settings in Studio --hifi
+/actian-ux-prototype Connection settings in Studio --lofi
+/actian-ux-prototype --direct Connection settings in Studio
 /actian-ux-audit https://figma.com/design/FILEKEY/File?node-id=123-456
-/release-notes
 ```
 
 ---
