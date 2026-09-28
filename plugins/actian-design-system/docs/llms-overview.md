@@ -15,7 +15,7 @@ Actian DS via the official Figma MCP server.
 
 The DS knowledge layer lives in
 [`volivarii/actian-ds-knowledge`](https://github.com/volivarii/actian-ds-knowledge)
-(federated). The plugin vendors a pinned snapshot at release time into
+(federated). The plugin vendors a pinned snapshot, refreshed nightly, into
 `vendor/`. AI agents working with the plugin can read either the
 vendored copy or the canonical knowledge repo directly — both are kept
 in sync via the plugin's `vendor-snapshot.yml` workflow.
@@ -25,7 +25,7 @@ in sync via the plugin's `vendor-snapshot.yml` workflow.
 | Tokens | `vendor/tokens/tokens.json` + `tokens.css` | `tokens/` | DTCG JSON + CSS | 155 tokens, 3 themes, 8 collections |
 | Component registries | `vendor/components/dist/registries/{fmkit,dskit,metakit}.json` | `components/dist/registries/` | JSON | Component keys, variants, properties |
 | Component guidelines | `vendor/components/dist/guidelines/<slug>.json` (`domains.*` shape) | `components/dist/guidelines/` | JSON | Per-component multi-domain merged docs |
-| Foundations | `vendor/foundations/src/<slug>.md` (per-section, ordered via `_order.json`) + `vendor/foundations/dist/*.json` | `foundations/src/` | MD + JSON | Spacing, typography, color, motion (8 derived) |
+| Foundations | `vendor/foundations/src/<slug>.md` (per-section, ordered via `_order.json`) + `vendor/foundations/dist/*.json` | `foundations/src/` | MD + JSON | Spacing, typography, color, motion (79 derived JSONs) |
 | Content guidelines | `vendor/content/dist/global.md` + per-component `vendor/components/dist/guidelines/<slug>.json` `domains.content` | `content/` + `components/` | MD + JSON | Voice, tone, copy patterns |
 | Accessibility | `vendor/accessibility/src/<slug>.md` (per-section, ordered via `_order.json`) | `accessibility/src/` | MD | WCAG 2.2 AA conformance rules |
 | App context | `vendor/app-context/dist/app-context.json` | `app-context/` | JSON | Apps, entities, terminology, patterns |
@@ -57,9 +57,10 @@ Knowledge repo CI workflows (sync-from-figma.yml, foundations-derive.yml) keep t
 ## Plugin substrate
 
 Built on Anthropic's Claude Code plugin format (SKILL.md, plugin.json,
-hooks, MCP integration). The Figma MCP server (Figma's official plugin
-at `claude plugin install figma@claude-plugins-official`) provides the
-canvas-write surface; our skills layer Actian-specific patterns on top.
+hooks, MCP integration). The claude.ai Figma connector (built in on
+Claude Desktop and Cowork, connected through `/mcp` in the Claude Code CLI)
+provides the canvas-write surface; our skills layer Actian-specific
+patterns on top.
 
 ## License
 
