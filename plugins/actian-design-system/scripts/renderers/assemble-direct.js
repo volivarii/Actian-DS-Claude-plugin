@@ -35,6 +35,55 @@ function renderFrame(brief) {
     activeNavItem: active ? active.label : undefined,
     content: [{ type: "TEXT", content: MARK }],
   };
+  // The app record as the knowledge writes it: when it has groups or icons the
+  // rail is drawn from them (a bottom block, actions, an active parent's
+  // children), else from the flat label list above.
+  var groups = d.app.groups || [];
+  var grouped =
+    groups.length > 1 ||
+    groups.some(function (g) {
+      return g.items.some(function (i) {
+        return i.icon;
+      });
+    });
+  if (grouped) {
+    var activeLabel = null;
+    groups.forEach(function (g) {
+      g.items.forEach(function (i) {
+        if (i.id === d.app.activeNav) activeLabel = i.label;
+        (i.children || []).forEach(function (c) {
+          if (c.id === d.app.activeNav) activeLabel = c.label;
+        });
+      });
+    });
+    screen.sidebar = {
+      groups: groups.map(function (g) {
+        var out = {
+          items: g.items.map(function (i) {
+            var o = { label: i.label };
+            if (i.icon) o.icon = i.icon;
+            if (i.kind) o.kind = i.kind;
+            if (i.children)
+              o.children = i.children.map(function (c) {
+                return { label: c.label };
+              });
+            return o;
+          }),
+        };
+        if (g.bottom) out.bottom = true;
+        return out;
+      }),
+      activeItem: activeLabel || undefined,
+    };
+  }
+  var h = d.app.header || {};
+  if (h.Context != null || h.SearchScope != null || h.SearchPlaceholder != null)
+    screen.header = {
+      context: h.Context,
+      contextValue: h.ContextValue,
+      searchScope: h.SearchScope,
+      searchPlaceholder: h.SearchPlaceholder,
+    };
   var flowRenderer = require("./html-renderers/flow-renderer.js");
   var html = assembleShared.withDsMaps(
     { meta: { hifi: true }, screens: [screen] },

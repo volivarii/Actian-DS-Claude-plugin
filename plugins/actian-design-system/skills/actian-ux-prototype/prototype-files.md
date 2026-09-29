@@ -66,6 +66,7 @@ A step's name is a claim the page must show: "Catalog, no description" shows tha
 | `raw-colour` | P1 | Replace the hand-typed colour in `extra.css` with a token |
 | `unstyled-class` | P0 | Put the class on the element it was meant for, or delete the rule |
 | `frame-missing` | P0 | Wrap the content area in `<div data-app-frame>` |
+| `rail-mismatch` | P0 | The brief's rail disagrees with the app record: rebuild the brief with `prepare-flow.js --direct` |
 | `frame-redrawn` | P0 | Remove the header or side navigation: the assembler draws them |
 | `layer-misplaced` | P0 | A layer is an `<aside data-layer>` of a known kind, after the frame closes |
 | `step-mismatch` | P0 | `proto.steps` ids equal the brief's step ids, in order |

@@ -8,6 +8,7 @@
 
 var fs = require("fs");
 var path = require("path");
+var appRecord = require("../app-record.js");
 var PATHS = require("../paths");
 var cssPaths = require("../renderer.js").cssPaths;
 
@@ -101,8 +102,15 @@ function directBrief(brief, opts) {
         );
       },
     listFragments: d.listFragments || fs.readdirSync,
+    readApp: d.readApp || appRecord.readApp,
   };
   var chrome = (brief.glossary && brief.glossary.chrome) || {};
+  var appSlug = chrome.app || (brief.app && brief.app.slug) || null;
+  // The app record as the knowledge writes it (groups, icons, bottom block,
+  // header context and search); an old snapshot, or an app with no record,
+  // falls back to the flat label list the chrome carries.
+  var record = appSlug ? deps.readApp(appSlug) : null;
+  var sidebar = record ? record.sidebar : chrome.sidebar || [];
   var found = {};
   // Keyed by capture slug: two steps drawing the same captured page (a list
   // screen before and after a selection, say) name the same slug instead of
@@ -168,9 +176,18 @@ function directBrief(brief, opts) {
     .sort();
   return {
     app: {
-      slug: chrome.app || (brief.app && brief.app.slug) || null,
-      headerType: (chrome.header && chrome.header.type) || null,
-      rail: chrome.sidebar || [],
+      slug: appSlug,
+      headerType: (record && record.header.type) || (chrome.header && chrome.header.type) || null,
+      // Flat, in record order, {label, id, icon?, kind?}: what the runtime
+      // moves the active item along and what check-direct holds to the record.
+      rail: sidebar.map(function (s) {
+        var o = { label: s.label, id: s.id };
+        if (s.icon != null) o.icon = s.icon;
+        if (s.kind != null) o.kind = s.kind;
+        return o;
+      }),
+      groups: appRecord.railGroups(sidebar, opts.nav || null),
+      header: appRecord.headerProps(record && record.header),
       activeNav: opts.nav || null,
     },
     steps: steps,

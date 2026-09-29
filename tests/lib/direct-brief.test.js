@@ -72,6 +72,8 @@ const deps = {
     derivedFrom: { screenshot: "captures/faceted-browse.png" },
   }),
   exists: () => true,
+  // These tests hold the brief's own chrome; the record's are below.
+  readApp: () => null,
 };
 
 // A minimal brief with one plain screen plus one screen per layer kind, so
@@ -310,5 +312,37 @@ describe("prepare-flow --direct (CLI)", () => {
       undefined,
     );
     assert.strictEqual(fs.readdirSync(path.join(dir, ".brief")).length, 4);
+  });
+});
+
+describe("directBrief: the app block comes from the app record (D3)", () => {
+  const record = {
+    header: { type: "Studio", context: { label: "Catalog", value: "Default" }, search: { scope: "Default", placeholder: "Search your items..." } },
+    sidebar: [
+      { label: "Dashboard", id: "dashboard", icon: "dashboard", group: "main" },
+      { label: "Catalog", id: "catalog", icon: "catalog", group: "main" },
+      { label: "New item", id: "new-item", icon: "add", group: "work", kind: "action" },
+      { label: "Analytics", id: "analytics", icon: "analytics", group: "admin", position: "bottom" },
+    ],
+  };
+  const withRecord = (r) => Object.assign({}, deps, { readApp: () => r });
+  it("carries the record's groups, header and rail", () => {
+    const a = directBrief(brief(), { nav: "catalog", deps: withRecord(record) }).app;
+    assert.deepStrictEqual(a.rail.map((r) => r.label), ["Dashboard", "Catalog", "New item", "Analytics"]);
+    assert.deepStrictEqual(a.groups.map((g) => [g.bottom, g.items.map((i) => i.label)]), [[false, ["Dashboard", "Catalog"]], [false, ["New item"]], [true, ["Analytics"]]]);
+    assert.strictEqual(a.groups[1].items[0].kind, "action");
+    assert.deepStrictEqual(a.header, { Context: "Catalog", ContextValue: "Default", SearchScope: "Default", SearchPlaceholder: "Search your items..." });
+    assert.strictEqual(a.headerType, "Studio");
+  });
+  it("falls back to the flat chrome list when no record is vendored", () => {
+    const a = directBrief(brief(), { nav: "catalog", deps: withRecord(null) }).app;
+    assert.deepStrictEqual(a.rail.map((r) => r.label), ["Dashboard", "Catalog"]);
+    assert.strictEqual(a.groups.length, 1);
+    assert.deepStrictEqual(a.header, {});
+  });
+  it("an app on record with no rail (Explorer) has no rail and no groups", () => {
+    const a = directBrief(brief(), { nav: null, deps: withRecord({ header: { type: "Explorer" }, sidebar: [] }) }).app;
+    assert.deepStrictEqual(a.rail, []);
+    assert.deepStrictEqual(a.groups, []);
   });
 });

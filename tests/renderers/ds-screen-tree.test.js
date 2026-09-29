@@ -621,3 +621,12 @@ test("assertGolden rejects an unknown key instead of inventing one", function ()
     "a rejected key must not mutate the fixture",
   );
 });
+
+test("chromeNodes — header passes the record's search scope and placeholder, only when given", function () {
+  var chrome = { appHeaderType: "Studio", hasSidebar: false };
+  var withSearch = chromeTree.chromeNodes(chrome, null, null, { searchScope: "Default", searchPlaceholder: "Search your items..." });
+  assert.strictEqual(withSearch.header.props.SearchScope, "Default");
+  assert.strictEqual(withSearch.header.props.SearchPlaceholder, "Search your items...");
+  var without = chromeTree.chromeNodes(chrome, null, null, null);
+  assert.ok(!("SearchScope" in without.header.props) && !("SearchPlaceholder" in without.header.props));
+});
