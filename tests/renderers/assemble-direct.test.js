@@ -62,10 +62,9 @@ describe("assemble-direct", () => {
     assert.ok(!html.includes("data-app-frame"), "the placeholder survived");
     // The real marker the side-nav leaf emits, read off a render:
     // <a class="ds-sidenav__item is-active">...<span class="ds-sidenav__label">Catalog</span></a>
-    const active = html.match(
-      /class="ds-sidenav__item is-active"[^>]*>[\s\S]{0,200}?ds-sidenav__label">Catalog</,
-    );
-    assert.ok(active, "Catalog is not the active rail item");
+    // The active <a> element, whatever it holds (an icon's svg comes first).
+    const active = html.match(/class="ds-sidenav__item is-active"[^>]*>((?:(?!<\/a>)[\s\S])*)<\/a>/);
+    assert.ok(active && active[1].includes('ds-sidenav__label">Catalog<'), "Catalog is not the active rail item");
     assert.ok(
       html.indexOf("2 results") > html.indexOf("ds-header"),
       "author content is not inside the frame",
@@ -495,13 +494,9 @@ describe("assemble-direct: PROTO_NAV moves the active rail item as a flow crosse
     const activeLabel = briefBase.direct.app.rail.filter(
       (r) => r.id === briefBase.direct.app.activeNav,
     )[0].label;
-    const re = new RegExp(
-      'class="ds-sidenav__item is-active">[\\s\\S]{0,200}?ds-sidenav__label">' +
-        activeLabel +
-        "<",
-    );
+    const active = html.match(/class="ds-sidenav__item is-active"[^>]*>((?:(?!<\/a>)[\s\S])*)<\/a>/);
     assert.ok(
-      re.test(html),
+      active && active[1].includes('ds-sidenav__label">' + activeLabel + "<"),
       ".ds-sidenav__label does not carry the active rail item's label text",
     );
   });
