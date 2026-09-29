@@ -7,7 +7,8 @@
 var { describe, it } = require("node:test");
 var assert = require("node:assert");
 
-var ds = require("../../plugins/actian-design-system/scripts/lib/renderer.js").dsHtmlMap;
+var ds =
+  require("../../plugins/actian-design-system/scripts/lib/renderer.js").dsHtmlMap;
 var renderer = require("../../plugins/actian-design-system/scripts/lib/renderer.js");
 var specimen = require("../helpers/appearance-specimen.js");
 var unpublished = require("../helpers/unpublished.js");
@@ -916,30 +917,21 @@ describe("ds-html-map: global-header", function () {
 });
 
 describe("ds-html-map: side-nav", function () {
-  it("Expanded default: nav with one item per default label, no collapsed modifier", function () {
+  it("Expanded with no Items: an empty rail, no collapsed modifier, no invented labels", function () {
     var html = render({
       dsSlug: "side-nav",
       variant: "App=Studio, View=Expanded",
       props: {},
     });
-    assert.ok(
-      html.indexOf('<nav class="ds-sidenav"') === 0,
-      "starts with ds-sidenav (not collapsed)",
-    );
-    assert.ok(
-      html.indexOf("ds-sidenav--collapsed") === -1,
-      "no collapsed modifier when Expanded",
-    );
+    // The renderer carries no default list any more: the old one ("Catalog,
+    // Pipelines, Connections, Settings") read as an Actian app's navigation and
+    // matched none. With no Items (and no Groups) the rail is drawn empty.
+    assert.strictEqual(html, '<nav class="ds-sidenav"></nav>');
     var itemCount = html.split("ds-sidenav__item").length - 1;
-    // default Items = "Catalog, Pipelines, Connections, Settings" → 4 rows.
-    // (each row's class string contributes the substring once.)
-    assert.equal(itemCount, 4, "four item rows from the default Items");
-    assert.ok(html.indexOf("Catalog") !== -1, "renders Catalog");
-    assert.ok(html.indexOf("Pipelines") !== -1, "renders Pipelines");
-    assert.ok(html.indexOf("Connections") !== -1, "renders Connections");
-    assert.ok(html.indexOf("Settings") !== -1, "renders Settings");
-    assert.ok(html.indexOf("ds-sidenav__icon") !== -1, "rows have icons");
-    assert.ok(html.indexOf("ds-sidenav__label") !== -1, "rows have labels");
+    assert.equal(itemCount, 0, "no item rows without an Items prop");
+    ["Catalog", "Pipelines", "Connections", "Settings"].forEach(function (l) {
+      assert.ok(html.indexOf(l) === -1, "no invented " + l + " row");
+    });
   });
 
   it("item count tracks the Items prop (comma-split + trim)", function () {
