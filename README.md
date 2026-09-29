@@ -244,19 +244,16 @@ actian-design-system-plugin/
 │   ├── ARCHITECTURE.md                    # canonical map (read first)
 │   ├── CLAUDE.md
 │   ├── skills/                            # 4 skill cards, each with the files it needs beside it
-│   ├── recipes/                           # flow recipes
 │   ├── scripts/
-│   │   ├── lib/                           # paths.js, shared-constants, registry loaders, palette, buildGenLog
+│   │   ├── lib/                           # paths.js, app-record, terminology-check, prepare-flow + direct-brief, shared-constants
 │   │   ├── hooks/                         # Claude Code hook guards
 │   │   ├── vendor/                        # vendor-snapshot pipeline (pulls knowledge repo)
-│   │   ├── validation/                    # validate-flow-data, validate-schema, validate-proposal
-│   │   ├── transformers/                  # fm-tree-to-flow-data, transform-to-hifi
-│   │   ├── renderers/                     # assemble-preview + html-renderers + render-component-reference
-│   │   ├── bridges/                       # proposal-to-flow: a proposal's picks as an actian-ux-prototype seed
-│   │   └── changelog/                     # push-to-push diffing
-│   ├── references/actian-ux-prototype/    # fm-to-ds-map.json + ds-components-authoring.md (data files scripts read)
+│   │   ├── validation/                    # check-direct, check-handover, validate-proposal, validate-schema
+│   │   ├── renderers/                     # assemble-direct, look-direct, figma-screen, assemble-preview (proposal), html-renderers
+│   │   ├── fidelity/                      # render-leaf + resolve-binaries (headless Chrome screenshots)
+│   │   └── quality/                       # run-suite.sh (the test runner)
 │   ├── schemas/                           # JSON schemas (flow-data, proposal-data, proposal-evaluation)
-│   ├── templates/                         # HTML wrappers (flow, annotation-layer, proposal-document)
+│   ├── templates/                         # proposal-document.html
 │   ├── vendor/                            # pinned knowledge-repo snapshot — the DS substrate
 │   │   ├── components/                    # registries (dskit/fmkit/metakit) + 61 guideline docs + bundles
 │   │   ├── foundations/                   # foundations.md (source of truth) + 79 derived JSONs

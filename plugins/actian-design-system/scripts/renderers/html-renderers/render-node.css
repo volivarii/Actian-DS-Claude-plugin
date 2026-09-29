@@ -39,9 +39,7 @@
    contents` keeps the span out of layout: an ancestor `.fm-frame` is
    `display: flex`, and without this a Fill-sized leaf inside the span would
    size against the span's own shrink-to-fit box instead of the flex item it
-   would have been without the wrapper (the same technique
-   assemble-flow-share.js already uses for its "display:contents in
-   Prototype" screen cells). The span still stays in the DOM and in the
+   would have been without the wrapper. The span still stays in the DOM and in the
    event path, so `closest('[data-goto]')` keeps resolving. */
 .flow-goto {
   cursor: pointer;

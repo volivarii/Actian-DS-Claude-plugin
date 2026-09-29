@@ -186,8 +186,7 @@ dsHtmlMap.setGraphics(graphics);
 //
 // That is honest in knowledge. In the plugin it is a LIE: lib/paths exists and
 // the anatomy is right there in the vendor tree. Left unhandled, every
-// anatomy-driven render silently degrades to a blank box, which is what failed
-// the flow-share appearance tests and the blank-box budget.
+// anatomy-driven render silently degrades to a blank box.
 //
 // The seams (loadAnatomy's `loader` arg, buildDs*'s opts.anatomyLoader) require
 // every call site to remember to pass a loader. Relying on that is how this

@@ -134,7 +134,7 @@ PATHS.components.mediaDefault = function (slug) {
 // manifest-driven, unlike `media` which is plugin-only). Consume the manifest API.
 
 // Synthesized helper: byKit("ds"/"fm"/"meta") maps to registry leaf paths.
-// Preserved from pre-manifest API for backward compat with validate-flow-data.js etc.
+// Kept from the pre-manifest API; shared-constants.js and the renderers read it.
 PATHS.components.registries = PATHS.components.registries || {};
 PATHS.components.registries.byKit = function (kit) {
   if (kit === "ds") return PATHS.components.registries.dskit;

@@ -28,7 +28,6 @@ The Actian DS is in a federated configuration (2026-05-09): the **knowledge laye
 - [FM Kit registry](https://raw.githubusercontent.com/volivarii/actian-ds-knowledge/main/components/dist/registries/fmkit.json): 287 wireframe components
 - [Meta Kit registry](https://raw.githubusercontent.com/volivarii/actian-ds-knowledge/main/components/dist/registries/metakit.json): 28 components
 - [App context](https://raw.githubusercontent.com/volivarii/actian-ds-knowledge/main/app-context/dist/app-context.json): apps, entities, terminology, patterns
-- [FM↔DS map](https://raw.githubusercontent.com/volivarii/Actian-DS-Claude-plugin/main/plugins/actian-design-system/references/actian-ux-prototype/fm-to-ds-map.json): wireframe-to-DS component mapping (kept in the plugin)
 
 ## Plugin meta-docs (skill cards + Figma notes)
 

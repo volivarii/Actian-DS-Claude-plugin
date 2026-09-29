@@ -8,7 +8,7 @@ var CSS = [
   // padding and background are reset, not inherited: the frame's stylesheet
   // list ends with fm-base.css, whose body rule (padding 40px, grey canvas)
   // frames a screen as a card on a preview page. A prototype IS the app, so it
-  // fills the window. Same move look.js makes for its standalone render page.
+  // fills the window.
   "body{display:flex;flex-direction:column;padding:0;background:var(--zen-color-bg-default,#fff);font-family:var(--zen-font-family-text,Roboto,sans-serif)}",
   ".proto-strip{display:flex;gap:8px;align-items:center;padding:6px 12px;background:#111;color:#fff;font:12px/1.4 Roboto,sans-serif;flex:0 0 auto}",
   ".proto-strip button{font:inherit;color:inherit;background:transparent;border:1px solid #555;border-radius:12px;padding:2px 10px;cursor:pointer}",

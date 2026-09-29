@@ -55,11 +55,11 @@ function defaultNodeForSlug(slug) {
 // ds-html-map.js's default: seam, which reads the appearance doc map
 // (setAnatomyDocMap) rather than any argument on the node itself — without
 // injecting it here, that seam has nothing to look up and degrades to the
-// graceful `.ds-component` chip, so the fidelity gate would silently compare
-// a labeled chip against the real oracle instead of the real per-instance
-// appearance render. Build the single-slug doc map the SAME way
-// assemble-flow-share.js / assemble-preview.js do (buildDsAnatomyDocMap,
-// which also applies the BUILT_SLUGS skip + R2 quality-ratio floor), inject
+// graceful `.ds-component` chip, and the screenshot would show a labeled chip
+// instead of the real per-instance appearance render. Build the single-slug
+// doc map the SAME way assemble-shared.js's withDsMaps does
+// (buildDsAnatomyDocMap, which also applies the BUILT_SLUGS skip + R2
+// quality-ratio floor), inject
 // it immediately around the render call, and reset in a finally so module
 // state never leaks into the next slug/gate.
 function renderLeafFragment(slug) {

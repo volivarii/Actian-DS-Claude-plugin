@@ -454,8 +454,8 @@ function main(argv) {
     // The frame is the flow renderer's own markup, so it takes the flow
     // renderer's own stylesheets, in their documented order: tokens, then
     // FLOW_CSS. The brief names them (assets.frameCss, built from
-    // assemble-shared.js's one list) rather than this script picking a set,
-    // which is also how look.js renders a screen standalone. The three
+    // assemble-shared.js's one list) rather than this script picking a set.
+    // The three
     // single-file asset entries beside it are what an AUTHOR reads; they are
     // a subset of this list and not the frame's own answer.
     if (!Array.isArray(as.frameCss) || !as.frameCss.length)
