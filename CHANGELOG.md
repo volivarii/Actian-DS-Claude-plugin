@@ -46,13 +46,18 @@ are summarized at the release level.
   (`scripts/transformers/`), `validate-flow-data.js`, the proposal-to-flow bridge, the flow recipes,
   the changelog and migration scripts, the lo-fi skin, the flow-share and `--type flow` preview with
   its annotation layer and vendored Alpine, the coverage, renderability and authoring-table
-  generators with `references/`, and the checks that served only them: the token lint, the quality
-  score, the pixel fidelity scripts, their `pr-checks` jobs and nightly steps, and the queue alarm.
-  The direct route is the only HTML route: `prepare-flow.js` builds its brief with or without
+  generators with `references/` and the blank-box baseline, and the local preview server with its
+  hook. The direct route is the only HTML route: `prepare-flow.js` builds its brief with or without
   `--direct`, which is still accepted. `assemble-preview.js` takes `--type proposal` only. The
   terminology and avoid-word checks move to `scripts/lib/terminology-check.js`; a proposal file
   written before `decisions[]` is still named in one P0, and rewriting it is the author's.
-- Breaking: the default flow route, its agents and `--hifi`/lo-fi skins are gone; `/actian-ux-prototype` draws the direct route (`--direct` still accepted, no effect).
+  **Breaking:** the default flow route, its agents and `--hifi`/lo-fi skins are gone;
+  `/actian-ux-prototype` draws the direct route (`--direct` still accepted, no effect).
+- **The token lint and the quality score are removed, with their report-only `pr-checks` jobs.** The
+  token lint checked the vendored design tokens for broken CSS `var()` references and WCAG contrast. The quality
+  score rendered the built DS leaves in headless Chrome and scored token resolution and structural
+  fidelity (overflow, clipping, absolute positioning), with a pixel diff against the media oracles as a
+  review-only artifact; the pixel fidelity scripts and the fidelity ledger go with it.
 
 - **The retired skills' code is deleted, and with it 4.9 MB the install carried for nothing.** ([#413](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/413))
   `retired/` and everything only the retired skills read leave the repository: the Python Office
