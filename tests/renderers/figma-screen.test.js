@@ -109,3 +109,41 @@ describe("prepareScreen: second review (code-review high, #426)", () => {
     assert.strictEqual(unresolved.length, 1);
   });
 });
+
+describe("prepareScreen: round two (code-review high, #426)", () => {
+  const fs = require("fs");
+  const dsTree = require(path.join(P, "scripts/renderers/html-renderers/ds-screen-tree.js"));
+  const PATHS = require(path.join(P, "scripts/lib/paths.js"));
+  const ctx = JSON.parse(fs.readFileSync(PATHS.appContext, "utf8"));
+  it("leaves the process's app context as it found it", () => {
+    dsTree.setAppContext(ctx);
+    const before = JSON.stringify(dsTree.screenTree({ template: "studio" }));
+    prepareScreen(screen([]), { tokensCss: CSS, appContext: { apps: {} } });
+    assert.strictEqual(JSON.stringify(dsTree.screenTree({ template: "studio" })), before);
+    dsTree.setAppContext(null);
+  });
+  it("uses the loaded app context when none is passed", () => {
+    dsTree.setAppContext(ctx);
+    const withCtx = JSON.stringify(prepareScreen({ id: "s", name: "S", template: "studio", content: [] }, { tokensCss: CSS, appContext: ctx }).tree);
+    const without = JSON.stringify(prepareScreen({ id: "s", name: "S", template: "studio", content: [] }, { tokensCss: CSS }).tree);
+    assert.strictEqual(without, withCtx);
+    dsTree.setAppContext(null);
+  });
+  it("reads a font weight token as a Figma style name", () => {
+    const { tree, unresolved } = prepareScreen(screen([{ type: "TEXT", content: "Hi", font: "var(--zen-font-family-text):var(--zen-w)" }]), { tokensCss: CSS + ":root{--zen-w:700}" });
+    assert.deepEqual(unresolved, []);
+    assert.ok(JSON.stringify(tree).includes('"font":"Roboto:Bold"'));
+  });
+  it("reports a font weight no Figma style has", () => {
+    const { unresolved } = prepareScreen(screen([{ type: "TEXT", content: "Hi", font: "Roboto:var(--zen-w)" }]), { tokensCss: CSS + ":root{--zen-w:650}" });
+    assert.strictEqual(unresolved.length, 1, JSON.stringify(unresolved));
+  });
+  it("CLI: a missing screen file gives the ok:false JSON, not a stack trace", () => {
+    const cp = require("child_process");
+    const r = cp.spawnSync(process.execPath, [path.join(P, "scripts/renderers/figma-screen.js"), "/nope/screen.json", "--parent-id", "1:2"], { encoding: "utf8" });
+    assert.strictEqual(r.status, 1);
+    const j = JSON.parse(r.stderr.trim());
+    assert.strictEqual(j.ok, false);
+    assert.ok(j.errors[0].message.length > 0);
+  });
+});

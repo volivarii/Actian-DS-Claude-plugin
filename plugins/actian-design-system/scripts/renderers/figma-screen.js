@@ -8,6 +8,9 @@ var path = require("path");
 var dsTree = require("./html-renderers/ds-screen-tree.js");
 // Authoring keys (a screen author writes them for the HTML route and the
 // handover) that the emitter refuses.
+// The weights every Roboto build names the same way; 600 and 800 are spelled
+// differently across builds, so they are reported, never guessed.
+var WEIGHT_STYLE = { 100: "Thin", 300: "Light", 400: "Regular", 500: "Medium", 700: "Bold", 900: "Black" };
 var DROP = ["slot", "focus", "goto", "adds"];
 // Text fields the emitter reads only as { value, unit }: a token there is refused.
 var UNIT_KEYS = ["letterSpacing", "lineHeight"];
@@ -105,7 +108,14 @@ function prepareScreen(screen, opts) {
     if (key === "font") {
       var cut = r.lastIndexOf(":");
       var fam = (cut === -1 ? r : r.slice(0, cut)).split(",")[0].trim().replace(/^["']|["']$/g, "");
-      return cut === -1 ? fam : fam + r.slice(cut);
+      if (cut === -1) return fam;
+      // A weight token is a number; Figma names its styles.
+      var style = r.slice(cut + 1).trim();
+      if (/^\d+$/.test(style)) {
+        if (!WEIGHT_STYLE[style]) report(n + " is weight " + style + "; write the Figma style name");
+        style = WEIGHT_STYLE[style] || style;
+      }
+      return fam + ":" + style;
     }
     // A spacing, padding or radius token is a CSS length; the emitter wants a number.
     return PX.test(r) ? parseFloat(r) : r;
@@ -119,12 +129,13 @@ function prepareScreen(screen, opts) {
   input.content = content.filter(function (c) {
     return !(c && c.positioning === "absolute");
   });
-  dsTree.setAppContext(opts.appContext || null);
+  var prev = dsTree.getAppContext();
+  dsTree.setAppContext(opts.appContext || prev);
   var tree;
   try {
     tree = dsTree.screenTree(input);
   } finally {
-    dsTree.setAppContext(null);
+    dsTree.setAppContext(prev);
   }
   tree.children = (tree.children || []).concat(layers);
   return { tree: clean(tree), unresolved: unresolved };
@@ -138,21 +149,28 @@ function main(argv) {
     return 2;
   }
   var PATHS = require(path.join(__dirname, "..", "lib", "paths.js"));
-  var screen = JSON.parse(fs.readFileSync(path.resolve(file), "utf8"));
-  var css = fs.readFileSync(PATHS.tokens.css, "utf8");
-  var appContext = JSON.parse(fs.readFileSync(PATHS.appContext, "utf8"));
-  var r = prepareScreen(screen, { tokensCss: css, appContext: appContext });
-  if (r.unresolved.length) {
+  function fail(messages) {
     process.stderr.write(
       JSON.stringify({
         ok: false,
-        errors: r.unresolved.map(function (k) {
-          return { path: k, message: "not resolved against tokens.css, or not what this field takes" };
+        errors: messages.map(function (m) {
+          return { message: m };
         }),
       }) + "\n",
     );
     return 1;
   }
+  var r;
+  try {
+    var screen = JSON.parse(fs.readFileSync(path.resolve(file), "utf8"));
+    var css = fs.readFileSync(PATHS.tokens.css, "utf8");
+    var appContext = JSON.parse(fs.readFileSync(PATHS.appContext, "utf8"));
+    r = prepareScreen(screen, { tokensCss: css, appContext: appContext });
+  } catch (e) {
+    return fail([e.message]);
+  }
+  // Each entry names the token or states what is wrong with it.
+  if (r.unresolved.length) return fail(r.unresolved);
   var cp = require("child_process");
   var out = cp.spawnSync(
     process.execPath,

@@ -282,3 +282,11 @@ describe("render-node-figma: second review (code-review high, #426)", function (
     assert.ok(validateNode.validateTree({ type: "FRAME", positioning: "absolute", x: "right", children: [] }).length > 0);
   });
 });
+
+describe("render-node-figma: absolute child (code-review high, #426 round 2)", function () {
+  var emit = require("../../plugins/actian-design-system/scripts/renderers/html-renderers/render-node-figma.js").emit;
+  it("sets ABSOLUTE only under a parent that is an auto-layout frame", function () {
+    var js = emit([{ type: "FRAME", layout: { mode: "NONE" }, children: [{ type: "FRAME", positioning: "absolute", x: 4, y: 0, children: [] }] }], "1:2").code;
+    assert.ok(!/layoutPositioning/.test(js), js);
+  });
+});

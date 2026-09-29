@@ -384,7 +384,8 @@ function emitFrame(node, v, lines, ctx) {
       ctx.fillSizing = ctx.fillSizing.filter(function (e) {
         return e.varName !== cv;
       });
-      if (node.layout && node.layout.mode) lines.push(cv + '.layoutPositioning = "ABSOLUTE";');
+      if (node.layout && (node.layout.mode === "HORIZONTAL" || node.layout.mode === "VERTICAL"))
+        lines.push(cv + '.layoutPositioning = "ABSOLUTE";');
       if (child.x != null) lines.push(cv + ".x = " + Number(child.x) + ";");
       if (child.y != null) lines.push(cv + ".y = " + Number(child.y) + ";");
     }
