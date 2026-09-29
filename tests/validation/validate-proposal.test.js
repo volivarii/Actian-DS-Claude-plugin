@@ -319,12 +319,12 @@ describe("validateProposal (document)", function () {
     }), "an unknown kind is a P0");
   });
 
-  it("names the converter when handed a file that predates decisions[]", function () {
+  it("names the decisions[] shape when handed a file that predates it", function () {
     var old = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "fixtures", "proposal-dip-i-496-legacy.json"), "utf8"));
     var f = find(validateProposal(old).findings, "old-shape");
     assert.ok(f, "the old shape is recognised, not reported as twelve schema errors");
     assert.strictEqual(f.severity, "P0");
-    assert.ok(f.suggestion.indexOf("proposal-approaches-to-decisions") !== -1, "the message names the converter");
+    assert.ok(f.suggestion.indexOf("decisions[0].options") !== -1, "the message says where the approaches go");
   });
 
   it("names the retired keys on a half-converted file carrying both shapes", function () {

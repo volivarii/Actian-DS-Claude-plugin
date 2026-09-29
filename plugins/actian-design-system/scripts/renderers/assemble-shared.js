@@ -112,6 +112,13 @@ var FLOW_CSS = [
   rendererCss.base, // hi-fi DS tier; inert for lo-fi (only styles .ds-*).
 ];
 
+// Insert a zero-width space between consecutive dashes so a value can never
+// form a "-->" that closes the surrounding provenance HTML comment early (a
+// /--/g pair-replace would leave a live "-->" on an odd-length run like "--->").
+function maskComment(s) {
+  return String(s == null ? "" : s).replace(/-(?=-)/g, "-\u200b");
+}
+
 // ---------------------------------------------------------------------------
 // Exports
 // ---------------------------------------------------------------------------
@@ -125,4 +132,5 @@ module.exports = {
   buildDsIconsScript: buildDsIconsScript,
   withDsMaps: withDsMaps,
   FLOW_CSS: FLOW_CSS,
+  maskComment: maskComment,
 };

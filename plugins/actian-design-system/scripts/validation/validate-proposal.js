@@ -4,9 +4,9 @@
 /**
  * validate-proposal.js: findings for proposals/proposal-data.json (the
  * document shape) before it is assembled. Same table shape and exit
- * convention as validate-flow-data.js (any P0 exits 1). Terminology and
- * avoid-word rules are NOT re-implemented: every text field is handed to the
- * flow validator's exported gates, so the rules stay single-sourced.
+ * convention as the other validators (any P0 exits 1). Terminology and
+ * avoid-word rules are NOT re-implemented: every text field is handed to
+ * lib/terminology-check.js, so the rules stay single-sourced.
  *
  * Checks: old-shape (P0), retired-key (P0), schema (P0), bounds (P0),
  * app-unknown (P0 on meta.apps and on an anchor, P1 on screens[].app),
@@ -60,12 +60,25 @@ var fs = require("fs");
 var path = require("path");
 var PATHS = require("../lib/paths");
 var validateSchema = require("./validate-schema.js");
-var flowGates = require("./validate-flow-data.js");
+var terminologyCheck = require("../lib/terminology-check.js");
 var extractUnbalancedTag = require("../renderers/assemble-proposal.js").extractUnbalancedTag;
 var DRAWING_WIDTH = require("../renderers/assemble-proposal.js").DRAWING_WIDTH;
-var isOldShape = require("../migrations/proposal-approaches-to-decisions.js").isOldShape;
 var dsComponents = require("../lib/ds-components.js");
-var NOT_A_SENTENCE_END = require("../migrations/proposal-approaches-to-decisions.js").NOT_A_SENTENCE_END;
+
+// A file written before decisions[]: approaches at the top level and no decisions.
+function isOldShape(data) {
+  return !!(data && Array.isArray(data.approaches) && !Array.isArray(data.decisions));
+}
+
+// Words that end in a period without ending a sentence. It cannot be exhaustive, and the
+// point is not to be: a naive split on every period turns "See Fig. 2 for the shape." into
+// two fragments, and a decision question with an abbreviation in it would read as two.
+// `(?:[A-Z]\.)*[A-Z]` rather than a bare `[A-Z]`, so a dotted initialism counts as one
+// abbreviation and not a chain of sentence ends: in "the U.S." the S is preceded by a dot,
+// so a single-letter alternative never matched it, and "Where does the U.S. admin see it?"
+// read as two sentences.
+var NOT_A_SENTENCE_END =
+  /(?:^|\s)(?:(?:[A-Z]\.)*[A-Z]|e\.g|i\.e|etc|vs|cf|al|Fig|No|Vol|Dr|Mr|Mrs|Ms|St|Inc|Ltd|Co|Corp|Jr|Sr|approx|dept|est|Jan|Feb|Mar|Apr|Jun|Jul|Aug|Sept|Sep|Oct|Nov|Dec)\.$/;
 
 var SCHEMA_DIR = path.join(__dirname, "..", "..", "schemas");
 var ARCHETYPES_PATH = path.join(__dirname, "..", "..", "recipes", "flow", "_index.json");
@@ -333,9 +346,7 @@ function forbiddenAtEvaluation() {
   };
 }
 
-// The codebase has one sentence-boundary rule and it stays one. A second regex here
-// would disagree with the converter's on the first abbreviation either of them met,
-// and that rule exists because a naive split turned one fact into two, silently.
+// Sentences split on a terminator followed by space, except after NOT_A_SENTENCE_END.
 function sentenceCount(text) {
   var parts = String(text || "").split(/(?<=[.?!])\s+/);
   var n = 0;
@@ -361,7 +372,7 @@ function validateProposal(data) {
   var findings = [];
   // A pre-decisions file fails the schema a dozen ways. Say the one true thing instead.
   if (isOldShape(data)) {
-    findings.push(finding("P0", "old-shape", "", "approaches", "this file predates decisions[]; its approaches, comparison and recommendation become decisions[0]", "approaches", "run scripts/migrations/proposal-approaches-to-decisions.js on it, then write the three fields it leaves empty"));
+    findings.push(finding("P0", "old-shape", "", "approaches", "this file predates decisions[]; its approaches, comparison and recommendation become decisions[0]", "approaches", "rewrite it in the decisions[] shape: the approaches become decisions[0].options and the comparison and recommendation move inside that decision; then write each reason's criterionId, pick.cost and latitude, which the old shape never carried"));
     return { findings: findings };
   }
   // Half converted: decisions[] is there AND a retired top-level key is still beside it.
@@ -439,7 +450,7 @@ function validateProposal(data) {
   // and one decision with id "constructor" reported a duplicate of itself.
   var idSeen = Object.create(null); // html ids are document-wide: id -> the option it first appeared in
 
-  // pseudo screens for the flow gates: one per option plus the document-level ones,
+  // pseudo screens for the terminology checks: one per option plus the document-level ones,
   // the latter prefixed "doc:" (a colon the option id pattern forbids) so an option
   // id such as "context" can never collide with a document-level pseudo screen id.
   var pseudo = { meta: { feature: data.meta.title }, screens: [] };
@@ -796,7 +807,7 @@ function validateProposal(data) {
     checkLengths(data, findings);
   }
 
-  // The flow gates report screenId plus content[n]; map back to the field path.
+  // The terminology checks report screenId plus content[n]; map back to the field path.
   function mapPath(issue) {
     var m = /content\[(\d+)\]/.exec(issue.path || "");
     var list = pathsByScreen[issue.screenId] || [];
@@ -805,10 +816,10 @@ function validateProposal(data) {
   function screenOf(issue) {
     return optionIds[issue.screenId] ? issue.screenId : "";
   }
-  flowGates.findTerminologyIssues(pseudo).forEach(function (t) {
+  terminologyCheck.findTerminologyIssues(pseudo).forEach(function (t) {
     findings.push(finding("P1", "terminology", screenOf(t), mapPath(t), t.value, t.found, t.suggestion));
   });
-  flowGates.findAvoidWords(pseudo).forEach(function (a) {
+  terminologyCheck.findAvoidWords(pseudo).forEach(function (a) {
     findings.push(finding("P1", "avoid-word", screenOf(a), mapPath(a), a.value, a.found, a.suggestion));
   });
   return { findings: findings };

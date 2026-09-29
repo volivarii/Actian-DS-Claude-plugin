@@ -11,7 +11,7 @@ var fs = require("fs");
 var path = require("path");
 var assembleShared = require("./assemble-shared");
 var shell = require("./direct-shell.js");
-var maskComment = require("./assemble-flow-share.js").maskComment;
+var maskComment = assembleShared.maskComment;
 
 var MARK = "@@DIRECT-CONTENT@@";
 
@@ -287,12 +287,10 @@ function frameEnd(body, start) {
   throw new Error("assemble-direct: <div data-app-frame> is never closed");
 }
 
-// maskComment (assemble-flow-share.js) defuses "--" so a value can never
-// close the comment early; it leaves '<' alone, which is safe for the
-// audience-safe meta line its own caller builds (never a raw prompt). A
-// run's prompt is free text and can carry a literal "<script>", so this
-// also breaks up '<' before the value reaches the comment, without
-// changing maskComment's own behavior for its existing caller.
+// maskComment (assemble-shared.js) defuses "--" so a value can never
+// close the comment early; it leaves '<' alone. A run's prompt is free text
+// and can carry a literal "<script>", so this also breaks up '<' before the
+// value reaches the comment.
 function maskProvenance(s) {
   return maskComment(s).replace(/</g, "<\u200b");
 }
