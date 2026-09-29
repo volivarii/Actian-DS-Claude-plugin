@@ -26,25 +26,11 @@ emitter, and the designer report. Loaded on demand from
 5. Cover Card — import `eaebde6bd07d2f19f3f9c00a9587240cb085a90d`, `setProperties` with `"Feature#46:8"`, `"Flow#46:9"`, `"User#46:10"` — NEVER leave defaults
 6. For each screen:
 
-   **DS-screen path (when `screen.library === "ds"`):** Skip sub-steps a–e. Build the entire screen tree (chrome + content) in ONE atomic emit. Capture `$SCREEN_JSON` (the full current screen object as JSON), then:
+   **DS-screen path (when `screen.library === "ds"`):** Skip sub-steps a–e. Build the entire screen tree (chrome + content) in ONE atomic emit. Write the current screen object to `{project_working_directory}/flows/.push/screen-<n>.json`, then:
    ```bash
-   printf '%s' "$SCREEN_JSON" | (
-     source "$CLAUDE_PLUGIN_ROOT/scripts/lib/resolve-node.sh" &&
-     "$NODE_BIN" - <<'EOF'
-   var chunks = [];
-   process.stdin.on('data', function(d) { chunks.push(d); });
-   process.stdin.on('end', function() {
-     var s = JSON.parse(chunks.join(''));
-     var dst = require(process.env.CLAUDE_PLUGIN_ROOT + '/scripts/renderers/html-renderers/ds-screen-tree.js');
-     process.stdout.write(JSON.stringify([dst.screenTree(s)]));
-   });
-   EOF
-   ) | (
-     source "$CLAUDE_PLUGIN_ROOT/scripts/lib/resolve-node.sh" &&
-     "$NODE_BIN" "$CLAUDE_PLUGIN_ROOT/scripts/renderers/html-renderers/render-node-figma.js" \
-       --parent-id "<wrapperId>"
-   )
+   source "$CLAUDE_PLUGIN_ROOT/scripts/lib/resolve-node.sh" && "$NODE_BIN" "$CLAUDE_PLUGIN_ROOT/scripts/renderers/figma-screen.js" {project_working_directory}/flows/.push/screen-<n>.json --parent-id "<wrapperId>"
    ```
+   `figma-screen.js` builds the screen tree with the app's own side navigation, drops the authoring keys the emitter refuses (`slot`, `focus`, `goto`, `adds`), resolves every `var(--zen-...)` in the screen's app theme, and places top-level `positioning: "absolute"` layers on the screen frame; a token it cannot resolve stops it with `{ ok:false, errors }` on stderr.
    Capture stdout (Plugin-API JS) and pass it **verbatim** into ONE `use_figma` call (`skillNames: "figma-use"`). The emitter creates the screen FRAME (1440 wide, VERTICAL, hugs height, min-height 960), imports all DS Kit chrome components via the registry, and appends everything to the wrapper. FILL sizing for header / sidebar / page-header instances is applied post-append automatically. On exit 1, read the `{ ok:false, errors }` JSON on stderr and fix the offending node spec, then re-run. The `use_figma` return includes `droppedProps`: DS chrome instances carry HTML-render props (account / search / title / etc.) that are NOT Figma component properties, so they are set best-effort and any that don't exist (or whose value the live component rejects, e.g. registry-vs-library drift) are dropped and listed there. This is expected — drops are not an error.
 
    **FM-screen path (when `screen.library` is absent or not `"ds"`):** follow sub-steps a–e below.
