@@ -57,6 +57,24 @@ describe("check-direct", () => {
     const extraCss = '@media (min-width: 1.5em) { .p { font: 1.5em/1.2 Roboto; } } a[href$=".pdf"] { padding: 0 }';
     assert.ok(!kinds({ extraCss }).includes("unstyled-class"));
   });
+  it("unstyled-class: quiet on a modifier app.js builds from pieces", () => {
+    assert.ok(!kinds({ extraCss: ".row--error{gap:0}", appJs: ok.appJs + '\nel.className = "row row--" + status;' }).includes("unstyled-class"));
+    assert.ok(!kinds({ extraCss: ".row--error{gap:0}", appJs: ok.appJs + "\nel.className = `row row--${status}`;" }).includes("unstyled-class"));
+  });
+  it("unstyled-class: a class inside :not() is not a class the rule styles", () => {
+    assert.ok(!kinds({ extraCss: ".p:not(.is-empty){gap:0}" }).includes("unstyled-class"));
+  });
+  it("unstyled-class: an @ inside a value does not eat the next rule", () => {
+    const f = checkDirect(Object.assign({}, ok, { extraCss: ".p{background:url(a@2x.png)} .gone{gap:0}" })).filter((x) => x.check === "unstyled-class");
+    assert.deepStrictEqual(f.map((x) => x.value.split(" ")[0]), [".gone"]);
+  });
+  it("unstyled-class: a nested rule's declarations are not read as selectors", () => {
+    const f = checkDirect(Object.assign({}, ok, { extraCss: ".p{background:url(img.svg); .gone{gap:0}}" })).filter((x) => x.check === "unstyled-class");
+    assert.deepStrictEqual(f.map((x) => x.value.split(" ")[0]), [".gone"]);
+  });
+  it("unstyled-class: an escaped class name matches the class the body carries", () => {
+    assert.ok(!kinds({ extraCss: ".w-1\\/2{width:50%}", body: '<div data-app-frame class="p w-1/2"><p>x</p></div>' }).includes("unstyled-class"));
+  });
   it("unstyled-class: a selector nested in @media is read too", () => {
     const f = checkDirect(Object.assign({}, ok, { extraCss: ok.extraCss + "@media (max-width: 900px) { .gone { display: none } }" })).filter((x) => x.check === "unstyled-class");
     assert.deepStrictEqual(f.map((x) => x.value.split(" ")[0]), [".gone"]);

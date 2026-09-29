@@ -61,8 +61,12 @@ function inlineIcons(html, icons) {
     function (all, a, slug, b) {
       var ic = icons[slug];
       if (!ic) return all; // check-direct reports unknown-icon
+      // The span's own class (a size, a colour hook) goes on the svg.
+      var own = takeClassAttr(a + " " + b).value;
+      var svgOpen = '<svg class="proto-icon" viewBox="';
+      if (own) svgOpen = svgOpen.replace('proto-icon"', "proto-icon " + own + '"');
       return (
-        '<svg class="proto-icon" viewBox="' +
+        svgOpen +
         ic.viewBox +
         '" aria-hidden="true">' +
         ic.body +
@@ -250,11 +254,11 @@ function assemble(o) {
     throw new Error("assemble-direct: body.html has no <div data-app-frame>");
   // The author's own attributes on the frame div (class="cat" and the like)
   // hold the content area's layout: the frame placeholder is replaced, so they
-  // go on a wrapper around what sat inside it, or its rules match nothing.
+  // go onto the content area the frame draws, or its rules match nothing.
   var frameAttrs = open[0]
     .replace(/^<div\b/, "")
     .replace(/>$/, "")
-    .replace(/\sdata-app-frame(=("[^"]*"|'[^']*'))?/, "")
+    .replace(/\sdata-app-frame(\s*=\s*("[^"]*"|'[^']*'|[^\s>"']+))?/, "")
     .trim();
   // The frame wraps what sits inside data-app-frame; layers stay outside it.
   var start = open.index + open[0].length;
@@ -282,6 +286,20 @@ function assemble(o) {
     })[0];
     return item ? item.label : null;
   });
+  // Merged onto the content area's own open tag (its class joined), so the
+  // author's children stay its direct children; a wrapper only if the frame's
+  // markup ever stops ending on that tag.
+  var before = frame.before;
+  if (frameAttrs) {
+    var ca = /<div class="([^"]*)">$/.exec(before);
+    var own = takeClassAttr(" " + frameAttrs);
+    if (ca)
+      before =
+        before.slice(0, ca.index) +
+        '<div class="' + ca[1] + (own.value ? " " + own.value : "") + '"' +
+        (own.rest.trim() ? " " + own.rest.trim() : "") + ">";
+    else inside = "<div " + frameAttrs + ">" + inside + "</div>";
+  }
   return (
     (o.run ? provenanceComment(o.run) : "") +
     '<!doctype html><html lang="en"><head><meta charset="utf-8">' +
@@ -300,8 +318,8 @@ function assemble(o) {
     '">' +
     shell.strip(steps, (o.meta && o.meta.adds) || []) +
     '<div class="proto-stage">' +
-    frame.before +
-    (frameAttrs ? "<div " + frameAttrs + ">" + inside + "</div>" : inside) +
+    before +
+    inside +
     frame.after +
     rest +
     scrim +

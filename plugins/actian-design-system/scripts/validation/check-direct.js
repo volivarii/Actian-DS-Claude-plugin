@@ -10,7 +10,7 @@
 // context with a permissive browser-global stub and a 1-second timeout, and
 // checkDirect reads whatever the script actually left on proto.steps.
 // checkDirect itself stays synchronous and pure apart from that evaluation.
-// Fourteen kinds of finding. Eleven read what the four files declare or omit.
+// Fifteen kinds of finding. Twelve read what the four files declare or omit.
 // unsafe-embed reads for the two escape sequences assemble-direct.js does not
 // rewrite when it embeds extra.css in a <style> element and app.js in a
 // <script> element (it escapes </script, nothing else). steps-unread is the
@@ -314,26 +314,48 @@ function checkDirect(o) {
   // the shell's own stylesheet defines. Only selectors are read: declaration
   // blocks, strings and at-rule preludes are masked first.
   var carried = {};
+  var prefixes = [];
   allAttr("class", body)
     .join(" ")
     .split(/\s+/)
     .concat(js.match(/[A-Za-z_][\w-]*/g) || [])
     .forEach(function (c) {
-      if (c) carried[c] = true;
+      if (!c) return;
+      carried[c] = true;
+      // A word ending in - or _ is the stem of a class built at run time
+      // ("row--" + status, `row--${status}`): every class it starts is carried.
+      if (/[-_]$/.test(c)) prefixes.push(c);
     });
   all(/\.([A-Za-z_][\w-]*)/g, cssM + "\n" + maskCssComments(shellCss)).forEach(
     function (c) {
       carried[c] = true;
     },
   );
+  // Selectors only. In order: strings and url() masked; a class inside :not()
+  // is one the rule needs absent, not one it styles; an at-rule prelude is
+  // read only where a statement starts (an @ inside a value is not one); the
+  // innermost blocks are declarations; what is left before a ; is a
+  // declaration of a rule whose nested rule was just masked.
   var selectors = extraM
     .replace(/"[^"]*"|'[^']*'/g, '""')
-    .replace(/@[^{;]*/g, "");
-  // One pass masks the declaration blocks (the innermost braces); the braces
-  // left belong to at-rules, whose nested selectors must stay readable.
-  selectors = selectors.replace(/\{[^{}]*\}/g, " ").replace(/[{}]/g, " ");
-  uniq(all(/\.([A-Za-z_][\w-]*)/g, selectors)).forEach(function (c) {
+    .replace(/url\([^)]*\)/gi, "url()")
+    .replace(/:not\([^()]*\)/gi, "")
+    .replace(/(^|[;{}])\s*@[^{;]*/g, "$1")
+    .replace(/\{[^{}]*\}/g, " ")
+    .replace(/[^{};]*;/g, " ")
+    .replace(/[{}]/g, " ");
+  uniq(
+    all(/\.((?:[A-Za-z_]|\\.)(?:[\w-]|\\.)*)/g, selectors).map(function (c) {
+      return c.replace(/\\(.)/g, "$1");
+    }),
+  ).forEach(function (c) {
     if (/^ds-/.test(c) || carried[c]) return;
+    if (
+      prefixes.some(function (p) {
+        return c.indexOf(p) === 0 && c.length > p.length;
+      })
+    )
+      return;
     f.push(
       finding(
         "error",
