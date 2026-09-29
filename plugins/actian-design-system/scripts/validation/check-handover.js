@@ -9,9 +9,14 @@ var path = require("path");
 
 var SOURCES = "(Figma|Prototype|Intent)";
 var SOURCE_LINE = new RegExp("^Source:\\s*" + SOURCES + "(\\s*\\+\\s*" + SOURCES + ")*\\s*$");
+var STATES = ["Default", "Loading", "Empty", "Error", "Disabled"];
+
+function lf(t) {
+  return String(t || "").replace(/\r\n?/g, "\n");
+}
 
 function frontmatter(text) {
-  var m = /^---\n([\s\S]*?)\n---/.exec(String(text || ""));
+  var m = /^---\n([\s\S]*?)\n---/.exec(lf(text));
   var fm = { sections: [] };
   if (!m) return fm;
   m[1].split("\n").forEach(function (line) {
@@ -28,7 +33,7 @@ function frontmatter(text) {
 // "## Title" -> the text under it, up to the next "## ".
 function sections(text) {
   var out = {};
-  String(text || "")
+  lf(text)
     .split(/^## /m)
     .slice(1)
     .forEach(function (p) {
@@ -82,7 +87,13 @@ function checkHandover(kind, text, opts) {
     f.push({ severity: severity, check: check, where: where, value: value || "" });
   };
   var fm = frontmatter(opts.template);
+  text = lf(text);
   var secs = sections(text);
+  // A template read as no sections would pass any file: say so instead.
+  if (!fm.sections.length || fm.kind !== kind) {
+    add("error", "template-unreadable", "template", "kind " + (fm.kind || "none") + ", " + fm.sections.length + " sections");
+    return f;
+  }
   fm.sections.forEach(function (s) {
     if (!(s.title in secs)) {
       if (s.required) add("error", "section-missing", s.title);
@@ -101,27 +112,39 @@ function checkHandover(kind, text, opts) {
   if (kind === "specs") {
     if (!/^\*\*Knowledge:\*\*\s*v\d+\.\d+\.\d+/m.test(text)) add("error", "knowledge-version", "header");
     var slugs = opts.registrySlugs || [];
-    ((secs["Components Used"] || "").match(/^- .+?\(([a-z0-9-]+)\):/gm) || []).forEach(function (line) {
-      var slug = /\(([a-z0-9-]+)\):/.exec(line)[1];
-      if (slugs.indexOf(slug) === -1) add("error", "component-unknown", "Components Used", slug);
+    // Every list line is one component, `- <DS name> (<slug>): <where and how>`.
+    ((secs["Components Used"] || "").match(/^- .*$/gm) || []).forEach(function (line) {
+      var m = /^- .+? \(([a-z0-9-]+)\):/.exec(line);
+      if (!m) return add("error", "component-line", "Components Used", line);
+      if (slugs.indexOf(m[1]) === -1) add("error", "component-unknown", "Components Used", m[1]);
     });
     var visible = visibleText(opts.prototypeHtml);
     var copySource = (secs["Copy"] || "").split("\n")[0] || "";
     ((secs["Copy"] || "").match(/"([^"]+)"/g) || []).forEach(function (q) {
       var s = q.slice(1, -1);
-      if (/Prototype/.test(copySource) && opts.prototypeHtml && !copyFound(s, visible))
-        add("error", "copy-not-in-source", "Copy", s);
+      if (/Prototype/.test(copySource) && !opts.prototypeHtml) add("error", "copy-unverified", "Copy", s + " (no prototype to check it against)");
+      else if (/Prototype/.test(copySource) && !copyFound(s, visible)) add("error", "copy-not-in-source", "Copy", s);
       if (/Figma/.test(copySource) && !/Prototype/.test(copySource)) add("info", "copy-figma-unverified", "Copy", s);
     });
-    var rows = (secs["States"] || "").split("\n").filter(function (l) {
-      return /^\|/.test(l) && !/^\|\s*-/.test(l) && !/^\|\s*Screen\s*\|/.test(l);
+    // A table: the screen, then the five states; every row five cells of yes, no or n/a.
+    var lines = (secs["States"] || "").split("\n").filter(function (l) {
+      return /^\|/.test(l);
     });
+    var cells = function (l) {
+      return l.split("|").slice(1, -1).map(function (c) {
+        return c.trim();
+      });
+    };
+    var head = lines.length ? cells(lines[0]) : [];
+    var rows = lines.slice(1).filter(function (l) {
+      return !/^\|(\s*:?-+:?\s*\|)+\s*$/.test(l);
+    });
+    if (!rows.length || head.slice(1).join("|") !== STATES.join("|"))
+      add("error", "states-table", "States", "a table | Screen | " + STATES.join(" | ") + " | with one row per screen");
     rows.forEach(function (r) {
-      r.split("|")
-        .slice(2, -1)
-        .forEach(function (c) {
-          if (!/^\s*(yes|no|n\/a)\s*$/.test(c)) add("error", "states-cell", "States", r.trim());
-        });
+      var c = cells(r).slice(1);
+      if (c.length !== STATES.length || c.some(function (x) { return !/^(yes|no|n\/a)$/.test(x); }))
+        add("error", "states-cell", "States", r.trim());
     });
   }
   return f;
@@ -141,14 +164,26 @@ function main(argv) {
     return 2;
   }
   var opts = { template: fs.readFileSync(tpl, "utf8") };
+  var text = fs.readFileSync(file, "utf8");
   var pi = argv.indexOf("--prototype");
-  if (pi !== -1) opts.prototypeHtml = fs.readFileSync(argv[pi + 1], "utf8");
+  var proto = pi !== -1 ? argv[pi + 1] : null;
+  if (pi !== -1 && !proto) {
+    process.stderr.write("--prototype needs a path\n");
+    return 2;
+  }
+  if (!proto) {
+    // No flag: the file's own **Prototype:** line, relative to the file.
+    var h = /^\*\*Prototype:\*\*\s*(\S+)/m.exec(text);
+    var cand = h && path.resolve(path.dirname(file), h[1]);
+    if (cand && fs.existsSync(cand)) proto = cand;
+  }
+  if (proto) opts.prototypeHtml = fs.readFileSync(proto, "utf8");
   if (kind === "specs")
     opts.registrySlugs = Object.keys(
       JSON.parse(fs.readFileSync(path.join(PATHS.vendor, "components", "dist", "registries", "dskit.json"), "utf8"))
         .components || {},
     );
-  var f = checkHandover(kind, fs.readFileSync(file, "utf8"), opts);
+  var f = checkHandover(kind, text, opts);
   f.forEach(function (x) {
     process.stdout.write(
       (x.severity === "error" ? "P0" : x.severity === "info" ? "info" : "P1") +

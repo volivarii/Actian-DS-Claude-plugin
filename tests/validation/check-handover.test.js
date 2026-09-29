@@ -26,6 +26,21 @@ describe("checkHandover specs", () => {
     assert.deepEqual(checks(F("specs.good.md"), { prototypeHtml: proto }), []);
   });
   it("blank states cell", () => assert.ok(checks(F("specs.good.md").replace("| yes | n/a | yes | no | n/a |", "| yes |  | yes | no | n/a |")).includes("states-cell")));
+  it("a states row with fewer cells than the five states", () => assert.ok(checks(F("specs.good.md").replace("| Catalog | yes | n/a | yes | no | n/a |", "| Catalog | yes |")).includes("states-cell")));
+  it("a States section with no table", () => assert.ok(checks(F("specs.good.md").replace(/\| Screen[\s\S]*?\| n\/a \|\n/, "Every state is covered.\n")).includes("states-table")));
+  it("a States table missing a state column", () => assert.ok(checks(F("specs.good.md").replace("| Screen | Default | Loading | Empty | Error | Disabled |", "| Screen | Default | Loading | Empty | Error | Busy |")).includes("states-table")));
+  it("an aligned separator row is not a data row", () => assert.deepEqual(checks(F("specs.good.md").replace("| --- | --- | --- | --- | --- | --- |", "| :--- | :---: | --- | --- | --- | ---: |")), []));
+  it("a component line whose slug does not parse", () => assert.ok(checks(F("specs.good.md").replace("(button)", "(Buton)")).includes("component-line")));
+  it("a component line with no slug", () => assert.ok(checks(F("specs.good.md").replace("- Button (button): the", "- Button: the")).includes("component-line")));
+  it("copy from the prototype with no prototype to check it against", () => assert.ok(checks(F("specs.good.md"), { prototypeHtml: undefined }).includes("copy-unverified")));
+  it("a template it cannot read fails instead of passing everything", () => {
+    assert.ok(checks(F("specs.good.md"), { template: "---\nkind: specs\nsections:\n  - title: States\n---\n" }).includes("template-unreadable"));
+    assert.ok(checks(F("specs.good.md"), { template: F("intent.template.md") }).includes("template-unreadable"));
+  });
+  it("reads a template and a file written with CRLF line ends", () => {
+    const crlf = (t) => t.replace(/\n/g, "\r\n");
+    assert.deepEqual(checks(crlf(F("specs.good.md")), { template: crlf(F("specs.template.md")) }), []);
+  });
   it("no knowledge version", () => assert.ok(checks(F("specs.good.md").replace("**Knowledge:** v0.34.218\n", "")).includes("knowledge-version")));
 });
 

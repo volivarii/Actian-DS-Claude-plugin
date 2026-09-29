@@ -3,7 +3,7 @@
 **Owner (Designer):** To fill
 **Intent:** intent.md
 **Figma:** https://www.figma.com/design/abc/x?node-id=1-2
-**Prototype:** tests/fixtures/handover/prototype.html
+**Prototype:** prototype.html
 **Knowledge:** v0.34.218
 
 ## Screens / Flows Covered
