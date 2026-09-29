@@ -61,7 +61,9 @@ function renderFrame(brief) {
 // The app record as the knowledge writes it: when it has groups, icons,
 // actions or children the rail is drawn from them (a bottom block, actions, an
 // active parent's children), else from the flat label list. Every group says
-// whether it is at the bottom, so the renderer never places one by position.
+// whether it is at the bottom: the knowledge renderer from v0.34.221 then
+// places each group as told, never the last one by position (the renderer
+// vendored before that ignores the flag).
 function frameChrome(app) {
   var out = {};
   var groups = app.groups || [];

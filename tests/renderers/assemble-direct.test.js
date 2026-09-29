@@ -835,7 +835,7 @@ describe("assemble-direct: the page carries its provenance", () => {
 describe("assemble-direct: the chrome the frame hands the renderer (code-review high, Task 6)", () => {
   const { frameChrome } = require(path.join(ROOT, "scripts/renderers/assemble-direct.js"));
   const app = (o) => Object.assign({ rail: [], groups: [], header: {}, activeNav: null }, o);
-  it("places every group itself, so the renderer never pins a top group to the bottom", () => {
+  it("says for every group whether it is at the bottom, which the knowledge renderer from v0.34.221 follows", () => {
     const c = frameChrome(app({ groups: [{ bottom: false, items: [{ label: "Dashboard", id: "d", icon: "i" }] }, { bottom: false, items: [{ label: "Import", id: "m", icon: "i" }] }] }));
     assert.deepStrictEqual(c.sidebar.groups.map((g) => g.bottom), [false, false]);
   });

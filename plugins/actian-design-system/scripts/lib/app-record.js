@@ -7,14 +7,17 @@
 var fs = require("fs");
 var PATHS = require("./paths.js");
 
-// A missing or unreadable snapshot is no record: the caller falls back to the
-// chrome list, as it does for an app the record does not have.
+// A missing snapshot is no record (the brief falls back to the chrome list, as
+// for an app the record does not have). A corrupt one is an error: skipping it
+// would let check-direct pass a rail it never compared.
 function readApp(slug, file) {
+  var f = file || PATHS.appContext;
+  if (!fs.existsSync(f)) return null;
   var ctx;
   try {
-    ctx = JSON.parse(fs.readFileSync(file || PATHS.appContext, "utf8"));
+    ctx = JSON.parse(fs.readFileSync(f, "utf8"));
   } catch (e) {
-    return null;
+    throw new Error("app-record: " + f + " (the app-context snapshot) is not valid JSON: " + e.message);
   }
   var a = ctx && ctx.apps && ctx.apps[String(slug || "").toLowerCase()];
   if (!a) return null;
