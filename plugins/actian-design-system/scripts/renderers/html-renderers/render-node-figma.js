@@ -101,7 +101,11 @@ function main() {
     process.exit(1);
   }
 
-  var nodes = Array.isArray(spec.content) ? spec.content : [spec];
+  var nodes = Array.isArray(spec)
+    ? spec
+    : Array.isArray(spec.content)
+      ? spec.content
+      : [spec];
 
   var errors = [];
   nodes.forEach(function (n, i) {
@@ -163,13 +167,29 @@ function main() {
 // --- Color helpers ----------------------------------------------------------
 
 function hexToRgb(hex) {
-  // "#RRGGBB" -> {r,g,b} 0..1
+  // "#RGB", "#RGBA", "#RRGGBB" or "#RRGGBBAA" -> {r,g,b,a} 0..1. Figma's SOLID
+  // paint carries alpha as the paint's own opacity (see paintLit).
   var h = String(hex).replace("#", "");
+  if (h.length === 3 || h.length === 4)
+    h = h
+      .split("")
+      .map(function (c) {
+        return c + c;
+      })
+      .join("");
   return {
     r: parseInt(h.slice(0, 2), 16) / 255,
     g: parseInt(h.slice(2, 4), 16) / 255,
     b: parseInt(h.slice(4, 6), 16) / 255,
+    a: h.length === 8 ? Math.round((parseInt(h.slice(6, 8), 16) / 255) * 1000) / 1000 : 1,
   };
+}
+
+// One SOLID paint literal; an alpha below 1 becomes the paint's opacity (the
+// overlay token #00000066 would otherwise push as solid black).
+function paintLit(hex) {
+  var c = hexToRgb(hex);
+  return "{ type: 'SOLID', color: " + rgbLit(hex) + (c.a < 1 ? ", opacity: " + c.a : "") + " }";
 }
 
 function rgbLit(hex) {
@@ -234,7 +254,7 @@ function emitStroke(node, v, lines) {
   var weight = stroke.weight != null ? stroke.weight : 1;
   var color = stroke.color || "#000000";
   lines.push(
-    v + ".strokes = [{ type: 'SOLID', color: " + rgbLit(color) + " }];",
+    v + ".strokes = [" + paintLit(color) + "];",
   );
   if (stroke.sides && typeof stroke.sides === "object") {
     // Per-side weights via individual strokeTopWeight/etc.
@@ -328,7 +348,7 @@ function emitFrame(node, v, lines, ctx) {
   emitPadding(node, v, lines);
   if (node.fills && node.fills[0])
     lines.push(
-      v + ".fills = [{ type: 'SOLID', color: " + rgbLit(node.fills[0]) + " }];",
+      v + ".fills = [" + paintLit(node.fills[0]) + "];",
     );
   emitCornerRadius(node, v, lines);
   emitStroke(node, v, lines);
@@ -356,6 +376,19 @@ function emitFrame(node, v, lines, ctx) {
     var cv = v + "_c" + i;
     emitNode(child, cv, lines, ctx);
     lines.push(v + ".appendChild(" + cv + ");");
+    // A layer over the page (drawer, toast): out of auto-layout, placed by x/y.
+    // layoutPositioning is only settable once the child is inside its parent,
+    // and only inside an auto-layout parent; an absolute child never takes
+    // FILL sizing, so its deferred FILL lines are dropped.
+    if (child && child.positioning === "absolute") {
+      ctx.fillSizing = ctx.fillSizing.filter(function (e) {
+        return e.varName !== cv;
+      });
+      if (node.layout && (node.layout.mode === "HORIZONTAL" || node.layout.mode === "VERTICAL"))
+        lines.push(cv + '.layoutPositioning = "ABSOLUTE";');
+      if (child.x != null) lines.push(cv + ".x = " + Number(child.x) + ";");
+      if (child.y != null) lines.push(cv + ".y = " + Number(child.y) + ";");
+    }
   });
   recordSizing(node, v, ctx);
 }
@@ -365,7 +398,7 @@ function emitFrame(node, v, lines, ctx) {
 function parseFont(font, def) {
   var p = String(font || "").split(":");
   return {
-    family: (p[0] || def || "Inter").trim(),
+    family: (p[0] || def || "Roboto").trim(),
     style: (p[1] || "Regular").trim(),
   };
 }
@@ -410,7 +443,7 @@ function emitText(node, v, lines, ctx) {
     );
   if (node.color)
     lines.push(
-      v + ".fills = [{ type:'SOLID', color: " + rgbLit(node.color) + " }];",
+      v + ".fills = [" + paintLit(node.color) + "];",
     );
   if (node.textAlign && node.textAlign.horizontal)
     lines.push(
@@ -438,7 +471,7 @@ function emitRect(node, v, lines) {
   );
   if (node.fills && node.fills[0]) {
     lines.push(
-      v + ".fills = [{ type: 'SOLID', color: " + rgbLit(node.fills[0]) + " }];",
+      v + ".fills = [" + paintLit(node.fills[0]) + "];",
     );
   }
   if (node.cornerRadius != null && typeof node.cornerRadius === "number") {
@@ -457,7 +490,7 @@ function emitEllipse(node, v, lines) {
     v + ".resize(" + (node.width || 16) + ", " + (node.height || 16) + ");",
   );
   var fill = (node.fills && node.fills[0]) || "#CBD2E0";
-  lines.push(v + ".fills = [{ type: 'SOLID', color: " + rgbLit(fill) + " }];");
+  lines.push(v + ".fills = [" + paintLit(fill) + "];");
   if (node.opacity != null)
     lines.push(v + ".opacity = " + Number(node.opacity) + ";");
 }
@@ -469,7 +502,7 @@ function emitDivider(node, v, lines) {
   if (node.name) lines.push(v + ".name = " + JSON.stringify(node.name) + ";");
   lines.push(v + ".strokeWeight = 1;");
   lines.push(
-    v + ".strokes = [{ type: 'SOLID', color: " + rgbLit("#E2E7F0") + " }];",
+    v + ".strokes = [" + paintLit("#E2E7F0") + "];",
   );
 }
 
@@ -562,7 +595,7 @@ function emit(nodes, parentId) {
   var ctx = {
     fonts: {},
     fillSizing: [],
-    defaultFont: "Inter",
+    defaultFont: "Roboto",
     usedSetProps: false,
   };
   var body = [];
