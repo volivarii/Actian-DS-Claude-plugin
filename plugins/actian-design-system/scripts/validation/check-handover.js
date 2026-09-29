@@ -58,7 +58,11 @@ var ENTITIES = {
 // One pass, so an &amp; never becomes the start of a second entity.
 function decode(t) {
   return t.replace(/&(#x[0-9a-f]+|#\d+|[a-z]+);/gi, function (all, e) {
-    if (e[0] === "#") return String.fromCodePoint(parseInt(e[1] === "x" || e[1] === "X" ? e.slice(2) : e.slice(1), e[1] === "x" || e[1] === "X" ? 16 : 10));
+    if (e[0] === "#") {
+      var hex = e[1] === "x" || e[1] === "X";
+      var cp = parseInt(hex ? e.slice(2) : e.slice(1), hex ? 16 : 10);
+      return cp <= 0x10ffff ? String.fromCodePoint(cp) : all;
+    }
     if (e === "amp") return "&";
     return ENTITIES[e] != null ? ENTITIES[e] : all;
   });

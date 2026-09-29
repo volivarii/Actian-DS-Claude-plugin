@@ -96,6 +96,9 @@ describe("checkHandover: round two (code-review high, #428)", () => {
     assert.deepEqual(checks(withCopy("Don’t save"), { prototypeHtml: F("prototype.html") + "<p>Don&#8217;t save</p>" }), []);
     assert.ok(checks(withCopy("Use <tag>"), { prototypeHtml: F("prototype.html") + "<p>Use &amp;lt;tag&amp;gt;</p>" }).includes("copy-not-in-source"));
   });
+  it("an out-of-range numeric entity is left as written, never thrown on", () => {
+    assert.deepEqual(checks(F("specs.good.md"), { prototypeHtml: F("prototype.html") + "<p>&#x110000; &#9999999;</p>" }), []);
+  });
   it("copy sourced from the intent is reported as unchecked", () => {
     const text = F("specs.good.md").replace(/(## Copy\n)Source: Prototype/, "$1Source: Intent");
     assert.ok(checkHandover("specs", text, opts).some((f) => f.check === "copy-intent-unverified"));
