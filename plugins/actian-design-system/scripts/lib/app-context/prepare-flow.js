@@ -146,16 +146,15 @@ function matchesUseCaseAudience(uc, word) {
   return false;
 }
 
-// Every id a nav can name: each rail item and each of its children.
+// Every id a nav can name: the rail's top-level items. assemble-direct.js
+// marks a step's nav active in the flat top-level rail, so a child's id would
+// pass here and then mark nothing.
 function railIds(sidebar) {
-  var ids = [];
-  (sidebar || []).forEach(function (s) {
-    ids.push(s.id);
-    (Array.isArray(s.children) ? s.children : []).forEach(function (c) {
-      ids.push(c.id);
-    });
-  });
-  return uniq(ids);
+  return uniq(
+    (sidebar || []).map(function (s) {
+      return s.id;
+    }),
+  );
 }
 
 var LAYER_KINDS = { panel: 1, drawer: 1, modal: 1, toast: 1 };

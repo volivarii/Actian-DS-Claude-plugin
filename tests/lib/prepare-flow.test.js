@@ -130,6 +130,10 @@ describe("prepare-flow: the screen list's checks", function () {
     assert.strictEqual(prepare.prepareFlow({ app: "studio", nav: "catalog", screens: [{ name: "Catalog", nav: "topics", exit: "x" }, { name: "Done" }] }).direct.app.activeNav, "catalog");
   });
 
+  it("refuses a nav naming a rail item's child: the page draws only top-level items active", function () {
+    invalid({ app: "studio", nav: "import-file", screens: [{ name: "Import" }] }, /meta\.nav "import-file" is not one of this app's sidebar ids/);
+  });
+
   it("under mode generate, refuses a non-final step with no exit; with no mode it is accepted", function () {
     var two = [{ name: "Catalog", template: "studio" }, { name: "Done", template: "studio" }];
     invalid({ app: "studio", mode: "generate", screens: two }, /screen 1 "Catalog": exit is required: say what the user does here to reach screen 2 "Done"/);
