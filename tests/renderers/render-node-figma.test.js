@@ -246,7 +246,7 @@ describe("render-node-figma: screen push fixes (D5)", function () {
     assert.ok(!/Inter/.test(js));
   });
   it("places an absolute child with x and y", function () {
-    var js = emit([{ type: "FRAME", children: [{ type: "FRAME", positioning: "absolute", x: 890, y: 0, children: [] }] }], "1:2").code;
+    var js = emit([{ type: "FRAME", layout: { mode: "VERTICAL" }, children: [{ type: "FRAME", positioning: "absolute", x: 890, y: 0, children: [] }] }], "1:2").code;
     assert.match(js, /layoutPositioning = "ABSOLUTE"/);
     assert.match(js, /\.x = 890;/);
     assert.match(js, /\.y = 0;/);
@@ -259,5 +259,26 @@ describe("render-node-figma: screen push fixes (D5)", function () {
     var js = emit([{ type: "FRAME", fills: ["#fff"], children: [] }], "1:2").code;
     assert.ok(!/NaN/.test(js));
     assert.match(js, /r:1, g:1, b:1/);
+  });
+});
+
+describe("render-node-figma: second review (code-review high, #426)", function () {
+  var emit = require("../../plugins/actian-design-system/scripts/renderers/html-renderers/render-node-figma.js").emit;
+  it("keeps the alpha of #RRGGBBAA as the paint's opacity", function () {
+    var js = emit([{ type: "FRAME", fills: ["#00000066"], children: [] }], "1:2").code;
+    assert.match(js, /color: \{ r:0, g:0, b:0 \}, opacity: 0\.4/);
+  });
+  it("never sets FILL sizing on an absolute child", function () {
+    var js = emit([{ type: "FRAME", layout: { mode: "VERTICAL" }, children: [{ type: "FRAME", positioning: "absolute", x: 0, y: 0, sizing: { horizontal: "FILL", vertical: "FILL" }, children: [] }] }], "1:2").code;
+    assert.ok(!/root0_c0\.layoutSizing(Horizontal|Vertical) = 'FILL'/.test(js), js);
+  });
+  it("sets layoutPositioning only inside an auto-layout parent, x and y always", function () {
+    var js = emit([{ type: "FRAME", children: [{ type: "FRAME", positioning: "absolute", x: 5, y: 6, children: [] }] }], "1:2").code;
+    assert.ok(!/layoutPositioning/.test(js));
+    assert.match(js, /root0_c0\.x = 5;/);
+  });
+  it("validates positioning and x, y values", function () {
+    assert.ok(validateNode.validateTree({ type: "FRAME", positioning: "fixed", children: [] }).length > 0);
+    assert.ok(validateNode.validateTree({ type: "FRAME", positioning: "absolute", x: "right", children: [] }).length > 0);
   });
 });

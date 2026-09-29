@@ -84,3 +84,28 @@ describe("prepareScreen", () => {
     assert.equal(s.library, undefined); // input not mutated
   });
 });
+
+describe("prepareScreen: second review (code-review high, #426)", () => {
+  it("drops the authored adds key the emitter refuses", () => {
+    const { tree } = prepareScreen(screen([{ type: "FRAME", adds: ["x"], children: [] }]), { tokensCss: CSS });
+    assert.ok(!JSON.stringify(tree).includes('"adds"'));
+  });
+  it("reports a five- or seven-digit hex as not a colour", () => {
+    const { unresolved } = prepareScreen(screen([{ type: "FRAME", fills: ["var(--zen-h)"], children: [] }]), { tokensCss: CSS + ":root{--zen-h:#12345}" });
+    assert.ok(unresolved.length === 1, JSON.stringify(unresolved));
+  });
+  it("reads a font token as its first family", () => {
+    const { tree, unresolved } = prepareScreen(screen([{ type: "TEXT", content: "Hi", font: "var(--zen-f):Bold" }]), { tokensCss: CSS + ':root{--zen-f:"Roboto", sans-serif}' });
+    assert.deepEqual(unresolved, []);
+    assert.ok(JSON.stringify(tree).includes('"font":"Roboto:Bold"'), JSON.stringify(tree).slice(-300));
+  });
+  it("reports a letter-spacing or line-height token the emitter cannot take", () => {
+    const { unresolved } = prepareScreen(screen([{ type: "TEXT", content: "Hi", letterSpacing: "var(--zen-ls)" }]), { tokensCss: CSS + ":root{--zen-ls:0.1}" });
+    assert.ok(unresolved.some((u) => /letterSpacing/.test(u)), JSON.stringify(unresolved));
+  });
+  it("reports each bad token once", () => {
+    const n = { type: "FRAME", fills: ["var(--zen-s)"], children: [] };
+    const { unresolved } = prepareScreen(screen([n, n]), { tokensCss: CSS + ":root{--zen-s:24px}" });
+    assert.strictEqual(unresolved.length, 1);
+  });
+});

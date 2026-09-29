@@ -39,7 +39,7 @@ const root0_c0 = figma.createText();
 root0_c0.fontName = { family: "Inter", style: "Bold" };
 root0_c0.characters = "Records";
 root0_c0.fontSize = 18;
-root0_c0.fills = [{ type:'SOLID', color: { r:0.10196078431372549, g:0.10196078431372549, b:0.1803921568627451 } }];
+root0_c0.fills = [{ type: 'SOLID', color: { r:0.10196078431372549, g:0.10196078431372549, b:0.1803921568627451 } }];
 root0.appendChild(root0_c0);
 const root0_c1 = figma.createFrame();
 root0_c1.name = "Toolbar";

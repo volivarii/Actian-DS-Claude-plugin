@@ -6,9 +6,13 @@
 var fs = require("fs");
 var path = require("path");
 var dsTree = require("./html-renderers/ds-screen-tree.js");
-var DROP = ["slot", "focus", "goto"];
+// Authoring keys (a screen author writes them for the HTML route and the
+// handover) that the emitter refuses.
+var DROP = ["slot", "focus", "goto", "adds"];
+// Text fields the emitter reads only as { value, unit }: a token there is refused.
+var UNIT_KEYS = ["letterSpacing", "lineHeight"];
 var COLOUR_KEYS = ["fills", "color"]; // stroke colours arrive as stroke.color
-var HEX = /^#[0-9a-f]{3,8}$/i;
+var HEX = /^#([0-9a-f]{3}|[0-9a-f]{4}|[0-9a-f]{6}|[0-9a-f]{8})$/i;
 var PX = /^-?\d+(\.\d+)?(px)?$/;
 
 // The tokens a screen of this theme sees: the :root block, then the theme's own
@@ -71,6 +75,9 @@ function prepareScreen(screen, opts) {
   var theme = dsTree.appProfile(dsTree.resolveChrome(input).appHeaderType).theme;
   var tokens = tokenMap(opts.tokensCss || "", theme);
   var unresolved = [];
+  function report(msg) {
+    if (unresolved.indexOf(msg) === -1) unresolved.push(msg);
+  }
   function clean(n, key) {
     if (Array.isArray(n))
       return n.map(function (x) {
@@ -87,8 +94,18 @@ function prepareScreen(screen, opts) {
     var r = resolveVars(n, tokens, unresolved, 0);
     if (r.indexOf("var(") !== -1) return r;
     if (COLOUR_KEYS.indexOf(key) !== -1) {
-      if (!HEX.test(r) && unresolved.indexOf(n) === -1) unresolved.push(n + " is not a colour (" + r + ")");
+      if (!HEX.test(r)) report(n + " is not a colour (" + r + ")");
       return r;
+    }
+    if (UNIT_KEYS.indexOf(key) !== -1) {
+      report(key + ": " + n + " is a token; write { value, unit } in pixels");
+      return r;
+    }
+    // "Family:Style": a font-family token is a CSS stack; Figma takes one family.
+    if (key === "font") {
+      var cut = r.lastIndexOf(":");
+      var fam = (cut === -1 ? r : r.slice(0, cut)).split(",")[0].trim().replace(/^["']|["']$/g, "");
+      return cut === -1 ? fam : fam + r.slice(cut);
     }
     // A spacing, padding or radius token is a CSS length; the emitter wants a number.
     return PX.test(r) ? parseFloat(r) : r;
@@ -130,7 +147,7 @@ function main(argv) {
       JSON.stringify({
         ok: false,
         errors: r.unresolved.map(function (k) {
-          return { path: k, message: "token not resolved against tokens.css" };
+          return { path: k, message: "not resolved against tokens.css, or not what this field takes" };
         }),
       }) + "\n",
     );
