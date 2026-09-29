@@ -248,6 +248,14 @@ function assemble(o) {
   var open = body.match(/<div[^>]*\sdata-app-frame[^>]*>/);
   if (!open)
     throw new Error("assemble-direct: body.html has no <div data-app-frame>");
+  // The author's own attributes on the frame div (class="cat" and the like)
+  // hold the content area's layout: the frame placeholder is replaced, so they
+  // go on a wrapper around what sat inside it, or its rules match nothing.
+  var frameAttrs = open[0]
+    .replace(/^<div\b/, "")
+    .replace(/>$/, "")
+    .replace(/\sdata-app-frame(=("[^"]*"|'[^']*'))?/, "")
+    .trim();
   // The frame wraps what sits inside data-app-frame; layers stay outside it.
   var start = open.index + open[0].length;
   var end = frameEnd(body, start);
@@ -293,7 +301,7 @@ function assemble(o) {
     shell.strip(steps, (o.meta && o.meta.adds) || []) +
     '<div class="proto-stage">' +
     frame.before +
-    inside +
+    (frameAttrs ? "<div " + frameAttrs + ">" + inside + "</div>" : inside) +
     frame.after +
     rest +
     scrim +

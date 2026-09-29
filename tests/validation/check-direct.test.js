@@ -24,7 +24,7 @@ const ok = {
   brief,
   css,
   icons,
-  body: '<div data-app-frame><button class="ds-button" data-new="X"><span data-icon="edit"></span></button></div>',
+  body: '<div data-app-frame class="p"><button class="ds-button" data-new="X"><span data-icon="edit"></span></button></div>',
   appJs:
     'proto.steps = [{ id: "f-1", arrive: function () {} }, { id: "f-2", arrive: function () {} }];',
   extraCss: ".p{padding:var(--zen-a)}",
@@ -35,6 +35,32 @@ const kinds = (o) => checkDirect(Object.assign({}, ok, o)).map((f) => f.check);
 describe("check-direct", () => {
   it("passes the clean fixture", () =>
     assert.deepStrictEqual(checkDirect(ok), []));
+  it("unstyled-class: a class styled in extra.css that no element carries", () => {
+    const f = checkDirect(Object.assign({}, ok, { extraCss: ok.extraCss + ".cat{display:flex}" })).filter((x) => x.check === "unstyled-class");
+    assert.strictEqual(f.length, 1);
+    assert.strictEqual(f[0].severity, "error");
+    assert.strictEqual(f[0].path, "extra.css");
+    assert.match(f[0].value, /\.cat\b/);
+  });
+  it("unstyled-class: quiet when the body or app.js carries the class", () => {
+    const extraCss = ".cat{display:flex}";
+    assert.ok(!kinds({ extraCss, body: '<div data-app-frame><div class="x cat">x</div></div>' }).includes("unstyled-class"));
+    assert.ok(!kinds({ extraCss, appJs: ok.appJs + '\nel.className = "cat";' }).includes("unstyled-class"));
+    assert.ok(!kinds({ extraCss, appJs: ok.appJs + '\nel.classList.toggle("cat", on);' }).includes("unstyled-class"));
+  });
+  it("unstyled-class: ignores ds-* classes, pseudo selectors and the frame's own classes", () => {
+    assert.ok(!kinds({ extraCss: ".ds-button:hover{color:var(--zen-a)}" }).includes("unstyled-class"));
+    assert.ok(!kinds({ extraCss: ".p:hover{padding:0}" }).includes("unstyled-class"));
+    assert.ok(!kinds({ css: ok.css + ".screen__body{}", extraCss: ".screen__body{gap:0}" }).includes("unstyled-class"));
+  });
+  it("unstyled-class: reads selectors only, not values, strings or at-rule preludes", () => {
+    const extraCss = '@media (min-width: 1.5em) { .p { font: 1.5em/1.2 Roboto; } } a[href$=".pdf"] { padding: 0 }';
+    assert.ok(!kinds({ extraCss }).includes("unstyled-class"));
+  });
+  it("unstyled-class: a selector nested in @media is read too", () => {
+    const f = checkDirect(Object.assign({}, ok, { extraCss: ok.extraCss + "@media (max-width: 900px) { .gone { display: none } }" })).filter((x) => x.check === "unstyled-class");
+    assert.deepStrictEqual(f.map((x) => x.value.split(" ")[0]), [".gone"]);
+  });
   it("external-url", () =>
     assert.ok(
       kinds({ body: ok.body + '<img src="https://x.y/a.png">' }).includes(
@@ -415,7 +441,7 @@ describe("check-direct", () => {
   });
   it("accepts single-quoted attributes the same as double-quoted (review minor)", () => {
     const body =
-      "<div data-app-frame><button class='ds-button' data-new='X'>" +
+      "<div data-app-frame class='p'><button class='ds-button' data-new='X'>" +
       "<span data-icon='edit'></span></button></div>";
     assert.deepStrictEqual(checkDirect(Object.assign({}, ok, { body })), []);
   });

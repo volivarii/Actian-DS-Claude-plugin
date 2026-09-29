@@ -305,6 +305,44 @@ function checkDirect(o) {
         "a colour typed by hand: use a token",
       ),
     );
+  // A class the author styles that nothing on the page carries: its rules never
+  // apply (the thin kit's T7 styled .cat on the frame div the assembler used to
+  // drop, and the filter rail fell apart with every check green). Carried: a
+  // class in body.html, any word app.js contains (it sets classes at run time:
+  // className, classList.toggle, markup in template literals whose nested
+  // quotes defeat a string scan), and a class the frame's or
+  // the shell's own stylesheet defines. Only selectors are read: declaration
+  // blocks, strings and at-rule preludes are masked first.
+  var carried = {};
+  allAttr("class", body)
+    .join(" ")
+    .split(/\s+/)
+    .concat(js.match(/[A-Za-z_][\w-]*/g) || [])
+    .forEach(function (c) {
+      if (c) carried[c] = true;
+    });
+  all(/\.([A-Za-z_][\w-]*)/g, cssM + "\n" + maskCssComments(shellCss)).forEach(
+    function (c) {
+      carried[c] = true;
+    },
+  );
+  var selectors = extraM
+    .replace(/"[^"]*"|'[^']*'/g, '""')
+    .replace(/@[^{;]*/g, "");
+  // One pass masks the declaration blocks (the innermost braces); the braces
+  // left belong to at-rules, whose nested selectors must stay readable.
+  selectors = selectors.replace(/\{[^{}]*\}/g, " ").replace(/[{}]/g, " ");
+  uniq(all(/\.([A-Za-z_][\w-]*)/g, selectors)).forEach(function (c) {
+    if (/^ds-/.test(c) || carried[c]) return;
+    f.push(
+      finding(
+        "error",
+        "unstyled-class",
+        "extra.css",
+        "." + c + " is styled but no element on the page carries it",
+      ),
+    );
+  });
   if (!/<div[^>]*\sdata-app-frame/.test(body))
     f.push(
       finding(

@@ -201,6 +201,15 @@ describe("assemble-direct: a modal on a scrim, and an author's own script", () =
     FRAME +
     '<aside data-layer="modal" id="confirm" hidden><h2>Save 2 descriptions?</h2></aside>';
 
+  it("carries the author's frame attributes onto the content area", () => {
+    const html = page('<div data-app-frame class="cat" data-x="1"><div class="cat__rail">R</div></div>');
+    assert.match(html, /<div[^>]*class="[^"]*\bcat\b[^"]*"[^>]*data-x="1"[^>]*>[\s\S]*cat__rail/);
+    assert.ok(!html.includes("data-app-frame"), "the placeholder attribute survived");
+  });
+  it("adds no wrapper when the frame carries no attribute of its own", () => {
+    const html = page("<div data-app-frame><p>2 results</p></div>");
+    assert.ok(!/<div\s*>\s*<p>2 results/.test(html), "an empty wrapper was added");
+  });
   it("draws the scrim a modal sits on, which no author writes", () => {
     const html = page(MODAL);
     assert.ok(
