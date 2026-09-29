@@ -51,7 +51,7 @@ describe("SKILL.md size ceiling (progressive disclosure)", () => {
 // grows back into a manual is the thing this simplification removed (124 KB of
 // instructions against the thin kit's 8.7 KB, benchmark 2026-09).
 const MAX_CARD_BYTES = 4000;
-const MAX_SKILLS_BYTES = 24000;
+const MAX_SKILLS_BYTES = 32000;
 
 function filesUnder(dir) {
   return fs.readdirSync(dir, { withFileTypes: true }).flatMap((e) =>

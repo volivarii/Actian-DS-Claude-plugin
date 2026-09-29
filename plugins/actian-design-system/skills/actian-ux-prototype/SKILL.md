@@ -21,7 +21,7 @@ Run a script as `source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh" && "
 
 **Start here.** The app file in `vendor/app-context/src/apps/`, the recipe and its screenshot for the page, the fragments and `render.css` (see `vendor/llms.txt`, "Building a screen"), the terminology and content rules.
 
-**Make it.** Write the screen list, then `scripts/lib/app-context/prepare-flow.js --app <app> --screen-list <file> --direct -o brief.json`; write `body.html`, `app.js`, `extra.css`, `meta.json` in one folder; `scripts/renderers/assemble-direct.js brief.json --author <dir> -o prototype.html`.
+**Make it.** The files and their rules: `prototype-files.md` here. Write the screen list, then `scripts/lib/app-context/prepare-flow.js --app <app> --screen-list <file> --direct -o brief.json`; write `body.html`, `app.js`, `extra.css`, `meta.json` in one folder; `scripts/renderers/assemble-direct.js brief.json --author <dir> -o prototype.html`.
 
 **Done when**
 - everything the request asks happens on the page, in order; every control works;
@@ -30,8 +30,8 @@ Run a script as `source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh" && "
 - `scripts/validation/check-direct.js brief.json --author <dir>` is clean;
 - you looked at every step (`scripts/renderers/look-direct.js prototype.html --steps <n> -o shots/`) and fixed what you saw. No browser (Cowork): say so, and name what the person must look at.
 
-**Figma push (on request).** One JSON per screen, then `scripts/renderers/figma-screen.js <screen.json> --parent-id <frame>`, its output as the code of one `use_figma` call. Colours as `var(--zen-...)` tokens, text in Roboto. Layers (drawers, toasts) as top-level content nodes with `positioning: "absolute"` and `x`, `y` in screen coordinates. One session, no helper agents. Screenshot each screen.
+**Figma push (on request).** One JSON per screen (`figma-screen.md` here), then `scripts/renderers/figma-screen.js <screen.json> --parent-id <frame>`, its output as the code of one `use_figma` call. Colours as `var(--zen-...)` tokens, text in Roboto. Layers (drawers, toasts) as top-level content nodes with `positioning: "absolute"` and `x`, `y` in screen coordinates. One session, no helper agents. Screenshot each screen.
 
-**specs.md seed.** Only when no final Figma exists: write `specs.md` from the knowledge's template, every section `Source: Prototype` (or `+ Intent`), and `scripts/validation/check-handover.js specs specs.md --prototype prototype.html`.
+**specs.md seed.** Only when no final Figma exists: write `specs.md` from the knowledge's template, every section `Source: Prototype` (or `+ Intent`), and `scripts/validation/check-handover.js specs specs.md --prototype prototype.html`. If it says `template not vendored yet`, hand over without the file and say so.
 
 **Hand over.** The page, the steps, what is new and why, what you could not check, what you would ask.

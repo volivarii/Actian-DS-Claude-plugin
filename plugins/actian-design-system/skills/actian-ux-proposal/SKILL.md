@@ -27,9 +27,9 @@ Run a script as `source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh" && "
 
 **Done when**
 - every question the ticket forces that a reader could answer differently is a decision, heaviest first;
-- each decision has options drawn inside the product with design system components, a comparison, and a pick with reasons and cost;
+- each decision has options drawn inside the product as Fat Marker fragments (`fm-*` classes and `--fm-*` tokens only; the class list is `vendor/components/render/renderer/fm-base.css`), the design system components they use named in `uses[]`, a comparison, and a pick with reasons and cost;
 - every drawn part is marked existing or new; every product fact names its knowledge file;
-- `scripts/validation/validate-proposal.js proposal-data.json` shows no P0; `scripts/validation/check-handover.js intent intent.md` shows no P0;
+- `scripts/validation/validate-proposal.js proposal-data.json` shows no P0; `scripts/validation/check-handover.js intent intent.md` shows no P0 (`template not vendored yet`: hand over the document without `intent.md` and say so);
 - business fields (value, stakeholders, metrics, constraints, deliverables) read "To fill by PM": never invented.
 
 **Hand over.** Both paths, the decisions in one line each, the open questions, the P1s kept and why, what you could not check.

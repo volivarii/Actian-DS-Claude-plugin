@@ -25,6 +25,6 @@ Run a script as `source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh" && "
 
 **Fix** only when asked: one finding at a time, P0 first, looking at the result after each.
 
-**specs.md** (feature flow only, after the fixes, never on a periodic audit). From the knowledge's template, three sources: the final frame (components by DS name and slug, copy, accessibility, screens), the prototype (flow order, states, interactions), `intent.md` (edge cases, scope, open questions). Each section's first line names its source. Unfixed findings and open questions go to Flagged concerns. Then `scripts/validation/check-handover.js specs specs.md --prototype <prototype.html>`: no P0. The designer reviews it before it is pushed.
+**specs.md** (feature flow only, after the fixes, never on a periodic audit). From the knowledge's template, three sources: the final frame (components by DS name and slug, copy, accessibility, screens), the prototype (flow order, states, interactions), `intent.md` (edge cases, scope, open questions). Each section's first line names its source. Unfixed findings and open questions go to Flagged concerns. Then `scripts/validation/check-handover.js specs specs.md --prototype <prototype.html>`: no P0. If it says `template not vendored yet`, hand over without the file and say so. The designer reviews it before it is pushed.
 
 **Hand over.** The findings table, the fixes applied, `specs.md` and its check result, what you could not check.
