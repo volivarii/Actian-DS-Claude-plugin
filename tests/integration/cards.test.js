@@ -45,3 +45,58 @@ describe("the handover cards before the templates are vendored", () => {
     });
   });
 });
+
+// Every card and every file beside it: a bare `name.md` is a sibling, a
+// `name.js` (bare or with its path) is one script under scripts/, and each
+// --flag a span passes to a script is one that script reads. No retired
+// agent is named. Siblings are read too, not only SKILL.md.
+describe("every file the cards name, and every flag they pass, exists", () => {
+  const SKILLS = path.join(ROOT, "skills");
+  const files = [];
+  fs.readdirSync(SKILLS).forEach((d) =>
+    fs.readdirSync(path.join(SKILLS, d)).filter((f) => f.endsWith(".md")).forEach((f) => files.push(path.join(d, f))),
+  );
+  const scripts = [];
+  (function walk(dir) {
+    fs.readdirSync(dir, { withFileTypes: true }).forEach((e) => {
+      const p = path.join(dir, e.name);
+      if (e.isDirectory()) walk(p);
+      else if (e.name.endsWith(".js")) scripts.push(p);
+    });
+  })(path.join(ROOT, "scripts"));
+  // Files a card writes, not files beside it.
+  const OUTPUTS = ["intent.md", "specs.md", "app.js"];
+  const spans = (text) => [...text.matchAll(/`([^`\n]+)`/g)].map((m) => m[1]);
+  const scriptFor = (word) => {
+    const rel = word.replace(/^\$\{?CLAUDE_PLUGIN_ROOT\}?\//, "");
+    if (rel.includes("/")) {
+      const p = path.join(ROOT, rel.startsWith("scripts/") ? rel : path.join("scripts", rel));
+      return fs.existsSync(p) ? [p] : [];
+    }
+    return scripts.filter((s) => path.basename(s) === rel);
+  };
+  it("reads a span in every file", () => assert.ok(files.length >= 8, files.join(", ")));
+  files.forEach((f) => {
+    const text = fs.readFileSync(path.join(SKILLS, f), "utf8");
+    it(f + ": its .md names and .js scripts exist, and its flags are read", () => {
+      spans(text).forEach((s) => {
+        const first = s.split(/\s+/)[0];
+        if (/^[\w-]+\.md$/.test(first) && !OUTPUTS.includes(first))
+          assert.ok(fs.existsSync(path.join(SKILLS, path.dirname(f), first)), f + ": `" + first + "` is not beside it");
+        if (/^[\w./${}-]+\.js$/.test(first) && !/[<>*]/.test(first) && !OUTPUTS.includes(first)) {
+          const hit = scriptFor(first);
+          assert.strictEqual(hit.length, 1, f + ": `" + first + "` names " + hit.length + " scripts");
+          const src = fs.readFileSync(hit[0], "utf8");
+          (s.match(/(^|\s)--[a-z][\w-]*/g) || []).map((x) => x.trim()).forEach((flag) =>
+            assert.ok(src.includes('"' + flag + '"') || src.includes("'" + flag + "'"), f + ": " + first + " does not read " + flag),
+          );
+        }
+      });
+    });
+    it(f + ": names no retired agent", () => {
+      ["screen-generator", "prototype-author", "ds-researcher", "flow-researcher", "wiring-analyzer", "flow-consistency"].forEach((a) =>
+        assert.ok(!text.includes(a), f + " names " + a),
+      );
+    });
+  });
+});

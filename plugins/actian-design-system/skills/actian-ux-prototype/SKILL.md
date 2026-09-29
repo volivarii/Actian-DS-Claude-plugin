@@ -19,6 +19,8 @@ Run a script as `source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh" && "
 
 **Goal.** A clickable prototype of the flow, in the real app, built from the design system, that a designer clicks through step by step.
 
+**Rules.** The knowledge wins over memory: never invent a component, a token or a product fact, and mark what the product lacks as new. Run the checks named here, and say which one did not run. With nobody to ask (an unattended run), write the open questions into the file as flagged concerns instead of waiting.
+
 **Start here.** The app file in `vendor/app-context/src/apps/`, the recipe and its screenshot for the page, the fragments and `render.css` (see `vendor/llms.txt`, "Building a screen"), the terminology and content rules.
 
 **Make it.** The files and their rules: `prototype-files.md` here. Write the screen list, then `scripts/lib/app-context/prepare-flow.js --app <app> --screen-list <file> --direct -o brief.json`; write `body.html`, `app.js`, `extra.css`, `meta.json` in one folder; `scripts/renderers/assemble-direct.js brief.json --author <dir> -o prototype.html`.
@@ -27,7 +29,7 @@ Run a script as `source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh" && "
 - everything the request asks happens on the page, in order; every control works;
 - it reads as the product: header, navigation, words, components;
 - what the product lacks is marked new on the page itself;
-- `scripts/validation/check-direct.js brief.json --author <dir>` is clean;
+- `scripts/validation/check-direct.js brief.json --author <dir>` is clean, in at most three runs: a P0 still there after the third goes into the hand over;
 - you looked at every step (`scripts/renderers/look-direct.js prototype.html --steps <n> -o shots/`) and fixed what you saw. No browser (Cowork): say so, and name what the person must look at.
 
 **Figma push (on request).** One JSON per screen (`figma-screen.md` here), then `scripts/renderers/figma-screen.js <screen.json> --parent-id <frame>`, its output as the code of one `use_figma` call. Colours as `var(--zen-...)` tokens, text in Roboto. Layers (drawers, toasts) as top-level content nodes with `positioning: "absolute"` and `x`, `y` in screen coordinates. One session, no helper agents. Screenshot each screen.

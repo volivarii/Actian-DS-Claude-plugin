@@ -135,6 +135,31 @@ jobs:
             --kit all \
             --output vendor/components/dist
 
+      - name: Regenerate the authoring vocabulary table
+        # The vocabulary table in references/actian-ux-prototype/
+        # ds-components-authoring.md is generated from the vendored dskit
+        # registry + BUILT_SLUGS, and the drift gate
+        # (tests/integration/authoring-table-sync.test.js) fails when they
+        # disagree. Without this step, a vendor refresh that renames a
+        # component or a variant axis would leave this auto-merge PR stuck
+        # red with no self-healing path. ds-coverage-report.js and the
+        # blank-box budget read this table, so it stays until the default
+        # route and this file go. Idempotent no-op when the registry change
+        # doesn't touch the table.
+        working-directory: plugins/actian-design-system
+        run: |
+          node scripts/renderers/render-authoring-table.js
+
+      - name: Regenerate the authoring built-leaf props section
+        # Same file, same class of drift gate
+        # (tests/integration/authoring-props-sync.test.js): the props block is
+        # generated from the vendored render contract, so a refresh that
+        # changes a prop default or a variant value leaves the PR red until
+        # this runs. Idempotent no-op when the contract did not move.
+        working-directory: plugins/actian-design-system
+        run: |
+          node scripts/renderers/render-authoring-props.js
+
       - name: Detect changes
         id: diff
         run: |
@@ -232,10 +257,7 @@ jobs:
             plugins/actian-design-system/vendor/**
             plugins/actian-design-system/vendored.json
             plugins/actian-design-system/.claude-plugin/plugin.json
-            README.md
-            llms.txt
-            USAGE.md
-            .claude-plugin/marketplace.json
+            plugins/actian-design-system/references/actian-ux-prototype/ds-components-authoring.md
             tests/renderers/blank-box-baseline.json
             tests/renderers/__goldens__/**
             tests/renderers/fixtures/**

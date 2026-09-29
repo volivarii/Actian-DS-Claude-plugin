@@ -14,8 +14,7 @@ touches, in the same PR:
    uses CalVer `YYYY.MM.PATCH`): add the entry under `## [Unreleased]` (create the section if it is
    not present), link the PR.
 2. [`README.md`](README.md) or [`USAGE.md`](USAGE.md) if the change alters what they state (a new
-   skill, a changed capability, usage). Note: skill and doc **counts** in the README are auto-managed
-   by a fixer, so do not hand-edit them.
+   skill, a changed capability, usage), counts included: no fixer maintains them any more.
 3. any other relevant docs the change touches.
 4. a plain-language summary into `actian-ds-ecosystem` (its bundle and `confluence/`), per the
    standing ecosystem-sync rule.

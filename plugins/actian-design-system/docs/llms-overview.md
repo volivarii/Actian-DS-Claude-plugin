@@ -7,9 +7,11 @@ repo root.
 ## What this plugin is
 
 Actian's federated DS substrate, packaged as a Claude Code plugin. Provides
-4 skills (actian-ux, actian-ux-prototype, actian-ux-proposal, actian-ux-audit)
-that author and audit Figma designs against the
-Actian DS via the official Figma MCP server.
+4 skills: `actian-ux` (answers from the knowledge, the rules every task
+follows, which skill fits), `actian-ux-proposal` (a proposal document and its
+`intent.md`), `actian-ux-prototype` (a clickable prototype, pushed to Figma on
+request) and `actian-ux-audit` (findings with evidence and fixes, and
+`specs.md` from the final frame), through the official Figma MCP server.
 
 ## How knowledge is structured
 
@@ -22,7 +24,7 @@ in sync via the plugin's `vendor-snapshot.yml` workflow.
 
 | Layer | Vendor (in plugin) | Canonical (knowledge repo) | Format | Purpose |
 |---|---|---|---|---|
-| Tokens | `vendor/tokens/tokens.json` + `tokens.css` | `tokens/` | DTCG JSON + CSS | 155 tokens, 3 themes, 8 collections |
+| Tokens | `vendor/tokens/tokens.json` + `tokens.css` | `tokens/` | DTCG JSON + CSS | 463 tokens, 3 themes |
 | Component registries | `vendor/components/dist/registries/{fmkit,dskit,metakit}.json` | `components/dist/registries/` | JSON | Component keys, variants, properties |
 | Component guidelines | `vendor/components/dist/guidelines/<slug>.json` (`domains.*` shape) | `components/dist/guidelines/` | JSON | Per-component multi-domain merged docs |
 | Foundations | `vendor/foundations/src/<slug>.md` (per-section, ordered via `_order.json`) + `vendor/foundations/dist/*.json` | `foundations/src/` | MD + JSON | Spacing, typography, color, motion (79 derived JSONs) |
@@ -30,13 +32,13 @@ in sync via the plugin's `vendor-snapshot.yml` workflow.
 | Accessibility | `vendor/accessibility/src/<slug>.md` (per-section, ordered via `_order.json`) | `accessibility/src/` | MD | WCAG 2.2 AA conformance rules |
 | App context | `vendor/app-context/dist/app-context.json` | `app-context/` | JSON | Apps, entities, terminology, patterns |
 | FM↔DS map | `references/actian-ux-prototype/fm-to-ds-map.json` | (plugin only) | JSON | Wireframe-to-DS component mapping (plugin-owned; Track E eviction) |
-| Skill behavior | `plugins/actian-design-system/skills/*/SKILL.md` | (plugin only) | MD | Per-skill instructions and references |
-| Push patterns | `references/figma/figma-push-patterns.md` | (plugin only) | MD | Figma Plugin API patterns |
+| Skill behavior | `plugins/actian-design-system/skills/*/SKILL.md` | (plugin only) | MD | Four skill cards; a file a card needs sits beside it |
+| Figma notes | `skills/actian-ux-prototype/figma-screen.md`, `skills/actian-ux-audit/figma-api-traps.md` | (plugin only) | MD | The screen JSON the Figma push takes; Plugin API traps |
 
 ## Reading order for new AI agents
 
 1. **Start at `/llms.txt`** — the canonical index, points at knowledge repo URLs.
-2. **For Figma write tasks:** read `figma-use` SKILL.md (upstream) → our `references/figma/figma-push-patterns.md` → relevant skill's SKILL.md.
+2. **For Figma write tasks:** read `figma-use` SKILL.md (upstream) → the relevant skill card → the files beside it (`figma-screen.md`, `figma-api-traps.md`).
 3. **For DS knowledge questions:** consult tokens + component registries + relevant guideline. URLs in `llms.txt` resolve to the knowledge repo; in-plugin code paths read from `vendor/`.
 4. **For the retired skills** (component-brief, create-component, compare-flows, generate-presentation, convert-to-hifi): their code was deleted on 2026-09-22; `MIGRATIONS.md` and the CHANGELOG record it, and git history holds it.
 

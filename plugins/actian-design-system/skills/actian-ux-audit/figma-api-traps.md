@@ -53,10 +53,10 @@ fields. Set them as direct values resolved from the token registry.
 | Pattern | What happens | Fix |
 |---|---|---|
 | Cross-call `appendChild` | The reparent silently fails; node is orphaned | Build the wrapper first; create+append children IN-CALL via `getNodeByIdAsync(wrapperId)` retrieval |
-| `appendChild` without font preload on text-bearing subtree | Throws or produces garbled text | Preload fonts via `findAll(n => n.type === 'TEXT')` + `Promise.all(loadFontAsync)` BEFORE the append (see Rule 8) |
+| `appendChild` without font preload on text-bearing subtree | Throws or produces garbled text | Preload fonts via `findAll(n => n.type === 'TEXT')` + `Promise.all(loadFontAsync)` BEFORE the append |
 | Unawaited `loadFontAsync` / `setCurrentPageAsync` | Subsequent ops fail with "missing font" / wrong page errors | Always `await` Promise-returning APIs |
 | `node.resize()` after setting `primaryAxisSizingMode`/`counterAxisSizingMode` | Resize silently resets sizing modes to FIXED | Call `resize()` first, then set sizing modes; or use `node.set({...})` which auto-orders |
-| Returning `{ briefId: x }` or single-ID shapes | Violates Critical Rule 15 | Always return `{ createdNodeIds: [...], mutatedNodeIds: [...] }` |
+| Returning `{ briefId: x }` or single-ID shapes | Breaks the return shape `figma-use` Critical Rules require (v2.2.3) | Always return `{ createdNodeIds: [...], mutatedNodeIds: [...] }` |
 
 ## Variable mutation gotchas
 
@@ -84,5 +84,5 @@ node.fills = [newPaint, ...node.fills.slice(1)];
 
 ## See also
 
-- `figma-use/SKILL.md` Critical Rules, the canonical rule set. When citing a rule, quote its topic and bracket the rule number with the version, so a renumbering does not silently break the citation.
+- `figma-use/SKILL.md` Critical Rules 1-17 in v2.2.3, the canonical rule set. When citing a rule, quote its topic and bracket the rule number with the version, so a renumbering does not silently break the citation.
 - `figma-use/references/gotchas.md`: the full pitfall catalogue with wrong and correct examples.

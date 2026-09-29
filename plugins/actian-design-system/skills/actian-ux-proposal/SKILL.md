@@ -19,11 +19,15 @@ Run a script as `source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh" && "
 
 **Goal.** A proposal document a PM or designer reads once and then knows what we propose, why, what it costs and what they must settle; and the `intent.md` that goes to git.
 
+**Rules.** The knowledge wins over memory: never invent a component, a token or a product fact, and mark what the product lacks as new. Run the checks named here, and say which one did not run. With nobody to ask (an unattended run), write the open questions into the file as flagged concerns instead of waiting.
+
 **Start here.** The ticket. Then the knowledge on what it touches: the app file (`vendor/app-context/src/apps/`), the entities, personas, patterns and content rules.
 
 **Make it.** Write `proposal-data.json` (shape: `schemas/proposal-data.schema.json`). Then:
 - `scripts/renderers/assemble-preview.js proposal-data.json --type proposal -o proposal.html` (the document, with mockups);
 - `scripts/renderers/assemble-intent.js proposal-data.json --proposal proposal.html -o intent.md`.
+
+The data file is the source: a follow-up edits `proposal-data.json` and runs both again, never the HTML or `intent.md` by hand.
 
 **Done when**
 - every question the ticket forces that a reader could answer differently is a decision, heaviest first;

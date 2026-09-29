@@ -19,6 +19,8 @@ Run a script as `source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh" && "
 
 **Goal.** Every place the frame departs from the design system, with evidence and a fix; on request the fixes applied; for a final design, the `specs.md` engineering builds from.
 
+**Rules.** The knowledge wins over memory: never invent a component, a token or a product fact, and mark what the product lacks as new. Run the checks named here, and say which one did not run. With nobody to ask (an unattended run), write the open questions into the file as flagged concerns instead of waiting.
+
 **Start here.** The frame through Figma: a screenshot, then its node properties. Then the knowledge for what you found.
 
 **Check** components (library instances, right variant, `vendor/components/dist/guidelines/<slug>.json`), tokens (colour, spacing, radius, type bound, spacing on the scale), accessibility (WCAG 2.2 AA; `scripts/lib/a11y/resolve-a11y.js --slugs <slugs>`), copy (`vendor/content/dist/global.md`, the terminology), layout and states. Each finding: node, the rule quoted, what the file has, the fix, a confidence; below 0.5 goes to needs review. Figma traps: `figma-api-traps.md` here; fixing: `evidence-and-fixes.md` here.
