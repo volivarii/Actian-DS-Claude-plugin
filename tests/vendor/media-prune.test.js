@@ -1,10 +1,8 @@
 "use strict";
 
 // The media oracles (vendor/components/dist/media/<slug>/*.webp) are read by
-// exactly one caller in this repo — scripts/fidelity/run-fidelity.js, via
-// PATHS.components.media()/mediaDefault() — and that gate runs a hardcoded
-// 19-slug PILOT in a continue-on-error job. Shipping 183 components' binaries
-// for it costs 6.9 MB in every install and, because WebP does not delta-compress,
+// no script in the plugin. Shipping 183 components' binaries costs 6.9 MB in
+// every install and, because WebP does not delta-compress,
 // tens of MB in git history that grows with every nightly re-vendor. See #310.
 //
 // They cannot be dropped upstream: vendor-include.json is shared with the docs

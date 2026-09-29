@@ -81,7 +81,12 @@ var NOT_A_SENTENCE_END =
   /(?:^|\s)(?:(?:[A-Z]\.)*[A-Z]|e\.g|i\.e|etc|vs|cf|al|Fig|No|Vol|Dr|Mr|Mrs|Ms|St|Inc|Ltd|Co|Corp|Jr|Sr|approx|dept|est|Jan|Feb|Mar|Apr|Jun|Jul|Aug|Sept|Sep|Oct|Nov|Dec)\.$/;
 
 var SCHEMA_DIR = path.join(__dirname, "..", "..", "schemas");
-var ARCHETYPES_PATH = path.join(__dirname, "..", "..", "recipes", "flow", "_index.json");
+// The flow archetypes an option's screens[].template may name.
+var ARCHETYPES = [
+  "table-list", "form-create", "detail-view", "dashboard", "browse-search", "overlay",
+  "data-visualization", "sticky-footer", "explorer-homepage", "composition-detail-table",
+  "composition-form-with-footer", "search-results-ai",
+];
 var MAX_DECISIONS = 4;   // also schema maxItems
 var MAX_OPTIONS = 4;     // also schema maxItems
 var MIN_OPTIONS = 2;     // also schema minItems
@@ -362,12 +367,6 @@ function loadApps() {
   try { return JSON.parse(fs.readFileSync(PATHS.appContext, "utf8")); } catch (e) { return {}; }
 }
 
-function loadArchetypes() {
-  try {
-    return JSON.parse(fs.readFileSync(ARCHETYPES_PATH, "utf8")).map(function (e) { return e.archetype; });
-  } catch (e) { return []; }
-}
-
 function validateProposal(data) {
   var findings = [];
   // A pre-decisions file fails the schema a dozen ways. Say the one true thing instead.
@@ -443,7 +442,7 @@ function validateProposal(data) {
   var apps = ctx.apps || {};
   var entities = ctx.entities || {};
   var appList = Object.keys(apps).join(", ");
-  var archetypes = loadArchetypes();
+  var archetypes = ARCHETYPES;
   // Every lookup map in this file is keyed by a string an author wrote, so a plain object
   // hands back Object.prototype's members as if the author had declared them: a decision
   // asking "Constructor" reported "repeats decisions[function Object() { [native code] }]",

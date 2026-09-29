@@ -46,12 +46,9 @@ function appProfile(appHeaderType) {
 // flow-renderer.js), so it cannot read app-context off disk itself. The caller
 // injects it, the same way ds-html-map takes its icons and anatomy doc map.
 //
-// What it is for: each app's REAL navigation. app-context is the substrate's
-// record of how Actian's products are actually laid out, and until this existed
-// the render path had no way to reach it, so every screen of every app rendered
-// the side-nav leaf's own four-item default ("Catalog, Pipelines, Connections,
-// Settings"). Studio has seven items and none of them is Pipelines;
-// Administration has eight; Explorer declares none at all.
+// What it is for: each app's real navigation, from the app record app-context
+// holds. Without it the side-nav leaf draws its own specimen default
+// ("Catalog, Pipelines, Connections, Settings"), which belongs to no app.
 var APP_CONTEXT = null;
 
 function setAppContext(ctx) {
@@ -241,13 +238,12 @@ function chromeNodes(chrome, sidebarConfig, pageHeaderConfig, headerConfig) {
         sidebarProps.Items = chrome.sidebarLabels.join(", ");
       }
       // No else. When nothing is grounded the props stay empty and the leaf
-      // uses its own default, which is what happened before this change and is
-      // wrong. It is left alone deliberately: sending `Items: ""` does not stop
-      // it (parseItems treats empty as absent, verified), and suppressing the
-      // rail here would change the Figma emit path too, which does not inject.
-      // The place this is made safe is the guard: a test asserts the real
-      // assembler path renders the app's OWN labels, so a broken injection
-      // fails CI rather than quietly reinstating the four invented items.
+      // draws its own specimen default rail, which belongs to no app. Sending
+      // `Items: ""` does not stop it (parseItems treats empty as absent), and
+      // suppressing the rail here would change the Figma emit path too, which
+      // does not inject. screen-chrome-is-grounded.test.js asserts the real
+      // render path draws the app's own labels, so a broken injection
+      // fails CI rather than drawing the specimen default.
       if (active) sidebarProps.Active = active;
     }
 

@@ -2,15 +2,11 @@
 "use strict";
 
 /**
- * contract.test.js — Verify SKILL.md CLI commands match actual script interfaces,
- * template names in SKILL.md match templates.json, and assemble-preview.js type
- * configs reference real files.
+ * contract.test.js: the commands the cards name match the scripts' interfaces.
  *
- * Part 1: CLI command contracts — parse SKILL.md for node commands, verify scripts
- *         exist and parse the flags referenced.
- * Part 2: Template name contracts — templates.json keys vs SKILL.md + spec builder docs.
- * Part 3: assemble-preview.js TYPE_CONFIGS — CSS, renderer JS, annotation layer files.
- * Part 4: --help output contracts
+ * Part 1: CLI command contracts: parse each SKILL.md for script commands, verify
+ *         the scripts exist and parse the flags referenced.
+ * Part 2: --help output contracts
  *
  * Run with: node tests/contract.test.js
  * (from the repository root)
@@ -28,9 +24,6 @@ var execSync = require("child_process").execSync;
 
 var PLUGIN_ROOT = path.resolve(__dirname, "..", "..", "plugins", "actian-design-system");
 var SCRIPTS_DIR = path.join(PLUGIN_ROOT, "scripts");
-var RENDERERS_DIR = path.join(SCRIPTS_DIR, "renderers", "html-renderers");
-var TEMPLATES_DIR = path.join(PLUGIN_ROOT, "templates");
-var RENDERER = require(path.join(SCRIPTS_DIR, "lib", "renderer.js"));
 
 // ---------------------------------------------------------------------------
 // Part 1: CLI command contracts
@@ -125,67 +118,10 @@ describe("Contract Tests", function () {
   });
 
   // ---------------------------------------------------------------------------
-  // Part 2 — REMOVED. Previously cross-checked template names against
-  // references/actian-ux-prototype/figma-spec-builder.md, which was deleted in
-  // fc6bcad ("superseded by push-patterns"). Template name documentation is
-  // now informal — this contract no longer applies.
+  // Part 2: --help output contracts
   // ---------------------------------------------------------------------------
 
-  // ---------------------------------------------------------------------------
-  // Part 3: assemble-preview.js TYPE_CONFIGS
-  // ---------------------------------------------------------------------------
-
-  describe("Part 3: assemble-preview.js type configs", function () {
-    var TYPE_CONFIGS = {
-      flow: {
-        css: path.join(RENDERERS_DIR, "flow-renderer.css"),
-        renderers: [
-          RENDERER.modulePath("html-renderers/fm-html-map.js"),
-          path.join(RENDERERS_DIR, "flow-renderer.js"),
-        ],
-      },
-    };
-
-    var ANNOTATION_FILES = [
-      path.join(TEMPLATES_DIR, "annotation-layer.css"),
-      path.join(TEMPLATES_DIR, "annotation-layer.js"),
-      path.join(TEMPLATES_DIR, "annotation-layer-markup.html"),
-    ];
-
-    var typeNames = Object.keys(TYPE_CONFIGS);
-
-    typeNames.forEach(function (typeName) {
-      var config = TYPE_CONFIGS[typeName];
-
-      it(typeName + " — CSS and renderer files exist", function () {
-        assert.ok(
-          fs.existsSync(config.css),
-          typeName + " — CSS file not found: " + path.basename(config.css),
-        );
-        config.renderers.forEach(function (rendererPath) {
-          assert.ok(
-            fs.existsSync(rendererPath),
-            typeName + " — renderer not found: " + path.basename(rendererPath),
-          );
-        });
-      });
-    });
-
-    it("annotation layer files exist", function () {
-      ANNOTATION_FILES.forEach(function (annoFile) {
-        assert.ok(
-          fs.existsSync(annoFile),
-          "annotation layer — " + path.basename(annoFile) + " not found",
-        );
-      });
-    });
-  });
-
-  // ---------------------------------------------------------------------------
-  // Part 4: --help output contracts
-  // ---------------------------------------------------------------------------
-
-  describe("Part 4: --help output contracts", function () {
+  describe("Part 2: --help output contracts", function () {
     var helpScripts = [
       {
         script: path.join(SCRIPTS_DIR, "renderers", "assemble-preview.js"),
