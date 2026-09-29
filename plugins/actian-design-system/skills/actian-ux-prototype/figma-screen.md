@@ -24,4 +24,4 @@ The script draws the app header, the app's own side navigation and the page head
 
 Which components exist, their variant axes and their properties: `vendor/components/dist/dskit-components.md`.
 
-A token the script cannot resolve, a colour field whose token is not a colour, or a weight token with no one Figma style name (600, 800) stops it with `{ "ok": false, "errors": [...] }` and no code: fix the node it names. Properties the live component refuses are dropped, and the Figma call's return lists them in `droppedProps`: read it, and set what matters by hand.
+A token the script cannot resolve, a colour field whose token is not a colour, or a weight token with no one Figma style name (600, 800) stops it with `{ "ok": false, "errors": [...] }` and no code: each error names the token or the field; fix the nodes that use it. Properties the live component refuses are dropped, and the Figma call's return lists them in `droppedProps`: read it, and set what matters by hand.

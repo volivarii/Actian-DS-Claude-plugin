@@ -227,10 +227,6 @@ What's wrong with this design? https://figma.com/design/FILEKEY/File?node-id=123
 Fix finding #3
 ```
 
-```
-Fix all auto-fixable findings
-```
-
 ---
 
 ## Direct skill invocation (power-user shortcuts)
@@ -239,17 +235,4 @@ Fix all auto-fixable findings
 /actian-ux-prototype Admin Dashboard for Administration
 /actian-ux-prototype Connection settings in Studio
 /actian-ux-audit https://figma.com/design/FILEKEY/File?node-id=123-456
-```
-
----
-
-## Browser annotations
-
-Available during any preview:
-
-```
-1. Click "Annotate" in the preview toolbar
-2. Click an element, type feedback, pick Change or Note
-3. Click "Apply" in the browser
-4. Say "apply" in the CLI
 ```

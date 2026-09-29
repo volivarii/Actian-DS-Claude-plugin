@@ -227,7 +227,7 @@ The four skills read at runtime
 **Checks the skills run:**
 - **One brief per prototype**: `prepare-flow.js --direct` writes one brief joining the app's rail and header, each step's captured page (its regions, notes and screenshot), the design system's own component markup and usage notes, the stylesheets, the icons and the content rules.
 - **Prototype check**: `check-direct.js` checks the four author files; each finding and its fix is listed in `skills/actian-ux-prototype/prototype-files.md`. `look-direct.js` screenshots every step at two widths, and exits 2 when no browser answers.
-- **Figma push**: `figma-screen.js` resolves every `var(--zen-...)` token in the screen's app theme and stops, naming the node, on a token it cannot resolve.
+- **Figma push**: `figma-screen.js` resolves every `var(--zen-...)` token in the screen's app theme and stops, naming the token, on one it cannot resolve.
 - **Proposal and handover**: `validate-proposal.js` checks `proposal-data.json`; `check-handover.js` checks `intent.md` and `specs.md` against the knowledge's templates.
 - **Auto-bump on vendor refresh**: the nightly `vendor-snapshot.yml` bumps `plugin.json` whenever the knowledge snapshot changes.
 

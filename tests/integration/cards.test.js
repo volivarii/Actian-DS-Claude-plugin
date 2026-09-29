@@ -80,17 +80,22 @@ describe("every file the cards name, and every flag they pass, exists", () => {
     const text = fs.readFileSync(path.join(SKILLS, f), "utf8");
     it(f + ": its .md names and .js scripts exist, and its flags are read", () => {
       spans(text).forEach((s) => {
-        const first = s.split(/\s+/)[0];
-        if (/^[\w-]+\.md$/.test(first) && !OUTPUTS.includes(first))
-          assert.ok(fs.existsSync(path.join(SKILLS, path.dirname(f), first)), f + ": `" + first + "` is not beside it");
-        if (/^[\w./${}-]+\.js$/.test(first) && !/[<>*]/.test(first) && !OUTPUTS.includes(first)) {
-          const hit = scriptFor(first);
-          assert.strictEqual(hit.length, 1, f + ": `" + first + "` names " + hit.length + " scripts");
-          const src = fs.readFileSync(hit[0], "utf8");
-          (s.match(/(^|\s)--[a-z][\w-]*/g) || []).map((x) => x.trim()).forEach((flag) =>
-            assert.ok(src.includes('"' + flag + '"') || src.includes("'" + flag + "'"), f + ": " + first + " does not read " + flag),
-          );
-        }
+        // Every word of the span, not only the first: `"$NODE_BIN" x.js`, `read y.md`.
+        const words = s.split(/\s+/).map((w) => w.replace(/^["'(]+|["'),;:.]+$/g, ""));
+        words.forEach((w, i) => {
+          if (/[<>*]/.test(w) || OUTPUTS.includes(path.basename(w))) return;
+          if (/^\.?\/?[\w-]+\.md$/.test(w))
+            assert.ok(fs.existsSync(path.join(SKILLS, path.dirname(f), w)), f + ": `" + w + "` is not beside it");
+          if (/^[\w./${}-]+\.js$/.test(w)) {
+            const hit = scriptFor(w.replace(/^\.\//, ""));
+            assert.strictEqual(hit.length, 1, f + ": `" + w + "` names " + hit.length + " scripts");
+            const src = fs.readFileSync(hit[0], "utf8");
+            // The flags that follow it, up to the next script in the span.
+            for (let j = i + 1; j < words.length && !/\.js$/.test(words[j]); j++)
+              if (/^--[a-z][\w-]*$/.test(words[j]))
+                assert.ok(src.includes('"' + words[j] + '"') || src.includes("'" + words[j] + "'"), f + ": " + w + " does not read " + words[j]);
+          }
+        });
       });
     });
     it(f + ": names no retired agent", () => {

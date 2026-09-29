@@ -227,7 +227,7 @@ Routes to `/actian-ux-proposal`. It reads the ticket, then the knowledge on what
 
 ### Design system sync — automatic
 
-There is nothing to run. The knowledge repository syncs from Figma every night, and the plugin takes the new snapshot the same morning. Asking the plugin to "sync the design system" gets that explanation.
+There is nothing to run. The knowledge repository syncs from Figma every night, and the plugin takes the new snapshot the same morning.
 
 ---
 
