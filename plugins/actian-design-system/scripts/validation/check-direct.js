@@ -377,13 +377,23 @@ function checkDirect(o) {
       return r.label;
     });
   };
-  if (Array.isArray(recSide) && labels(briefRail).join("\n") !== labels(recSide).join("\n"))
+  // Labels, and the groups and header the page draws: a stale brief can keep
+  // every label and lose an icon, a group or the bottom block.
+  var app = (o.brief && o.brief.direct && o.brief.direct.app) || {};
+  var drawn = function () {
+    var ar = require("../lib/app-record.js");
+    return (
+      JSON.stringify(app.groups || null) === JSON.stringify(ar.railGroups(recSide, app.activeNav || null)) &&
+      JSON.stringify(app.header || {}) === JSON.stringify(ar.headerProps(o.appRecord.header))
+    );
+  };
+  if (Array.isArray(recSide) && (labels(briefRail).join("\n") !== labels(recSide).join("\n") || !drawn()))
     f.push(
       finding(
         "error",
         "rail-mismatch",
         "brief.json",
-        "the rail is [" + labels(briefRail).join(", ") + "], the app record has [" + labels(recSide).join(", ") + "]: rebuild the brief",
+        "the rail is [" + labels(briefRail).join(", ") + "], the app record has [" + labels(recSide).join(", ") + "] (or its groups, icons or header differ): rebuild the brief",
       ),
     );
   if (!/<div[^>]*\sdata-app-frame/.test(body))
