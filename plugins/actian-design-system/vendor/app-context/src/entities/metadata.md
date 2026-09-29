@@ -9,4 +9,4 @@ apps:
   - studio
   - explorer
 ---
-Metadata attached to a catalog object — descriptive, technical, and business attributes.
+Metadata attached to an item — descriptive, technical, and business attributes.

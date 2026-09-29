@@ -17,6 +17,13 @@ e.g. `Action/button.html`), plus three foundations cards (`Colors/palette.html`,
 `render.css`, the same two stylesheets every card inlines. Output is gitignored
 (`components/render/dist/bundle/`); build on demand, not committed.
 
+It also writes `Product/`, which is not cards: the app records (`apps/`), the page
+recipes with their screenshots (`recipes/`, `recipes/captures/`), the sections, the
+terminology, the content rules (`content/`), the handover templates (`handover/`), and a
+`README.md` that is llms.txt's "Building a screen" with its paths rewritten to the
+bundle's own. A design made in the project reads it to know what Actian's apps look like
+and say, beyond the components.
+
 ## The `.prompt.md` sibling: usage notes reach Claude Design's own generation, not just a human reader
 
 Every card that has a guideline doc also gets a `<slug>.prompt.md` file written next to

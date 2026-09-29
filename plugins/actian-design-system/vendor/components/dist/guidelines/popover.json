@@ -114,8 +114,8 @@
               "dont": "Assigned owner"
             },
             {
-              "do": "Last modified",
-              "dont": "Date of last modification"
+              "do": "Last updated",
+              "dont": "Date of last update"
             },
             {
               "do": "Type",

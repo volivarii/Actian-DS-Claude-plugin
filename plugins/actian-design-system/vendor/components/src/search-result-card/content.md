@@ -17,7 +17,7 @@ Search result cards display individual items returned by a search. Each card ide
 
 * The result title should match the item name exactly. Do not truncate titles in the title field.
 
-* Metadata labels should be concise. Use nouns or short phrases. For example, "Dataset", "Last modified", "Owner".
+* Metadata labels should be concise. Use nouns or short phrases. For example, "Dataset", "Last updated", "Owner".
 
 * Excerpt or description text should be trimmed at a consistent length with an ellipsis.
 
@@ -29,4 +29,4 @@ Search result cards display individual items returned by a search. Each card ide
 | ----------------------------- | -------------------------------------------------- |
 | Title: Sales pipeline Q4 2025 | Title: Sales pipeline Q4 2025 - copy - FINAL       |
 | Owner: Chris Frost            | Created by: Chris Frost on June 1, 2025 at 9:00 AM |
-| Last modified 2 days ago      | Last modified: 2025-06-23T14:32:00Z                |
+| Last updated 2 days ago       | Last updated: 2025-06-23T14:32:00Z                 |

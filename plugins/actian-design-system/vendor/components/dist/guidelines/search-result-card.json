@@ -14,7 +14,7 @@
     "content": {
       "status": "approved",
       "owner": "content-team",
-      "markdown": "# Search result card\n\nSearch result cards display individual items returned by a search. Each card identifies the result and provides enough context for the user to evaluate relevance.\n\n***\n\n## When to use\n\n* To display individual results in a search results list.\n\n* When results need to show metadata alongside the item title to help users identify the right result.\n\n## Style\n\n* The result title should match the item name exactly. Do not truncate titles in the title field.\n\n* Metadata labels should be concise. Use nouns or short phrases. For example, \"Dataset\", \"Last modified\", \"Owner\".\n\n* Excerpt or description text should be trimmed at a consistent length with an ellipsis.\n\n* Highlight matched terms in the result text to help users confirm relevance.\n\n## Do / Don't\n\n| Do                            | Don't                                              |\n| ----------------------------- | -------------------------------------------------- |\n| Title: Sales pipeline Q4 2025 | Title: Sales pipeline Q4 2025 - copy - FINAL       |\n| Owner: Chris Frost            | Created by: Chris Frost on June 1, 2025 at 9:00 AM |\n| Last modified 2 days ago      | Last modified: 2025-06-23T14:32:00Z                |",
+      "markdown": "# Search result card\n\nSearch result cards display individual items returned by a search. Each card identifies the result and provides enough context for the user to evaluate relevance.\n\n***\n\n## When to use\n\n* To display individual results in a search results list.\n\n* When results need to show metadata alongside the item title to help users identify the right result.\n\n## Style\n\n* The result title should match the item name exactly. Do not truncate titles in the title field.\n\n* Metadata labels should be concise. Use nouns or short phrases. For example, \"Dataset\", \"Last updated\", \"Owner\".\n\n* Excerpt or description text should be trimmed at a consistent length with an ellipsis.\n\n* Highlight matched terms in the result text to help users confirm relevance.\n\n## Do / Don't\n\n| Do                            | Don't                                              |\n| ----------------------------- | -------------------------------------------------- |\n| Title: Sales pipeline Q4 2025 | Title: Sales pipeline Q4 2025 - copy - FINAL       |\n| Owner: Chris Frost            | Created by: Chris Frost on June 1, 2025 at 9:00 AM |\n| Last updated 2 days ago       | Last updated: 2025-06-23T14:32:00Z                 |",
       "sections": [
         {
           "heading": "",
@@ -41,7 +41,7 @@
             {
               "bullets": [
                 "The result title should match the item name exactly. Do not truncate titles in the title field.",
-                "Metadata labels should be concise. Use nouns or short phrases. For example, \"Dataset\", \"Last modified\", \"Owner\".",
+                "Metadata labels should be concise. Use nouns or short phrases. For example, \"Dataset\", \"Last updated\", \"Owner\".",
                 "Excerpt or description text should be trimmed at a consistent length with an ellipsis.",
                 "Highlight matched terms in the result text to help users confirm relevance."
               ]
@@ -60,8 +60,8 @@
               "dont": "Created by: Chris Frost on June 1, 2025 at 9:00 AM"
             },
             {
-              "do": "Last modified 2 days ago",
-              "dont": "Last modified: 2025-06-23T14:32:00Z"
+              "do": "Last updated 2 days ago",
+              "dont": "Last updated: 2025-06-23T14:32:00Z"
             }
           ]
         }
@@ -69,7 +69,7 @@
     },
     "usage": {
       "status": "approved",
-      "markdown": "The search result card is the presentation surface of the search flow: it renders what a [search](search) query returned, after the [search dropdown menu](search-dropdown-menu) suggestions and under the active [filters](search-filters).\n\n## When to use\n\n* Use it for search results only: one card per returned item, in the results list of Explorer or Studio.\n\n* Use it when users must evaluate relevance at a glance: it highlights matched keywords and surfaces identifying metadata (type, owner, last modified) beside the title.\n\n* Use it when scannability of matches matters more than column comparison, which is why search results are not built as a generic [table](table).\n\n## When not to use\n\n* Don't use it in ordinary browse grids: data products on a dashboard or catalog items outside a search context use the item [card](card).\n\n* Don't use it for record sets users sort and filter by attributes outside a search: use a [table](table).\n\n* Don't use it inside the [search dropdown menu](search-dropdown-menu): suggestion rows stay name plus minimal context, not full cards.\n\n* Don't render result cards when the query matched nothing: show the empty results message with query adjustment and no create call to action (see [empty state](empty-state)).\n\n## Variant selection\n\n* **Explorer:** results in Explorer, where search is a first-class surface and cards emphasize catalog metadata.\n\n* **Studio:** results in Studio, tuned to working assets.\n\n* Pick the variant of the app the results appear in; never mix Explorer and Studio cards in one list.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Highlight matched terms in title and excerpt | Show plain text and make users guess the match |\n| Make the whole card one click target to the item's detail page | Scatter separate links inside the card body |\n| Show the same metadata lines on every card in the list | Vary the metadata set from one result to the next |\n| Trim excerpts at a consistent length | Let one card balloon to a paragraph while its neighbors stay two lines |\n\n> Title fidelity, metadata label wording, and timestamp formatting live in the Content guidelines for the search result card.",
+      "markdown": "The search result card is the presentation surface of the search flow: it renders what a [search](search) query returned, after the [search dropdown menu](search-dropdown-menu) suggestions and under the active [filters](search-filters).\n\n## When to use\n\n* Use it for search results only: one card per returned item, in the results list of Explorer or Studio.\n\n* Use it when users must evaluate relevance at a glance: it highlights matched keywords and surfaces identifying metadata (type, owner, last updated) beside the title.\n\n* Use it when scannability of matches matters more than column comparison, which is why search results are not built as a generic [table](table).\n\n## When not to use\n\n* Don't use it in ordinary browse grids: data products on a dashboard or catalog items outside a search context use the item [card](card).\n\n* Don't use it for record sets users sort and filter by attributes outside a search: use a [table](table).\n\n* Don't use it inside the [search dropdown menu](search-dropdown-menu): suggestion rows stay name plus minimal context, not full cards.\n\n* Don't render result cards when the query matched nothing: show the empty results message with query adjustment and no create call to action (see [empty state](empty-state)).\n\n## Variant selection\n\n* **Explorer:** results in Explorer, where search is a first-class surface and cards emphasize catalog metadata.\n\n* **Studio:** results in Studio, tuned to working assets.\n\n* Pick the variant of the app the results appear in; never mix Explorer and Studio cards in one list.\n\n## Do / Don't\n\n| Do | Don't |\n| --- | --- |\n| Highlight matched terms in title and excerpt | Show plain text and make users guess the match |\n| Make the whole card one click target to the item's detail page | Scatter separate links inside the card body |\n| Show the same metadata lines on every card in the list | Vary the metadata set from one result to the next |\n| Trim excerpts at a consistent length | Let one card balloon to a paragraph while its neighbors stay two lines |\n\n> Title fidelity, metadata label wording, and timestamp formatting live in the Content guidelines for the search result card.",
       "sections": [
         {
           "heading": "",
@@ -85,7 +85,7 @@
             {
               "bullets": [
                 "Use it for search results only: one card per returned item, in the results list of Explorer or Studio.",
-                "Use it when users must evaluate relevance at a glance: it highlights matched keywords and surfaces identifying metadata (type, owner, last modified) beside the title.",
+                "Use it when users must evaluate relevance at a glance: it highlights matched keywords and surfaces identifying metadata (type, owner, last updated) beside the title.",
                 "Use it when scannability of matches matters more than column comparison, which is why search results are not built as a generic [table](table)."
               ]
             }
@@ -152,5 +152,5 @@
       "status": "not-started"
     }
   },
-  "updated_at": "2026-08-18T18:56:05+02:00"
+  "updated_at": "2026-09-29T21:22:36+02:00"
 }

@@ -91,7 +91,7 @@ The table below covers the 74 authorable slugs (registry `section:"Components"`)
 All 74 slugs below have real HTML leaf renderers. Prop names are case-sensitive and must match
 exactly: a name the renderer does not read is **not an error**, it renders an empty slot. A value
 in parentheses is the renderer's own fallback when the prop is omitted; a prop with no
-parenthesised value renders nothing until you supply it. 243 prop bindings in total.
+parenthesised value renders nothing until you supply it. 253 prop bindings in total.
 
 The last column is measured rather than documented: the substrate renders every variant value and
 compares the output, so a value listed there is decoration. Selecting it changes the label and
@@ -120,12 +120,12 @@ nothing else. Prefer the value it points at, or ask for the variant to be built.
 | `data-viz-legend` | `Color`, `Series` ("All") | `Property 1` = Default / Focused / Hovered / Pressed / Selected | none |
 | `digram-item-types` | `Initials`, `Label` | `Item type` = Dataset / Data process / Data product / Field / Output port / Use case / Visualization / Category / Custom 1 / Custom 2 / Custom 3 / Custom 4 / Custom 5 / Custom 6 / Custom 7 / Custom 8 / Custom 9 / Custom 10 / Custom 11 / Custom 12 / Custom 13 / Custom 14 / Custom 16 / Glossary 1 / Glossary 2 / Glossary 3 / Glossary 4 / Glossary 5 / Topic 10 / Topic 1 / Topic 2 / Topic 3 / Topic 4 / Topic 5 / Topic 6 / Topic 7 / Topic 8 / Topic 9<br>`Size` = XS / SM / MD | Custom 1 = Category<br>Custom 2 = Data process<br>Custom 3 = Output port<br>Custom 6 = Output port |
 | `digram-topic` | `Initials`, `Label` | `Type` = Light purple / Dark purple / Light blue / Dark blue / Light green / Dark green / Yellow / Orange / Red / Dark orange | none |
-| `drawer` | `Catalog`, `Category`, `Completion`, `Connection`, `Description`, `Fields`, `Glossary items`, `Last updated`, `Name` ("Name"), `Show Back`, `Source description`, `Technical name`, `Type` ("Dataset") | `App` = Studio / Explorer | none |
+| `drawer` | `Catalog`, `Category`, `Completion`, `Connection`, `Content`, `Description`, `Fields`, `Glossary items`, `Last updated`, `Name` ("Name"), `Show Back`, `Source description`, `Tabs`, `Technical name`, `Type` ("Dataset") | `App` = Studio / Explorer | none |
 | `dropdown-select-default` | `Description`, `Helper`, `Label`, `Placeholder` ("Select…"), `Value` | `Type` = Default / Search/Multiple / With avatar / Compact/Custom<br>`State` = Default / Hover / Focus / Active / Filled / Disabled | Search/Multiple = Default<br>With avatar = Default<br>Compact/Custom = Default<br>Hover = Default<br>Focus = Default<br>Active = Default<br>Filled = Default |
 | `empty-state` | `Body` ("Create policies to define how your platform operates."), `Cta` ("Create policy"), `Headline` ("No policies available"), `Illustration` ("illustration-empty-state"), `Primary`, `Secondary` ("Learn more"), `Title` | `Empty` = Default / Maintenance / Error state / Confirmation<br>`Size` = Large / Medium / Small | Maintenance = Default<br>Error state = Default<br>Confirmation = Default<br>Medium = Large<br>Small = Large |
 | `error-state` | `Body` ("There was an error creating your item. Please try again in a moment."), `Cta`, `Illustration` ("illustration-error-state"), `Primary` ("Try again"), `Secondary` ("Go back"), `Title` ("Something went wrong") | `Size` = Large / Medium | none |
 | `field` | `Leading icon` ("search"), `Show clear button`, `Show leading icon`, `Show trailing icon`, `Slot`, `Trailing icon` ("arrow-down") | `Size` = Compact / Default<br>`State` = Default / Hover / Focus / Active / Filled / Error / Warning / Disabled / Read-only | Hover = Default |
-| `global-header` | `Account` ("AU"), `Context` ("Catalog"), `ContextValue` ("Default"), `Logo`, `Search` | `App type` = Explorer / Admin / Studio<br>`Breakpoints` = XL / L | L = XL |
+| `global-header` | `Account` ("AU"), `Context` ("Catalog"), `ContextValue` ("Default"), `Logo`, `Search`, `SearchPlaceholder` ("Search items"), `SearchScope` | `App type` = Explorer / Admin / Studio<br>`Breakpoints` = XL / L | L = XL |
 | `global-header-account-dropdown` | `Email`, `Items`, `Name` ("Account user") | none | none |
 | `glossary-item-hierarchy` | `Items`, `Main` ("Account") | none | none |
 | `identification-key` | none | none | none |
@@ -158,7 +158,7 @@ nothing else. Prefer the value it points at, or ask for the variant to be built.
 | `scroll-bar` | `Label` ("Scroll region"), `Length`, `Orientation`, `Position` | `Property 1` = Default | none |
 | `search` | `Placeholder text` ("Search") | `Type` = Explorer home / Global header / Inline<br>`State` = Hovered / Focused / Filled / Active / Dsiabled / Default | Focused = Hovered<br>Filled = Hovered<br>Active = Hovered<br>Default = Hovered |
 | `search-dropdown-menu` | `Heading`, `Items`, `Query` ("orders"), `Results` | `Type` = No result / Before typed / After typed / Explorer home | none |
-| `search-result-card` | `Body`, `Catalog` ("Catalog"), `Description` ("A product is anything that can be offered to a market that might satisfy a want or need by potential customers."), `Featured property 1` ("Business Domain: IT"), `Featured property 2` ("Source Application: App 120"), `Glossary initials`, `Glossary label`, `Stage`, `Tech name` ("[Financial Summary EY2024]"), `Title` ("Financial Summary EY2024"), `Type` ("Category") | `App` = Explorer / Studio<br>`State` = Default / Hover / Focus / Pressed / Selected | Studio = Explorer<br>Hover = Default<br>Pressed = Default |
+| `search-result-card` | `Body`, `Catalog` ("Catalog"), `Completion`, `Connection`, `Description` ("A product is anything that can be offered to a market that might satisfy a want or need by potential customers."), `Featured property 1` ("Business Domain: IT"), `Featured property 2` ("Source Application: App 120"), `Glossary initials`, `Glossary label`, `Last updated`, `Properties`, `Shared`, `Stage`, `Suggestion`, `Tech name` ("[Financial Summary EY2024]"), `Title` ("Financial Summary EY2024"), `Type` ("Category") | `App` = Explorer / Studio<br>`State` = Default / Hover / Focus / Pressed / Selected | Hover = Default<br>Pressed = Default |
 | `segmented-control` | `Active`, `Items`, `Segments` | none | none |
 | `side-nav` | `Active`, `Groups`, `Items` | `App` = Admin / Studio<br>`View` = Collapsed / Expanded | Studio = Admin |
 | `spinner` | `Label` ("Loading") | `Color mode` = On light bg / On dark bg<br>`Complete` = 50% / 75% / 100% / 25% | 75% = 50%<br>100% = 50%<br>25% = 50% |

@@ -11,4 +11,4 @@ patterns:
   - smart-suggestions
   - suggestion-workflow
 ---
-A suggested enrichment or change on a catalog object, pending steward review.
+A suggested enrichment or change on an item, pending steward review.

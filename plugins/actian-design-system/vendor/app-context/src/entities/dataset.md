@@ -9,7 +9,7 @@ properties:
   - { name: orphan, type: enum, states: [Present, Orphan] }
   - { name: import date, type: date, example: "when the dataset was imported by a scan" }
   - { name: deletion date, type: date, example: "set when removed from the source connection" }
-  - { name: documentation completion, type: number, example: "percentage (0–100)" }
+  - { name: completion level, type: number, example: "percentage (0–100)" }
 relationships:
   contains:
     - field
@@ -26,4 +26,4 @@ patterns:
   - discussion-threads
   - data-profiling-sampling
 ---
-A dataset asset contained by a data product; a type of catalog object. Has a schema of Fields; becomes an orphan when removed from its source connection.
+A dataset asset contained by a data product; a type of item. Has a schema of Fields; becomes an orphan when removed from its source connection.

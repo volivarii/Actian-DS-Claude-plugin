@@ -41,13 +41,16 @@ describe("terminology gate masks known terms", function () {
   it("does not flag the substrate's own labels, and still flags a real miss", function () {
     var glossary = {
       chrome: { header: { type: "Studio" }, sidebar: [{ label: "Access requests" }] },
-      entityProperties: [{ label: "Api version" }],
+      // "Record count" is a fixture label that holds a banned word ("record"):
+      // no real substrate label can, since the knowledge checks every
+      // product-facing string against notUse, so the mask is proven on this one.
+      entityProperties: [{ label: "Api version" }, { label: "Record count" }],
       relationships: [{ label: "Input port" }, { label: "Output port" }],
     };
-    var r = validate(flow(["Input ports (2)", "Api version", "Access request policy", "Choose a policy for this port"], glossary));
+    var r = validate(flow(["Input ports (2)", "Api version", "Record count", "Choose a record for this port"], glossary));
     var lines = r.out.split("\n").filter(function (l) { return /\[terminology\]/.test(l); });
     assert.strictEqual(lines.length, 1, "exactly one terminology finding, got:\n" + lines.join("\n"));
-    assert.match(lines[0], /Choose a policy/);
+    assert.match(lines[0], /Choose a record/);
   });
 
   it("never scans variant, name, template, id or dsSlug props", function () {

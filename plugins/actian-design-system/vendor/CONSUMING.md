@@ -79,12 +79,13 @@ Pin a range; major/minor jumps are explicit consumer-side bumps.
 
 ## 7. Building a screen
 
-A consumer that draws an Actian product screen as HTML (a generator, or an assistant
-reading this repository directly) needs these, by logical name:
+A consumer that draws an Actian product screen or flow (a generator, an assistant
+reading this repository directly, Claude Design, Cowork) reads these, in this order,
+by logical name. llms.txt "Building a screen" gives the same route by path.
 
 | Logical name | What it gives |
 |---|---|
-| `collections.appContextSrc` (`apps/`) | One file per app: header, side navigation, use cases |
+| `collections.appContextSrc` (`apps/`) | The app record, one file per app: the one record of its chrome, header (context, search, actions) and side navigation (groups, icons, sub-items, the bottom block), plus its use cases |
 | `collections.appContextRecipes` | Captured product pages: regions (`slots`), what the renderer reads (`renderNotes`), a node tree |
 | `collections.appContextRecipesSrc` (`captures/`) | A captured page's product screenshot, when it ships one |
 | `collections.appContextSections` | The parts the product repeats across pages |
@@ -93,8 +94,17 @@ reading this repository directly) needs these, by logical name:
 | `paths.components.render.fontsCss` | The embedded fonts |
 | `paths.components.icons.svg` | SVG geometry per icon slug |
 | `paths.components.render.contract` | The props and variant values the renderer honours, per component |
+| `paths.appContext` (`terminology`) | The product's word for each thing, and the words it never uses (authored in `app-context/src/terminology.yml`) |
+| `paths.content.globalMd` | Writing rules, UX-pattern topics and product copy rules |
+| `collections.appContextHandover` | The handover templates, when the work goes to engineering: `intent.md` (the PM's intent) and `specs.md` (the designer's specs) |
 
 Read a captured page's screenshot, when it has one, before its node tree: the tree is written for the
-plugin's JSON renderer, the screenshot and the `slots` prose carry the page. Where a
-capture and the design system disagree, the capture decides structure and the design
-system decides appearance.
+plugin's JSON renderer, the screenshot and the `slots` prose carry the page (only some recipes ship a
+screenshot; without one, the `slots` prose carries it alone). The screenshot
+decides structure (what is on the page and where); the design system decides appearance.
+
+Three rules for anything made from this repository:
+
+1. Mark what is new on the page itself: every part the product does not have today, labelled as new where a reader sees it.
+2. Ask the open questions: write them down; with nobody to ask, write them into the file as flagged concerns.
+3. Say what was not checked: any check you could not run, and anything you could not look at.

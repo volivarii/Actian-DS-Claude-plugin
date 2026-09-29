@@ -20,6 +20,7 @@ var STUDIO = {
     { label: "Catalog", id: "catalog" },
     { label: "Topics", id: "topics" },
     { label: "Import", id: "import" },
+    { label: "New Item", id: "new-item" },
     { label: "Access requests", id: "access-requests" },
     { label: "Catalog design", id: "catalog-design" },
     { label: "Analytics", id: "analytics" },

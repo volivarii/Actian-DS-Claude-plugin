@@ -6,7 +6,7 @@ Search result cards display individual items returned by a search. Each card ide
 - To display individual results in a search results list.
 - When results need to show metadata alongside the item title to help users identify the right result.
 - Use it for search results only: one card per returned item, in the results list of Explorer or Studio.
-- Use it when users must evaluate relevance at a glance: it highlights matched keywords and surfaces identifying metadata (type, owner, last modified) beside the title.
+- Use it when users must evaluate relevance at a glance: it highlights matched keywords and surfaces identifying metadata (type, owner, last updated) beside the title.
 - Use it when scannability of matches matters more than column comparison, which is why search results are not built as a generic table.
 
 ## When not to use
@@ -17,7 +17,7 @@ Search result cards display individual items returned by a search. Each card ide
 
 ## Style
 - The result title should match the item name exactly. Do not truncate titles in the title field.
-- Metadata labels should be concise. Use nouns or short phrases. For example, "Dataset", "Last modified", "Owner".
+- Metadata labels should be concise. Use nouns or short phrases. For example, "Dataset", "Last updated", "Owner".
 - Excerpt or description text should be trimmed at a consistent length with an ellipsis.
 - Highlight matched terms in the result text to help users confirm relevance.
 

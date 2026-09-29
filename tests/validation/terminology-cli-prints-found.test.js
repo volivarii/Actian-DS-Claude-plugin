@@ -19,8 +19,8 @@ describe("terminology-cli-prints-found", function () {
   };
 
   it("prints the found word and the suggested fix on a terminology line", function () {
-    var r = validate(flow("Browse every dataset"));
-    assert.match(r.out, /found "dataset".*use "data product"/i);
+    var r = validate(flow("Browse every catalog object"));
+    assert.match(r.out, /found "catalog object".*use "Item"/i);
   });
 
   it("leaves the printed line unchanged when the finding has no found word", function () {

@@ -11,12 +11,12 @@ var resolver = require(
 );
 
 describe("resolve-chrome", function () {
-  it("resolves Studio: 7-item sidebar, header.type Studio, normalized app slug", function () {
+  it("resolves Studio: 8-item sidebar, header.type Studio, normalized app slug", function () {
     var c = resolver.resolveChrome("Studio");
     assert.ok(c, "expected non-null chrome");
     assert.strictEqual(c.app, "studio");
     assert.strictEqual(c.header.type, "Studio");
-    assert.strictEqual(c.sidebar.length, 7);
+    assert.strictEqual(c.sidebar.length, 8);
     assert.strictEqual(c.sidebar[0].label, "Dashboard");
     assert.strictEqual(c.sidebar[0].id, "dashboard");
   });

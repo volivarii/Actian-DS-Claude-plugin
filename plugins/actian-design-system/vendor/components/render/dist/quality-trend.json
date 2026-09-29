@@ -3,7 +3,7 @@
     "auto_generated": true,
     "source": "scripts/render/derive-quality-trend.js",
     "do_not_edit": "Regenerate with `npm run derive:render`. Hand edits are overwritten.",
-    "sourcesLastChangedAt": "2026-09-16"
+    "sourcesLastChangedAt": "2026-09-29"
   },
   "measures": {
     "unexplainedCollapses": {
@@ -38,9 +38,9 @@
       "previous": 97
     },
     "oracleExamined": {
-      "value": 534,
+      "value": 548,
       "direction": "unchanged",
-      "previous": 534
+      "previous": 548
     },
     "geometryVerified": {
       "value": 150,
@@ -48,9 +48,9 @@
       "previous": 150
     },
     "geometryExamined": {
-      "value": 704,
+      "value": 730,
       "direction": "unchanged",
-      "previous": 704
+      "previous": 730
     },
     "geometryMismatch": {
       "value": 91,
@@ -330,6 +330,13 @@
   },
   "oracleSeries": [
     {
+      "date": "2026-09-29",
+      "version": "0.34.225",
+      "sha": "a65b81f8",
+      "verified": 97,
+      "examined": 548
+    },
+    {
       "date": "2026-09-09",
       "version": "0.34.207",
       "sha": "be37e690",
@@ -405,16 +412,21 @@
       "sha": "ac51956a",
       "verified": 78,
       "examined": 432
-    },
-    {
-      "date": "2026-08-12",
-      "version": "0.34.123",
-      "sha": "137cefe2",
-      "verified": 78,
-      "examined": 438
     }
   ],
   "collapseSeries": [
+    {
+      "date": "2026-09-29",
+      "version": "0.34.225",
+      "sha": "a65b81f8",
+      "unexplained": 41
+    },
+    {
+      "date": "2026-09-29",
+      "version": "0.34.221",
+      "sha": "f5df54be",
+      "unexplained": 41
+    },
     {
       "date": "2026-09-16",
       "version": "0.34.212",
@@ -473,19 +485,7 @@
       "date": "2026-08-31",
       "version": "0.34.159",
       "sha": "0014e8f3",
-      "unexplained": 54
-    },
-    {
-      "date": "2026-08-26",
-      "version": "0.34.155",
-      "sha": "8ea49c54",
-      "unexplained": 54
-    },
-    {
-      "date": "2026-08-26",
-      "version": "0.34.154",
-      "sha": "c8340c77",
-      "unexplained": 65
+      "unexplained": 55
     }
   ]
 }
