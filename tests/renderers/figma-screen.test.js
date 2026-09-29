@@ -31,6 +31,53 @@ describe("prepareScreen", () => {
     const { unresolved } = prepareScreen(screen([{ type: "FRAME", fills: ["var(--zen-x)"], children: [] }]), { tokensCss: CSS });
     assert.deepEqual(unresolved, ["--zen-x"]);
   });
+  it("resolves a var() fallback that is itself a var()", () => {
+    const { tree, unresolved } = prepareScreen(screen([{ type: "FRAME", fills: ["var(--zen-x, var(--zen-a))"], children: [] }]), { tokensCss: CSS });
+    assert.ok(JSON.stringify(tree).includes('"#112233"'));
+    assert.deepEqual(unresolved, []);
+  });
+  it("reports the unknown token inside a nested fallback", () => {
+    const { unresolved } = prepareScreen(screen([{ type: "FRAME", fills: ["var(--zen-x, var(--zen-nope))"], children: [] }]), { tokensCss: CSS });
+    assert.ok(unresolved.includes("--zen-nope"), JSON.stringify(unresolved));
+  });
+  it("keeps a fallback's own parentheses out of the result", () => {
+    const { tree } = prepareScreen(screen([{ type: "FRAME", fills: ["var(--zen-a, rgb(0 0 0))"], children: [] }]), { tokensCss: CSS });
+    assert.ok(JSON.stringify(tree).includes('"#112233"'));
+    assert.ok(!JSON.stringify(tree).includes("#112233)"));
+  });
+  it("turns a px token into a number", () => {
+    const { tree } = prepareScreen(screen([{ type: "FRAME", layout: { mode: "VERTICAL", spacing: "var(--zen-s)", padding: "var(--zen-s)" }, children: [] }]), { tokensCss: CSS + ":root{--zen-s:24px}" });
+    const s = JSON.stringify(tree);
+    assert.ok(s.includes('"spacing":24'), s.slice(0, 400));
+    assert.ok(!s.includes('"24px"'));
+  });
+  it("reports a colour field whose token is not a colour", () => {
+    const { unresolved } = prepareScreen(screen([{ type: "FRAME", fills: ["var(--zen-s)"], children: [] }]), { tokensCss: CSS + ":root{--zen-s:24px}" });
+    assert.ok(unresolved.some((u) => /--zen-s|24/.test(u)), JSON.stringify(unresolved));
+  });
+  it("reads a stroke's colour as a colour and its weight as a number", () => {
+    const { tree, unresolved } = prepareScreen(screen([{ type: "FRAME", stroke: { color: "var(--zen-a)", weight: "var(--zen-w)" }, children: [] }]), { tokensCss: CSS + ":root{--zen-w:1px}" });
+    assert.deepEqual(unresolved, []);
+    assert.ok(JSON.stringify(tree).includes('"stroke":{"color":"#112233","weight":1}'));
+  });
+  it("uses the screen's app theme over the base tokens", () => {
+    const css = ':root,[data-theme="actian"]{--zen-c:#111111}[data-theme="studio"]{--zen-c:#222222}';
+    const node = [{ type: "FRAME", fills: ["var(--zen-c)"], children: [] }];
+    assert.ok(JSON.stringify(prepareScreen({ id: "s", name: "S", template: "studio", content: node }, { tokensCss: css }).tree).includes("#222222"));
+    assert.ok(JSON.stringify(prepareScreen({ id: "s", name: "S", template: "administration", content: node }, { tokensCss: css }).tree).includes("#111111"));
+  });
+  it("lifts a top-level absolute layer to the screen frame, so x and y are screen coordinates", () => {
+    const { tree } = prepareScreen(screen([{ type: "FRAME", name: "list", children: [] }, { type: "FRAME", name: "drawer", positioning: "absolute", x: 890, y: 0, children: [] }]), { tokensCss: CSS });
+    assert.ok(tree.children.some((c) => c.name === "drawer"), "the layer is not a child of the screen frame");
+    const inner = JSON.stringify(tree.children.filter((c) => c.name !== "drawer"));
+    assert.ok(!inner.includes('"drawer"'), "the layer is still inside the content area");
+    assert.ok(inner.includes('"list"'));
+  });
+  it("draws the rail from the app context it is given", () => {
+    const appContext = { apps: { studio: { sidebar: [{ label: "Zeta dashboard", id: "z" }] } } };
+    const { tree } = prepareScreen({ id: "s", name: "S", template: "studio", content: [] }, { tokensCss: CSS, appContext });
+    assert.ok(JSON.stringify(tree).includes("Zeta dashboard"));
+  });
   it("defaults the library to ds", () => {
     const s = screen([]);
     prepareScreen(s, { tokensCss: CSS });
