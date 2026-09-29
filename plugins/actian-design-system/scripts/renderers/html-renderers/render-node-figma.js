@@ -101,7 +101,11 @@ function main() {
     process.exit(1);
   }
 
-  var nodes = Array.isArray(spec.content) ? spec.content : [spec];
+  var nodes = Array.isArray(spec)
+    ? spec
+    : Array.isArray(spec.content)
+      ? spec.content
+      : [spec];
 
   var errors = [];
   nodes.forEach(function (n, i) {
@@ -163,8 +167,11 @@ function main() {
 // --- Color helpers ----------------------------------------------------------
 
 function hexToRgb(hex) {
-  // "#RRGGBB" -> {r,g,b} 0..1
+  // "#RGB", "#RRGGBB" or "#RRGGBBAA" -> {r,g,b} 0..1 (alpha is dropped: Figma's
+  // SOLID paint colour has no alpha channel)
   var h = String(hex).replace("#", "");
+  if (h.length === 3 || h.length === 4)
+    h = h[0] + h[0] + h[1] + h[1] + h[2] + h[2];
   return {
     r: parseInt(h.slice(0, 2), 16) / 255,
     g: parseInt(h.slice(2, 4), 16) / 255,
@@ -356,6 +363,13 @@ function emitFrame(node, v, lines, ctx) {
     var cv = v + "_c" + i;
     emitNode(child, cv, lines, ctx);
     lines.push(v + ".appendChild(" + cv + ");");
+    // A layer over the page (drawer, toast): out of auto-layout, placed by x/y.
+    // layoutPositioning is only settable once the child is inside its parent.
+    if (child && child.positioning === "absolute") {
+      lines.push(cv + '.layoutPositioning = "ABSOLUTE";');
+      if (child.x != null) lines.push(cv + ".x = " + Number(child.x) + ";");
+      if (child.y != null) lines.push(cv + ".y = " + Number(child.y) + ";");
+    }
   });
   recordSizing(node, v, ctx);
 }
@@ -365,7 +379,7 @@ function emitFrame(node, v, lines, ctx) {
 function parseFont(font, def) {
   var p = String(font || "").split(":");
   return {
-    family: (p[0] || def || "Inter").trim(),
+    family: (p[0] || def || "Roboto").trim(),
     style: (p[1] || "Regular").trim(),
   };
 }
@@ -562,7 +576,7 @@ function emit(nodes, parentId) {
   var ctx = {
     fonts: {},
     fillSizing: [],
-    defaultFont: "Inter",
+    defaultFont: "Roboto",
     usedSetProps: false,
   };
   var body = [];

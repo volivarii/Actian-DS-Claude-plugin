@@ -237,3 +237,27 @@ describe("render-node-figma — assembly", function () {
     assert.match(js, /mutatedNodeIds:/);
   });
 });
+
+describe("render-node-figma: screen push fixes (D5)", function () {
+  var emit = require("../../plugins/actian-design-system/scripts/renderers/html-renderers/render-node-figma.js").emit;
+  it("defaults text to Roboto", function () {
+    var js = emit([{ type: "TEXT", text: "Hi" }], "1:2").code;
+    assert.match(js, /family: "Roboto"/);
+    assert.ok(!/Inter/.test(js));
+  });
+  it("places an absolute child with x and y", function () {
+    var js = emit([{ type: "FRAME", children: [{ type: "FRAME", positioning: "absolute", x: 890, y: 0, children: [] }] }], "1:2").code;
+    assert.match(js, /layoutPositioning = "ABSOLUTE"/);
+    assert.match(js, /\.x = 890;/);
+    assert.match(js, /\.y = 0;/);
+  });
+  it("accepts positioning, x and y in a validated tree", function () {
+    var errors = validateNode.validateTree({ type: "FRAME", positioning: "absolute", x: 1, y: 2, children: [] });
+    assert.deepEqual(errors, []);
+  });
+  it("reads a three-digit hex without NaN", function () {
+    var js = emit([{ type: "FRAME", fills: ["#fff"], children: [] }], "1:2").code;
+    assert.ok(!/NaN/.test(js));
+    assert.match(js, /r:1, g:1, b:1/);
+  });
+});

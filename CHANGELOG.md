@@ -19,7 +19,9 @@ are summarized at the release level.
 
 ## [Unreleased]
 
-### Fixed
+### Added
+
+- **The Figma push takes one screen JSON.** `scripts/renderers/figma-screen.js <screen.json> --parent-id <id>` builds the screen's tree (header, side navigation, page header and the authored content), drops the `slot`, `focus` and `goto` keys the emitter refuses, resolves every `var(--zen-...)` through `tokens.css` (a token with neither a definition nor a fallback stops the push and is named), and prints the Plugin API code for one `use_figma` call. The emitter now takes a single object or an array, defaults text to Roboto (the design system's UI font) instead of Inter, reads three-digit hex colours, and places a child with `positioning: "absolute"` at its `x` and `y`, so a drawer or a toast is pushed as a layer over the page. These are the six push defects the September benchmark found.
 
 - **The docs match the plugin again.** The README and USAGE no longer describe retired features: converting a Figma URL to hi-fi (retired; a lo-fi flow is regenerated DS-native from its brief) and a user-run design system sync (sync is nightly and automatic). They now say what the plugin cannot do in the Actian org's Cowork: it cannot take screenshots of its own output, so `--direct` hands over without looking at its page, and updates arrive on their own, so a version cannot be held. `llms.txt` pointed AI agents at nine knowledge-repository paths that no longer exist; every link now resolves. The README's development setup copied a file deleted in v1.79.0 and now says where the tests run (`npm test` from the repository root). `ARCHITECTURE.md`, `llms-overview.md`, the plugin's `CLAUDE.md` and `TEST-PROMPTS.md` lose stale paths, counts and the retired `--hifi` prompts, and gain `--direct`. Docs only: no skill, agent, script or manifest description changed. ([#423](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/423))
 
