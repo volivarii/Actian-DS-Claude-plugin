@@ -58,6 +58,10 @@ function setAppContext(ctx) {
   APP_CONTEXT = ctx || null;
 }
 
+function getAppContext() {
+  return APP_CONTEXT;
+}
+
 // The app a template speaks for, or null when the template describes a shape
 // rather than a product. `administration` is here because TEMPLATE_CHROME only
 // ever had `admin`, so a screen authored with the full app name fell through to
@@ -389,6 +393,7 @@ function screenTree(s) {
 module.exports = {
   appProfile: appProfile,
   setAppContext: setAppContext,
+  getAppContext: getAppContext,
   TEMPLATE_APP: TEMPLATE_APP,
   TEMPLATE_CHROME: TEMPLATE_CHROME,
   resolveChrome: resolveChrome,

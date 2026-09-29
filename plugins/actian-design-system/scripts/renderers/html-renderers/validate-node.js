@@ -43,6 +43,9 @@ var ALLOWED_KEYS = [
   "content",
   "intent",
   "minHeight",
+  "positioning",
+  "x",
+  "y",
 ];
 
 function validateNode(node) {
@@ -73,6 +76,13 @@ function validateNode(node) {
       });
     }
   }
+  // A layer over its parent: positioning "absolute", placed at numeric x and y.
+  if (node.positioning != null && node.positioning !== "absolute")
+    errors.push({ path: "positioning", message: 'positioning is "absolute" or absent' });
+  ["x", "y"].forEach(function (k) {
+    if (node[k] != null && (typeof node[k] !== "number" || !isFinite(node[k])))
+      errors.push({ path: k, message: k + " is a number of pixels" });
+  });
   Object.keys(node).forEach(function (k) {
     if (ALLOWED_KEYS.indexOf(k) === -1) {
       errors.push({
