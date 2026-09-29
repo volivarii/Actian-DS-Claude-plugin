@@ -131,7 +131,9 @@ function extractPaths(lineText) {
   // Pattern 2: Backtick-quoted paths that start with a known root prefix
   var btRe = /`([^`]+)`/g;
   while ((match = btRe.exec(lineText)) !== null) {
-    var candidate = match[1].trim();
+    // A span may be a whole command (`scripts/x.js <file> --flag`): the path
+    // is its first word.
+    var candidate = match[1].trim().split(/\s+/)[0];
     if (isPlaceholder(candidate)) continue;
     var isRootRelative = false;
     for (var i = 0; i < ROOT_PREFIXES.length; i++) {

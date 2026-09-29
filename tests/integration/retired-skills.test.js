@@ -88,7 +88,7 @@ describe("retired skills stay hidden", function () {
       );
     });
   });
-  it("no loading skill or agent names a retired skill by its bare name", function () {
+  it("no loading skill names a retired skill by its bare name", function () {
     var bareNames = [
       "convert-to-hifi",
       "generate-presentation",
@@ -111,25 +111,12 @@ describe("retired skills stay hidden", function () {
       .map(function (name) {
         return path.join("skills", name, "SKILL.md");
       });
-    var agentFiles = fs
-      .readdirSync(path.join(PLUGIN_ROOT, "agents"))
-      .filter(function (name) {
-        return name.endsWith(".md");
-      })
-      .map(function (name) {
-        return path.join("agents", name);
-      });
-    var files = skillFiles.concat(agentFiles);
+    var files = skillFiles;
     assert.ok(files.length > 0, "file list must not be empty");
     assert.strictEqual(
       skillFiles.length,
       4,
       "expected 4 skills/*/SKILL.md files, found " + skillFiles.length,
-    );
-    assert.strictEqual(
-      agentFiles.length,
-      6,
-      "expected 6 agents/*.md files, found " + agentFiles.length,
     );
 
     files.forEach(function (rel) {

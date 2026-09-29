@@ -135,44 +135,6 @@ jobs:
             --kit all \
             --output vendor/components/dist
 
-      - name: Sync doc inventory counts
-        # A re-vendor can change a registry component count. The doc-counts
-        # guard (tests/integration/doc-counts.test.js) then fails on the now
-        # stale prose, leaving this auto-merge PR stuck with no self-healing
-        # path (observed on the v0.30.5 refresh: DS Kit 318→319). This rewrites
-        # the managed docs (README, llms.txt, marketplace.json, plugin.json,
-        # companion-context, figma-push-patterns) from the registries so the
-        # guard passes. Idempotent no-op when no count changed. Shares its
-        # source of truth (scripts/lib/doc-counts.js) with the guard, so the
-        # two can't disagree.
-        working-directory: plugins/actian-design-system
-        run: |
-          node scripts/vendor/sync-doc-counts.js
-
-      - name: Regenerate the authoring vocabulary table
-        # The vocabulary table in references/actian-ux-prototype/
-        # ds-components-authoring.md is generated from the vendored dskit
-        # registry + BUILT_SLUGS, and the drift gate
-        # (tests/integration/authoring-table-sync.test.js) fails when they
-        # disagree. Without this step, a vendor refresh that renames a
-        # component or a variant axis would leave this auto-merge PR stuck
-        # red with no self-healing path (same class as the doc-counts guard
-        # above). Idempotent no-op when the registry change doesn't touch
-        # the table.
-        working-directory: plugins/actian-design-system
-        run: |
-          node scripts/renderers/render-authoring-table.js
-
-      - name: Regenerate the authoring built-leaf props section
-        # Same file, same class of drift gate
-        # (tests/integration/authoring-props-sync.test.js): the props block is
-        # generated from the vendored render contract, so a refresh that
-        # changes a prop default or a variant value leaves the PR red until
-        # this runs. Idempotent no-op when the contract did not move.
-        working-directory: plugins/actian-design-system
-        run: |
-          node scripts/renderers/render-authoring-props.js
-
       - name: Detect changes
         id: diff
         run: |
@@ -274,9 +236,6 @@ jobs:
             llms.txt
             USAGE.md
             .claude-plugin/marketplace.json
-            plugins/actian-design-system/references/context/companion-context.md
-            plugins/actian-design-system/references/figma/figma-push-patterns.md
-            plugins/actian-design-system/references/actian-ux-prototype/ds-components-authoring.md
             tests/renderers/blank-box-baseline.json
             tests/renderers/__goldens__/**
             tests/renderers/fixtures/**

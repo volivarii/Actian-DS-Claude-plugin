@@ -13,7 +13,7 @@
 # that contains this script; else one error naming both places (and the
 # rejected value, if one was set), return 1.
 # The default glob and the manifest test are duplicated, on purpose and
-# byte-identical, in references/context/plugin-root.md (the skill preamble),
+# byte-identical, in the skill preamble (skills/actian-ux/SKILL.md, copied into every card),
 # which cannot source this file before it knows the root.
 if [ -z "${CLAUDE_PLUGIN_ROOT:-}" ] || [ ! -f "${CLAUDE_PLUGIN_ROOT}/.claude-plugin/plugin.json" ]; then
   _apr_prior="${CLAUDE_PLUGIN_ROOT:-}"

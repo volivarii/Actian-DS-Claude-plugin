@@ -36,16 +36,11 @@ var RENDERER = require(path.join(SCRIPTS_DIR, "lib", "renderer.js"));
 // Part 1: CLI command contracts
 // ---------------------------------------------------------------------------
 
-var SKILL_FILES = [
-  {
-    name: "actian-ux-prototype",
-    path: path.join(PLUGIN_ROOT, "skills", "actian-ux-prototype", "SKILL.md"),
-  },
-  {
-    name: "actian-ux-proposal",
-    path: path.join(PLUGIN_ROOT, "skills", "actian-ux-proposal", "SKILL.md"),
-  },
-];
+var SKILL_FILES = ["actian-ux", "actian-ux-proposal", "actian-ux-prototype", "actian-ux-audit"].map(function (n) {
+  return { name: n, path: path.join(PLUGIN_ROOT, "skills", n, "SKILL.md") };
+});
+// Cards that must name at least one script command (actian-ux only routes).
+var CARDS_WITH_COMMANDS = ["actian-ux-proposal", "actian-ux-prototype", "actian-ux-audit"];
 
 /**
  * Extract CLI commands from a SKILL.md file.
@@ -55,27 +50,17 @@ function extractCommands(mdContent) {
   var seen = {};
 
   // Match node script invocations
-  var nodeRe = /node\s+\$\{CLAUDE_PLUGIN_ROOT\}\/(scripts\/[^\s\\]+)/g;
+  // The cards write each command as an inline code span, `scripts/<path>.js <args>`.
+  var cardRe = /`(scripts\/[^\s`]+\.js)([^`]*)`/g;
   var match;
-  while ((match = nodeRe.exec(mdContent)) !== null) {
+  while ((match = cardRe.exec(mdContent)) !== null) {
     var script = match[1];
-    var startIdx = match.index;
-    var cmdBlock = "";
-    var lines = mdContent.substring(startIdx).split("\n");
-    for (var i = 0; i < lines.length; i++) {
-      cmdBlock += lines[i];
-      if (lines[i].trimRight().slice(-1) !== "\\") break;
-      cmdBlock += " ";
-    }
-
     var flags = [];
     var flagRe = /\s(--[a-z][-a-z]*|-[a-z])\b/g;
     var fmatch;
-    while ((fmatch = flagRe.exec(cmdBlock)) !== null) {
-      var flag = fmatch[1];
-      if (flags.indexOf(flag) === -1) flags.push(flag);
+    while ((fmatch = flagRe.exec(match[2])) !== null) {
+      if (flags.indexOf(fmatch[1]) === -1) flags.push(fmatch[1]);
     }
-
     var key = script + ":" + flags.sort().join(",");
     if (!seen[key]) {
       seen[key] = true;
@@ -83,7 +68,6 @@ function extractCommands(mdContent) {
     }
   }
 
-  // Match shell script invocations (ensure-server.sh)
   var shRe = /\$\{CLAUDE_PLUGIN_ROOT\}\/(scripts\/[^\s}"]+\.sh)/g;
   while ((match = shRe.exec(mdContent)) !== null) {
     var shScript = match[1];
@@ -102,6 +86,10 @@ describe("Contract Tests", function () {
     SKILL_FILES.forEach(function (skill) {
       var skillContent = fs.readFileSync(skill.path, "utf8");
       var commands = extractCommands(skillContent);
+      if (CARDS_WITH_COMMANDS.indexOf(skill.name) !== -1)
+        it(skill.name + " names at least one script command", function () {
+          assert.ok(commands.length > 0, skill.name + ": no `scripts/...` command was read, so nothing was checked");
+        });
 
       commands.forEach(function (cmd) {
         var scriptPath = path.join(PLUGIN_ROOT, cmd.script);
@@ -273,61 +261,5 @@ describe("Contract Tests", function () {
         },
       );
     });
-  });
-});
-
-describe("actian-ux-proposal is a document, not a gated board", function () {
-  var skill = fs.readFileSync(path.join(PLUGIN_ROOT, "skills", "actian-ux-proposal", "SKILL.md"), "utf8");
-  // Research was deliberately ungated when this skill became a document rather than a board,
-  // on the reasoning that a gate is a turn a reader has to spend. 2026-09-15 put a gate back,
-  // for the opposite reason: the sweep costs minutes the reader may not want spent, and the
-  // reader often knows the space better than a search does, which is what the yours lane is.
-  it("gates the research on four lanes and lets a flag answer the gate", function () {
-    var step3 = skill.slice(skill.indexOf("**Step 3"), skill.indexOf("**Step 4"));
-    ["competitors", "designSystems", "ours", "yours"].forEach(function (lane) {
-      assert.ok(step3.indexOf(lane) !== -1, "Step 3 does not name the " + lane + " lane");
-    });
-    assert.ok(/gate/i.test(step3), "Step 3 does not say it is a gate: " + step3.slice(0, 200));
-    assert.ok(skill.indexOf("| `--research <lanes>` |") !== -1, "the flag row is missing");
-    assert.ok(skill.indexOf("--no-research") !== -1, "the old flag still has to resolve");
-  });
-
-  it("dispatches the one shared researcher, not a researcher of its own", function () {
-    assert.ok(skill.indexOf("ds-researcher") !== -1, "Step 3 dispatches nothing");
-    assert.ok(fs.existsSync(path.join(PLUGIN_ROOT, "agents", "ds-researcher.md")), "the agent is missing");
-    assert.ok(!fs.existsSync(path.join(PLUGIN_ROOT, "agents", "proposal-researcher.md")), "a skill-specific researcher crept back in");
-  });
-  // Added after a Cowork run proposed a fourth tag onto an identity row that already carried
-  // three. The option's own breaksWhen said so, and nobody read it until the document was
-  // finished: the skill said the decomposition was what a reader pushes back on, and then
-  // never paused for them to do it.
-  it("stops after Step 4 to let a reader change the decomposition, and lets --no-prompt skip it", function () {
-    var step4 = skill.slice(skill.indexOf("**Step 4"), skill.indexOf("**The evaluation stage"));
-    assert.ok(/\*\*Then stop/.test(step4), "Step 4 stops: " + step4.slice(-400));
-    assert.ok(/wait for a reply/.test(step4), "and waits rather than announcing and continuing");
-    assert.ok(/`--no-prompt` skips it/.test(step4), "and the flag escapes it");
-    assert.ok(skill.indexOf("| `--no-prompt` | off | Draw straight through") !== -1, "the flag row says what it now does");
-    assert.ok(skill.indexOf("same as `--no-research`") === -1, "the compatibility-only wording is gone");
-  });
-
-  // The ceiling is a ratchet on how much this skill asks an agent to hold at once, and it
-  // was set at whatever the file measured after the 2026-09-13 readability pass. It moved to
-  // 155 on 2026-09-15 for the research gate: a gate, a flag, a four-lane vocabulary and a
-  // reference the skill now reads at Step 3 rather than Step 5. Everything that could be
-  // moved into the reference was moved, and the gate's own wording cannot be, because Step 3
-  // is where it is asked. Move this number only with the same kind of reason.
-  it("stays under 155 lines and keeps the plugin-root block", function () {
-    assert.ok(skill.split("\n").length < 155, "line count: " + skill.split("\n").length);
-    assert.ok(skill.indexOf("<!-- plugin-root:begin -->") !== -1 && skill.indexOf("<!-- plugin-root:end -->") !== -1);
-  });
-  it("names references that exist and no retired one", function () {
-    assert.ok(fs.existsSync(path.join(PLUGIN_ROOT, "references", "actian-ux-proposal", "document-authoring.md")));
-    assert.ok(!fs.existsSync(path.join(PLUGIN_ROOT, "references", "actian-ux-proposal", "board-authoring.md")));
-    assert.ok(skill.indexOf("board-authoring.md") === -1);
-    assert.ok(fs.existsSync(path.join(PLUGIN_ROOT, "templates", "proposal-document.html")));
-  });
-  it("the gate reference no longer lists the proposal as gated", function () {
-    var gates = fs.readFileSync(path.join(PLUGIN_ROOT, "references", "ds-rules", "interactive-gates.md"), "utf8");
-    assert.ok(gates.indexOf("1 single gate, research skip or yes") === -1, gates.split("\n").filter(function (l) { return l.indexOf("actian-ux-proposal") !== -1; }).join("\n"));
   });
 });

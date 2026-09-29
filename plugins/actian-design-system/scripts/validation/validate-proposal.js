@@ -95,9 +95,8 @@ var MAX_WIDTH = DRAWING_WIDTH.max;
 var TONES = ["good", "mixed", "bad"];
 
 // Word limits. The layout does not truncate: a field past its limit pushes the next thing down
-// the page, and a PM reading before a meeting stops there. The keys are the field names
-// references/actian-ux-proposal/document-authoring.md prints in its table, and a test holds the
-// two together, so change both or neither.
+// the page, and a PM reading before a meeting stops there. The keys are the proposal data's
+// field names.
 var WORD_LIMITS = {
   "meta.title": 10,
   "answer": 20,
@@ -228,7 +227,7 @@ function checkFragment(html, approachId, p, findings) {
   if (ext) findings.push(finding("P0", "external-load", approachId, p, ext[0], ext[0], "the document is offline; inline the asset or drop it"));
   styleSources(s).forEach(function (css) {
     (css.match(COLOUR) || []).forEach(function (c) {
-      findings.push(finding("P1", "hardcoded-color", approachId, p, c, c, "use a --fm-* variable (references/ds-rules/fm-css-reference.md)"));
+      findings.push(finding("P1", "hardcoded-color", approachId, p, c, c, "use a --fm-* variable"));
     });
     if (/position\s*:\s*absolute/i.test(css))
       findings.push(finding("P1", "in-flow", approachId, p, "position:absolute in a drawing", "position:absolute", "draw the overlay in flow inside its anchor; anything outside the frame is cut off on screen and covers the text under it in print"));
