@@ -15,8 +15,6 @@ Follow these rules for every task in this project.
 flows/my-flow.html
 ```
 
-`ensure-server.sh` must also serve the project directory, never `.`.
-
 ---
 
 ## Node.js Resolution
