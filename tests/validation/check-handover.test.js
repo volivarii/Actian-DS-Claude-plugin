@@ -41,6 +41,27 @@ describe("checkHandover specs", () => {
     const crlf = (t) => t.replace(/\n/g, "\r\n");
     assert.deepEqual(checks(crlf(F("specs.good.md")), { template: crlf(F("specs.template.md")) }), []);
   });
+  it("copy written by a script with < and > comparisons in it is still found", () => {
+    const proto = '<main><button>Write descriptions</button><script>if (n < 2) { t.textContent = n + " descriptions saved"; } else if (n > 5) {}</script></main>';
+    assert.deepEqual(checks(F("specs.good.md"), { prototypeHtml: proto }), []);
+  });
+  it("copy in an attribute (placeholder, aria-label) is found", () => {
+    const proto = F("prototype.html") + '<input placeholder="Search items">';
+    assert.deepEqual(checks(F("specs.good.md").replace('- Confirmation: "3 descriptions saved"', '- Confirmation: "3 descriptions saved"\n- Search: "Search items"'), { prototypeHtml: proto }), []);
+  });
+  it("copy in curly quotes is checked, and a copy line with no quoted text is an error", () => {
+    assert.ok(checks(F("specs.good.md").replace('"3 descriptions saved"', "\u201cNothing like this\u201d")).includes("copy-not-in-source"));
+    assert.ok(checks(F("specs.good.md").replace('- Confirmation: "3 descriptions saved"', "- Confirmation: three saved")).includes("copy-line"));
+  });
+  it("the number fallback wants the fixed words in order, joined by a number or code", () => {
+    const proto = "<main><button>Delete</button><button>Write descriptions</button></main>";
+    assert.ok(checks(F("specs.good.md").replace('"3 descriptions saved"', '"Delete 3 descriptions"'), { prototypeHtml: proto }).includes("copy-not-in-source"));
+    const built = '<main><button>Write descriptions</button><script>t.textContent = "Delete " + n + " descriptions";</script></main>';
+    assert.ok(!checks(F("specs.good.md").replace('"3 descriptions saved"', '"Delete 3 descriptions"'), { prototypeHtml: built }).includes("copy-not-in-source"));
+  });
+  it("every Components Used line must be a component line, whatever its bullet", () => {
+    assert.ok(checks(F("specs.good.md").replace("- Button (button): the", "* Buton (buton): the")).includes("component-line"));
+  });
   it("no knowledge version", () => assert.ok(checks(F("specs.good.md").replace("**Knowledge:** v0.34.218\n", "")).includes("knowledge-version")));
 });
 

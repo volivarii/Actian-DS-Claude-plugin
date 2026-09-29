@@ -25,11 +25,34 @@ it("marks PM fields, never invents them", () => {
   const md = assembleIntent(data, { template: tpl, proposalLink: "proposal.html" });
   assert.match(md.split("## Expected Value")[1], /^\s*To fill by PM/);
 });
-it("writes None when there are no open questions", () => {
-  const d = Object.assign({}, data); delete d.openQuestions;
+it("writes None when there are no open questions and no blockers", () => {
+  const d = JSON.parse(JSON.stringify(data)); delete d.openQuestions;
+  d.decisions.forEach((x) => delete x.blocker);
   assert.match(assembleIntent(d, { template: tpl, proposalLink: "p" }).split("## Open questions")[1], /^\s*None\./);
 });
 it("lists open questions with their kind", () => {
   const d = Object.assign({}, data, { openQuestions: [{ kind: "open question", text: "Who names the groups?" }] });
-  assert.match(assembleIntent(d, { template: tpl, proposalLink: "p" }).split("## Open questions")[1], /^\s*- \(open question\) Who names the groups\?/);
+  assert.match(assembleIntent(d, { template: tpl, proposalLink: "p" }).split("## Open questions")[1].split("\n## ")[0], /^- \(open question\) Who names the groups\?$/m);
+});
+
+it("puts the decisions' blockers under Open questions, where the proposal lists them before building", () => {
+  const md = assembleIntent(data, { template: tpl, proposalLink: "p" });
+  const oq = md.split("## Open questions")[1].split("\n## ")[0];
+  const blocked = data.decisions.filter((d) => d.blocker);
+  assert.ok(blocked.length > 0);
+  blocked.forEach((d) => assert.ok(oq.includes(d.blocker), "missing blocker: " + d.blocker));
+  assert.ok(!/None\./.test(oq));
+});
+it("lists each pick's cost under Assumptions & Risks", () => {
+  const md = assembleIntent(data, { template: tpl, proposalLink: "p" });
+  const ar = md.split("## Assumptions & Risks")[1].split("\n## ")[0];
+  data.decisions.forEach((d) => assert.ok(ar.includes(d.pick.cost), "missing cost: " + d.pick.cost));
+});
+it("refuses a template it cannot read, and a section title it does not know", () => {
+  assert.throws(() => assembleIntent(data, { template: "---\nkind: intent\n---\n", proposalLink: "p" }), /template/);
+  assert.throws(() => assembleIntent(data, { template: tpl.replace("title: Design decisions", "title: Design Decisions"), proposalLink: "p" }), /Design Decisions/);
+});
+it("refuses a pick that names no option, as the proposal document does", () => {
+  const d = JSON.parse(JSON.stringify(data)); d.decisions[0].pick.optionId = "optoin-b";
+  assert.throws(() => assembleIntent(d, { template: tpl, proposalLink: "p" }), /optoin-b/);
 });

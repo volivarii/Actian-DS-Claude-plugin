@@ -44,40 +44,55 @@ function sections(text) {
   return out;
 }
 
-// The prototype's text as a reader sees it, script bodies included: app.js
-// writes most of a prototype's words at run time.
-function visibleText(html) {
-  return String(html || "")
-    .replace(/<[^>]+>/g, " ")
+function decode(t) {
+  return t
     .replace(/&nbsp;/g, " ")
     .replace(/&amp;/g, "&")
     .replace(/&lt;/g, "<")
     .replace(/&gt;/g, ">")
     .replace(/&quot;/g, '"')
-    .replace(/&#39;|&apos;/g, "'")
-    .replace(/\s+/g, " ");
+    .replace(/&#39;|&apos;/g, "'");
 }
 
-// A copy string is in the prototype if it is there as written, or, when it
-// carries a number, if every fixed run of words around the numbers is: the
-// prototype builds "3 descriptions saved" from n + " descriptions saved".
+// The prototype's words: the text a reader sees, the words in attributes a
+// reader meets (placeholder, aria-label, title, alt, value), and script bodies
+// kept whole (app.js writes most of a prototype's words at run time, and a
+// `n < 2` there is code, not a tag to strip).
+function visibleText(html) {
+  var scripts = [];
+  var rest = String(html || "").replace(/<script\b[^>]*>([\s\S]*?)<\/script>/gi, function (m, js) {
+    scripts.push(js);
+    return " ";
+  });
+  var attrs = [];
+  rest.replace(/\s(?:placeholder|aria-label|title|alt|value)\s*=\s*(?:"([^"]*)"|'([^']*)')/gi, function (m, a, b) {
+    attrs.push(a != null ? a : b);
+    return m;
+  });
+  return decode([rest.replace(/<[^>]+>/g, " ")].concat(attrs, scripts).join(" ")).replace(/\s+/g, " ");
+}
+
+function escapeRe(t) {
+  return t.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+// A copy string is in the prototype as written, or, when it carries numbers,
+// with each number replaced by a number or by the code that builds one
+// (`"Delete " + n + " descriptions"`, `${n}`), its fixed words in order.
 function copyFound(s, visible) {
   if (visible.indexOf(s) !== -1) return true;
   if (!/\d/.test(s)) return false;
-  var parts = s
-    .split(/\d+/)
+  var gap = "\\s*(?:\\d+|[\"'`]?\\s*\\+\\s*[\\w.$()\\[\\]]+\\s*\\+\\s*[\"'`]?|\\$\\{[^}]*\\})\\s*";
+  var parts = s.split(/\d+/).map(function (x) {
+    return x.trim();
+  });
+  var inner = parts
     .map(function (x) {
-      return x.trim();
+      return x ? escapeRe(x) : "";
     })
-    .filter(function (x) {
-      return x.length >= 3;
-    });
-  return (
-    parts.length > 0 &&
-    parts.every(function (x) {
-      return visible.indexOf(x) !== -1;
-    })
-  );
+    .join(gap);
+  inner = inner.replace(new RegExp("^(" + escapeRe(gap) + ")+|(" + escapeRe(gap) + ")+$", "g"), "");
+  return inner.length >= 3 && new RegExp(inner).test(visible);
 }
 
 function checkHandover(kind, text, opts) {
@@ -112,20 +127,34 @@ function checkHandover(kind, text, opts) {
   if (kind === "specs") {
     if (!/^\*\*Knowledge:\*\*\s*v\d+\.\d+\.\d+/m.test(text)) add("error", "knowledge-version", "header");
     var slugs = opts.registrySlugs || [];
-    // Every list line is one component, `- <DS name> (<slug>): <where and how>`.
-    ((secs["Components Used"] || "").match(/^- .*$/gm) || []).forEach(function (line) {
-      var m = /^- .+? \(([a-z0-9-]+)\):/.exec(line);
-      if (!m) return add("error", "component-line", "Components Used", line);
-      if (slugs.indexOf(m[1]) === -1) add("error", "component-unknown", "Components Used", m[1]);
-    });
+    // Every line is one component, `- <DS name> (<slug>): <where and how>`,
+    // whatever bullet it was written with.
+    (secs["Components Used"] || "")
+      .split("\n")
+      .filter(function (l) {
+        return l.trim() && !/^Source:/.test(l);
+      })
+      .forEach(function (line) {
+        var m = /^- .+? \(([a-z0-9-]+)\):/.exec(line);
+        if (!m) return add("error", "component-line", "Components Used", line);
+        if (slugs.indexOf(m[1]) === -1) add("error", "component-unknown", "Components Used", m[1]);
+      });
     var visible = visibleText(opts.prototypeHtml);
     var copySource = (secs["Copy"] || "").split("\n")[0] || "";
-    ((secs["Copy"] || "").match(/"([^"]+)"/g) || []).forEach(function (q) {
-      var s = q.slice(1, -1);
-      if (/Prototype/.test(copySource) && !opts.prototypeHtml) add("error", "copy-unverified", "Copy", s + " (no prototype to check it against)");
-      else if (/Prototype/.test(copySource) && !copyFound(s, visible)) add("error", "copy-not-in-source", "Copy", s);
-      if (/Figma/.test(copySource) && !/Prototype/.test(copySource)) add("info", "copy-figma-unverified", "Copy", s);
-    });
+    // Every line is `- <element>: "<exact text>"` (straight or curly quotes).
+    (secs["Copy"] || "")
+      .split("\n")
+      .filter(function (l) {
+        return l.trim() && !/^Source:/.test(l);
+      })
+      .forEach(function (line) {
+        var q = /:\s*(?:"([^"]+)"|\u201c([^\u201d]+)\u201d)\s*$/.exec(line);
+        if (!q) return add("error", "copy-line", "Copy", line);
+        var t = q[1] != null ? q[1] : q[2];
+        if (/Prototype/.test(copySource) && !opts.prototypeHtml) add("error", "copy-unverified", "Copy", t + " (no prototype to check it against)");
+        else if (/Prototype/.test(copySource) && !copyFound(t, visible)) add("error", "copy-not-in-source", "Copy", t);
+        if (/Figma/.test(copySource) && !/Prototype/.test(copySource)) add("info", "copy-figma-unverified", "Copy", t);
+      });
     // A table: the screen, then the five states; every row five cells of yes, no or n/a.
     var lines = (secs["States"] || "").split("\n").filter(function (l) {
       return /^\|/.test(l);
@@ -158,6 +187,7 @@ function main(argv) {
     return 2;
   }
   var PATHS = require(path.join(__dirname, "..", "lib", "paths.js"));
+  // Not in the paths manifest until the knowledge ships the templates (its C7).
   var tpl = path.join(PATHS.vendor, "app-context", "src", "handover", kind + ".md");
   if (!fs.existsSync(tpl)) {
     process.stderr.write("template not vendored yet: " + tpl + "\n");
@@ -180,7 +210,7 @@ function main(argv) {
   if (proto) opts.prototypeHtml = fs.readFileSync(proto, "utf8");
   if (kind === "specs")
     opts.registrySlugs = Object.keys(
-      JSON.parse(fs.readFileSync(path.join(PATHS.vendor, "components", "dist", "registries", "dskit.json"), "utf8"))
+      JSON.parse(fs.readFileSync(PATHS.components.registries.dskit, "utf8"))
         .components || {},
     );
   var f = checkHandover(kind, text, opts);

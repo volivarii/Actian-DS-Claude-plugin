@@ -23,6 +23,8 @@ function list(v) {
 
 function assembleIntent(data, opts) {
   var fm = frontmatter(opts.template);
+  if (fm.kind !== "intent" || !fm.sections.length)
+    throw new Error("assemble-intent: the template reads as kind " + (fm.kind || "none") + " with " + fm.sections.length + " sections");
   var gap = fm.gapMarker || "To fill by PM";
   var m = data.meta || {},
     c = data.context || {},
@@ -37,27 +39,37 @@ function assembleIntent(data, opts) {
     "Design decisions": (data.decisions || [])
       .map(function (d) {
         var pick = d.pick || {};
-        var o =
-          (d.options || []).filter(function (x) {
-            return x.id === pick.optionId;
-          })[0] || {};
-        return "- " + d.question + ": " + (o.name || pick.optionId) + ". " + text(pick.reasons);
+        var o = (d.options || []).filter(function (x) {
+          return x.id === pick.optionId;
+        })[0];
+        // As assemble-proposal does: a pick that names no option is an error.
+        if (!o) throw new Error("assemble-intent: decision " + d.id + " picks " + pick.optionId + ", which is none of its options");
+        return "- " + d.question + ": " + o.name + ". " + text(pick.reasons);
       })
       .join("\n"),
-    "Open questions": (data.openQuestions || []).length
-      ? data.openQuestions
-          .map(function (q) {
-            return "- (" + q.kind + ") " + q.text;
-          })
-          .join("\n")
-      : "None.",
-    "Assumptions & Risks":
+    // The proposal document lists the decisions' blockers first under
+    // "Before we build"; here they lead the open questions, so the two agree.
+    "Open questions":
       (data.decisions || [])
         .filter(function (d) {
           return d.blocker;
         })
         .map(function (d) {
-          return "- " + d.question + " " + text(d.blocker);
+          return "- (blocker) " + d.question + " " + text(d.blocker);
+        })
+        .concat(
+          (data.openQuestions || []).map(function (q) {
+            return "- (" + q.kind + ") " + q.text;
+          }),
+        )
+        .join("\n") || "None.",
+    "Assumptions & Risks":
+      (data.decisions || [])
+        .filter(function (d) {
+          return d.pick && d.pick.cost;
+        })
+        .map(function (d) {
+          return "- " + d.question + " " + text(d.pick.cost);
         })
         .join("\n") || "None identified by the proposal.",
     "Insights & Resources": list(c.sources),
@@ -70,7 +82,11 @@ function assembleIntent(data, opts) {
     "**Design proposal:** " + opts.proposalLink,
     "",
   ];
+  // Sections the proposal data cannot fill: written as the gap marker on purpose.
+  var noData = ["Target Users"];
   fm.sections.forEach(function (sec) {
+    if (sec.owner !== "pm" && !(sec.title in body) && noData.indexOf(sec.title) === -1)
+      throw new Error("assemble-intent: the template's section " + sec.title + " is not one this script knows");
     var v = sec.owner === "pm" ? gap : body[sec.title];
     out.push("## " + sec.title, v && String(v).trim() ? String(v).trim() : gap, "");
   });
