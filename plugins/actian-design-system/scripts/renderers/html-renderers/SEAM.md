@@ -35,5 +35,5 @@ Plugin-API script through `render-node-figma.js`.
 - `ds-base.css` carries the `.ds-*` styles, bound to `--zen-*` tokens; it is part
   of `FLOW_CSS` in `assemble-shared.js`, which the prototype's frame inlines.
 - **Gates:** `token-resolution` (ds-base.css and ds-html-map.js resolve their
-  tokens), `golden-snapshot` (frozen `ds-*` goldens), `twin-parity-emit` (the
-  Figma twin emits what the HTML renderer draws).
+  tokens), `golden-snapshot` (frozen `ds-*` goldens), `twin-parity-emit` (pins
+  the Figma emitter's output byte for byte against its golden).
