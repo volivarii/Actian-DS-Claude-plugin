@@ -179,7 +179,7 @@ Every skill ends with a handover that hides nothing: what is new, what was not c
 | `/actian-ux-prototype` | `prototype.html` and a screenshot of every step; on request the Figma screens; `specs.md` seeded from the prototype when no final Figma exists |
 | `/actian-ux-audit` | The findings table, the fixes applied, `specs.md` from the final frame and its check result |
 
-`intent.md` and `specs.md` are checked by `scripts/validation/check-handover.js` against the knowledge's templates. Until the knowledge ships those templates, the scripts print `template not vendored yet` and exit 2, and the skills hand over without the file and say so.
+`intent.md` and `specs.md` are checked by `scripts/validation/check-handover.js` against the knowledge's templates, vendored at `vendor/app-context/src/handover/`. If a template is missing there, the scripts print `template not vendored yet` and exit 2, and the skills hand over without the file and say so.
 
 ---
 

@@ -223,7 +223,7 @@ Routes to `/actian-ux-proposal`. It reads the ticket, then the knowledge on what
 
 ### Handover files: intent.md and specs.md
 
-`intent.md` (from the proposal) and `specs.md` (from the audit, or seeded by the prototype) are checked by `scripts/validation/check-handover.js` against the knowledge's templates. Until the knowledge ships those templates, the scripts print `template not vendored yet` and exit 2, and the skills hand over without the file and say so.
+`intent.md` (from the proposal) and `specs.md` (from the audit, or seeded by the prototype) are checked by `scripts/validation/check-handover.js` against the knowledge's templates, vendored at `vendor/app-context/src/handover/`. If a template is missing there, the scripts print `template not vendored yet` and exit 2, and the skills hand over without the file and say so.
 
 ### Design system sync — automatic
 

@@ -227,7 +227,7 @@ function main(argv) {
     return 2;
   }
   var PATHS = require(path.join(__dirname, "..", "lib", "paths.js"));
-  // Not in the paths manifest until the knowledge ships the templates (its C7).
+  // The knowledge's handover templates (its paths manifest: appContextHandover).
   var tpl = path.join(PATHS.vendor, "app-context", "src", "handover", kind + ".md");
   if (!fs.existsSync(tpl)) {
     process.stderr.write("template not vendored yet: " + tpl + "\n");
