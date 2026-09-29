@@ -39,7 +39,7 @@ title: "Table usage guidelines"
 
 | Do | Don't |
 | --- | --- |
-| Sort by last modified by default on catalog lists | Default to alphabetical when recency is what users seek |
+| Sort by last updated by default on catalog lists | Default to alphabetical when recency is what users seek |
 | Show the empty state with a create CTA when data is null | Leave a blank grid with no explanation |
 | Keep one cell type per column | Mix badges, prose, and numbers in the same column |
 | Add the selection column only when bulk actions exist | Show checkboxes that select nothing actionable |

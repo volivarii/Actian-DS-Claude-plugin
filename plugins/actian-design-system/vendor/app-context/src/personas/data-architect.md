@@ -11,4 +11,4 @@ sources:
 ---
 Designs how an organization's data is structured and related: the models, the relationships between concepts, and the standards other teams build on. A data architect cares about consistency across domains more than about any single dataset.
 
-In the product the architect works in Studio: governing and curating the catalog, managing lineage and the business glossary, and enriching metadata and designing catalog structure.
+In the product the architect works in Studio. What they do there is listed by Studio's use cases.

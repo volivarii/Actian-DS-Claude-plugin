@@ -11,4 +11,4 @@ sources:
 ---
 Turns data into answers: explores datasets, builds reports and dashboards, and checks whether figures can be trusted before sharing them. An analyst needs to know where data comes from, what its fields mean, and how complete and current it is.
 
-In the product the analyst works in Explorer: discovering and browsing data products in the marketplace, understanding an asset before using it, requesting access to the data a question needs, and asking AI for help finding and understanding data.
+In the product the analyst works in Explorer. What they do there is listed by Explorer's use cases.

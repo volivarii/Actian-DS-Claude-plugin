@@ -292,6 +292,106 @@ function disabledValue(values) {
   );
 }
 
+// The app chrome's cells come from each app's record, the one record of its
+// side navigation and header (app-context/src/apps/<app>.md, derived to
+// app-context/dist/app-context.json). The Figma variant value names the app;
+// this map joins it to the record. A variant whose app has no record, or an
+// app whose sidebar is empty (Explorer), gets no side-nav cell, and a missing
+// app-context dist yields [] so variantMatrix falls through to the generic
+// path rather than failing.
+var APP_OF_VARIANT = {
+  Studio: "studio",
+  Admin: "administration",
+  Explorer: "explorer",
+};
+function appRecords() {
+  var p = path.resolve(
+    __dirname,
+    "..",
+    "..",
+    "..",
+    "app-context",
+    "dist",
+    "app-context.json",
+  );
+  try {
+    return JSON.parse(fs.readFileSync(p, "utf8")).apps || {};
+  } catch (e) {
+    return {};
+  }
+}
+function axisValues(slug, axis) {
+  var comp = findComponent(slug);
+  var values = comp && comp.variants && comp.variants[axis];
+  return Array.isArray(values) ? values : [];
+}
+function navItemOf(s) {
+  var it = { label: s.label };
+  if (s.icon) it.icon = s.icon;
+  if (s.kind) it.kind = s.kind;
+  if (s.children && s.children.length) {
+    it.children = s.children.map(function (c) {
+      return { label: c.label };
+    });
+  }
+  return it;
+}
+// Consecutive items sharing a `group` form one group (a divider where it
+// changes); items with `position: bottom` form the rail's bottom block, in
+// order. Every group states its placement (`bottom: true` or `false`), so the
+// renderer never falls back to its legacy "last group goes to the bottom" rule
+// for a record that put nothing there.
+function navGroupsOf(sidebar) {
+  var top = [];
+  var bottom = [];
+  var lastGroup = null;
+  sidebar.forEach(function (s) {
+    if (s.position === "bottom") {
+      bottom.push(navItemOf(s));
+      return;
+    }
+    var g = s.group || "";
+    if (!top.length || g !== lastGroup) top.push({ bottom: false, items: [] });
+    lastGroup = g;
+    top[top.length - 1].items.push(navItemOf(s));
+  });
+  if (bottom.length) top.push({ bottom: true, items: bottom });
+  return top;
+}
+function sideNavCells() {
+  var apps = appRecords();
+  return axisValues("side-nav", "App")
+    .filter(function (v) {
+      var app = apps[APP_OF_VARIANT[v]];
+      return app && Array.isArray(app.sidebar) && app.sidebar.length;
+    })
+    .map(function (v) {
+      return {
+        label: v,
+        variant: "App=" + v,
+        props: {
+          Groups: JSON.stringify(navGroupsOf(apps[APP_OF_VARIANT[v]].sidebar)),
+        },
+      };
+    });
+}
+function headerCells() {
+  var apps = appRecords();
+  if (!Object.keys(apps).length) return [];
+  return axisValues("global-header", "App type").map(function (v) {
+    var h = (apps[APP_OF_VARIANT[v]] || {}).header || {};
+    var props = {};
+    if (h.context) {
+      props.Context = h.context.label;
+      props.ContextValue = h.context.value;
+    }
+    if (h.search && h.search.scope) props.SearchScope = h.search.scope;
+    if (h.search && h.search.placeholder)
+      props.SearchPlaceholder = h.search.placeholder;
+    return { label: v, variant: "App type=" + v, props: props };
+  });
+}
+
 // Per-slug curated matrices. Button is the flagship: its Intent x Emphasis
 // richness (including the Critical variants) reads better than a single-axis
 // registry derivation, so it is authored here rather than derived. Kept in the
@@ -560,9 +660,12 @@ var MATRIX_OVERRIDES = {
 
   // App is the identity axis (Explorer/Studio), but this leaf reads its own
   // Title/Type/Stage/Catalog/etc props, not Label -- the generic derivation
-  // would render an all-default card for each App value. Curate 2 cells
+  // would render an all-default card for each App value. Curate the cells
   // instead, mirroring card-for-items' only-Selected-shown convention: the
-  // faithful default (App=Explorer, State=Default) plus State=Selected.
+  // faithful default (App=Explorer, State=Default) plus State=Selected, then
+  // Studio's own card and its Selected (#722). The Studio cells carry the
+  // Figma specimen's values and every part App=Studio has, so the gallery
+  // shows each one.
   "search-result-card": [
     {
       label: "Default",
@@ -596,6 +699,38 @@ var MATRIX_OVERRIDES = {
         "Featured property 2": "Source Application: App 120",
         "Glossary initials": "VH",
         "Glossary label": "Vehicle",
+      },
+    },
+    {
+      label: "Studio",
+      variant: "App=Studio, State=Default",
+      props: {
+        Title: "Financial Summary EY2024",
+        "Tech name": "[Financial Summary EY2024]",
+        Type: "Dataset",
+        Completion: 75,
+        Connection: "Powerbi",
+        Description:
+          "A product is anything that can be offered to a market that might satisfy a want or need by potential customers.",
+        Properties: "Business Domain: IT, Source Application: App 120",
+        Suggestion: "1 Suggestion is pending",
+        "Last updated": "Dec 15, 2025",
+      },
+    },
+    {
+      label: "Studio selected",
+      variant: "App=Studio, State=Selected",
+      props: {
+        Title: "Financial Summary EY2024",
+        "Tech name": "[Financial Summary EY2024]",
+        Type: "Dataset",
+        Completion: 75,
+        Connection: "Powerbi",
+        Description:
+          "A product is anything that can be offered to a market that might satisfy a want or need by potential customers.",
+        Properties: "Business Domain: IT, Source Application: App 120",
+        Suggestion: "1 Suggestion is pending",
+        "Last updated": "Dec 15, 2025",
       },
     },
   ],
@@ -672,7 +807,9 @@ var MATRIX_OVERRIDES = {
 
   // App (Studio/Explorer) is the identity axis, but this leaf reads
   // Name/Type/Show Back, not Label -- curate both cells so the gallery
-  // shows the faithful Studio default plus the minimal Explorer accent.
+  // shows the faithful Studio default plus the minimal Explorer accent. Each
+  // cell's tabs are its app's own, from its recipe (studio-quick-edit-drawer,
+  // right-sliding-drawer), labels as the product prints them.
   drawer: [
     {
       label: "Studio",
@@ -681,6 +818,7 @@ var MATRIX_OVERRIDES = {
         Name: "Financial Summary EY2024",
         Type: "Dataset",
         Completion: 50,
+        Tabs: "General, Properties, People, Suggestions",
       },
     },
     {
@@ -690,6 +828,7 @@ var MATRIX_OVERRIDES = {
         Name: "Financial Summary EY2024",
         Type: "Dataset",
         Completion: 50,
+        Tabs: "Description, Fields 2, Properties 18, Contacts 6, Suggestions 1",
       },
     },
   ],
@@ -821,6 +960,9 @@ var MATRIX_OVERRIDES = {
     },
   ],
 };
+// Drawn from the app records (see appRecords above), not authored here.
+MATRIX_OVERRIDES["side-nav"] = sideNavCells();
+MATRIX_OVERRIDES["global-header"] = headerCells();
 
 // Specimen content for the gallery: per slug, the props every one of its matrix
 // cells should carry.
@@ -1126,4 +1268,5 @@ module.exports = {
   SPECIMEN_PROPS: SPECIMEN_PROPS,
   CSS_OWNERS: CSS_OWNERS,
   ownedPrefixes: ownedPrefixes,
+  navGroupsOf: navGroupsOf,
 };

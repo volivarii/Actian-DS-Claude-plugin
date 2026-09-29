@@ -229,10 +229,10 @@ describe("validateProposal (document)", function () {
     assert.deepEqual(only(withMutation(function (d) { d.decisions[0].options[0].screens[0].entity = "data-product"; }), "entity-unknown"), []);
   });
   it("terminology fires on a drawing's text and on a reason through the flow validator's own gate (check terminology)", function () {
-    var f = only(withMutation(function (d) { d.decisions[0].options[0].screen.html += "<div>scope of the change</div>"; }), "terminology");
+    var f = only(withMutation(function (d) { d.decisions[0].options[0].screen.html += "<div>every catalog object in the change</div>"; }), "terminology");
     assert.ok(f.length >= 1, "drawing: " + JSON.stringify(f));
     assert.strictEqual(f[0].screen, "a"); assert.strictEqual(f[0].path, "decisions[0].options[0].screen.html");
-    f = only(withMutation(function (d) { d.decisions[0].pick.reasons[0].text += " The scope grows."; }), "terminology");
+    f = only(withMutation(function (d) { d.decisions[0].pick.reasons[0].text += " The catalog object grows."; }), "terminology");
     assert.ok(f.length >= 1, "reason: " + JSON.stringify(f));
     assert.strictEqual(f[0].screen, ""); assert.strictEqual(f[0].path, "decisions[0].pick.reasons[0]");
   });
@@ -241,7 +241,7 @@ describe("validateProposal (document)", function () {
       d.decisions[0].options[0].id = "context";
       d.decisions[0].comparison.cells.context = d.decisions[0].comparison.cells.a;
       delete d.decisions[0].comparison.cells.a;
-      d.context.question += " The scope grows.";
+      d.context.question += " The catalog object grows.";
     }), "terminology"));
     assert.strictEqual(f.length, 1, JSON.stringify(f));
     assert.strictEqual(f[0].path, "context.question");
@@ -668,12 +668,12 @@ describe("validate-proposal.js CLI", function () {
 
     it("runs terminology over a decision's question, which is its heading", function () {
       var d = load();
-      d.decisions[0].question = "Which asset owner sees the workflow first?";
+      d.decisions[0].question = "Which catalog object does the curator open first?";
       var hits = validateProposal(d).findings.filter(function (f) {
         return f.check === "terminology" && f.path.indexOf("question") !== -1;
       });
       assert.strictEqual(hits.length, 1, 'the question reaches the gates, not just checkProse');
-      assert.strictEqual(hits[0].found, "owner");
+      assert.strictEqual(hits[0].found, "catalog object");
     });
 
     // The three P0s above are only worth having if the renderer really does die on them,
@@ -736,10 +736,10 @@ describe("the evaluation stage", function () {
 
   it("still gates a decision question's terminology at the evaluation stage", function () {
     var d = evaluation();
-    d.decisions[0].question = "Which asset owner sees the workflow first?";
+    d.decisions[0].question = "Which catalog object does the curator open first?";
     var hits = validateProposal(d).findings.filter(function (f) { return f.check === "terminology"; });
     assert.strictEqual(hits.length, 1);
-    assert.strictEqual(hits[0].found, "owner");
+    assert.strictEqual(hits[0].found, "catalog object");
   });
 
   it("a file with no stage is still read as a proposal", function () {
@@ -1007,9 +1007,9 @@ describe("the evaluation stage gates", function () {
 
     it("still prints the advice beside a found value, as it always did", function () {
       var d = evaluation();
-      d.decisions[0].question = "Which asset owner sees the workflow first?";
+      d.decisions[0].question = "Which catalog object does the curator open first?";
       var r = runOn(d);
-      assert.match(r.stdout, /found "owner", use "Curator"/);
+      assert.match(r.stdout, /found "catalog object", use "Item"/);
     });
   });
 

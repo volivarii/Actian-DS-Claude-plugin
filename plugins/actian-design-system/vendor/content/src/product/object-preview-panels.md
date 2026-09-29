@@ -32,6 +32,6 @@ Object preview panels display a summary of an asset's key attributes without req
 | Use           | Avoid                     |
 | ------------- | ------------------------- |
 | Owner         | Assigned owner            |
-| Last modified | Date of last modification |
+| Last updated | Date of last update |
 | Type          | Object type               |
 | Description   | Asset description         |

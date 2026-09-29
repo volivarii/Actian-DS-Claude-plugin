@@ -20,7 +20,7 @@
     "content": {
       "status": "approved",
       "owner": "content-team",
-      "markdown": "# Drawer, side panel\n\nThe drawer is a slide-in panel that appears from the right side of the screen to show additional details or actions related to a selected item. It allows users to quickly view or interact with content without leaving the current page. The drawer is flexible and can contain various types of content, such as metadata, details, or actions.\n\n***\n\n## When to use\n\n* When a user clicks an item tile in a list or catalog search result and wants a quick view of its properties.\n\n* To surface dependencies, properties, related assets, or linked catalog entries on an asset detail page.\n\n* To reduce context switching during browsing or review tasks.\n\nDo not use a drawer for confirmations or destructive actions; use a [modal](modal) instead.\n\n## Style\n\n* Panel title is the asset name. Use the exact name.\n\n* Use short attribute labels (one to two words) followed by their values.\n\n* Group related attributes under a subheading when the panel is long.\n\n* Include a link to the full details page at the top-right of the drawer.\n\n## Do / Don't\n\n| Do                         | Don't                         |\n| -------------------------- | ----------------------------- |\n| Owner                      | Assigned owner                |\n| Last modified              | Date of last modification     |\n| View full details          | Click here for more           |\n| Related datasets           | Other items                   |\n| No related datasets found. | (empty panel with no message) |\n| Used in 3 reports          | Reports: 3                    |",
+      "markdown": "# Drawer, side panel\n\nThe drawer is a slide-in panel that appears from the right side of the screen to show additional details or actions related to a selected item. It allows users to quickly view or interact with content without leaving the current page. The drawer is flexible and can contain various types of content, such as metadata, details, or actions.\n\n***\n\n## When to use\n\n* When a user clicks an item tile in a list or catalog search result and wants a quick view of its properties.\n\n* To surface dependencies, properties, related assets, or linked catalog entries on an asset detail page.\n\n* To reduce context switching during browsing or review tasks.\n\nDo not use a drawer for confirmations or destructive actions; use a [modal](modal) instead.\n\n## Style\n\n* Panel title is the asset name. Use the exact name.\n\n* Use short attribute labels (one to two words) followed by their values.\n\n* Group related attributes under a subheading when the panel is long.\n\n* Include a link to the full details page at the top-right of the drawer.\n\n## Do / Don't\n\n| Do                         | Don't                         |\n| -------------------------- | ----------------------------- |\n| Owner                      | Assigned owner                |\n| Last updated               | Date of last update           |\n| View full details          | Click here for more           |\n| Related datasets           | Other items                   |\n| No related datasets found. | (empty panel with no message) |\n| Used in 3 reports          | Reports: 3                    |",
       "sections": [
         {
           "heading": "",
@@ -66,8 +66,8 @@
               "dont": "Assigned owner"
             },
             {
-              "do": "Last modified",
-              "dont": "Date of last modification"
+              "do": "Last updated",
+              "dont": "Date of last update"
             },
             {
               "do": "View full details",
@@ -131,8 +131,8 @@
               "dont": "Assigned owner"
             },
             {
-              "do": "Last modified",
-              "dont": "Date of last modification"
+              "do": "Last updated",
+              "dont": "Date of last update"
             },
             {
               "do": "Type",
@@ -173,7 +173,7 @@
             {
               "bullets": [
                 "Panel heading describes the relationship type. For example, `Related datasets`, `Used in reports`.",
-                "Each item in the panel shows the asset name as a link, plus one or two metadata attributes (type, owner, or last modified).",
+                "Each item in the panel shows the asset name as a link, plus one or two metadata attributes (type, owner, or last updated).",
                 "If the panel is empty, show a brief empty state message. For example, `No related datasets found`."
               ]
             }
@@ -281,5 +281,5 @@
       "status": "not-started"
     }
   },
-  "updated_at": "2026-08-31T15:52:46+02:00"
+  "updated_at": "2026-09-29T21:22:36+02:00"
 }

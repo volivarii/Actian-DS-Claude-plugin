@@ -146,36 +146,84 @@
           "Data steward"
         ],
         "header": {
-          "type": "Studio"
+          "type": "Studio",
+          "context": {
+            "label": "Catalog",
+            "value": "Default"
+          },
+          "search": {
+            "scope": "Default",
+            "placeholder": "Search your items..."
+          },
+          "actions": [
+            "whats-new",
+            "notifications",
+            "app-switcher",
+            "avatar"
+          ]
         },
         "sidebar": [
           {
             "label": "Dashboard",
-            "id": "dashboard"
+            "id": "dashboard",
+            "icon": "dashboard",
+            "group": "main"
           },
           {
             "label": "Catalog",
-            "id": "catalog"
+            "id": "catalog",
+            "icon": "catalog",
+            "group": "main"
           },
           {
             "label": "Topics",
-            "id": "topics"
+            "id": "topics",
+            "icon": "book-bookmark",
+            "group": "main"
           },
           {
             "label": "Import",
-            "id": "import"
+            "id": "import",
+            "icon": "download",
+            "group": "create",
+            "children": [
+              {
+                "label": "Select a connection",
+                "id": "import-connection"
+              },
+              {
+                "label": "Select a file",
+                "id": "import-file"
+              }
+            ]
+          },
+          {
+            "label": "New Item",
+            "id": "new-item",
+            "icon": "add",
+            "group": "create",
+            "kind": "action"
           },
           {
             "label": "Access requests",
-            "id": "access-requests"
+            "id": "access-requests",
+            "icon": "data-access-request",
+            "group": "admin",
+            "position": "bottom"
           },
           {
             "label": "Catalog design",
-            "id": "catalog-design"
+            "id": "catalog-design",
+            "icon": "catalog-design",
+            "group": "admin",
+            "position": "bottom"
           },
           {
             "label": "Analytics",
-            "id": "analytics"
+            "id": "analytics",
+            "icon": "analytics",
+            "group": "admin",
+            "position": "bottom"
           }
         ],
         "signals": [
@@ -289,23 +337,35 @@
         "description": "Machine-to-machine auth with 5 scopes"
       },
       "catalog-object": {
-        "label": "Catalog Object",
+        "label": "Item",
         "properties": [
           "name",
           "description",
           {
-            "name": "type",
+            "name": "item type",
             "type": "enum",
-            "example": "Dataset, Visualization, Data Process, Custom Item, Glossary Item, Data Product"
+            "states": [
+              "Dataset",
+              "Field",
+              "Visualization",
+              "Data Process",
+              "Data Product",
+              "Glossary Item",
+              "Custom Item"
+            ]
           },
           {
-            "name": "documentation completion",
+            "name": "completion level",
             "type": "number",
             "example": "percentage (0–100) from 4 criteria: description, contact, glossary link, properties filled"
           },
-          "owner",
+          "curator",
           "contacts",
-          "last modified"
+          {
+            "name": "last updated",
+            "type": "date",
+            "example": "Last updated: Jan 31, 2025"
+          }
         ],
         "relationships": {
           "belongsTo": [
@@ -337,7 +397,7 @@
           "bulk-edit",
           "right-sliding-drawer"
         ],
-        "description": "Any indexed item. Types: Dataset, Field, Visualization, Data Process, Data Product, Glossary Item, Custom Item"
+        "description": "Any indexed item in a catalog. Its item type is one of Dataset, Field, Visualization, Data Process, Data Product, Glossary Item or Custom Item; a tenant defines its own custom item types (Studio's Catalog lists Application, Audit, Use Cases and others beside the built-in ones)."
       },
       "connection": {
         "label": "Connection",
@@ -480,13 +540,23 @@
           "name",
           "description",
           {
-            "name": "status",
+            "name": "sharing",
             "type": "enum",
             "states": [
-              "Draft",
-              "Published",
-              "Deprecated"
+              "Shared",
+              "Not shared"
             ]
+          },
+          {
+            "name": "lifecycle stage",
+            "type": "enum",
+            "states": [
+              "Not staged",
+              "Draft",
+              "In Review",
+              "Approved"
+            ],
+            "example": "configurable per tenant; these are the stages seen in Studio"
           },
           {
             "name": "input ports",
@@ -532,7 +602,7 @@
           "faceted-browse",
           "marketplace-browsing"
         ],
-        "description": "Curated, business-ready asset. Contains Input Ports and Output Ports. Published to the marketplace via an ODPS YAML descriptor; access requests target the output-port level (each governed by a data-contract)."
+        "description": "Curated, business-ready asset. Contains Input Ports and Output Ports. Shared to the marketplace (Share / Unshare; there is no Publish) and described by an ODPS YAML descriptor; its lifecycle stage is separate from sharing and configurable per tenant; access requests target the output-port level (each governed by a data-contract)."
       },
       "dataset": {
         "label": "Dataset",
@@ -558,7 +628,7 @@
             "example": "set when removed from the source connection"
           },
           {
-            "name": "documentation completion",
+            "name": "completion level",
             "type": "number",
             "example": "percentage (0–100)"
           }
@@ -583,7 +653,7 @@
           "discussion-threads",
           "data-profiling-sampling"
         ],
-        "description": "A dataset asset contained by a data product; a type of catalog object. Has a schema of Fields; becomes an orphan when removed from its source connection."
+        "description": "A dataset asset contained by a data product; a type of item. Has a schema of Fields; becomes an orphan when removed from its source connection."
       },
       "discussion-thread": {
         "label": "Discussion Thread",
@@ -755,7 +825,7 @@
           "studio",
           "explorer"
         ],
-        "description": "Metadata attached to a catalog object — descriptive, technical, and business attributes."
+        "description": "Metadata attached to an item — descriptive, technical, and business attributes."
       },
       "observability-signal": {
         "label": "Observability Signal",
@@ -785,7 +855,7 @@
         "apps": [
           "studio"
         ],
-        "description": "An output port of a data product — a published interface that a data contract can attach to."
+        "description": "An output port of a data product — a shared interface that a data contract can attach to."
       },
       "property": {
         "label": "Property",
@@ -883,7 +953,7 @@
           "smart-suggestions",
           "suggestion-workflow"
         ],
-        "description": "A suggested enrichment or change on a catalog object, pending steward review."
+        "description": "A suggested enrichment or change on an item, pending steward review."
       },
       "template": {
         "label": "Template",
@@ -1061,27 +1131,24 @@
         ]
       },
       "catalog-object": {
-        "use": "Catalog object",
-        "meaning": "Any indexed data asset",
+        "use": "Item",
+        "meaning": "Any indexed data asset in a catalog (dataset, field, visualization, data process, data product, glossary item, and custom item types)",
         "notUse": [
-          "item",
           "record",
-          "entry"
+          "entry",
+          "catalog object"
         ]
       },
       "data-product": {
         "use": "Data product",
-        "meaning": "Curated published asset",
-        "notUse": [
-          "dataset"
-        ]
+        "meaning": "Curated asset shared to the marketplace. Not a dataset, which is its own item type",
+        "notUse": []
       },
       "data-contract": {
         "use": "Data contract",
-        "meaning": "Quality/access agreement",
+        "meaning": "Quality/access agreement. Not a policy, which the product uses for access request and governance policies",
         "notUse": [
-          "SLA",
-          "policy"
+          "SLA"
         ]
       },
       "governance-by-design": {
@@ -1128,25 +1195,22 @@
       },
       "topic": {
         "use": "Topic",
-        "meaning": "Curated, filtered collection of catalog items for Explorer",
+        "meaning": "Curated, filtered collection of catalog items for Explorer. Not a category, which the product uses for glossary item types",
         "notUse": [
-          "folder",
-          "category"
+          "folder"
         ]
       },
       "connection": {
         "use": "Connection",
-        "meaning": "Configured data source connector",
-        "notUse": [
-          "integration"
-        ]
+        "meaning": "Configured data source connector. Not an integration",
+        "notUse": []
       },
       "completion-level": {
         "use": "Completion level",
-        "meaning": "Percentage of metadata filled for an item",
+        "meaning": "Percentage of metadata filled for an item. Not progress",
         "notUse": [
-          "progress",
-          "completeness"
+          "completeness",
+          "documentation completion"
         ]
       },
       "suggestion": {
@@ -1156,20 +1220,22 @@
           "recommendation"
         ]
       },
+      "last-updated": {
+        "use": "Last updated",
+        "meaning": "When an item last changed, as a search result shows it",
+        "notUse": [
+          "last modified"
+        ]
+      },
       "curator": {
         "use": "Curator",
-        "meaning": "Person responsible for curating a catalog item",
-        "notUse": [
-          "owner"
-        ]
+        "meaning": "Person responsible for curating a catalog item. Not an owner, which the product uses for the Data Owner responsibility role",
+        "notUse": []
       },
       "output-port": {
         "use": "Output port",
-        "meaning": "Published endpoint/view of a data product",
-        "notUse": [
-          "API",
-          "export"
-        ]
+        "meaning": "Shared endpoint/view of a data product. Not an API or an export, which the product uses for API keys and for exporting a selection",
+        "notUse": []
       },
       "view-360": {
         "use": "View 360",
@@ -1187,10 +1253,8 @@
       },
       "perimeter": {
         "use": "Perimeter",
-        "meaning": "Scope of a curator's item responsibility",
-        "notUse": [
-          "scope"
-        ]
+        "meaning": "Extent of a curator's item responsibility. Not a scope, which the product uses for an API key's permissions",
+        "notUse": []
       },
       "scanner": {
         "use": "Scanner",
@@ -1202,11 +1266,8 @@
       },
       "metamodel": {
         "use": "Metamodel",
-        "meaning": "System structure/template configuration",
-        "notUse": [
-          "schema",
-          "model"
-        ]
+        "meaning": "System structure/template configuration. Not a schema or a model, which the product uses for a data contract's schema and the data model",
+        "notUse": []
       },
       "pii": {
         "use": "PII",
@@ -1247,11 +1308,8 @@
       },
       "input-port": {
         "use": "Input Port",
-        "meaning": "Interface for receiving upstream data into a data product",
-        "notUse": [
-          "input",
-          "source"
-        ]
+        "meaning": "Interface for receiving upstream data into a data product. Not an input or a source, which the product uses for form inputs and a source's description",
+        "notUse": []
       },
       "federated-catalog": {
         "use": "Federated Catalog",
@@ -1410,7 +1468,7 @@
           "properties",
           "stewardship"
         ],
-        "when": "Use for one catalog object with more peer facets than a screen can hold. Do not use faceted-browse, which composes a collection. Do not use search-filtered-table for the whole page: that shape is real here but it is the content of one tab, not the page.",
+        "when": "Use for one item with more peer facets than a screen can hold. Do not use faceted-browse, which composes a collection. Do not use search-filtered-table for the whole page: that shape is real here but it is the content of one tab, not the page.",
         "components": [
           "tabs",
           "page-header",
@@ -1429,7 +1487,7 @@
           "text-area",
           "calendar"
         ],
-        "description": "The page every catalog object opens into. A full-width identity header carries the type and sharing tags, the object name, a status control and an Actions menu, over three metadata lines: technical name, a catalog/category/connection path whose parts are links, and a last-updated date. Below it a tab bar spans the object's facets (General, Fields, Sample Data, Data Quality, Lineage, View 360, Data Model, Activity, Discussions), some carrying a count, any of which is disabled when the source supplies nothing for it. Opposite the tabs sit two avatar stacks, curators and contacts, which summarise the People panel further down.\n\nThe body is two columns that scroll independently of each other and of the header. The left column holds the authored narrative: an access-request policy select, a glossary multi-select of removable chips, a description block with a rich-text switch and a use-source checkbox, and a relations section that is empty more often than not. The right column holds a completion meter over a second tab set (Properties, People, Suggestions), and that panel is the densest form in the product: label-and-control pairs mixing selects, multi-selects, plain values, date inputs with a format caption, and unset properties that read \"No data has been registered.\", closing with a read-only source-properties definition list. People is two role sections with an add action and a grid of avatar, name and remove. Suggestions is a four-way segmented control over cards that each carry an author, a relative time, a status, a comment box and an accept/reject pair.\n\nThe defining trait is two independent tab levels over one object, with columns that scroll separately while the header and tab bar stay put. That is what separates it from every list shape here.\n\nDistinct from `faceted-browse`, which composes a collection rather than one object, and from `search-filtered-table`, which is real on this page but is the content of a single tab (Fields) rather than the page itself. Choose this pattern whenever one object has more peer facets than a screen can hold."
+        "description": "The page every item opens into. A full-width identity header carries the type and sharing tags, the object name, a status control and an Actions menu, over three metadata lines: technical name, a catalog/category/connection path whose parts are links, and a last-updated date. Below it a tab bar spans the object's facets (General, Fields, Sample Data, Data Quality, Lineage, View 360, Data Model, Activity, Discussions), some carrying a count, any of which is disabled when the source supplies nothing for it. Opposite the tabs sit two avatar stacks, curators and contacts, which summarise the People panel further down.\n\nThe body is two columns that scroll independently of each other and of the header. The left column holds the authored narrative: an access-request policy select, a glossary multi-select of removable chips, a description block with a rich-text switch and a use-source checkbox, and a relations section that is empty more often than not. The right column holds a completion meter over a second tab set (Properties, People, Suggestions), and that panel is the densest form in the product: label-and-control pairs mixing selects, multi-selects, plain values, date inputs with a format caption, and unset properties that read \"No data has been registered.\", closing with a read-only source-properties definition list. People is two role sections with an add action and a grid of avatar, name and remove. Suggestions is a four-way segmented control over cards that each carry an author, a relative time, a status, a comment box and an accept/reject pair.\n\nThe defining trait is two independent tab levels over one object, with columns that scroll separately while the header and tab bar stay put. That is what separates it from every list shape here.\n\nDistinct from `faceted-browse`, which composes a collection rather than one object, and from `search-filtered-table`, which is real on this page but is the content of a single tab (Fields) rather than the page itself. Choose this pattern whenever one object has more peer facets than a screen can hold."
       },
       "bulk-edit": {
         "label": "Bulk Edit",
@@ -1510,7 +1568,7 @@
         "description": "Available on Dataset detail pages. Users create threads, reply, edit own messages."
       },
       "documentation-completion-dashboard": {
-        "label": "Documentation Completion Dashboard",
+        "label": "Completion Level Dashboard",
         "apps": [
           "studio"
         ],
@@ -1525,7 +1583,7 @@
           "progress-bar-small",
           "table"
         ],
-        "description": "Stewardship dashboard of per-item documentation-completion percentages and the criteria contributing to each score.\n\nThe card this screen shows was recorded as `card-for-items`, which Figma retired in the 2026-08-24 sync (#526). The reference is removed rather than repointed: `card-for-perimeter`, `card-for-grouped-content`, `search-result-card` and `radio-card` all survive, and choosing between them is a fact about the running product that nobody has checked for this screen. The two earlier corrections to this same slug (`analytics-dashboard`, `type-picker-grid`) were both made by looking at the product and both found a different component, so guessing here would be the third such error rather than the first.\n\nIt is not repointed at the new `card` either. That component is a blank container with a content slot, carries `status: in-progress`, and is a styling basis rather than something a screen composes as-is. `components` means what this pattern COMPOSES, so naming it there would assert something false. The basis relationship is already recorded where it belongs, between components: the family shares `group: \"Card\"` in the registry, and `registryAliases` routes `card-for-perimeter` and `card-for-grouped-content` to the `card` guideline doc."
+        "description": "Stewardship dashboard of per-item completion levels and the criteria contributing to each score.\n\nThe card this screen shows was recorded as `card-for-items`, which Figma retired in the 2026-08-24 sync (#526). The reference is removed rather than repointed: `card-for-perimeter`, `card-for-grouped-content`, `search-result-card` and `radio-card` all survive, and choosing between them is a fact about the running product that nobody has checked for this screen. The two earlier corrections to this same slug (`analytics-dashboard`, `type-picker-grid`) were both made by looking at the product and both found a different component, so guessing here would be the third such error rather than the first.\n\nIt is not repointed at the new `card` either. That component is a blank container with a content slot, carries `status: in-progress`, and is a styling basis rather than something a screen composes as-is. `components` means what this pattern COMPOSES, so naming it there would assert something false. The basis relationship is already recorded where it belongs, between components: the family shares `group: \"Card\"` in the registry, and `registryAliases` routes `card-for-perimeter` and `card-for-grouped-content` to the `card` guideline doc."
       },
       "faceted-browse": {
         "label": "Faceted browse",
@@ -1914,7 +1972,7 @@
           "app-context/src/apps/administration.md",
           "General role definition, not Actian user research"
         ],
-        "description": "Configures and operates the platform for everyone else: users and groups, sign-in and permissions, connections, scanners and system settings. An administrator is responsible for the product being available, secure and correctly set up, rather than for what the catalog contains. Also referred to as IT operations.\n\nIn the product the administrator works in Administration: configuring connections and scanners, managing users, groups and permissions, and setting governance policies and maintenance windows.",
+        "description": "Configures and operates the platform for everyone else: users and groups, sign-in and permissions, connections, scanners and system settings. An administrator is responsible for the product being available, secure and correctly set up, rather than for what the catalog contains. Also referred to as IT operations.\n\nIn the product the administrator works in Administration. What they do there is listed by Administration's use cases.",
         "useCases": [
           {
             "app": "administration",
@@ -1940,7 +1998,7 @@
           "app-context/src/apps/explorer.md",
           "General role definition, not Actian user research"
         ],
-        "description": "Turns data into answers: explores datasets, builds reports and dashboards, and checks whether figures can be trusted before sharing them. An analyst needs to know where data comes from, what its fields mean, and how complete and current it is.\n\nIn the product the analyst works in Explorer: discovering and browsing data products in the marketplace, understanding an asset before using it, requesting access to the data a question needs, and asking AI for help finding and understanding data.",
+        "description": "Turns data into answers: explores datasets, builds reports and dashboards, and checks whether figures can be trusted before sharing them. An analyst needs to know where data comes from, what its fields mean, and how complete and current it is.\n\nIn the product the analyst works in Explorer. What they do there is listed by Explorer's use cases.",
         "useCases": [
           {
             "app": "explorer",
@@ -1968,7 +2026,7 @@
           "app-context/src/apps/explorer.md",
           "General role definition, not Actian user research"
         ],
-        "description": "Someone whose work depends on data but whose job is not data itself, such as a marketing lead, a finance controller or an operations manager. A business user wants to find data they can trust, understand what it means in business terms, and get access to it without needing to know how it is produced. Also referred to as a data consumer.\n\nIn the product the business user works in Explorer: discovering and browsing data products in the marketplace, understanding an asset before using it, requesting access to the data they need, and asking AI for help finding and understanding data.",
+        "description": "Someone whose work depends on data but whose job is not data itself, such as a marketing lead, a finance controller or an operations manager. A business user wants to find data they can trust, understand what it means in business terms, and get access to it without needing to know how it is produced. Also referred to as a data consumer.\n\nIn the product the business user works in Explorer. What they do there is listed by Explorer's use cases.",
         "useCases": [
           {
             "app": "explorer",
@@ -1996,7 +2054,7 @@
           "app-context/src/apps/studio.md",
           "General role definition, not Actian user research"
         ],
-        "description": "Designs how an organization's data is structured and related: the models, the relationships between concepts, and the standards other teams build on. A data architect cares about consistency across domains more than about any single dataset.\n\nIn the product the architect works in Studio: governing and curating the catalog, managing lineage and the business glossary, and enriching metadata and designing catalog structure.",
+        "description": "Designs how an organization's data is structured and related: the models, the relationships between concepts, and the standards other teams build on. A data architect cares about consistency across domains more than about any single dataset.\n\nIn the product the architect works in Studio. What they do there is listed by Studio's use cases.",
         "useCases": [
           {
             "app": "studio",
@@ -2022,7 +2080,7 @@
           "app-context/src/apps/studio.md",
           "General role definition, not Actian user research"
         ],
-        "description": "Builds and runs the systems that move and prepare data: connections to sources, ingestion and transformation pipelines, and the technical metadata those systems produce. A data engineer is responsible for data arriving reliably and in the expected shape.\n\nIn the product the engineer works in Studio: importing and connecting data sources, reviewing and resolving access requests, and tracking stewardship activity.",
+        "description": "Builds and runs the systems that move and prepare data: connections to sources, ingestion and transformation pipelines, and the technical metadata those systems produce. A data engineer is responsible for data arriving reliably and in the expected shape.\n\nIn the product the engineer works in Studio. What they do there is listed by Studio's use cases.",
         "useCases": [
           {
             "app": "studio",
@@ -2050,7 +2108,7 @@
           "app-context/src/entities/user-group.md",
           "General role definition, not Actian user research"
         ],
-        "description": "Looks after the quality, meaning and correct use of an organization's data. A data steward documents assets, keeps definitions and the business glossary consistent, names the people responsible for each item, and weighs who should be allowed to use what.\n\nIn the product the steward works in Studio: governing and curating the catalog, managing lineage and the business glossary, enriching metadata and designing catalog structure, importing and connecting data sources, reviewing and resolving access requests, and tracking stewardship activity.",
+        "description": "Looks after the quality, meaning and correct use of an organization's data. A data steward documents assets, keeps definitions and the business glossary consistent, names the people responsible for each item, and weighs who should be allowed to use what.\n\nIn the product the steward works in Studio. What they do there is listed by Studio's use cases.",
         "useCases": [
           {
             "app": "studio",

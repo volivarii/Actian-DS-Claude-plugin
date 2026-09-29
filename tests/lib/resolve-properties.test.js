@@ -39,13 +39,17 @@ describe("resolve-properties (resolver core)", function () {
 
   it("preserves the typed shape (enum + states) carried forward for S3c", function () {
     var props = resolver.resolveProperties("data-product");
-    var status = props.filter(function (p) {
-      return p.name === "status";
+    var stage = props.filter(function (p) {
+      return p.name === "lifecycle stage";
     })[0];
-    assert.ok(status, "status property expected");
-    assert.strictEqual(status.type, "enum");
-    assert.deepStrictEqual(status.states, ["Draft", "Published", "Deprecated"]);
-    assert.strictEqual(status.label, "Status");
+    assert.ok(stage, "lifecycle stage property expected");
+    assert.strictEqual(stage.type, "enum");
+    assert.deepStrictEqual(stage.states, ["Not staged", "Draft", "In Review", "Approved"]);
+    assert.strictEqual(stage.label, "Lifecycle stage");
+    assert.strictEqual(
+      stage.example,
+      "configurable per tenant; these are the stages seen in Studio",
+    );
   });
 
   it("humanizeName splits camelCase and sentence-cases", function () {

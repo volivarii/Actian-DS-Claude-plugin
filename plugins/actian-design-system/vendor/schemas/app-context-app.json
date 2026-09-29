@@ -32,16 +32,57 @@
           "minLength": 1,
           "description": "Header variant; matches a DS global-header App type. Open by design so new apps can declare their own header.",
           "examples": ["Studio", "Explorer", "Admin", "Observability"]
+        },
+        "context": {
+          "type": "object",
+          "required": ["label", "value"],
+          "additionalProperties": false,
+          "description": "The context switcher left of the search, as the product shows it.",
+          "examples": [{ "label": "Catalog", "value": "Default" }],
+          "properties": {
+            "label": { "type": "string", "description": "The switcher's caption.", "examples": ["Catalog"] },
+            "value": { "type": "string", "description": "The switcher's current value.", "examples": ["Default"] }
+          }
+        },
+        "search": {
+          "type": "object",
+          "additionalProperties": false,
+          "description": "The header search: the scope dropdown's value and the field's placeholder.",
+          "examples": [
+            { "scope": "Default", "placeholder": "Search your items..." }
+          ],
+          "properties": {
+            "scope": { "type": "string", "description": "The scope dropdown's value.", "examples": ["Default"] },
+            "placeholder": { "type": "string", "description": "The search field's placeholder, exactly as shown.", "examples": ["Search your items..."] }
+          }
+        },
+        "actions": {
+          "type": "array",
+          "description": "Header actions, left to right.",
+          "examples": [
+            ["whats-new", "notifications", "app-switcher", "avatar"]
+          ],
+          "items": { "type": "string", "pattern": "^[a-z0-9-]+$" }
         }
       }
     },
     "sidebar": {
       "type": "array",
-      "description": "Ordered list of primary navigation items shown in the app sidebar.",
+      "description": "Ordered list of primary navigation items shown in the app sidebar. The one record of the app's side navigation: consecutive items sharing a group are drawn together with a divider where it changes, items with position bottom are drawn together in the rail's bottom block, in order.",
       "examples": [
         [
-          { "label": "Pipelines", "id": "pipelines" },
-          { "label": "Connections", "id": "connections" }
+          {
+            "label": "Dashboard",
+            "id": "dashboard",
+            "icon": "dashboard",
+            "group": "main"
+          },
+          {
+            "label": "Catalog",
+            "id": "catalog",
+            "icon": "catalog",
+            "group": "main"
+          }
         ]
       ],
       "items": {
@@ -51,13 +92,46 @@
         "properties": {
           "label": {
             "type": "string",
-            "description": "Display text for the sidebar navigation item.",
-            "examples": ["Pipelines", "Connections", "Settings"]
+            "description": "Display text for the navigation item, as the product shows it.",
+            "examples": ["Catalog", "Access requests"]
           },
           "id": {
             "type": "string",
-            "description": "Stable identifier for the sidebar item; used for deep-linking and analytics.",
-            "examples": ["pipelines", "connections", "settings"]
+            "description": "Stable identifier for the item.",
+            "examples": ["catalog", "access-requests"]
+          },
+          "icon": {
+            "type": "string",
+            "pattern": "^[a-z0-9-]+$",
+            "description": "Icon slug in components/dist/icons/icons.json. Omit when no source names the icon.",
+            "examples": ["catalog"]
+          },
+          "group": {
+            "type": "string",
+            "description": "Consecutive items with the same group are drawn together; a divider where it changes.",
+            "examples": ["main"]
+          },
+          "position": {
+            "enum": ["bottom"],
+            "description": "Drawn in the rail's bottom-anchored block, in order."
+          },
+          "kind": {
+            "enum": ["link", "action"],
+            "description": "link (default) or action, such as New Item."
+          },
+          "children": {
+            "type": "array",
+            "description": "Sub-items drawn under the item. No nesting below them.",
+            "examples": [[{ "label": "Select a file", "id": "import-file" }]],
+            "items": {
+              "type": "object",
+              "required": ["label", "id"],
+              "additionalProperties": false,
+              "properties": {
+                "label": { "type": "string", "description": "Display text for the sub-item.", "examples": ["Select a file"] },
+                "id": { "type": "string", "description": "Stable identifier for the sub-item.", "examples": ["import-file"] }
+              }
+            }
           }
         }
       }

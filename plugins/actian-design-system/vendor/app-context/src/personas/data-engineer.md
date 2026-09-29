@@ -11,4 +11,4 @@ sources:
 ---
 Builds and runs the systems that move and prepare data: connections to sources, ingestion and transformation pipelines, and the technical metadata those systems produce. A data engineer is responsible for data arriving reliably and in the expected shape.
 
-In the product the engineer works in Studio: importing and connecting data sources, reviewing and resolving access requests, and tracking stewardship activity.
+In the product the engineer works in Studio. What they do there is listed by Studio's use cases.

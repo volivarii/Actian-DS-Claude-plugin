@@ -45,13 +45,13 @@
     "item-type-tag reads props[\"Show counter\"] || props[\"Show Counter\"] (registry kept both spellings across the glossary/catalog fold-in); either one true shows the counter badge, and both default false, so the registry default is off, not on.",
     "checkbox, toggle and dropdown-select-default render no label element at all when Label is the empty string (Task 1.2), which is how a facet row's own TEXT sibling stays the only visible label.",
     "The results-header/bulk-bar leaves (button, checkbox) are authored in ../sections/control-bar.json, spliced in here as the SECTION node above; its own renderNotes carry their deviations.",
-    "search-result-card has no completion or sharing prop (Body, Catalog, Description, Featured property 1/2, Glossary initials/label, Stage, Tech name, Title, Type only). The completion meter is a sibling progress-bar-small (own Percent text, no separate TEXT, per the doubled-percent rule above); the Shared indicator is a sibling read-only-tag Type=Shared. read-only-tag's Type=Shared paints #cbe3ff (ds-base.css .ds-tag--shared), a light blue, not a literally dark fill; it is the leaf whose Type axis names Shared, and the closest built equivalent to the capture's dark filled fmTag.",
-    "search-result-card's own Type text renders inside a single always-colored eyebrow pill (.ds-search-result-card__type, background var(--zen-color-error-50)); the fill does not change with the Type value, only the text does.",
-    "All six results render a Shared tag; the recipe does not model a non-shared result, matching every sample row in the capture. The marker is a sibling read-only-tag placed BEFORE the search-result-card instance, not inside it: the leaf has no shared prop and no slot for one, so it sits to the left of the whole card rather than in the title row the way the product's own Shared indicator does. A leaf-level shared marker (a real prop or slot on search-result-card) is a follow-up, not done here.",
+    "Each result is ONE search-result-card at App=Studio (#722): the card itself draws the selection checkbox, the item type tag, the Shared tag, the title and technical name, the completion bar with its percentage, the Connection line, the description (\"No summary available\" when it is empty), and Last updated, inside one flat row closed by its own bottom rule. So no sibling read-only-tag, no sibling progress-bar-small, and no DIVIDER between results.",
+    "The Studio card's type tag is the item-type-tag markup (.ds-item-type-tag--<type>): a type with a rule of its own (Dataset, Data process, Data product, ...) takes its colour, and a tenant's custom type renders as the base tag.",
+    "All six results render the Shared tag (search-result-card's Shared prop defaults true), matching every sample row in the capture; the recipe does not model a non-shared result, which would pass Shared: false.",
     "derivedFrom.screenshot is a 2026-03-30 product capture of Studio > Catalog on the dev tenant (1583x1100), not the 2026-08-18 capture derivedFrom.capturedOn names: the original 08-18 screenshot was not retained on disk, and this is the closest real capture of the same surface, not the Figma frame (the design, not the product).",
     "No DS-tier slider exists (checked ds-components-authoring.md's vocabulary table): the range facet keeps fmSlider, unreplaced, same as the pre-2.2 capture.",
-    "Review round 1 (Critical): search-result-card's Stage pill and glossary badge painted unconditional fallback text (\"Stage\", \"VH\", \"Vehicle\") even when the props were omitted, the same defect Task 1.2 fixed for Label elsewhere. Fixed in ds-html-map.js: no Stage prop draws no stage pill at all; no Glossary initials AND no Glossary label draws no glossary badge at all. This recipe's six cards set Stage, Glossary initials and Glossary label to \"\" because the captured product page names neither a lifecycle stage nor a glossary relationship for these six sample rows; a future capture that has real values for either should set them instead of leaving them empty.",
-    "Every {{...}} placeholder this recipe's own skeleton carries (71 keys), grouped so a future author can check coverage without grepping: facets -- {{facet1_count}}, {{facet1_initials}}, {{facet1_label}}, {{facet2_count}}, {{facet2_initials}}, {{facet2_label}}, {{facet3_count}}, {{facet3_initials}}, {{facet3_label}}, {{facet4_count}}, {{facet4_initials}}, {{facet4_label}}, {{facet5_count}}, {{facet5_initials}}, {{facet5_label}}, {{facet6_count}}, {{facet6_initials}}, {{facet6_label}}, {{facet_overflow}}, {{range_facet_label}}, {{select1_label}}, {{select2_label}}, {{select3_label}}, {{toggle_facet_label}}, {{toggle_label}}; results -- {{result_count}}, {{result_1_completion}}, {{result_1_connection}}, {{result_1_description}}, {{result_1_tech}}, {{result_1_title}}, {{result_1_type}}, {{result_1_updated}}, {{result_2_completion}}, {{result_2_connection}}, {{result_2_description}}, {{result_2_tech}}, {{result_2_title}}, {{result_2_type}}, {{result_2_updated}}, {{result_3_completion}}, {{result_3_connection}}, {{result_3_description}}, {{result_3_tech}}, {{result_3_title}}, {{result_3_type}}, {{result_3_updated}}, {{result_4_completion}}, {{result_4_connection}}, {{result_4_description}}, {{result_4_tech}}, {{result_4_title}}, {{result_4_type}}, {{result_4_updated}}, {{result_5_completion}}, {{result_5_connection}}, {{result_5_description}}, {{result_5_tech}}, {{result_5_title}}, {{result_5_type}}, {{result_5_updated}}, {{result_6_completion}}, {{result_6_connection}}, {{result_6_description}}, {{result_6_tech}}, {{result_6_title}}, {{result_6_type}}, {{result_6_updated}}; header -- {{app}}; pagination -- {{page_count}}; catalog -- {{catalog}}. The spliced-in ../sections/control-bar.json carries two more of its own ({{result_count}} again, plus {{sort_label}}), inventoried in its own renderNotes."
+    "The stage pill and the glossary badge are Explorer card parts; the Studio card draws neither, so these cards pass no Stage and no Glossary props. Every optional part of the card draws nothing when its prop is absent.",
+    "Every {{...}} placeholder this recipe's own skeleton carries (70 keys), grouped so a future author can check coverage without grepping: facets -- {{facet1_count}}, {{facet1_initials}}, {{facet1_label}}, {{facet2_count}}, {{facet2_initials}}, {{facet2_label}}, {{facet3_count}}, {{facet3_initials}}, {{facet3_label}}, {{facet4_count}}, {{facet4_initials}}, {{facet4_label}}, {{facet5_count}}, {{facet5_initials}}, {{facet5_label}}, {{facet6_count}}, {{facet6_initials}}, {{facet6_label}}, {{facet_overflow}}, {{range_facet_label}}, {{select1_label}}, {{select2_label}}, {{select3_label}}, {{toggle_facet_label}}, {{toggle_label}}; results -- {{result_count}}, {{result_1_completion}}, {{result_1_connection}}, {{result_1_description}}, {{result_1_tech}}, {{result_1_title}}, {{result_1_type}}, {{result_1_updated}}, {{result_2_completion}}, {{result_2_connection}}, {{result_2_description}}, {{result_2_tech}}, {{result_2_title}}, {{result_2_type}}, {{result_2_updated}}, {{result_3_completion}}, {{result_3_connection}}, {{result_3_description}}, {{result_3_tech}}, {{result_3_title}}, {{result_3_type}}, {{result_3_updated}}, {{result_4_completion}}, {{result_4_connection}}, {{result_4_description}}, {{result_4_tech}}, {{result_4_title}}, {{result_4_type}}, {{result_4_updated}}, {{result_5_completion}}, {{result_5_connection}}, {{result_5_description}}, {{result_5_tech}}, {{result_5_title}}, {{result_5_type}}, {{result_5_updated}}, {{result_6_completion}}, {{result_6_connection}}, {{result_6_description}}, {{result_6_tech}}, {{result_6_title}}, {{result_6_type}}, {{result_6_updated}}; header -- {{app}}; pagination -- {{page_count}}. The spliced-in ../sections/control-bar.json carries two more of its own ({{result_count}} again, plus {{sort_label}}), inventoried in its own renderNotes."
   ],
   "skeleton": {
     "chrome": "standard",
@@ -928,26 +928,9 @@
                 "name": "Result 1",
                 "layout": {
                   "mode": "HORIZONTAL",
-                  "spacing": 12,
-                  "padding": [
-                    12,
-                    0,
-                    12,
-                    0
-                  ],
-                  "counterAxisAlignItems": "MIN"
+                  "spacing": 0
                 },
                 "children": [
-                  {
-                    "type": "INSTANCE",
-                    "library": "ds",
-                    "dsSlug": "read-only-tag",
-                    "variant": "Type=Shared",
-                    "props": {
-                      "Label": "Shared",
-                      "Leading icon show": false
-                    }
-                  },
                   {
                     "type": "INSTANCE",
                     "library": "ds",
@@ -957,71 +940,26 @@
                       "Type": "{{result_1_type}}",
                       "Title": "{{result_1_title}}",
                       "Tech name": "[{{result_1_tech}}]",
-                      "Catalog": "{{catalog}}",
+                      "Completion": "{{result_1_completion}}",
+                      "Connection": "{{result_1_connection}}",
                       "Description": "{{result_1_description}}",
-                      "Featured property 1": "Connection: {{result_1_connection}}",
-                      "Featured property 2": "Last updated: {{result_1_updated}}",
-                      "Stage": "",
-                      "Glossary initials": "",
-                      "Glossary label": ""
+                      "Last updated": "{{result_1_updated}}"
                     },
                     "sizing": {
                       "horizontal": "FILL",
                       "vertical": "HUG"
                     }
-                  },
-                  {
-                    "type": "FRAME",
-                    "name": "Meter",
-                    "layout": {
-                      "mode": "HORIZONTAL",
-                      "spacing": 0
-                    },
-                    "sizing": {
-                      "horizontal": 96,
-                      "vertical": "HUG"
-                    },
-                    "children": [
-                      {
-                        "type": "INSTANCE",
-                        "library": "ds",
-                        "dsSlug": "progress-bar-small",
-                        "props": {
-                          "Percent": "{{result_1_completion}}"
-                        }
-                      }
-                    ]
                   }
                 ]
-              },
-              {
-                "type": "DIVIDER"
               },
               {
                 "type": "FRAME",
                 "name": "Result 2",
                 "layout": {
                   "mode": "HORIZONTAL",
-                  "spacing": 12,
-                  "padding": [
-                    12,
-                    0,
-                    12,
-                    0
-                  ],
-                  "counterAxisAlignItems": "MIN"
+                  "spacing": 0
                 },
                 "children": [
-                  {
-                    "type": "INSTANCE",
-                    "library": "ds",
-                    "dsSlug": "read-only-tag",
-                    "variant": "Type=Shared",
-                    "props": {
-                      "Label": "Shared",
-                      "Leading icon show": false
-                    }
-                  },
                   {
                     "type": "INSTANCE",
                     "library": "ds",
@@ -1031,71 +969,26 @@
                       "Type": "{{result_2_type}}",
                       "Title": "{{result_2_title}}",
                       "Tech name": "[{{result_2_tech}}]",
-                      "Catalog": "{{catalog}}",
+                      "Completion": "{{result_2_completion}}",
+                      "Connection": "{{result_2_connection}}",
                       "Description": "{{result_2_description}}",
-                      "Featured property 1": "Connection: {{result_2_connection}}",
-                      "Featured property 2": "Last updated: {{result_2_updated}}",
-                      "Stage": "",
-                      "Glossary initials": "",
-                      "Glossary label": ""
+                      "Last updated": "{{result_2_updated}}"
                     },
                     "sizing": {
                       "horizontal": "FILL",
                       "vertical": "HUG"
                     }
-                  },
-                  {
-                    "type": "FRAME",
-                    "name": "Meter",
-                    "layout": {
-                      "mode": "HORIZONTAL",
-                      "spacing": 0
-                    },
-                    "sizing": {
-                      "horizontal": 96,
-                      "vertical": "HUG"
-                    },
-                    "children": [
-                      {
-                        "type": "INSTANCE",
-                        "library": "ds",
-                        "dsSlug": "progress-bar-small",
-                        "props": {
-                          "Percent": "{{result_2_completion}}"
-                        }
-                      }
-                    ]
                   }
                 ]
-              },
-              {
-                "type": "DIVIDER"
               },
               {
                 "type": "FRAME",
                 "name": "Result 3",
                 "layout": {
                   "mode": "HORIZONTAL",
-                  "spacing": 12,
-                  "padding": [
-                    12,
-                    0,
-                    12,
-                    0
-                  ],
-                  "counterAxisAlignItems": "MIN"
+                  "spacing": 0
                 },
                 "children": [
-                  {
-                    "type": "INSTANCE",
-                    "library": "ds",
-                    "dsSlug": "read-only-tag",
-                    "variant": "Type=Shared",
-                    "props": {
-                      "Label": "Shared",
-                      "Leading icon show": false
-                    }
-                  },
                   {
                     "type": "INSTANCE",
                     "library": "ds",
@@ -1105,71 +998,26 @@
                       "Type": "{{result_3_type}}",
                       "Title": "{{result_3_title}}",
                       "Tech name": "[{{result_3_tech}}]",
-                      "Catalog": "{{catalog}}",
+                      "Completion": "{{result_3_completion}}",
+                      "Connection": "{{result_3_connection}}",
                       "Description": "{{result_3_description}}",
-                      "Featured property 1": "Connection: {{result_3_connection}}",
-                      "Featured property 2": "Last updated: {{result_3_updated}}",
-                      "Stage": "",
-                      "Glossary initials": "",
-                      "Glossary label": ""
+                      "Last updated": "{{result_3_updated}}"
                     },
                     "sizing": {
                       "horizontal": "FILL",
                       "vertical": "HUG"
                     }
-                  },
-                  {
-                    "type": "FRAME",
-                    "name": "Meter",
-                    "layout": {
-                      "mode": "HORIZONTAL",
-                      "spacing": 0
-                    },
-                    "sizing": {
-                      "horizontal": 96,
-                      "vertical": "HUG"
-                    },
-                    "children": [
-                      {
-                        "type": "INSTANCE",
-                        "library": "ds",
-                        "dsSlug": "progress-bar-small",
-                        "props": {
-                          "Percent": "{{result_3_completion}}"
-                        }
-                      }
-                    ]
                   }
                 ]
-              },
-              {
-                "type": "DIVIDER"
               },
               {
                 "type": "FRAME",
                 "name": "Result 4",
                 "layout": {
                   "mode": "HORIZONTAL",
-                  "spacing": 12,
-                  "padding": [
-                    12,
-                    0,
-                    12,
-                    0
-                  ],
-                  "counterAxisAlignItems": "MIN"
+                  "spacing": 0
                 },
                 "children": [
-                  {
-                    "type": "INSTANCE",
-                    "library": "ds",
-                    "dsSlug": "read-only-tag",
-                    "variant": "Type=Shared",
-                    "props": {
-                      "Label": "Shared",
-                      "Leading icon show": false
-                    }
-                  },
                   {
                     "type": "INSTANCE",
                     "library": "ds",
@@ -1179,71 +1027,26 @@
                       "Type": "{{result_4_type}}",
                       "Title": "{{result_4_title}}",
                       "Tech name": "[{{result_4_tech}}]",
-                      "Catalog": "{{catalog}}",
+                      "Completion": "{{result_4_completion}}",
+                      "Connection": "{{result_4_connection}}",
                       "Description": "{{result_4_description}}",
-                      "Featured property 1": "Connection: {{result_4_connection}}",
-                      "Featured property 2": "Last updated: {{result_4_updated}}",
-                      "Stage": "",
-                      "Glossary initials": "",
-                      "Glossary label": ""
+                      "Last updated": "{{result_4_updated}}"
                     },
                     "sizing": {
                       "horizontal": "FILL",
                       "vertical": "HUG"
                     }
-                  },
-                  {
-                    "type": "FRAME",
-                    "name": "Meter",
-                    "layout": {
-                      "mode": "HORIZONTAL",
-                      "spacing": 0
-                    },
-                    "sizing": {
-                      "horizontal": 96,
-                      "vertical": "HUG"
-                    },
-                    "children": [
-                      {
-                        "type": "INSTANCE",
-                        "library": "ds",
-                        "dsSlug": "progress-bar-small",
-                        "props": {
-                          "Percent": "{{result_4_completion}}"
-                        }
-                      }
-                    ]
                   }
                 ]
-              },
-              {
-                "type": "DIVIDER"
               },
               {
                 "type": "FRAME",
                 "name": "Result 5",
                 "layout": {
                   "mode": "HORIZONTAL",
-                  "spacing": 12,
-                  "padding": [
-                    12,
-                    0,
-                    12,
-                    0
-                  ],
-                  "counterAxisAlignItems": "MIN"
+                  "spacing": 0
                 },
                 "children": [
-                  {
-                    "type": "INSTANCE",
-                    "library": "ds",
-                    "dsSlug": "read-only-tag",
-                    "variant": "Type=Shared",
-                    "props": {
-                      "Label": "Shared",
-                      "Leading icon show": false
-                    }
-                  },
                   {
                     "type": "INSTANCE",
                     "library": "ds",
@@ -1253,71 +1056,26 @@
                       "Type": "{{result_5_type}}",
                       "Title": "{{result_5_title}}",
                       "Tech name": "[{{result_5_tech}}]",
-                      "Catalog": "{{catalog}}",
+                      "Completion": "{{result_5_completion}}",
+                      "Connection": "{{result_5_connection}}",
                       "Description": "{{result_5_description}}",
-                      "Featured property 1": "Connection: {{result_5_connection}}",
-                      "Featured property 2": "Last updated: {{result_5_updated}}",
-                      "Stage": "",
-                      "Glossary initials": "",
-                      "Glossary label": ""
+                      "Last updated": "{{result_5_updated}}"
                     },
                     "sizing": {
                       "horizontal": "FILL",
                       "vertical": "HUG"
                     }
-                  },
-                  {
-                    "type": "FRAME",
-                    "name": "Meter",
-                    "layout": {
-                      "mode": "HORIZONTAL",
-                      "spacing": 0
-                    },
-                    "sizing": {
-                      "horizontal": 96,
-                      "vertical": "HUG"
-                    },
-                    "children": [
-                      {
-                        "type": "INSTANCE",
-                        "library": "ds",
-                        "dsSlug": "progress-bar-small",
-                        "props": {
-                          "Percent": "{{result_5_completion}}"
-                        }
-                      }
-                    ]
                   }
                 ]
-              },
-              {
-                "type": "DIVIDER"
               },
               {
                 "type": "FRAME",
                 "name": "Result 6",
                 "layout": {
                   "mode": "HORIZONTAL",
-                  "spacing": 12,
-                  "padding": [
-                    12,
-                    0,
-                    12,
-                    0
-                  ],
-                  "counterAxisAlignItems": "MIN"
+                  "spacing": 0
                 },
                 "children": [
-                  {
-                    "type": "INSTANCE",
-                    "library": "ds",
-                    "dsSlug": "read-only-tag",
-                    "variant": "Type=Shared",
-                    "props": {
-                      "Label": "Shared",
-                      "Leading icon show": false
-                    }
-                  },
                   {
                     "type": "INSTANCE",
                     "library": "ds",
@@ -1327,45 +1085,17 @@
                       "Type": "{{result_6_type}}",
                       "Title": "{{result_6_title}}",
                       "Tech name": "[{{result_6_tech}}]",
-                      "Catalog": "{{catalog}}",
+                      "Completion": "{{result_6_completion}}",
+                      "Connection": "{{result_6_connection}}",
                       "Description": "{{result_6_description}}",
-                      "Featured property 1": "Connection: {{result_6_connection}}",
-                      "Featured property 2": "Last updated: {{result_6_updated}}",
-                      "Stage": "",
-                      "Glossary initials": "",
-                      "Glossary label": ""
+                      "Last updated": "{{result_6_updated}}"
                     },
                     "sizing": {
                       "horizontal": "FILL",
                       "vertical": "HUG"
                     }
-                  },
-                  {
-                    "type": "FRAME",
-                    "name": "Meter",
-                    "layout": {
-                      "mode": "HORIZONTAL",
-                      "spacing": 0
-                    },
-                    "sizing": {
-                      "horizontal": 96,
-                      "vertical": "HUG"
-                    },
-                    "children": [
-                      {
-                        "type": "INSTANCE",
-                        "library": "ds",
-                        "dsSlug": "progress-bar-small",
-                        "props": {
-                          "Percent": "{{result_6_completion}}"
-                        }
-                      }
-                    ]
                   }
                 ]
-              },
-              {
-                "type": "DIVIDER"
               },
               {
                 "type": "INSTANCE",

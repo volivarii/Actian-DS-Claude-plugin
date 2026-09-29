@@ -13,4 +13,4 @@ sources:
 ---
 Looks after the quality, meaning and correct use of an organization's data. A data steward documents assets, keeps definitions and the business glossary consistent, names the people responsible for each item, and weighs who should be allowed to use what.
 
-In the product the steward works in Studio: governing and curating the catalog, managing lineage and the business glossary, enriching metadata and designing catalog structure, importing and connecting data sources, reviewing and resolving access requests, and tracking stewardship activity.
+In the product the steward works in Studio. What they do there is listed by Studio's use cases.

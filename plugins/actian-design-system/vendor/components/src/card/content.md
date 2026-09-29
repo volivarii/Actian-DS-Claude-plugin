@@ -20,7 +20,7 @@ Cards present information in compact, scannable formats and allow users to inter
 
 * Use the item name as the card title. Keep it concise and match the name used elsewhere in the platform.
 
-* Include metadata (type, owner, last modified) using short labels.
+* Include metadata (type, owner, last updated) using short labels.
 
 * Use sentence case throughout.
 

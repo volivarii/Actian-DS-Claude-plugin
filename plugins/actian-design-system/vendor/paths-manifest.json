@@ -3,7 +3,7 @@
   "_convention": "Fields prefixed with _ are system-managed (auto_generated, source, schema_version, sourceFile, generatedAt, meta). Authored content uses bare keys; system metadata uses _-prefix. Reserved for future extensions.",
   "_naming_convention": "Every key in paths and collections is leaf XOR namespace, never both. A key cannot resolve to a file AND be a prefix of nested children. To add a sibling artifact under an existing leaf, rename the leaf to a sub-key first (e.g., accessibility.guide + accessibility.index, not accessibility + accessibility.index). Enforced by tests/manifest-convention.test.js.",
   "manifest_schema_version": "v1",
-  "knowledge_version": "0.34.217",
+  "knowledge_version": "0.34.235",
   "_zones": {
     "knowledge": [
       "accessibility",
@@ -17,6 +17,7 @@
     "metadata": [
       "appContext",
       "appContextBundle",
+      "appContextHandover",
       "appContextRecipes",
       "appContextRecipesSrc",
       "appContextSections",
@@ -921,6 +922,13 @@
       "description": "Per-leaf accessibility section JSONs in hierarchical Pattern H layout (mirrors foundations.leaf). Each leaf mirrors its MD heading path. Branch nodes carry an `_index.json` instead. Single roll-up at accessibility.bundle. Recursive: any file under accessibility/dist/ is covered by this collection. Descriptive only (resolvable: false): the layout is arbitrarily deep, so no single pattern addresses a member. If a consumer ever needs path-addressed access, switch to pattern '{name}'.",
       "resolvable": false
     },
+    "appContextHandover": {
+      "dir": "app-context/src/handover",
+      "pattern": "{slug}.md",
+      "type": "markdown",
+      "origin": "human",
+      "description": "The handover templates engineering receives: intent.md (the PM's intent, business fields left as the gap marker until the PM fills them) and specs.md (the designer's specs, each section naming its source). Each file's frontmatter lists its sections in order with an owner (pm, ux or designer); the plugin's check-handover.js reads it. Ships as source with no derive, so vendored-source-bump.yml tags a change to it."
+    },
     "appContextRecipes": {
       "dir": "app-context/dist/recipes",
       "pattern": "{slug}.json",
@@ -957,7 +965,7 @@
       "type": "markdown",
       "origin": "human",
       "recursive": true,
-      "description": "Authoring surface for app context. Per-kind subdirs: apps, entities, patterns, personas. Terminology lives in terminology.yml (not covered by this collection)."
+      "description": "Authoring surface for app context. Per-kind subdirs: apps, entities, patterns, personas, and handover (the handover templates, also resolvable as appContextHandover). Terminology lives in terminology.yml (not covered by this collection)."
     },
     "components.anatomy.byKey": {
       "dir": "components/dist/anatomy",
