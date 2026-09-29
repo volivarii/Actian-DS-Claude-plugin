@@ -58,3 +58,13 @@ it("reads the vendored record of a real app, and null for an unknown one", () =>
   assert.ok(a.sidebar.every((s) => s.label && s.id));
   assert.equal(readApp("nope"), null);
 });
+
+it("readApp: a missing or corrupt snapshot reads as no record, never a crash", () => {
+  const fs = require("fs"), os = require("os");
+  const bad = path.join(fs.mkdtempSync(path.join(os.tmpdir(), "rec-")), "app-context.json");
+  assert.strictEqual(readApp("studio", bad), null);
+  fs.writeFileSync(bad, "{ not json");
+  assert.strictEqual(readApp("studio", bad), null);
+  fs.writeFileSync(bad, JSON.stringify({ apps: { studio: { sidebar: { label: "x" } } } }));
+  assert.deepStrictEqual(readApp("studio", bad).sidebar, []);
+});

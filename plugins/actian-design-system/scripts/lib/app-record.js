@@ -7,10 +7,21 @@
 var fs = require("fs");
 var PATHS = require("./paths.js");
 
-function readApp(slug) {
-  var ctx = JSON.parse(fs.readFileSync(PATHS.appContext, "utf8"));
-  var a = ctx.apps && ctx.apps[String(slug || "").toLowerCase()];
-  return a ? { header: a.header || {}, sidebar: a.sidebar || [] } : null;
+// A missing or unreadable snapshot is no record: the caller falls back to the
+// chrome list, as it does for an app the record does not have.
+function readApp(slug, file) {
+  var ctx;
+  try {
+    ctx = JSON.parse(fs.readFileSync(file || PATHS.appContext, "utf8"));
+  } catch (e) {
+    return null;
+  }
+  var a = ctx && ctx.apps && ctx.apps[String(slug || "").toLowerCase()];
+  if (!a) return null;
+  return {
+    header: a.header && typeof a.header === "object" ? a.header : {},
+    sidebar: Array.isArray(a.sidebar) ? a.sidebar : [],
+  };
 }
 
 // Children are drawn only while the parent or one of them is active (contract

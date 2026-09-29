@@ -831,3 +831,24 @@ describe("assemble-direct: the page carries its provenance", () => {
     assert.ok(page(BODY_OK).startsWith("<!doctype html>"));
   });
 });
+
+describe("assemble-direct: the chrome the frame hands the renderer (code-review high, Task 6)", () => {
+  const { frameChrome } = require(path.join(ROOT, "scripts/renderers/assemble-direct.js"));
+  const app = (o) => Object.assign({ rail: [], groups: [], header: {}, activeNav: null }, o);
+  it("places every group itself, so the renderer never pins a top group to the bottom", () => {
+    const c = frameChrome(app({ groups: [{ bottom: false, items: [{ label: "Dashboard", id: "d", icon: "i" }] }, { bottom: false, items: [{ label: "Import", id: "m", icon: "i" }] }] }));
+    assert.deepStrictEqual(c.sidebar.groups.map((g) => g.bottom), [false, false]);
+  });
+  it("with nothing active, names the first item that is not an action", () => {
+    const c = frameChrome(app({ groups: [{ bottom: false, items: [{ label: "New item", id: "n", kind: "action", icon: "i" }, { label: "Catalog", id: "c", icon: "i" }] }] }));
+    assert.strictEqual(c.sidebar.activeItem, "Catalog");
+  });
+  it("draws groups for a record with actions or children and no icons", () => {
+    const c = frameChrome(app({ groups: [{ bottom: false, items: [{ label: "Catalog", id: "c" }, { label: "Import", id: "m", children: [{ label: "File", id: "f" }] }] }], activeNav: "f" }));
+    assert.ok(c.sidebar, "no grouped sidebar");
+    assert.strictEqual(c.sidebar.activeItem, "File");
+  });
+  it("passes a header that carries only a context value", () => {
+    assert.deepStrictEqual(frameChrome(app({ header: { ContextValue: "Zeta" } })).header.contextValue, "Zeta");
+  });
+});

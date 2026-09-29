@@ -35,55 +35,9 @@ function renderFrame(brief) {
     activeNavItem: active ? active.label : undefined,
     content: [{ type: "TEXT", content: MARK }],
   };
-  // The app record as the knowledge writes it: when it has groups or icons the
-  // rail is drawn from them (a bottom block, actions, an active parent's
-  // children), else from the flat label list above.
-  var groups = d.app.groups || [];
-  var grouped =
-    groups.length > 1 ||
-    groups.some(function (g) {
-      return g.items.some(function (i) {
-        return i.icon;
-      });
-    });
-  if (grouped) {
-    var activeLabel = null;
-    groups.forEach(function (g) {
-      g.items.forEach(function (i) {
-        if (i.id === d.app.activeNav) activeLabel = i.label;
-        (i.children || []).forEach(function (c) {
-          if (c.id === d.app.activeNav) activeLabel = c.label;
-        });
-      });
-    });
-    screen.sidebar = {
-      groups: groups.map(function (g) {
-        var out = {
-          items: g.items.map(function (i) {
-            var o = { label: i.label };
-            if (i.icon) o.icon = i.icon;
-            if (i.kind) o.kind = i.kind;
-            if (i.children)
-              o.children = i.children.map(function (c) {
-                return { label: c.label };
-              });
-            return o;
-          }),
-        };
-        if (g.bottom) out.bottom = true;
-        return out;
-      }),
-      activeItem: activeLabel || undefined,
-    };
-  }
-  var h = d.app.header || {};
-  if (h.Context != null || h.SearchScope != null || h.SearchPlaceholder != null)
-    screen.header = {
-      context: h.Context,
-      contextValue: h.ContextValue,
-      searchScope: h.SearchScope,
-      searchPlaceholder: h.SearchPlaceholder,
-    };
+  var chrome = frameChrome(d.app);
+  if (chrome.sidebar) screen.sidebar = chrome.sidebar;
+  if (chrome.header) screen.header = chrome.header;
   var flowRenderer = require("./html-renderers/flow-renderer.js");
   var html = assembleShared.withDsMaps(
     { meta: { hifi: true }, screens: [screen] },
@@ -102,6 +56,64 @@ function renderFrame(brief) {
     before: html.slice(0, m.index),
     after: html.slice(m.index + m[0].length),
   };
+}
+
+// The app record as the knowledge writes it: when it has groups, icons,
+// actions or children the rail is drawn from them (a bottom block, actions, an
+// active parent's children), else from the flat label list. Every group says
+// whether it is at the bottom, so the renderer never places one by position.
+function frameChrome(app) {
+  var out = {};
+  var groups = app.groups || [];
+  var grouped =
+    groups.length > 1 ||
+    groups.some(function (g) {
+      return g.items.some(function (i) {
+        return i.icon || i.kind || (i.children && i.children.length);
+      });
+    });
+  if (grouped) {
+    var activeLabel = null,
+      firstPage = null;
+    groups.forEach(function (g) {
+      g.items.forEach(function (i) {
+        if (!firstPage && i.kind !== "action") firstPage = i.label;
+        if (i.id === app.activeNav) activeLabel = i.label;
+        (i.children || []).forEach(function (c) {
+          if (c.id === app.activeNav) activeLabel = c.label;
+        });
+      });
+    });
+    out.sidebar = {
+      groups: groups.map(function (g) {
+        return {
+          items: g.items.map(function (i) {
+            var o = { label: i.label };
+            if (i.icon) o.icon = i.icon;
+            if (i.kind) o.kind = i.kind;
+            if (i.children)
+              o.children = i.children.map(function (c) {
+                return { label: c.label };
+              });
+            return o;
+          }),
+          bottom: g.bottom === true,
+        };
+      }),
+      // With nothing active the renderer falls back to the first item, which
+      // can be an action ("New item"): name the first page instead.
+      activeItem: activeLabel || firstPage || undefined,
+    };
+  }
+  var h = app.header || {};
+  if (h.Context != null || h.ContextValue != null || h.SearchScope != null || h.SearchPlaceholder != null)
+    out.header = {
+      context: h.Context,
+      contextValue: h.ContextValue,
+      searchScope: h.SearchScope,
+      searchPlaceholder: h.SearchPlaceholder,
+    };
+  return out;
 }
 
 function inlineIcons(html, icons) {
@@ -491,6 +503,7 @@ module.exports = {
   assemble: assemble,
   escapeScriptSource: escapeScriptSource,
   renderFrame: renderFrame,
+  frameChrome: frameChrome,
   inlineIcons: inlineIcons,
   dockLayers: dockLayers,
   attrInJs: attrInJs,
