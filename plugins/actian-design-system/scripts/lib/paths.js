@@ -115,7 +115,8 @@ PATHS.components.mirrors = {
 
 // Media oracle: per-component reference screenshots vendored from knowledge.
 // media(slug) → vendor/components/dist/media/<slug>/preview.webp (the canonical
-// single-component shot). Used by the fidelity gate as the Gate-1 oracle.
+// single-component shot). The nightly refresh prunes these files, and no
+// script in the plugin reads them.
 PATHS.components.media = function (slug) {
   return path.join(VENDOR, "components", "dist", "media", slug, "preview.webp");
 };

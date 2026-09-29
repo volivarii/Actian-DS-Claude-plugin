@@ -84,10 +84,9 @@ function readySignalScript() {
   ].join("");
 }
 
-// Single render entry both gates (pixel/structural here, axe in Plan B) consume.
-// WC-ready seam: the fragment source is ds-html-map today; a web-component tier
-// would register an alternative producer here. The oracle SOURCE stays swappable
-// via oracleFor() in run-fidelity.js (Figma-export now, browser-capture later).
+// One leaf's fragment and the standalone page that renders it. The fragment
+// source is ds-html-map; a web-component tier would register an alternative
+// producer here.
 function renderTarget(slug) {
   var fragment = renderLeafFragment(slug);
   return { fragment: fragment, html: buildLeafHtml(slug, fragment) };

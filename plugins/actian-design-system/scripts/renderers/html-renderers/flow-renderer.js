@@ -616,8 +616,8 @@
   }
 
   // -------------------------------------------------------------------------
-  // Node exports (UMD tail — mirrors fm-html-map.js; browser behavior above is
-  // untouched, so this file still works inlined by assemble-preview.js)
+  // Node exports (UMD tail, mirrors fm-html-map.js; the browser behavior above
+  // is untouched, so this file also works inlined in a page)
   // -------------------------------------------------------------------------
 
   if (typeof module !== "undefined" && module.exports) {
