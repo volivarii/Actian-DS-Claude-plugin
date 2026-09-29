@@ -49,7 +49,7 @@ The table component displays structured information in rows and columns. It is t
 
 | Use           | Avoid                   |
 | ------------- | ----------------------- |
-| Last modified | Last Modification Date  |
+| Last updated  | Last Modification Date  |
 | Owner         | Assigned to / Owned by  |
 | Status        | Current status          |
 | Row count     | No. of rows             |
@@ -79,7 +79,7 @@ The table component displays structured information in rows and columns. It is t
 
 * When a column is sortable, indicate the active sort column and direction at all times.
 
-* Default sort should reflect the user's most likely intent - for catalog entries, sort by last modified descending.
+* Default sort should reflect the user's most likely intent - for catalog entries, sort by last updated descending.
 
 * Do not apply alphabetical sort as a default unless alphabetical order is genuinely meaningful. For names, alphabetical is fine; for status values, priority order is better.
 
@@ -88,11 +88,11 @@ The table component displays structured information in rows and columns. It is t
   <br />
 
   Sort option labelling:
-  | **Data type**                                  | **Direction pair**          | **Example**                  |
-  | :--------------------------------------------- | :-------------------------- | :--------------------------- |
-  | Alphabetical (text)                            | A-Z / Z-A                   | Name (A-Z)                   |
-  | Temporal (date, time, not duration)            | Newest first / Oldest first | Last modified (newest first) |
-  | Magnitude (count, score, popularity, duration) | High to low / Low to high   | Popularity (high to low)     |
+  | **Data type**                                  | **Direction pair**          | **Example**                 |
+  | :--------------------------------------------- | :-------------------------- | :-------------------------- |
+  | Alphabetical (text)                            | A-Z / Z-A                   | Name (A-Z)                  |
+  | Temporal (date, time, not duration)            | Newest first / Oldest first | Last updated (newest first) |
+  | Magnitude (count, score, popularity, duration) | High to low / Low to high   | Popularity (high to low)    |
 
 ### Empty states
 
@@ -128,15 +128,15 @@ The table component displays structured information in rows and columns. It is t
 
 ## Do / Don't
 
-| Do                           | Don't                                     |
-| ---------------------------- | ----------------------------------------- |
-| Revenue (USD)                | Revenue in U.S. Dollars                   |
-| - (hyphen) for empty cells   | N/A / null / blank                        |
-| Active                       | active / ACTIVE                           |
-| 3 rows selected              | 3 items selected (when rows are datasets) |
-| No connections found + CTA   | (blank table with no explanation)         |
-| Delete (overflow menu item)  | Delete this connection                    |
-| Showing 1-25 of 340 results  | Page 1 of 14                              |
-| Name (A-Z)                   | Name ASC                                  |
-| Last modified (newest first) | Update date DESC                          |
-| Popularity (high to low)     | Popularity                                |
+| Do                          | Don't                                     |
+| --------------------------- | ----------------------------------------- |
+| Revenue (USD)               | Revenue in U.S. Dollars                   |
+| - (hyphen) for empty cells  | N/A / null / blank                        |
+| Active                      | active / ACTIVE                           |
+| 3 rows selected             | 3 items selected (when rows are datasets) |
+| No connections found + CTA  | (blank table with no explanation)         |
+| Delete (overflow menu item) | Delete this connection                    |
+| Showing 1-25 of 340 results | Page 1 of 14                              |
+| Name (A-Z)                  | Name ASC                                  |
+| Last updated (newest first) | Update date DESC                          |
+| Popularity (high to low)    | Popularity                                |

@@ -8,7 +8,7 @@
   "kind": "section",
   "slug": "properties-panel",
   "label": "Properties panel",
-  "description": "The right column of a catalog object page: a completion meter, then a Properties / People / Suggestions tab set, with Properties as a long label-and-control form.",
+  "description": "The right column of an item page: a completion meter, then a Properties / People / Suggestions tab set, with Properties as a long label-and-control form.",
   "role": "aside",
   "apps": [
     "studio"

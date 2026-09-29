@@ -690,6 +690,9 @@
           "name": "Connection"
         },
         {
+          "name": "Content"
+        },
+        {
           "name": "Description"
         },
         {
@@ -710,6 +713,9 @@
         },
         {
           "name": "Source description"
+        },
+        {
+          "name": "Tabs"
         },
         {
           "name": "Technical name"
@@ -945,6 +951,13 @@
         },
         {
           "name": "Search"
+        },
+        {
+          "name": "SearchPlaceholder",
+          "default": "Search items"
+        },
+        {
+          "name": "SearchScope"
         }
       ],
       "variants": {
@@ -1877,6 +1890,12 @@
           "default": "Catalog"
         },
         {
+          "name": "Completion"
+        },
+        {
+          "name": "Connection"
+        },
+        {
           "name": "Description",
           "default": "A product is anything that can be offered to a market that might satisfy a want or need by potential customers."
         },
@@ -1895,7 +1914,19 @@
           "name": "Glossary label"
         },
         {
+          "name": "Last updated"
+        },
+        {
+          "name": "Properties"
+        },
+        {
+          "name": "Shared"
+        },
+        {
           "name": "Stage"
+        },
+        {
+          "name": "Suggestion"
         },
         {
           "name": "Tech name",
@@ -1916,9 +1947,7 @@
             "Explorer",
             "Studio"
           ],
-          "rendersAs": {
-            "Studio": "Explorer"
-          }
+          "rendersAs": {}
         },
         "State": {
           "values": [

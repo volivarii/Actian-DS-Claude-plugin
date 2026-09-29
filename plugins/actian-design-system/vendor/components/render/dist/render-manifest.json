@@ -483,7 +483,7 @@
       "tagName": "zen-search-result-card",
       "group": "Data Display",
       "fragment": "fragments/search-result-card.html",
-      "tokensConsumed": 20,
+      "tokensConsumed": 28,
       "source": "rendered"
     },
     {

@@ -467,6 +467,22 @@
   // Parse a comma-separated list prop (nav items, tabs, crumbs) into a trimmed,
   // empty-dropped array. `fallback` is used when raw is falsy (matches the prior
   // inline `String(props.Items || "default")` behavior exactly).
+  // The first of its arguments that is SET, else the last one (a literal
+  // fallback). An authored empty string is set (#717): `props.X || "specimen"`
+  // read "" as absent, so a screen that said "no description" printed the
+  // Figma specimen's sentence. Called as authored(props.A, props.B, "literal")
+  // so the reads stay literal `props.X` and the render contract still lists
+  // them, and scripts/render/derive-contract.js reads the literal as the
+  // default of the chain's head, the same way it reads `props.A || "literal"`.
+  function authored() {
+    var last = arguments.length - 1;
+    for (var i = 0; i < last; i++) {
+      if (arguments[i] !== undefined && arguments[i] !== null)
+        return String(arguments[i]);
+    }
+    return arguments[last];
+  }
+
   function parseItems(raw, fallback) {
     return String(raw || fallback || "")
       .split(",")
@@ -1775,6 +1791,15 @@
           var headerAvatar = esc(props.Account || "AU");
           var headerContext = esc(props.Context || "Catalog");
           var headerContextValue = esc(props.ContextValue || "Default");
+          // The search's scope dropdown and placeholder, from the app record's
+          // header.search. `Search` stays the show/hide switch it always was.
+          // Without a scope the dropdown repeats the context value, as before.
+          var headerSearchScope = props.SearchScope
+            ? esc(props.SearchScope)
+            : headerContextValue;
+          var headerSearchPlaceholder = esc(
+            props.SearchPlaceholder || "Search items",
+          );
           var showSearch =
             props.Search !== false &&
             props.Search !== "false" &&
@@ -1839,7 +1864,7 @@
             ? '<div class="ds-header__search">' +
               '<span class="ds-header__search-scope">' +
               '<span class="ds-header__search-scope-value">' +
-              headerContextValue +
+              headerSearchScope +
               "</span>" +
               renderIcon("arrow-down") +
               "</span>" +
@@ -1848,7 +1873,9 @@
               SVG_SEARCH +
               "</span>" +
               '<input class="ds-header__search-input" type="search"' +
-              ' placeholder="Search items" aria-label="Search items">' +
+              ' placeholder="' +
+              headerSearchPlaceholder +
+              '" aria-label="Search items">' +
               "</span>" +
               '<span class="ds-header__search-info" aria-hidden="true">' +
               renderIcon("info-filled") +
@@ -1911,8 +1938,16 @@
 
           // Helper: render a single nav item row.
           // icon may be null (legacy path) or a slug string (grouped path).
-          function renderNavItem(label, icon, isActive) {
+          // modifier is "action" (an entry that does something, New Item) or
+          // "sub" (a sub-item under its parent, Import's Select a file).
+          // expanded is true/false for an item with sub-items (said to
+          // assistive tech as aria-expanded), undefined for any other item. An
+          // open item carries the anatomy's trailing chevron (Icon right,
+          // drawn pointing up in components/dist/media/side-nav/default.webp);
+          // a closed one carries none, as the product screenshot shows.
+          function renderNavItem(label, icon, isActive, modifier, expanded) {
             var itemCls = "ds-sidenav__item";
+            if (modifier) itemCls += " ds-sidenav__item--" + modifier;
             if (isActive) itemCls += " is-active";
             var iconHtml = icon
               ? '<span class="ds-sidenav__icon">' + renderIcon(icon) + "</span>"
@@ -1920,11 +1955,21 @@
             return (
               '<a class="' +
               itemCls +
-              '">' +
+              '"' +
+              (expanded === true || expanded === false
+                ? ' aria-expanded="' + expanded + '"'
+                : "") +
+              ">" +
               iconHtml +
               '<span class="ds-sidenav__label">' +
               esc(label) +
-              "</span></a>"
+              "</span>" +
+              (expanded === true
+                ? '<span class="ds-sidenav__chevron" aria-hidden="true">' +
+                  renderIcon("arrow-up") +
+                  "</span>"
+                : "") +
+              "</a>"
             );
           }
 
@@ -1943,39 +1988,86 @@
             }
             if (!Array.isArray(groups)) groups = [];
 
-            // Flatten all group items to run resolveActive across the full set.
+            // Flatten all group items (sub-items included) to run
+            // resolveActive across the full set.
             var allLabels = [];
             groups.forEach(function (g) {
               (g.items || []).forEach(function (it) {
                 allLabels.push(it.label || "");
+                (it.children || []).forEach(function (ch) {
+                  allLabels.push(ch.label || "");
+                });
               });
             });
             var navActive = resolveActive(allLabels, props.Active);
 
-            // anatomy: primary groups at the top; the LAST group (utilities:
-            // Access request / Catalog design / Analytics) is anchored to the
-            // rail bottom. With a single group, keep it all at the top.
+            // An item's sub-items render right after it, and only while the
+            // item or one of its sub-items is the active one (Vincent,
+            // 2026-09-29). The product screenshot shows Import closed; the
+            // Figma component is drawn open (default.webp), so the closed
+            // default is the screenshot's, which wins where the two disagree.
+            // Sub-items carry no icon of their own in the record, and no
+            // nesting below them.
             var renderGroup = function (g) {
               var groupItems = (g.items || [])
                 .map(function (it) {
-                  return renderNavItem(
+                  var subs = it.children || [];
+                  var open =
+                    (it.label || "") === navActive ||
+                    subs.some(function (ch) {
+                      return (ch.label || "") === navActive;
+                    });
+                  var row = renderNavItem(
                     it.label || "",
                     it.icon || null,
                     (it.label || "") === navActive,
+                    it.kind === "action" ? "action" : null,
+                    subs.length ? open : undefined,
                   );
+                  if (!open) return row;
+                  subs.forEach(function (ch) {
+                    row += renderNavItem(
+                      ch.label || "",
+                      null,
+                      (ch.label || "") === navActive,
+                      "sub",
+                    );
+                  });
+                  return row;
                 })
                 .join("");
               return '<div class="ds-sidenav__group">' + groupItems + "</div>";
             };
-            var hasBottomGroup = groups.length >= 2;
-            var topGroups = hasBottomGroup ? groups.slice(0, -1) : groups;
+            // Which groups sit in the rail's bottom block. The app record says
+            // so explicitly (a group with `bottom: true`, from items with
+            // `position: bottom`). Without that flag the legacy anatomy rule
+            // holds: the LAST of two or more groups (Access requests / Catalog
+            // design / Analytics) is anchored to the bottom, and a single
+            // group stays at the top.
+            // A group that carries `bottom` at all (true or false) means the
+            // caller placed every group, so the legacy rule stays out of it.
+            var explicitBottom = groups.some(function (g) {
+              return g && typeof g.bottom === "boolean";
+            });
+            var topGroups, bottomGroups;
+            if (explicitBottom) {
+              topGroups = groups.filter(function (g) {
+                return !(g && g.bottom === true);
+              });
+              bottomGroups = groups.filter(function (g) {
+                return g && g.bottom === true;
+              });
+            } else if (groups.length >= 2) {
+              topGroups = groups.slice(0, -1);
+              bottomGroups = groups.slice(-1);
+            } else {
+              topGroups = groups;
+              bottomGroups = [];
+            }
             var topHtml = topGroups.map(renderGroup).join(navSeparator);
 
             // Bottom section: the utilities group (if any) + separator + collapse.
-            var bottomInner = "";
-            if (hasBottomGroup) {
-              bottomInner += renderGroup(groups[groups.length - 1]);
-            }
+            var bottomInner = bottomGroups.map(renderGroup).join(navSeparator);
             bottomInner +=
               navSeparator +
               '<button class="ds-sidenav__collapse" type="button" aria-label="Collapse sidebar">' +
@@ -1996,10 +2088,10 @@
             );
           } else {
             // ── Legacy mode (comma Items list, no icons) ──────────────────
-            var navItems = parseItems(
-              props.Items,
-              "Catalog, Pipelines, Connections, Settings",
-            );
+            // No default list: an invented one ("Catalog, Pipelines,
+            // Connections, Settings") read as an Actian app's navigation and
+            // matched none. No items given draws an empty rail.
+            var navItems = parseItems(props.Items, "");
             var legacyActive = resolveActive(navItems, props.Active);
             var navRows = navItems
               .map(function (item) {
@@ -3266,10 +3358,20 @@
             '<span class="ds-drawer__tag-shared">Shared</span>' +
             "</div>";
 
+          // The header's icon buttons are each app's own (#708): Studio's
+          // quick edit drawer carries exactly two, open in full page and close
+          // (recipe studio-quick-edit-drawer, slot header), and Explorer's
+          // quick view adds favourite before them (recipe
+          // right-sliding-drawer, slot header).
           var drActions =
             '<div class="ds-drawer__actions">' +
-            '<button type="button" aria-label="Add to favorites">' +
-            renderIcon("favorite") +
+            (drIsExplorer
+              ? '<button type="button" aria-label="Add to favorites">' +
+                renderIcon("favorite") +
+                "</button>"
+              : "") +
+            '<button type="button" aria-label="Open in full page">' +
+            renderIcon("view-detail") +
             "</button>" +
             '<button type="button" aria-label="Close">' +
             renderIcon("close") +
@@ -3381,15 +3483,35 @@
             ? '<div class="ds-drawer__body">' + drBodyInner + "</div>"
             : "";
 
-          // Static tab strip (do not recurse into the tabs component);
-          // registry exposes no tab-label content props, so hardcoded
-          // plausible defaults.
-          var drTabs =
-            '<div class="ds-drawer__tabs" role="tablist">' +
-            '<span class="ds-drawer__tab is-active" role="tab" aria-selected="true">Overview</span>' +
-            '<span class="ds-drawer__tab" role="tab" aria-selected="false">Lineage</span>' +
-            '<span class="ds-drawer__tab" role="tab" aria-selected="false">Quality</span>' +
-            "</div>";
+          // Static tab strip (do not recurse into the tabs component), drawn
+          // from props.Tabs, a comma list, the first tab active. The registry
+          // exposes no tab-label props, and the strip was hardcoded to
+          // Overview / Lineage / Quality, a set no app has (#708): the apps'
+          // own sets are in their recipes (Studio: General, Properties,
+          // People, Suggestions). No Tabs, no strip.
+          var drTabs = parseItems(props.Tabs, "")
+            .map(function (label, i) {
+              return (
+                '<span class="ds-drawer__tab' +
+                (i === 0 ? " is-active" : "") +
+                '" role="tab" aria-selected="' +
+                (i === 0 ? "true" : "false") +
+                '">' +
+                esc(label) +
+                "</span>"
+              );
+            })
+            .join("");
+          if (drTabs)
+            drTabs =
+              '<div class="ds-drawer__tabs" role="tablist">' + drTabs + "</div>";
+          // The selected tab's panel: whatever the screen puts in the drawer
+          // (#708), text in a Content prop. Omitted when absent.
+          var drPanel = drHas(props.Content)
+            ? '<div class="ds-drawer__panel" role="tabpanel">' +
+              esc(props.Content) +
+              "</div>"
+            : "";
 
           // Body 3: three labeled sections captured in the Studio anatomy
           // (Glossary items, Description, Source description). Same rule as
@@ -3431,6 +3553,7 @@
             drBody +
             drTabs +
             drSections +
+            drPanel +
             "</div>"
           );
         }
@@ -3971,19 +4094,168 @@
 
         case "search-result-card": {
           // Rich result card. Identity axis App = Explorer (default) |
-          // Studio; State is a secondary axis, only Selected/Focus mapped
-          // to a visible modifier (Hover/Pressed are transient interaction
-          // states, not rendered statically -- same discipline as
-          // tag-interactive's Selected/Disabled-only handling above). The
-          // fidelity oracle only captures App=Explorer/State=Default, so
-          // that default stays faithful; Studio's structural swaps (button
-          // -> progress-bar-small, digram -> tag-read-only) are intentionally
-          // NOT built here, per the spec. App=Studio therefore renders the
-          // BASE card with no root modifier -- there is no built CSS delta
-          // for it, and a modifier class must not be emitted without one
-          // (no no-op namespace-hook markers; see ds-base.css). Inlines the
-          // eyebrow/stage/catalog tags and the glossary item-type badge
-          // reusing EXISTING shared classes (.ds-tag / .ds-tag-stage /
+          // Studio, and the two are different cards (#722). State is a
+          // secondary axis, only Selected/Focus mapped to a visible modifier
+          // (Hover/Pressed are transient interaction states, not rendered
+          // statically -- same discipline as tag-interactive's
+          // Selected/Disabled-only handling above).
+          //
+          // An AUTHORED empty string is a value (#717): every text prop is
+          // read through authored(), which falls back to the specimen only when
+          // the prop is absent, so the gallery keeps its cells and a screen can
+          // say nothing.
+          var srcCls = "ds-search-result-card";
+          if (v.App === "Studio") srcCls += " ds-search-result-card--studio";
+          if (v.State === "Selected")
+            srcCls += " ds-search-result-card--selected";
+          if (v.State === "Focus") srcCls += " ds-search-result-card--focus";
+
+          if (v.App === "Studio") {
+            // Studio's card, as its Catalog draws it
+            // (app-context/src/recipes/captures/faceted-browse.png) and as
+            // Figma's App=Studio lists its parts (#722): a selection
+            // checkbox, the item type tag, a Shared tag, the title and
+            // technical name, the completion bar with its percentage at the
+            // right of that row; under it a Connection line, the description
+            // (or "No summary available", the product's words for none),
+            // property chips and a pending-suggestion chip; "Last updated"
+            // at the bottom right. A flat row closed by a bottom rule, no box
+            // (the --studio rule in ds-base.css). The registry's
+            // nestedComponents already named checkbox and progress-bar-small;
+            // their EXISTING markup is reused verbatim rather than recursing
+            // into renderDSComponent, the same idiom as the Explorer card's
+            // tags. Everything below the title row is an optional slot: no
+            // prop, no markup.
+            //
+            // Type is a SHAPE clamp before it touches the class attribute (the
+            // read-only-tag case's discipline): a well-shaped value no
+            // .ds-item-type-tag--<slug> rule matches renders as the base tag.
+            var sTypeRaw = authored(props.Type, "");
+            var sTypeSlug = sTypeRaw.toLowerCase().trim().replace(/\s+/g, "-");
+            if (!/^[a-z0-9-]+$/.test(sTypeSlug)) sTypeSlug = "";
+            var sType = sTypeRaw
+              ? '<span class="ds-item-type-tag' +
+                (sTypeSlug ? " ds-item-type-tag--" + sTypeSlug : "") +
+                '"><span class="ds-item-type-tag__name">' +
+                esc(sTypeRaw) +
+                "</span></span>"
+              : "";
+            // "Shared" is a default-TRUE boolean (the file's convention, cf.
+            // the drawer's "Show Back"): every row the capture shows is shared,
+            // and a Not shared item carries no tag. Its own class, not
+            // .ds-tag--shared: Studio paints Shared solid (the screenshot, and
+            // the Studio drawer's captured #00699f), where read-only-tag's
+            // Type=Shared is captured at #cbe3ff.
+            var sShared =
+              props.Shared !== false
+                ? '<span class="ds-search-result-card__shared">Shared</span>'
+                : "";
+            var sTech = authored(props["Tech name"], "");
+            var sPct =
+              props.Completion !== undefined &&
+              props.Completion !== null &&
+              props.Completion !== ""
+                ? Math.max(
+                    0,
+                    Math.min(100, parseInt(String(props.Completion), 10) || 0),
+                  )
+                : null;
+            var sProgress =
+              sPct === null
+                ? ""
+                : '<div class="ds-progress ds-search-result-card__progress">' +
+                  '<div class="ds-progress__track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="' +
+                  sPct +
+                  '">' +
+                  '<span class="ds-progress__fill" style="width:' +
+                  sPct +
+                  '%"></span>' +
+                  "</div>" +
+                  '<span class="ds-progress__percent">' +
+                  sPct +
+                  "%</span>" +
+                  "</div>";
+            var sConnection = authored(props.Connection, "");
+            var sDesc = authored(props.Description, props.Body, "");
+            // Properties: a comma list of "Label: value" pairs, the label
+            // drawn bold as the capture draws "Code:" and "Year:".
+            var sChips = parseItems(props.Properties, "")
+              .map(function (p) {
+                var at = p.indexOf(":");
+                return (
+                  '<span class="ds-search-result-card__chip">' +
+                  (at > 0
+                    ? '<span class="ds-search-result-card__chip-label">' +
+                      esc(p.slice(0, at + 1)) +
+                      "</span> " +
+                      esc(p.slice(at + 1).trim())
+                    : esc(p)) +
+                  "</span>"
+                );
+              })
+              .join("");
+            var sSuggestion = authored(props.Suggestion, "");
+            var sUpdated = authored(props["Last updated"], "");
+            return (
+              '<div class="' +
+              srcCls +
+              '">' +
+              '<div class="ds-search-result-card__header">' +
+              '<label class="ds-checkbox ds-search-result-card__select">' +
+              '<span class="ds-checkbox__box"><span class="ds-checkbox__check">' +
+              renderIcon("simple-check") +
+              "</span></span></label>" +
+              '<div class="ds-search-result-card__name">' +
+              sType +
+              sShared +
+              '<span class="ds-search-result-card__title">' +
+              esc(authored(props.Title, "Financial Summary EY2024")) +
+              "</span>" +
+              (sTech
+                ? '<span class="ds-search-result-card__tech">' +
+                  esc(sTech) +
+                  "</span>"
+                : "") +
+              "</div>" +
+              sProgress +
+              "</div>" +
+              '<div class="ds-search-result-card__details">' +
+              (sConnection
+                ? '<p class="ds-search-result-card__connection">Connection: ' +
+                  '<span class="ds-search-result-card__link">' +
+                  esc(sConnection) +
+                  "</span></p>"
+                : "") +
+              (sDesc
+                ? '<p class="ds-search-result-card__desc">' +
+                  esc(sDesc) +
+                  "</p>"
+                : '<p class="ds-search-result-card__desc ds-search-result-card__desc--empty">No summary available</p>') +
+              (sChips
+                ? '<div class="ds-search-result-card__chips">' +
+                  sChips +
+                  "</div>"
+                : "") +
+              (sSuggestion
+                ? '<span class="ds-search-result-card__suggestion">' +
+                  renderIcon("suggestion") +
+                  esc(sSuggestion) +
+                  "</span>"
+                : "") +
+              "</div>" +
+              (sUpdated
+                ? '<span class="ds-search-result-card__updated">Last updated: ' +
+                  esc(sUpdated) +
+                  "</span>"
+                : "") +
+              "</div>"
+            );
+          }
+
+          // Explorer's card. The fidelity oracle captures App=Explorer /
+          // State=Default, so this default stays faithful to that capture.
+          // Inlines the eyebrow/stage/catalog tags and the glossary item-type
+          // badge reusing EXISTING shared classes (.ds-tag / .ds-tag-stage /
           // .ds-tag--catalog / .ds-item-type) rather than
           // recursing into renderDSComponent, same idiom as card-for-items.
           // The stage pill carried a `.ds-tag--gray` modifier until the
@@ -3997,27 +4269,26 @@
           // .ds-tag's re-grounded Type=Default paint in this card's theme
           // mode, and its catalog child is captured at #ecffff / #d0efed,
           // which is exactly Type=Catalog.
-          var srcCls = "ds-search-result-card";
-          if (v.State === "Selected")
-            srcCls += " ds-search-result-card--selected";
-          if (v.State === "Focus") srcCls += " ds-search-result-card--focus";
-
-          var srcTitle = esc(props.Title || "Financial Summary EY2024");
-          var srcTech = esc(props["Tech name"] || "[Financial Summary EY2024]");
-          var srcType = esc(props.Type || "Category");
+          var srcTitle = esc(authored(props.Title, "Financial Summary EY2024"));
+          var srcTech = esc(authored(props["Tech name"], "[Financial Summary EY2024]"));
+          var srcType = esc(authored(props.Type, "Category"));
           // Stage and the glossary badge are OPTIONAL slots, the same shape
           // Task 1.2 fixed for checkbox/radio/toggle/dropdown-select-default/
           // text-input/label: `esc(props.X || "placeholder")` fed markup that
           // always drew, so a card authored without a stage or a glossary
           // relationship printed "Stage" / "VH" / "Vehicle" verbatim rather
           // than omitting the region. No prop, no markup at all, not even an
-          // empty span (see the two `? ... : ""` guards below in the return).
+          // empty span (see the `? ... : ""` guards below in the return). An
+          // authored empty catalog or description omits its region the same
+          // way.
           var srcStage = props.Stage ? esc(props.Stage) : "";
-          var srcCatalog = esc(props.Catalog || "Catalog");
+          var srcCatalog = esc(authored(props.Catalog, "Catalog"));
           var srcDesc = esc(
-            props.Description ||
-              props.Body ||
+            authored(
+              props.Description,
+              props.Body,
               "A product is anything that can be offered to a market that might satisfy a want or need by potential customers.",
+            ),
           );
           var srcProp1 = esc(
             props["Featured property 1"] || "Business Domain: IT",
@@ -4071,12 +4342,14 @@
               : "") +
             "</div>" +
             '<div class="ds-search-result-card__details">' +
-            '<span class="ds-tag ds-tag--catalog ds-search-result-card__catalog">' +
-            srcCatalog +
-            "</span>" +
-            '<p class="ds-search-result-card__desc">' +
-            srcDesc +
-            "</p>" +
+            (srcCatalog
+              ? '<span class="ds-tag ds-tag--catalog ds-search-result-card__catalog">' +
+                srcCatalog +
+                "</span>"
+              : "") +
+            (srcDesc
+              ? '<p class="ds-search-result-card__desc">' + srcDesc + "</p>"
+              : "") +
             '<div class="ds-search-result-card__props">' +
             '<span class="ds-search-result-card__prop">' +
             srcProp1 +

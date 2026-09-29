@@ -29,7 +29,7 @@ Do not use a drawer for confirmations or destructive actions; use a [modal](moda
 | Do                         | Don't                         |
 | -------------------------- | ----------------------------- |
 | Owner                      | Assigned owner                |
-| Last modified              | Date of last modification     |
+| Last updated               | Date of last update           |
 | View full details          | Click here for more           |
 | Related datasets           | Other items                   |
 | No related datasets found. | (empty panel with no message) |

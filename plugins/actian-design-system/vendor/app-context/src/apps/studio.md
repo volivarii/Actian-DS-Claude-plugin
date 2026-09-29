@@ -5,21 +5,55 @@ slug: studio
 label: Studio
 header:
   type: Studio
+  context:
+    label: Catalog
+    value: Default
+  search:
+    scope: Default
+    placeholder: Search your items...
+  actions: [whats-new, notifications, app-switcher, avatar]
 sidebar:
   - label: Dashboard
     id: dashboard
+    icon: dashboard
+    group: main
   - label: Catalog
     id: catalog
+    icon: catalog
+    group: main
   - label: Topics
     id: topics
+    icon: book-bookmark
+    group: main
   - label: Import
     id: import
+    icon: download
+    group: create
+    children:
+      - label: Select a connection
+        id: import-connection
+      - label: Select a file
+        id: import-file
+  - label: New Item
+    id: new-item
+    icon: add
+    group: create
+    kind: action
   - label: Access requests
     id: access-requests
+    icon: data-access-request
+    group: admin
+    position: bottom
   - label: Catalog design
     id: catalog-design
+    icon: catalog-design
+    group: admin
+    position: bottom
   - label: Analytics
     id: analytics
+    icon: analytics
+    group: admin
+    position: bottom
 useCases:
   - audience: [Data steward, Data architect]
     jobs:

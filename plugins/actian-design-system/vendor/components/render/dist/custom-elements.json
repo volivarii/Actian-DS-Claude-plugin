@@ -3920,6 +3920,9 @@
           "cssParts": [],
           "cssProperties": [
             {
+              "name": "--zen-border-default"
+            },
+            {
               "name": "--zen-border-radius-sm"
             },
             {
@@ -3938,10 +3941,22 @@
               "name": "--zen-color-bg-selected"
             },
             {
+              "name": "--zen-color-bg-subtle"
+            },
+            {
               "name": "--zen-color-error-50"
             },
             {
+              "name": "--zen-color-primary-700"
+            },
+            {
               "name": "--zen-color-text-default"
+            },
+            {
+              "name": "--zen-color-text-primary"
+            },
+            {
+              "name": "--zen-color-text-secondary"
             },
             {
               "name": "--zen-focus-ring-primary"
@@ -3968,13 +3983,22 @@
               "name": "--zen-font-size-sm"
             },
             {
+              "name": "--zen-font-weight-medium"
+            },
+            {
               "name": "--zen-font-weight-regular"
             },
             {
               "name": "--zen-font-weight-semibold"
             },
             {
+              "name": "--zen-size-lg"
+            },
+            {
               "name": "--zen-spacing-2xs"
+            },
+            {
+              "name": "--zen-spacing-sm"
             },
             {
               "name": "--zen-spacing-xs"

@@ -3,7 +3,7 @@
   "kind": "section",
   "slug": "facet-tabs",
   "label": "Facet tabs",
-  "description": "The facet tab bar of a catalog object page: one tab per facet of the object, some carrying a count, and opposite them two avatar stacks, curators and contacts.",
+  "description": "The facet tab bar of an item page: one tab per facet of the object, some carrying a count, and opposite them two avatar stacks, curators and contacts.",
   "role": "tabs",
   "apps": [
     "studio"

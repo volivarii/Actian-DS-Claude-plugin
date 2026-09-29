@@ -1443,7 +1443,9 @@
 .ds-fieldbox--error .ds-fieldbox__text,
 .ds-fieldbox--filled .ds-fieldbox__text,
 .ds-fieldbox--warning .ds-fieldbox__text {
-  color: var(--zen-color-text-default); /* capture: #000000 on these four States */
+  color: var(
+    --zen-color-text-default
+  ); /* capture: #000000 on these four States */
 }
 .ds-fieldbox.is-disabled .ds-fieldbox__text {
   color: var(--zen-color-text-disabled); /* capture: #656574 */
@@ -1607,6 +1609,20 @@
   font-weight: var(--zen-font-weight-regular);
   text-decoration: none;
   cursor: pointer;
+}
+/* Sub-items (.ds-sidenav__item--sub, Import's Select a connection / Select a
+   file) take no rule of their own: their empty 16px icon slot already puts
+   the label under the parent's label, which is where
+   components/dist/media/side-nav/default.webp draws it. */
+/* Trailing chevron of an open item with sub-items — anatomy: Icon right,
+   16px, pushed to the row's right edge. */
+.ds-sidenav__chevron {
+  display: flex;
+  align-items: center;
+  width: 16px; /* anatomy: icon size (raw px) */
+  height: 16px;
+  margin-left: auto;
+  color: inherit;
 }
 /* Icon slot — anatomy: 16px square, SVG currentColor. Legacy path renders an
    empty span (no SVG) so we keep a small fixed box for visual alignment. */
@@ -3657,12 +3673,9 @@
 /* ============ Search result card (rich header/details/tags/glossary), gray-box-to-zero family 3 ============ */
 /* Identity axis App = Explorer (default) | Studio; State is secondary, only
  * Selected/Focus map to a visible modifier. The fidelity oracle only
- * captures App=Explorer/State=Default, so only that default is built with
- * full fidelity; Studio's structural swaps are out of scope (see the
- * renderer case comment) and App=Studio renders the base card with no root
- * modifier -- there is no built CSS delta for it, so no --studio class is
- * emitted (a modifier must carry a real visual delta, never a no-op
- * namespace hook). Eyebrow/stage/catalog tags and the glossary item-type
+ * captures App=Explorer/State=Default, so that default is built with full
+ * fidelity; App=Studio is its own card on the --studio modifier below (#722),
+ * read off the Studio capture. Eyebrow/stage/catalog tags and the glossary item-type
  * badge reuse EXISTING .ds-tag / .ds-tag-stage / .ds-tag--catalog /
  * .ds-item-type rules verbatim -- only the
  * ds-search-result-card* classes below are new. (The stage pill's
@@ -3779,6 +3792,120 @@
   line-height: var(--zen-font-lineheight-sm); /* 16 */
   font-weight: var(--zen-font-weight-regular);
   letter-spacing: var(--zen-font-letterspacing-wide-3); /* 0.3 */
+  color: var(--zen-color-text-default);
+}
+/* App=Studio (#722): a different card, not a restyled Explorer one. Studio's
+ * Catalog draws each result as a flat row the width of the list, closed by a
+ * bottom rule, with no box (app-context/src/recipes/captures/faceted-browse.png
+ * and Figma's App=Studio set). Only Explorer's tree is captured, so the values
+ * below are read off that screenshot and named where they are raw. */
+.ds-search-result-card--studio {
+  width: 100%;
+  border: 0;
+  border-bottom: 1px solid var(--zen-border-subtle);
+  border-radius: 0;
+  padding: var(--zen-spacing-sm) var(--zen-spacing-xs); /* 12 / 8, read off the capture's row rhythm */
+}
+/* Selected, in Studio: the selected background (base --selected) and a left
+ * edge (#722). Written as the edge alone on the pair, so --selected keeps its
+ * own rule. */
+.ds-search-result-card--studio.ds-search-result-card--selected {
+  box-shadow: inset 3px 0 0 var(--zen-border-selected); /* raw px: the left edge */
+}
+/* Focus, in Studio: --studio's border reset comes after --focus in this file,
+ * so the ring is drawn on the pair, inset so the row keeps its width. */
+.ds-search-result-card--studio.ds-search-result-card--focus {
+  box-shadow: inset 0 0 0 2px var(--zen-focus-ring-primary); /* captured Focus width 2px */
+}
+.ds-search-result-card--studio .ds-search-result-card__header {
+  gap: var(--zen-spacing-xs);
+}
+.ds-search-result-card--studio .ds-search-result-card__details {
+  /* aligned under the type tag: the checkbox's width plus the header gap */
+  padding-left: calc(var(--zen-size-lg) + var(--zen-spacing-xs));
+  box-sizing: border-box;
+}
+.ds-search-result-card__select {
+  flex: 0 0 auto;
+}
+/* Studio's title and technical name read as the link to the item page, in the
+ * primary text colour (the capture's blue titles). */
+.ds-search-result-card--studio .ds-search-result-card__title {
+  color: var(--zen-color-text-primary);
+}
+.ds-search-result-card--studio .ds-search-result-card__tech {
+  color: var(--zen-color-text-primary);
+}
+/* Studio's Shared tag, solid: the screenshot's dark pill with a light label,
+ * the same paint the Studio drawer's own capture gives its Shared tag
+ * (.ds-drawer__tag-shared, #00699f). Not .ds-tag--shared, which is
+ * read-only-tag's Type=Shared at #cbe3ff. */
+.ds-search-result-card__shared {
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+  padding: 0 var(--zen-spacing-xs);
+  height: 24px; /* raw px: the sibling type tag's height */
+  border-radius: 4px; /* as the drawer's captured Shared tag */
+  background: var(--zen-color-primary-700);
+  color: #ffffff; /* no captured token; a solid-fill pill needs a light label for contrast */
+  font-size: var(--zen-font-size-sm);
+  line-height: var(--zen-font-lineheight-sm);
+  letter-spacing: var(--zen-font-letterspacing-wide-3);
+  white-space: nowrap;
+  box-sizing: border-box;
+}
+.ds-search-result-card__progress {
+  width: 160px; /* raw px: the capture's bar plus its percentage */
+  flex: 0 0 auto;
+}
+.ds-search-result-card__connection {
+  margin: 0;
+  font-size: var(--zen-font-size-sm);
+  line-height: var(--zen-font-lineheight-sm);
+  letter-spacing: var(--zen-font-letterspacing-wide-3);
+  color: var(--zen-color-text-secondary);
+}
+.ds-search-result-card__link {
+  color: var(--zen-color-text-primary);
+}
+.ds-search-result-card__desc--empty {
+  color: var(--zen-color-text-secondary); /* the capture's grey "No summary available" */
+}
+.ds-search-result-card__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--zen-spacing-xs);
+}
+.ds-search-result-card__chip {
+  padding: 2px var(--zen-spacing-xs); /* raw px: the chip's vertical inset */
+  border-radius: var(--zen-border-radius-xs);
+  background: var(--zen-color-bg-subtle);
+  font-size: var(--zen-font-size-sm);
+  line-height: var(--zen-font-lineheight-sm);
+  letter-spacing: var(--zen-font-letterspacing-wide-3);
+  color: var(--zen-color-text-default);
+}
+.ds-search-result-card__chip-label {
+  font-weight: var(--zen-font-weight-medium);
+}
+.ds-search-result-card__suggestion {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  gap: var(--zen-spacing-2xs);
+  padding: 2px var(--zen-spacing-xs); /* raw px: as the property chip */
+  border: 1px solid var(--zen-border-default);
+  border-radius: var(--zen-border-radius-xs);
+  font-size: var(--zen-font-size-sm);
+  line-height: var(--zen-font-lineheight-sm);
+  color: var(--zen-color-text-default);
+}
+.ds-search-result-card__updated {
+  align-self: flex-end;
+  font-size: var(--zen-font-size-sm);
+  line-height: var(--zen-font-lineheight-sm);
+  letter-spacing: var(--zen-font-letterspacing-wide-3);
   color: var(--zen-color-text-default);
 }
 
@@ -4054,7 +4181,7 @@
 .ds-drawer {
   display: flex;
   flex-direction: column;
-  width: 420px; /* raw px: side-panel width -- anatomy sizing is fixed/fixed but captures no explicit px */
+  width: 550px; /* raw px: both apps' drawer width, from the recipes (right-sliding-drawer, studio-quick-edit-drawer); the anatomy sizing is fixed/fixed but captures no explicit px */
   max-width: 100%;
   background: var(--zen-color-bg-default); /* captured #ffffff */
   border: 1px solid var(--zen-border-default); /* borrowed elevation idiom, mirrors .ds-modal; not captured */
@@ -4243,6 +4370,16 @@
   font-size: var(--zen-font-size-md); /* 14, captured */
   line-height: var(--zen-font-lineheight-md); /* 20, captured */
   letter-spacing: var(--zen-font-letterspacing-wide-2); /* 0.2, captured */
+}
+/* The selected tab's panel, a screen's own content (Content prop, #708). Not
+ * captured: it takes the section body's padding and text so a screen's panel
+ * reads as the drawer's own. */
+.ds-drawer__panel {
+  padding: var(--zen-spacing-md);
+  color: var(--zen-color-text-default);
+  font-size: var(--zen-font-size-md);
+  line-height: var(--zen-font-lineheight-md);
+  letter-spacing: var(--zen-font-letterspacing-wide-2);
 }
 
 /* ============ Spinner (indeterminate ring + on-dark modifier), gray-box-to-zero family 5 ============ */
@@ -5196,7 +5333,9 @@
 }
 .ds-line-graph__line {
   fill: none;
-  stroke: var(--zen-color-primary-500); /* capture: #0f5fdc on the Line vector */
+  stroke: var(
+    --zen-color-primary-500
+  ); /* capture: #0f5fdc on the Line vector */
   stroke-width: 1; /* capture: 1px */
   stroke-linejoin: round;
   vector-effect: non-scaling-stroke;

@@ -8,18 +8,18 @@
   "generatedBy": "scripts/render/derive-geometry-fidelity.js",
   "scope": "gap, padding and fixed height, on the capture root and on per-variant layout entries. Width is not read: a captured width is where the instance sat on the Figma canvas, not a property of the component.",
   "totals": {
-    "examined": 704,
+    "examined": 730,
     "verified": 150,
     "verifiedViaTokenName": 0,
     "mismatch": 91,
-    "unverifiable": 463,
+    "unverifiable": 489,
     "overridden": 0
   },
   "reasons": {
-    "element-no-node-mapping": 381,
+    "element-no-node-mapping": 403,
     "selector-not-attributable": 35,
     "root-is-non-default-state": 7,
-    "no-matching-variant": 20,
+    "no-matching-variant": 24,
     "no-fact-of-kind": 16,
     "state-unreachable": 4
   },
@@ -262,7 +262,7 @@
       "verified": 0,
       "verifiedViaTokenName": 0,
       "mismatch": 0,
-      "unverifiable": 47,
+      "unverifiable": 51,
       "overridden": 0,
       "blind": true
     },
@@ -680,7 +680,7 @@
       "verified": 5,
       "verifiedViaTokenName": 0,
       "mismatch": 0,
-      "unverifiable": 5,
+      "unverifiable": 26,
       "overridden": 0,
       "blind": false
     },
@@ -702,7 +702,7 @@
       "verified": 4,
       "verifiedViaTokenName": 0,
       "mismatch": 1,
-      "unverifiable": 16,
+      "unverifiable": 17,
       "overridden": 0,
       "blind": false
     },

@@ -11,4 +11,4 @@ sources:
 ---
 Someone whose work depends on data but whose job is not data itself, such as a marketing lead, a finance controller or an operations manager. A business user wants to find data they can trust, understand what it means in business terms, and get access to it without needing to know how it is produced. Also referred to as a data consumer.
 
-In the product the business user works in Explorer: discovering and browsing data products in the marketplace, understanding an asset before using it, requesting access to the data they need, and asking AI for help finding and understanding data.
+In the product the business user works in Explorer. What they do there is listed by Explorer's use cases.

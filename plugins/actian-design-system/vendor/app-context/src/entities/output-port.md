@@ -8,4 +8,4 @@ relationships: {}
 apps:
   - studio
 ---
-An output port of a data product — a published interface that a data contract can attach to.
+An output port of a data product — a shared interface that a data contract can attach to.

@@ -7,7 +7,7 @@ The search result card is the presentation surface of the search flow: it render
 
 * Use it for search results only: one card per returned item, in the results list of Explorer or Studio.
 
-* Use it when users must evaluate relevance at a glance: it highlights matched keywords and surfaces identifying metadata (type, owner, last modified) beside the title.
+* Use it when users must evaluate relevance at a glance: it highlights matched keywords and surfaces identifying metadata (type, owner, last updated) beside the title.
 
 * Use it when scannability of matches matters more than column comparison, which is why search results are not built as a generic [table](table).
 

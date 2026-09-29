@@ -44,6 +44,6 @@ This guideline covers the card family: card for items, card for grouped content,
 | Make the whole item card one click target to the detail page | Scatter separate links inside the card body |
 | Reveal contextual actions on focus as well as hover, or in an [actions menu](dropdown-select) | Stack persistent buttons on every card in a grid |
 | Keep every card in a grid the same kind and size | Mix item cards and grouped-content cards in one grid |
-| Show two or three metadata lines (type, owner, last modified) | Cram the full attribute set onto the card face |
+| Show two or three metadata lines (type, owner, last updated) | Cram the full attribute set onto the card face |
 
 > Card title and description wording per sub-kind (item, selectable, topic) lives in the Content guidelines for cards.

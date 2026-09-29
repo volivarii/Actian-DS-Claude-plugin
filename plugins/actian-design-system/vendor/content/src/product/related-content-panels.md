@@ -22,7 +22,7 @@ Related content panels surface assets or resources connected to the currently vi
 
 * Panel heading describes the relationship type. For example, `Related datasets`, `Used in reports`.
 
-* Each item in the panel shows the asset name as a link, plus one or two metadata attributes (type, owner, or last modified).
+* Each item in the panel shows the asset name as a link, plus one or two metadata attributes (type, owner, or last updated).
 
 * If the panel is empty, show a brief empty state message. For example, `No related datasets found`.
 

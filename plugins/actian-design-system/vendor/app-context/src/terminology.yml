@@ -1,4 +1,10 @@
 _schema_version: 1
+# notUse lists words the product never says for anything: every product-facing
+# string (app records, entities, recipes, rendered fragments) is checked against
+# it as whole words by tests/terminology-enforced.test.js. A word the product
+# does use for something else (Dataset is an item type; "Access request policy"
+# and "Source description" are captured labels) cannot be listed here; the
+# confusion it names is written into `meaning` instead (#710).
 terms:
   data-intelligence-platform:
     use: Data Intelligence Platform
@@ -24,23 +30,21 @@ terms:
     notUse:
       - admin app
   catalog-object:
-    use: Catalog object
-    meaning: Any indexed data asset
+    use: Item
+    meaning: Any indexed data asset in a catalog (dataset, field, visualization, data process, data product, glossary item, and custom item types)
     notUse:
-      - item
       - record
       - entry
+      - catalog object
   data-product:
     use: Data product
-    meaning: Curated published asset
-    notUse:
-      - dataset
+    meaning: Curated asset shared to the marketplace. Not a dataset, which is its own item type
+    notUse: []
   data-contract:
     use: Data contract
-    meaning: Quality/access agreement
+    meaning: Quality/access agreement. Not a policy, which the product uses for access request and governance policies
     notUse:
       - SLA
-      - policy
   governance-by-design:
     use: Governance-by-design
     meaning: Policies embedded at creation
@@ -73,37 +77,37 @@ terms:
       - metadata store
   topic:
     use: Topic
-    meaning: Curated, filtered collection of catalog items for Explorer
+    meaning: Curated, filtered collection of catalog items for Explorer. Not a category, which the product uses for glossary item types
     notUse:
       - folder
-      - category
   connection:
     use: Connection
-    meaning: Configured data source connector
-    notUse:
-      - integration
+    meaning: Configured data source connector. Not an integration
+    notUse: []
   completion-level:
     use: Completion level
-    meaning: Percentage of metadata filled for an item
+    meaning: Percentage of metadata filled for an item. Not progress
     notUse:
-      - progress
       - completeness
+      - documentation completion
   suggestion:
     use: Suggestion
     meaning: AI-generated metadata enrichment proposal
     notUse:
       - recommendation
+  last-updated:
+    use: Last updated
+    meaning: When an item last changed, as a search result shows it
+    notUse:
+      - last modified
   curator:
     use: Curator
-    meaning: Person responsible for curating a catalog item
-    notUse:
-      - owner
+    meaning: Person responsible for curating a catalog item. Not an owner, which the product uses for the Data Owner responsibility role
+    notUse: []
   output-port:
     use: Output port
-    meaning: Published endpoint/view of a data product
-    notUse:
-      - API
-      - export
+    meaning: Shared endpoint/view of a data product. Not an API or an export, which the product uses for API keys and for exporting a selection
+    notUse: []
   view-360:
     use: View 360
     meaning: Radial knowledge graph centered on an asset
@@ -116,9 +120,8 @@ terms:
       - saved search
   perimeter:
     use: Perimeter
-    meaning: Scope of a curator's item responsibility
-    notUse:
-      - scope
+    meaning: Extent of a curator's item responsibility. Not a scope, which the product uses for an API key's permissions
+    notUse: []
   scanner:
     use: Scanner
     meaning: External data ingestion agent
@@ -127,10 +130,8 @@ terms:
       - harvester
   metamodel:
     use: Metamodel
-    meaning: System structure/template configuration
-    notUse:
-      - schema
-      - model
+    meaning: System structure/template configuration. Not a schema or a model, which the product uses for a data contract's schema and the data model
+    notUse: []
   pii:
     use: PII
     meaning: Personally Identifiable Information flag on fields
@@ -160,10 +161,8 @@ terms:
       - data preview
   input-port:
     use: Input Port
-    meaning: Interface for receiving upstream data into a data product
-    notUse:
-      - input
-      - source
+    meaning: Interface for receiving upstream data into a data product. Not an input or a source, which the product uses for form inputs and a source's description
+    notUse: []
   federated-catalog:
     use: Federated Catalog
     meaning: Multi-catalog architecture with scoped permissions

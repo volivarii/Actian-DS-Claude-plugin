@@ -8,7 +8,7 @@
   "kind": "section",
   "slug": "item-header",
   "label": "Item header",
-  "description": "The top of every catalog object page: identity row (type tag, sharing tag, item name; status tag and an Actions button on the right) over three metadata lines: technical name, a catalog / category / connection path with links, and a last-updated date.",
+  "description": "The top of every item page: identity row (type tag, sharing tag, item name; status tag and an Actions button on the right) over three metadata lines: technical name, a catalog / category / connection path with links, and a last-updated date.",
   "role": "header",
   "apps": [
     "studio"
