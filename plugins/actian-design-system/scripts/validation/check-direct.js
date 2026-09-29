@@ -64,10 +64,12 @@ function maskCssComments(s) {
 // may write class='x' as freely as class="x". Two alternatives share one
 // capture slot: whichever quote matched is the one with a defined group.
 function allAttr(name, s) {
-  var re = new RegExp(name + "\\s*=\\s*(?:\"([^\"]*)\"|'([^']*)')", "g");
+  // The name must start the attribute (class, not data-class); HTML allows a
+  // value unquoted.
+  var re = new RegExp("(?<![\\w-])" + name + "\\s*=\\s*(?:\"([^\"]*)\"|'([^']*)'|([^\\s>\"'=]+))", "g");
   var out = [],
     m;
-  while ((m = re.exec(s))) out.push(m[1] !== undefined ? m[1] : m[2]);
+  while ((m = re.exec(s))) out.push(m[1] !== undefined ? m[1] : m[2] !== undefined ? m[2] : m[3]);
   return out;
 }
 

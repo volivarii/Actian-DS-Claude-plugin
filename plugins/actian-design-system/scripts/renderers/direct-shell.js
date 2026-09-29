@@ -89,11 +89,12 @@ var RUNTIME = [
   // replaces it after the fact. root itself is checked, not only its
   // descendants, so a span added directly (not inside a wrapper) is caught
   // too. An unlisted slug is left exactly as app.js wrote it, the same as
-  // inlineIcons leaves one body.html names.
+  // inlineIcons leaves one body.html names; the span's own class goes on the
+  // svg, the same as inlineIcons puts it there.
   ",icons:function(root){var m=window.PROTO_ICONS||{};function fix(el){",
   "var ic=m[el.getAttribute('data-icon')];if(!ic)return;",
   "var svg=document.createElementNS('http://www.w3.org/2000/svg','svg');",
-  "svg.setAttribute('class','proto-icon');svg.setAttribute('viewBox',ic.viewBox);",
+  "var own=el.getAttribute('class');svg.setAttribute('class','proto-icon'+(own?' '+own:''));svg.setAttribute('viewBox',ic.viewBox);",
   "svg.setAttribute('aria-hidden','true');svg.innerHTML=ic.body;el.replaceWith(svg);}",
   "if(root.getAttribute&&root.getAttribute('data-icon')!=null)fix(root);",
   "if(root.querySelectorAll)Array.prototype.forEach.call(root.querySelectorAll('span[data-icon]'),fix);}};",

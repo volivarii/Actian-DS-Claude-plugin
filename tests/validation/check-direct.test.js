@@ -42,6 +42,12 @@ describe("check-direct", () => {
     assert.strictEqual(f[0].path, "extra.css");
     assert.match(f[0].value, /\.cat\b/);
   });
+  it("unstyled-class: an unquoted class is carried, a data-class value is not", () => {
+    const extraCss = ok.extraCss + ".cat{gap:0}";
+    const cat = (body) => checkDirect(Object.assign({}, ok, { extraCss, body })).filter((f) => f.check === "unstyled-class" && /\.cat\b/.test(JSON.stringify(f))).length;
+    assert.strictEqual(cat(ok.body.replace("<button", "<div class=cat>x</div><button")), 0);
+    assert.strictEqual(cat(ok.body.replace("<button", '<div data-class="cat">x</div><button')), 1);
+  });
   it("unstyled-class: quiet when the body or app.js carries the class", () => {
     const extraCss = ".cat{display:flex}";
     assert.ok(!kinds({ extraCss, body: '<div data-app-frame><div class="x cat">x</div></div>' }).includes("unstyled-class"));

@@ -64,7 +64,10 @@ function inlineIcons(html, icons) {
       // The span's own class (a size, a colour hook) goes on the svg.
       var own = takeClassAttr(a + " " + b).value;
       var svgOpen = '<svg class="proto-icon" viewBox="';
-      if (own) svgOpen = svgOpen.replace('proto-icon"', "proto-icon " + own + '"');
+      if (own)
+        svgOpen = svgOpen.replace('proto-icon"', function () {
+          return "proto-icon " + own + '"';
+        });
       return (
         svgOpen +
         ic.viewBox +
@@ -80,12 +83,13 @@ function inlineIcons(html, icons) {
 // returns { value, rest }: rest is the string with that one attribute cut out,
 // so the author's own class survives instead of becoming a second, ignored
 // class="" duplicate.
-var LAYER_CLASS_ATTR = /\s*class\s*=\s*(?:"([^"]*)"|'([^']*)')/;
+// The name must start the attribute (not data-class), and HTML allows it unquoted.
+var LAYER_CLASS_ATTR = /\s*(?<![\w-])class\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s>"'=]+))/;
 function takeClassAttr(s) {
   var m = s.match(LAYER_CLASS_ATTR);
   if (!m) return { value: null, rest: s };
   return {
-    value: m[1] !== undefined ? m[1] : m[2],
+    value: m[1] !== undefined ? m[1] : m[2] !== undefined ? m[2] : m[3],
     rest: s.slice(0, m.index) + s.slice(m.index + m[0].length),
   };
 }

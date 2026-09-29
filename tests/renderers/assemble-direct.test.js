@@ -225,6 +225,17 @@ describe("assemble-direct: a modal on a scrim, and an author's own script", () =
     const out = inlineIcons('<span class="big" data-icon="edit"></span>', { edit: { viewBox: "0 0 16 16", body: "" } });
     assert.match(out, /<svg class="proto-icon big"/);
   });
+  it("reads class, not data-class, and an unquoted class, off the frame", () => {
+    const a = page('<div data-app-frame data-class="x" class="cat"><p>r</p></div>');
+    assert.match(a, /<div class="screen__content-area cat" data-class="x">/);
+    const b = page("<div data-app-frame class=cat><p>r</p></div>");
+    assert.match(b, /<div class="screen__content-area cat">/);
+  });
+  it("puts an icon class holding $& on the svg as written", () => {
+    const { inlineIcons } = require(path.join(ROOT, "scripts/renderers/assemble-direct.js"));
+    const out = inlineIcons('<span class="a$&b" data-icon="edit"></span>', { edit: { viewBox: "0 0 16 16", body: "" } });
+    assert.match(out, /<svg class="proto-icon a\$&b" viewBox=/);
+  });
   it("adds no wrapper when the frame carries no attribute of its own", () => {
     const html = page("<div data-app-frame><p>2 results</p></div>");
     assert.ok(!/<div\s*>\s*<p>2 results/.test(html), "an empty wrapper was added");
@@ -706,6 +717,14 @@ describe("assemble-direct: PROTO_ICONS carries the icon geometry app.js can draw
     const unknown = fakeIconSpan("mystery");
     proto.icons(unknown);
     assert.ok(!unknown.replacedWith, "an icon absent from PROTO_ICONS must not be replaced");
+  });
+
+  it("proto.icons keeps the span's own class, as inlineIcons does", () => {
+    const proto = runIconsRuntime({ edit: ICONS.edit });
+    const span = fakeIconSpan("edit");
+    span.attrs.class = "big";
+    proto.icons(span);
+    assert.strictEqual(span.replacedWith.attrs.class, "proto-icon big");
   });
 });
 
