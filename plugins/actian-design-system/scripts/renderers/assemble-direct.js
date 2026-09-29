@@ -61,8 +61,15 @@ function inlineIcons(html, icons) {
     function (all, a, slug, b) {
       var ic = icons[slug];
       if (!ic) return all; // check-direct reports unknown-icon
+      // The span's own class (a size, a colour hook) goes on the svg.
+      var own = takeClassAttr(a + " " + b).value;
+      var svgOpen = '<svg class="proto-icon" viewBox="';
+      if (own)
+        svgOpen = svgOpen.replace('proto-icon"', function () {
+          return "proto-icon " + own + '"';
+        });
       return (
-        '<svg class="proto-icon" viewBox="' +
+        svgOpen +
         ic.viewBox +
         '" aria-hidden="true">' +
         ic.body +
@@ -76,12 +83,13 @@ function inlineIcons(html, icons) {
 // returns { value, rest }: rest is the string with that one attribute cut out,
 // so the author's own class survives instead of becoming a second, ignored
 // class="" duplicate.
-var LAYER_CLASS_ATTR = /\s*class\s*=\s*(?:"([^"]*)"|'([^']*)')/;
+// The name must start the attribute (not data-class), and HTML allows it unquoted.
+var LAYER_CLASS_ATTR = /\s*(?<![\w-])class\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s>"'=]+))/;
 function takeClassAttr(s) {
   var m = s.match(LAYER_CLASS_ATTR);
   if (!m) return { value: null, rest: s };
   return {
-    value: m[1] !== undefined ? m[1] : m[2],
+    value: m[1] !== undefined ? m[1] : m[2] !== undefined ? m[2] : m[3],
     rest: s.slice(0, m.index) + s.slice(m.index + m[0].length),
   };
 }
@@ -248,6 +256,14 @@ function assemble(o) {
   var open = body.match(/<div[^>]*\sdata-app-frame[^>]*>/);
   if (!open)
     throw new Error("assemble-direct: body.html has no <div data-app-frame>");
+  // The author's own attributes on the frame div (class="cat" and the like)
+  // hold the content area's layout: the frame placeholder is replaced, so they
+  // go onto the content area the frame draws, or its rules match nothing.
+  var frameAttrs = open[0]
+    .replace(/^<div\b/, "")
+    .replace(/>$/, "")
+    .replace(/\sdata-app-frame(\s*=\s*("[^"]*"|'[^']*'|[^\s>"']+))?/, "")
+    .trim();
   // The frame wraps what sits inside data-app-frame; layers stay outside it.
   var start = open.index + open[0].length;
   var end = frameEnd(body, start);
@@ -274,6 +290,20 @@ function assemble(o) {
     })[0];
     return item ? item.label : null;
   });
+  // Merged onto the content area's own open tag (its class joined), so the
+  // author's children stay its direct children; a wrapper only if the frame's
+  // markup ever stops ending on that tag.
+  var before = frame.before;
+  if (frameAttrs) {
+    var ca = /<div class="([^"]*)">$/.exec(before);
+    var own = takeClassAttr(" " + frameAttrs);
+    if (ca)
+      before =
+        before.slice(0, ca.index) +
+        '<div class="' + ca[1] + (own.value ? " " + own.value : "") + '"' +
+        (own.rest.trim() ? " " + own.rest.trim() : "") + ">";
+    else inside = "<div " + frameAttrs + ">" + inside + "</div>";
+  }
   return (
     (o.run ? provenanceComment(o.run) : "") +
     '<!doctype html><html lang="en"><head><meta charset="utf-8">' +
@@ -292,7 +322,7 @@ function assemble(o) {
     '">' +
     shell.strip(steps, (o.meta && o.meta.adds) || []) +
     '<div class="proto-stage">' +
-    frame.before +
+    before +
     inside +
     frame.after +
     rest +

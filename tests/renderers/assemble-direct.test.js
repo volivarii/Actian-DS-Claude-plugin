@@ -201,6 +201,45 @@ describe("assemble-direct: a modal on a scrim, and an author's own script", () =
     FRAME +
     '<aside data-layer="modal" id="confirm" hidden><h2>Save 2 descriptions?</h2></aside>';
 
+  it("carries the author's frame attributes onto the content area", () => {
+    const html = page('<div data-app-frame class="cat" data-x="1"><div class="cat__rail">R</div></div>');
+    assert.match(html, /<div[^>]*class="[^"]*\bcat\b[^"]*"[^>]*data-x="1"[^>]*>[\s\S]*cat__rail/);
+    assert.ok(!html.includes("data-app-frame"), "the placeholder attribute survived");
+  });
+  it("merges the frame's attributes onto the content area, with no wrapper of its own", () => {
+    const html = page('<div data-app-frame class="cat" data-x="1"><div class="cat__rail">R</div></div>');
+    assert.match(html, /<div class="screen__content-area cat" data-x="1"><div class="cat__rail">/);
+  });
+  it("reads data-app-frame written with a value, spaced or unquoted", () => {
+    [
+      '<div data-app-frame = "" class="cat"><p>2 results</p></div>',
+      "<div data-app-frame=main class=\"cat\"><p>2 results</p></div>",
+    ].forEach((body) => {
+      const html = page(body);
+      assert.ok(!/<div[^>]*\s=/.test(html) && !/<div =|=main/.test(html), "stray = left: " + body);
+      assert.match(html, /class="screen__content-area cat"/);
+    });
+  });
+  it("keeps an icon span's own class on the svg it becomes", () => {
+    const { inlineIcons } = require(path.join(ROOT, "scripts/renderers/assemble-direct.js"));
+    const out = inlineIcons('<span class="big" data-icon="edit"></span>', { edit: { viewBox: "0 0 16 16", body: "" } });
+    assert.match(out, /<svg class="proto-icon big"/);
+  });
+  it("reads class, not data-class, and an unquoted class, off the frame", () => {
+    const a = page('<div data-app-frame data-class="x" class="cat"><p>r</p></div>');
+    assert.match(a, /<div class="screen__content-area cat" data-class="x">/);
+    const b = page("<div data-app-frame class=cat><p>r</p></div>");
+    assert.match(b, /<div class="screen__content-area cat">/);
+  });
+  it("puts an icon class holding $& on the svg as written", () => {
+    const { inlineIcons } = require(path.join(ROOT, "scripts/renderers/assemble-direct.js"));
+    const out = inlineIcons('<span class="a$&b" data-icon="edit"></span>', { edit: { viewBox: "0 0 16 16", body: "" } });
+    assert.match(out, /<svg class="proto-icon a\$&b" viewBox=/);
+  });
+  it("adds no wrapper when the frame carries no attribute of its own", () => {
+    const html = page("<div data-app-frame><p>2 results</p></div>");
+    assert.ok(!/<div\s*>\s*<p>2 results/.test(html), "an empty wrapper was added");
+  });
   it("draws the scrim a modal sits on, which no author writes", () => {
     const html = page(MODAL);
     assert.ok(
@@ -678,6 +717,14 @@ describe("assemble-direct: PROTO_ICONS carries the icon geometry app.js can draw
     const unknown = fakeIconSpan("mystery");
     proto.icons(unknown);
     assert.ok(!unknown.replacedWith, "an icon absent from PROTO_ICONS must not be replaced");
+  });
+
+  it("proto.icons keeps the span's own class, as inlineIcons does", () => {
+    const proto = runIconsRuntime({ edit: ICONS.edit });
+    const span = fakeIconSpan("edit");
+    span.attrs.class = "big";
+    proto.icons(span);
+    assert.strictEqual(span.replacedWith.attrs.class, "proto-icon big");
   });
 });
 

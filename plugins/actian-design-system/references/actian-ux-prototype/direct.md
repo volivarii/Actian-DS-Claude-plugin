@@ -99,6 +99,7 @@ No Step 7.5 gate: there is nothing to push.
 | `unknown-token` | P0 | Use a `var(--token)` the stylesheet defines |
 | `unknown-ds-class` | P0 | Use the class the component's fragment carries |
 | `raw-colour` | P1 | Replace the hand-typed colour in `extra.css` with a token |
+| `unstyled-class` | P0 | A class `extra.css` styles that nothing on the page carries: put it on the element it was meant for (on `<div data-app-frame>` it is kept) or delete the rule |
 | `frame-missing` | P0 | Wrap the content area in `<div data-app-frame>` |
 | `frame-redrawn` | P0 | Remove the header or side navigation: the assembler draws them |
 | `layer-misplaced` | P0 | A layer is an `<aside data-layer>` of a known kind, written after the frame closes |

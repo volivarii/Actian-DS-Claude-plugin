@@ -10,7 +10,7 @@
 // context with a permissive browser-global stub and a 1-second timeout, and
 // checkDirect reads whatever the script actually left on proto.steps.
 // checkDirect itself stays synchronous and pure apart from that evaluation.
-// Fourteen kinds of finding. Eleven read what the four files declare or omit.
+// Fifteen kinds of finding. Twelve read what the four files declare or omit.
 // unsafe-embed reads for the two escape sequences assemble-direct.js does not
 // rewrite when it embeds extra.css in a <style> element and app.js in a
 // <script> element (it escapes </script, nothing else). steps-unread is the
@@ -64,10 +64,12 @@ function maskCssComments(s) {
 // may write class='x' as freely as class="x". Two alternatives share one
 // capture slot: whichever quote matched is the one with a defined group.
 function allAttr(name, s) {
-  var re = new RegExp(name + "\\s*=\\s*(?:\"([^\"]*)\"|'([^']*)')", "g");
+  // The name must start the attribute (class, not data-class); HTML allows a
+  // value unquoted.
+  var re = new RegExp("(?<![\\w-])" + name + "\\s*=\\s*(?:\"([^\"]*)\"|'([^']*)'|([^\\s>\"'=]+))", "g");
   var out = [],
     m;
-  while ((m = re.exec(s))) out.push(m[1] !== undefined ? m[1] : m[2]);
+  while ((m = re.exec(s))) out.push(m[1] !== undefined ? m[1] : m[2] !== undefined ? m[2] : m[3]);
   return out;
 }
 
@@ -305,6 +307,66 @@ function checkDirect(o) {
         "a colour typed by hand: use a token",
       ),
     );
+  // A class the author styles that nothing on the page carries: its rules never
+  // apply (the thin kit's T7 styled .cat on the frame div the assembler used to
+  // drop, and the filter rail fell apart with every check green). Carried: a
+  // class in body.html, any word app.js contains (it sets classes at run time:
+  // className, classList.toggle, markup in template literals whose nested
+  // quotes defeat a string scan), and a class the frame's or
+  // the shell's own stylesheet defines. Only selectors are read: declaration
+  // blocks, strings and at-rule preludes are masked first.
+  var carried = {};
+  var prefixes = [];
+  allAttr("class", body)
+    .join(" ")
+    .split(/\s+/)
+    .concat(js.match(/[A-Za-z_][\w-]*/g) || [])
+    .forEach(function (c) {
+      if (!c) return;
+      carried[c] = true;
+      // A word ending in - or _ is the stem of a class built at run time
+      // ("row--" + status, `row--${status}`): every class it starts is carried.
+      if (/[-_]$/.test(c)) prefixes.push(c);
+    });
+  all(/\.([A-Za-z_][\w-]*)/g, cssM + "\n" + maskCssComments(shellCss)).forEach(
+    function (c) {
+      carried[c] = true;
+    },
+  );
+  // Selectors only. In order: strings and url() masked; a class inside :not()
+  // is one the rule needs absent, not one it styles; an at-rule prelude is
+  // read only where a statement starts (an @ inside a value is not one); the
+  // innermost blocks are declarations; what is left before a ; is a
+  // declaration of a rule whose nested rule was just masked.
+  var selectors = extraM
+    .replace(/"[^"]*"|'[^']*'/g, '""')
+    .replace(/url\([^)]*\)/gi, "url()")
+    .replace(/:not\([^()]*\)/gi, "")
+    .replace(/(^|[;{}])\s*@[^{;]*/g, "$1")
+    .replace(/\{[^{}]*\}/g, " ")
+    .replace(/[^{};]*;/g, " ")
+    .replace(/[{}]/g, " ");
+  uniq(
+    all(/\.((?:[A-Za-z_]|\\.)(?:[\w-]|\\.)*)/g, selectors).map(function (c) {
+      return c.replace(/\\(.)/g, "$1");
+    }),
+  ).forEach(function (c) {
+    if (/^ds-/.test(c) || carried[c]) return;
+    if (
+      prefixes.some(function (p) {
+        return c.indexOf(p) === 0 && c.length > p.length;
+      })
+    )
+      return;
+    f.push(
+      finding(
+        "error",
+        "unstyled-class",
+        "extra.css",
+        "." + c + " is styled but no element on the page carries it",
+      ),
+    );
+  });
   if (!/<div[^>]*\sdata-app-frame/.test(body))
     f.push(
       finding(
