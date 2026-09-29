@@ -79,3 +79,51 @@ describe("checkHandover intent", () => {
     assert.ok(f.some((x) => x.severity === "info" && x.check === "pm-to-fill"));
   });
 });
+
+describe("checkHandover: round two (code-review high, #428)", () => {
+  const { frontmatter, prototypePath } = require(path.join(P, "scripts/validation/check-handover.js"));
+  const withCopy = (copy) => F("specs.good.md").replace('"3 descriptions saved"', JSON.stringify(copy));
+  it("a count at the start or the end of the copy must be in the prototype too", () => {
+    assert.ok(checks(F("specs.good.md"), { prototypeHtml: "<button>Write descriptions</button><p>No descriptions saved</p>" }).includes("copy-not-in-source"));
+    assert.ok(checks(withCopy("Delete 3"), { prototypeHtml: F("prototype.html") + "<button>Delete</button>" }).includes("copy-not-in-source"));
+    assert.deepEqual(checks(withCopy("Delete 3"), { prototypeHtml: F("prototype.html") + "<script>b.textContent = \"Delete \" + n;</script>" }), []);
+  });
+  it("stylesheet text is not copy", () => {
+    assert.ok(checks(withCopy("flex"), { prototypeHtml: F("prototype.html") + "<style>a{display:flex}</style>" }).includes("copy-not-in-source"));
+  });
+  it("decodes typographic entities, and &amp; last", () => {
+    assert.deepEqual(checks(withCopy("Don’t save"), { prototypeHtml: F("prototype.html") + "<p>Don&rsquo;t save</p>" }), []);
+    assert.deepEqual(checks(withCopy("Don’t save"), { prototypeHtml: F("prototype.html") + "<p>Don&#8217;t save</p>" }), []);
+    assert.ok(checks(withCopy("Use <tag>"), { prototypeHtml: F("prototype.html") + "<p>Use &amp;lt;tag&amp;gt;</p>" }).includes("copy-not-in-source"));
+  });
+  it("copy sourced from the intent is reported as unchecked", () => {
+    const text = F("specs.good.md").replace(/(## Copy\n)Source: Prototype/, "$1Source: Intent");
+    assert.ok(checkHandover("specs", text, opts).some((f) => f.check === "copy-intent-unverified"));
+  });
+  it("reads a quoted section title and an unquoted gap marker", () => {
+    const fm = frontmatter('---\nkind: specs\ngapMarker: To fill by PM\nsections:\n  - { title: "States", owner: ux, required: true }\n---\n');
+    assert.strictEqual(fm.sections[0].title, "States");
+    assert.strictEqual(fm.gapMarker, "To fill by PM");
+  });
+  it("finds the prototype from a markdown link on the Prototype line", () => {
+    assert.strictEqual(prototypePath("**Prototype:** [prototype](proto/p.html)\n", "/a/specs.md"), path.resolve("/a/proto/p.html"));
+    assert.strictEqual(prototypePath("**Prototype:** p.html\n", "/a/specs.md"), path.resolve("/a/p.html"));
+  });
+  it("CLI: a --prototype that does not exist is a usage error, not a stack trace", () => {
+    const cp = require("child_process");
+    const r = cp.spawnSync(process.execPath, [path.join(P, "scripts/validation/check-handover.js"), "specs", path.join(__dirname, "../fixtures/handover/specs.good.md"), "--prototype", "/nope/p.html"], { encoding: "utf8" });
+    assert.strictEqual(r.status, 2);
+    assert.match(r.stderr, /not found/);
+  });
+});
+
+describe("checkHandover intent: a section the skill owns left as the marker", () => {
+  const t = F("intent.template.md");
+  const heads = ["Summary", "Business Context & Problem", "Expected Value", "Stakeholders", "Target Users", "Goals & Success Metrics", "In Scope", "Out of Scope", "Constraints / Deadlines", "Expected Deliverables", "Design decisions", "Open questions", "Assumptions & Risks", "Insights & Resources"];
+  const all = "# Intent: X\n\n**Design proposal:** p.html\n\n" + heads.map((h) => "## " + h + "\nTo fill by PM\n").join("\n");
+  it("is a warning, never passed as a PM field", () => {
+    const f = checkHandover("intent", all, { template: t });
+    assert.ok(f.some((x) => x.check === "ux-to-fill" && x.where === "Summary" && x.severity === "warning"));
+    assert.ok(!f.some((x) => x.check === "pm-to-fill" && x.where === "Summary"));
+  });
+});

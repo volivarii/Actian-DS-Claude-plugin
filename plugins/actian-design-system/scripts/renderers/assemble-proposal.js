@@ -560,6 +560,7 @@ function assembleProposal(data, options) {
 module.exports = {
   assembleProposal: assembleProposal,
   toFragment: toFragment,
+  partName: partName,
   extractUnbalancedTag: unbalancedTag,
   DRAWING_WIDTH: DRAWING_WIDTH,
   PRINT_WIDTH: PRINT_WIDTH,

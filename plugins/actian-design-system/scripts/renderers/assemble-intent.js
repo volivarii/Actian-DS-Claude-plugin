@@ -7,6 +7,7 @@
 var fs = require("fs");
 var path = require("path");
 var frontmatter = require("../validation/check-handover.js").frontmatter;
+var partName = require("./assemble-proposal.js").partName;
 
 function text(v) {
   if (Array.isArray(v)) return v.map(text).filter(Boolean).join(" ");
@@ -55,11 +56,12 @@ function assembleIntent(data, opts) {
           return d.blocker;
         })
         .map(function (d) {
-          return "- (blocker) " + d.question + " " + text(d.blocker);
+          return "- (blocker) " + partName(d) + ": " + text(d.blocker);
         })
         .concat(
           (data.openQuestions || []).map(function (q) {
-            return "- (" + q.kind + ") " + q.text;
+            // The proposal document calls a rabbit hole a risk.
+            return "- (" + (q.kind === "rabbit hole" ? "risk" : q.kind) + ") " + q.text;
           }),
         )
         .join("\n") || "None.",
@@ -69,7 +71,7 @@ function assembleIntent(data, opts) {
           return d.pick && d.pick.cost;
         })
         .map(function (d) {
-          return "- " + d.question + " " + text(d.pick.cost);
+          return "- " + partName(d) + ": " + text(d.pick.cost);
         })
         .join("\n") || "None identified by the proposal.",
     "Insights & Resources": list(c.sources),

@@ -56,3 +56,15 @@ it("refuses a pick that names no option, as the proposal document does", () => {
   const d = JSON.parse(JSON.stringify(data)); d.decisions[0].pick.optionId = "optoin-b";
   assert.throws(() => assembleIntent(d, { template: tpl, proposalLink: "p" }), /optoin-b/);
 });
+it("names a rabbit hole a risk, as the proposal document does", () => {
+  const d = Object.assign({}, data, { openQuestions: [{ kind: "rabbit hole", text: "Groups may need nesting." }] });
+  assert.match(assembleIntent(d, { template: tpl, proposalLink: "p" }).split("## Open questions")[1].split("\n## ")[0], /^- \(risk\) Groups may need nesting\.$/m);
+});
+it("names a blocker's part as the proposal document does", () => {
+  const { assembleProposal } = require(path.join(P, "scripts/renderers/assemble-proposal.js"));
+  const html = JSON.stringify(assembleProposal(data));
+  const md = assembleIntent(data, { template: tpl, proposalLink: "p" });
+  const names = [...html.matchAll(/Blocker, (.+?)\.<\/b>/g)].map((m) => m[1]);
+  assert.ok(names.length > 0);
+  names.forEach((n) => assert.ok(md.includes("- (blocker) " + n + ": "), "missing blocker part " + n));
+});

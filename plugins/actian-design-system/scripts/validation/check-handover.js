@@ -15,15 +15,21 @@ function lf(t) {
   return String(t || "").replace(/\r\n?/g, "\n");
 }
 
+// YAML allows a scalar quoted or not; the value is the same.
+function unquote(v) {
+  v = v.trim();
+  return /^(["']).*\1$/.test(v) ? v.slice(1, -1) : v;
+}
+
 function frontmatter(text) {
   var m = /^---\n([\s\S]*?)\n---/.exec(lf(text));
   var fm = { sections: [] };
   if (!m) return fm;
   m[1].split("\n").forEach(function (line) {
     var s = /^\s*-\s*\{\s*title:\s*(.+?),\s*owner:\s*(\w+),\s*required:\s*(true|false)\s*\}/.exec(line);
-    if (s) fm.sections.push({ title: s[1].trim(), owner: s[2], required: s[3] === "true" });
-    var g = /^gapMarker:\s*"(.*)"/.exec(line);
-    if (g) fm.gapMarker = g[1];
+    if (s) fm.sections.push({ title: unquote(s[1]), owner: s[2], required: s[3] === "true" });
+    var g = /^gapMarker:\s*(.*?)\s*$/.exec(line);
+    if (g) fm.gapMarker = unquote(g[1]);
     var k = /^kind:\s*(\w+)/.exec(line);
     if (k) fm.kind = k[1];
   });
@@ -44,14 +50,18 @@ function sections(text) {
   return out;
 }
 
+var ENTITIES = {
+  nbsp: " ", lt: "<", gt: ">", quot: '"', apos: "'",
+  lsquo: "\u2018", rsquo: "\u2019", ldquo: "\u201c", rdquo: "\u201d",
+  hellip: "\u2026", mdash: "\u2014", ndash: "\u2013",
+};
+// One pass, so an &amp; never becomes the start of a second entity.
 function decode(t) {
-  return t
-    .replace(/&nbsp;/g, " ")
-    .replace(/&amp;/g, "&")
-    .replace(/&lt;/g, "<")
-    .replace(/&gt;/g, ">")
-    .replace(/&quot;/g, '"')
-    .replace(/&#39;|&apos;/g, "'");
+  return t.replace(/&(#x[0-9a-f]+|#\d+|[a-z]+);/gi, function (all, e) {
+    if (e[0] === "#") return String.fromCodePoint(parseInt(e[1] === "x" || e[1] === "X" ? e.slice(2) : e.slice(1), e[1] === "x" || e[1] === "X" ? 16 : 10));
+    if (e === "amp") return "&";
+    return ENTITIES[e] != null ? ENTITIES[e] : all;
+  });
 }
 
 // The prototype's words: the text a reader sees, the words in attributes a
@@ -60,10 +70,13 @@ function decode(t) {
 // `n < 2` there is code, not a tag to strip).
 function visibleText(html) {
   var scripts = [];
-  var rest = String(html || "").replace(/<script\b[^>]*>([\s\S]*?)<\/script>/gi, function (m, js) {
-    scripts.push(js);
-    return " ";
-  });
+  var rest = String(html || "")
+    .replace(/<script\b[^>]*>([\s\S]*?)<\/script>/gi, function (m, js) {
+      scripts.push(js);
+      return " ";
+    })
+    // A stylesheet's words are CSS, never copy.
+    .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, " ");
   var attrs = [];
   rest.replace(/\s(?:placeholder|aria-label|title|alt|value)\s*=\s*(?:"([^"]*)"|'([^']*)')/gi, function (m, a, b) {
     attrs.push(a != null ? a : b);
@@ -82,17 +95,24 @@ function escapeRe(t) {
 function copyFound(s, visible) {
   if (visible.indexOf(s) !== -1) return true;
   if (!/\d/.test(s)) return false;
-  var gap = "\\s*(?:\\d+|[\"'`]?\\s*\\+\\s*[\\w.$()\\[\\]]+\\s*\\+\\s*[\"'`]?|\\$\\{[^}]*\\})\\s*";
+  var expr = "[\\w.$()\\[\\]]+";
+  var gap = "\\s*(?:\\d+|[\"'`]?\\s*\\+\\s*" + expr + "\\s*\\+\\s*[\"'`]?|\\$\\{[^}]*\\})\\s*";
+  // A number that opens or closes the copy is joined on one side only:
+  // `n + " saved"`, `"Delete " + n`.
+  var head = "(?:\\d+|\\$\\{[^}]*\\}|" + expr + "\\s*\\+\\s*[\"'`])\\s*";
+  var tail = "\\s*(?:\\d+|\\$\\{[^}]*\\}|[\"'`]\\s*\\+\\s*" + expr + ")";
   var parts = s.split(/\d+/).map(function (x) {
     return x.trim();
   });
-  var inner = parts
-    .map(function (x) {
-      return x ? escapeRe(x) : "";
-    })
-    .join(gap);
-  inner = inner.replace(new RegExp("^(" + escapeRe(gap) + ")+|(" + escapeRe(gap) + ")+$", "g"), "");
-  return inner.length >= 3 && new RegExp(inner).test(visible);
+  var words = parts.filter(Boolean).join("");
+  if (words.length < 3) return false;
+  var inner = "";
+  parts.forEach(function (x, i) {
+    if (i === 0) inner = x ? escapeRe(x) : head;
+    else if (i === parts.length - 1 && !x) inner += tail;
+    else inner += (inner === head ? "" : gap) + escapeRe(x);
+  });
+  return new RegExp(inner).test(visible);
 }
 
 function checkHandover(kind, text, opts) {
@@ -117,8 +137,9 @@ function checkHandover(kind, text, opts) {
     var body = secs[s.title];
     var content = kind === "specs" ? body.replace(/^Source:.*$/m, "").trim() : body;
     if (!content) add("error", "section-empty", s.title);
+    // The marker is the PM's to replace; in a section the skill fills, it is a gap.
     if (kind === "intent" && fm.gapMarker && content.indexOf(fm.gapMarker) === 0)
-      add("info", "pm-to-fill", s.title);
+      add(s.owner === "pm" ? "info" : "warning", s.owner === "pm" ? "pm-to-fill" : "ux-to-fill", s.title);
     if (kind === "specs" && !SOURCE_LINE.test(body.split("\n")[0]))
       add("error", "source-missing", s.title, body.split("\n")[0]);
   });
@@ -154,6 +175,7 @@ function checkHandover(kind, text, opts) {
         if (/Prototype/.test(copySource) && !opts.prototypeHtml) add("error", "copy-unverified", "Copy", t + " (no prototype to check it against)");
         else if (/Prototype/.test(copySource) && !copyFound(t, visible)) add("error", "copy-not-in-source", "Copy", t);
         if (/Figma/.test(copySource) && !/Prototype/.test(copySource)) add("info", "copy-figma-unverified", "Copy", t);
+        else if (!/Prototype/.test(copySource)) add("info", "copy-intent-unverified", "Copy", t);
       });
     // A table: the screen, then the five states; every row five cells of yes, no or n/a.
     var lines = (secs["States"] || "").split("\n").filter(function (l) {
@@ -179,11 +201,25 @@ function checkHandover(kind, text, opts) {
   return f;
 }
 
+// The file's own **Prototype:** line, a path or a markdown link, relative to the file.
+function prototypePath(text, file) {
+  var h = /^\*\*Prototype:\*\*\s*(?:\[[^\]]*\]\(([^)\s]+)\)|(\S+))/m.exec(text);
+  return h ? path.resolve(path.dirname(file), h[1] || h[2]) : null;
+}
+
 function main(argv) {
-  var kind = argv[2],
-    file = argv[3];
-  if (["intent", "specs"].indexOf(kind) === -1 || !file) {
+  var kind = argv[2];
+  var pi = argv.indexOf("--prototype");
+  var proto = pi !== -1 ? argv[pi + 1] : null;
+  var file = argv.slice(3).filter(function (a, i) {
+    return a !== "--prototype" && argv[i + 2] !== "--prototype";
+  })[0];
+  if (["intent", "specs"].indexOf(kind) === -1 || !file || (pi !== -1 && !proto)) {
     process.stderr.write("usage: check-handover.js intent|specs <file> [--prototype <html>]\n");
+    return 2;
+  }
+  if (proto && !fs.existsSync(proto)) {
+    process.stderr.write("prototype not found: " + proto + "\n");
     return 2;
   }
   var PATHS = require(path.join(__dirname, "..", "lib", "paths.js"));
@@ -195,16 +231,8 @@ function main(argv) {
   }
   var opts = { template: fs.readFileSync(tpl, "utf8") };
   var text = fs.readFileSync(file, "utf8");
-  var pi = argv.indexOf("--prototype");
-  var proto = pi !== -1 ? argv[pi + 1] : null;
-  if (pi !== -1 && !proto) {
-    process.stderr.write("--prototype needs a path\n");
-    return 2;
-  }
   if (!proto) {
-    // No flag: the file's own **Prototype:** line, relative to the file.
-    var h = /^\*\*Prototype:\*\*\s*(\S+)/m.exec(text);
-    var cand = h && path.resolve(path.dirname(file), h[1]);
+    var cand = prototypePath(text, file);
     if (cand && fs.existsSync(cand)) proto = cand;
   }
   if (proto) opts.prototypeHtml = fs.readFileSync(proto, "utf8");
@@ -227,5 +255,5 @@ function main(argv) {
     : 0;
 }
 
-module.exports = { checkHandover: checkHandover, frontmatter: frontmatter, sections: sections };
+module.exports = { checkHandover: checkHandover, frontmatter: frontmatter, sections: sections, prototypePath: prototypePath };
 if (require.main === module) process.exit(main(process.argv));
