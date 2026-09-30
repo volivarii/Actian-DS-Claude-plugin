@@ -25,7 +25,9 @@ function renderFrame(brief) {
   })[0];
   var screen = {
     name: "frame",
-    template: brief.screens[0].template,
+    // The app the brief was built for (prepare-flow --app); a screen list's
+    // own template may be absent, and without one no header is drawn.
+    template: brief.screens[0].template || d.app.slug,
     library: "ds",
     navItems: rail.map(function (r) {
       return r.id === d.app.activeNav

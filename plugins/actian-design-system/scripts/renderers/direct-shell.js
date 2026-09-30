@@ -61,7 +61,9 @@ var CSS = [
   // the card, half clipped.
   ".proto-adds ul{list-style:none;margin:4px 0 0;padding:0}",
   "body[data-show-new] .proto-adds{display:block}",
-  "body[data-show-new] [data-new]{outline:2px dashed #111;outline-offset:2px;position:relative}",
+  // A docked layer is already positioned: made relative, it leaves its dock.
+  "body[data-show-new] [data-new]{outline:2px dashed #111;outline-offset:2px}",
+  "body[data-show-new] [data-new]:not([data-layer]){position:relative}",
   "body[data-show-new] [data-new]::after{content:'NEW';position:absolute;top:-10px;right:-6px;background:#111;color:#fff;font:700 9px/1 Roboto,sans-serif;padding:2px 4px;border-radius:2px}",
 ].join("\n");
 

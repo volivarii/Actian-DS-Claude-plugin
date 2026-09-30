@@ -847,3 +847,19 @@ describe("assemble-direct: the chrome the frame hands the renderer (code-review 
     assert.deepStrictEqual(frameChrome(app({ header: { ContextValue: "Zeta" } })).header.contextValue, "Zeta");
   });
 });
+
+describe("assemble-direct: acceptance findings (2026-09-30)", () => {
+  const { renderFrame } = require(path.join(ROOT, "scripts/renderers/assemble-direct.js"));
+  const shell = require(path.join(ROOT, "scripts/renderers/direct-shell.js"));
+  it("draws the app header from the brief's app when the screen list names no template", () => {
+    const b = JSON.parse(fs.readFileSync(briefFile().out, "utf8"));
+    b.screens.forEach((s) => delete s.template);
+    const f = renderFrame(b);
+    assert.match(f.before, /\bds-header\b/, "no app header: the frame read its app only from screens[0].template");
+  });
+  it("Show what is new outlines a layer without moving it out of its dock", () => {
+    const rule = shell.CSS.split("}").filter((r) => /data-show-new\][^{]*\[data-new\][^{]*\{[^}]*position:relative/.test(r + "}"));
+    assert.ok(rule.length > 0, "the outline rule is gone");
+    rule.forEach((r) => assert.match(r, /:not\(\[data-layer\]\)/, "a docked layer marked new is taken out of its dock: " + r));
+  });
+});
