@@ -253,6 +253,12 @@ describe("validateProposal (document)", function () {
     f = only(withMutation(function (d) { d.decisions[0].comparison.cells.b["literal-ask"].text = "Please click here"; }), "avoid-word");
     assert.ok(f.length >= 1, JSON.stringify(f)); assert.strictEqual(f[0].path, "decisions[0].comparison.criteria[0]");
   });
+  it("terminology and avoid-words read the target users too (check terminology, avoid-word)", function () {
+    var f = only(withMutation(function (d) { d.context.users = ["Business user (personas/business-user.md): please simply click here."]; }), "avoid-word");
+    assert.ok(f.length >= 1, JSON.stringify(f)); assert.strictEqual(f[0].path, "context.users[0]");
+    f = only(withMutation(function (d) { d.context.users = ["Data steward (personas/data-steward.md): reviews every catalog object in the change."]; }), "terminology");
+    assert.ok(f.length >= 1, JSON.stringify(f)); assert.strictEqual(f[0].path, "context.users[0]");
+  });
   it("a hex or rgb colour in a drawing's style or in any prose field is P1 (check hardcoded-color)", function () {
     var f = only(withMutation(function (d) { d.decisions[0].options[0].screen.html += '<div style="color:#fff;background:rgb(1,2,3)">x</div>'; }), "hardcoded-color");
     assert.strictEqual(f.length, 2);

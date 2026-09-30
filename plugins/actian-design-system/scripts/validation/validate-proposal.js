@@ -492,6 +492,7 @@ function validateProposal(data) {
   addPseudo("doc:context", "Context", [{ path: "context.question", text: data.context.question }]
     .concat(data.context.ask ? [{ path: "context.ask", text: data.context.ask }] : [])
     .concat(data.context.product.map(function (f, i) { return { path: "context.product[" + i + "]", text: f }; }))
+    .concat((data.context.users || []).map(function (f, i) { return { path: "context.users[" + i + "]", text: f }; }))
     .concat([{ path: "context.gap", text: data.context.gap || "" }]));
 
   // scope
