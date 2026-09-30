@@ -115,7 +115,8 @@ PATHS.components.mirrors = {
 
 // Media oracle: per-component reference screenshots vendored from knowledge.
 // media(slug) → vendor/components/dist/media/<slug>/preview.webp (the canonical
-// single-component shot). Used by the fidelity gate as the Gate-1 oracle.
+// single-component shot). The nightly refresh prunes these files, and no
+// script in the plugin reads them.
 PATHS.components.media = function (slug) {
   return path.join(VENDOR, "components", "dist", "media", slug, "preview.webp");
 };
@@ -134,7 +135,7 @@ PATHS.components.mediaDefault = function (slug) {
 // manifest-driven, unlike `media` which is plugin-only). Consume the manifest API.
 
 // Synthesized helper: byKit("ds"/"fm"/"meta") maps to registry leaf paths.
-// Preserved from pre-manifest API for backward compat with validate-flow-data.js etc.
+// Kept from the pre-manifest API; shared-constants.js and the renderers read it.
 PATHS.components.registries = PATHS.components.registries || {};
 PATHS.components.registries.byKit = function (kit) {
   if (kit === "ds") return PATHS.components.registries.dskit;

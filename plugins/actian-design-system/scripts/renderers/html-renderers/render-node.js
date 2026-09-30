@@ -10,7 +10,7 @@
 // renderer's contract is the node shape, not one caller's habits.
 //
 // UMD: registers on `module.exports` in Node or `window.renderNode` in the
-// browser, mirroring fm-html-map.js so it can be inlined by assemble-preview.js.
+// browser, mirroring fm-html-map.js so it also works inlined in a page.
 
 (function (exports) {
   "use strict";

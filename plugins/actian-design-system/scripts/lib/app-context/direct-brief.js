@@ -1,6 +1,6 @@
 "use strict";
 
-// The direct route's brief: everything prepare-flow already joins, plus one
+// The prototype's brief: what prepare-flow joins, plus one
 // `direct` block naming every vendored file an author needs to draw the
 // prototype as HTML. No skeleton: a captured page reaches the author as its
 // screenshot, its `slots` prose and its renderNotes. Pure apart from the
@@ -13,17 +13,16 @@ var PATHS = require("../paths");
 var cssPaths = require("../renderer.js").cssPaths;
 
 // The stylesheets the app frame renders with, in the order the flow renderer
-// documents: tokens first, then FLOW_CSS. assemble-shared.js owns that list
-// and look.js reads the same one to render a screen standalone, so the brief
-// names it rather than restating a set of its own. The three single-file
+// documents: tokens first, then FLOW_CSS. assemble-shared.js owns that list,
+// so the brief names it rather than restating a set of its own. The three single-file
 // entries beside it in `assets` are what an author READS (token names, DS
 // class names); this is what the page inlines.
 var FLOW_CSS = require("../../renderers/assemble-shared.js").FLOW_CSS;
 
 // No manifest entry resolves terminology.yml: the manifest's own appContextSrc
 // collection note says "Terminology lives in terminology.yml (not covered by
-// this collection)", and validate-flow-data.js's loadTerminology reads the
-// derived app-context.json instead of this source file. Built from PATHS.vendor,
+// this collection)", and terminology-check.js reads the derived
+// app-context.json instead of this source file. Built from PATHS.vendor,
 // the same root every other overlay in paths.js joins from, rather than a
 // literal vendor path with no PATHS underneath it at all.
 var TERMINOLOGY_SRC = path.join(

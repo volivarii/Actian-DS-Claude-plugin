@@ -304,14 +304,12 @@ describe("prepare-flow --direct (CLI)", () => {
       Array.from(declared).sort(),
     );
   });
-  it("leaves the default run alone: slices written, no direct block", () => {
-    const { r, dir, out } = run([]);
-    assert.strictEqual(r.status, 0, r.stderr);
-    assert.strictEqual(
-      JSON.parse(fs.readFileSync(out, "utf8")).direct,
-      undefined,
-    );
-    assert.strictEqual(fs.readdirSync(path.join(dir, ".brief")).length, 4);
+  it("without --direct writes the same brief: --direct changes nothing", () => {
+    const plain = run([]);
+    const direct = run(["--direct"]);
+    assert.strictEqual(plain.r.status, 0, plain.r.stderr);
+    assert.strictEqual(fs.readFileSync(plain.out, "utf8"), fs.readFileSync(direct.out, "utf8"));
+    assert.ok(!fs.existsSync(path.join(plain.dir, ".brief")));
   });
 });
 

@@ -126,6 +126,29 @@ do"), prefix the block with `<!-- doc-lint:ignore-block -->` on its own line.
 
 ## Schema migrations
 
+### The default flow route removed (2026.9.77)
+
+The prototype has one HTML route, the direct one. Removed: the per-screen generator path and every
+script only it ran: `scripts/lib/app-context/resolve-{chrome,patterns,properties,relationships}.js`,
+`scripts/transformers/`, `scripts/bridges/`, `scripts/recipes/`, `recipes/`, `scripts/changelog/`,
+`scripts/migrations/`, `scripts/validation/validate-flow-data.js`, `scripts/lint/`, the quality score
+and pixel fidelity scripts (`scripts/quality/` keeps `run-suite.sh`, `scripts/fidelity/` keeps
+`render-leaf.js` and `resolve-binaries.js`), `scripts/lib/{derive-scope,resolve-unit,snapshot-store,scope-aware-runner,intent-resolver,stub-guideline,tests-root}.js`,
+`scripts/lib/knowledge/`, the flow-share, lo-fi, look, coverage, renderability and authoring
+renderers, the annotation layer, the flow-share wrapper and vendored Alpine, the preview server and
+its hook, `examples/`, `references/`, and their tests. What changed for a caller:
+
+| Was | Is |
+|---|---|
+| `prepare-flow.js ... --direct` or without it: slices under `.brief/` | one brief, the same with or without `--direct` |
+| `assemble-preview.js --type flow-share` / `--type flow` | `--type proposal` only |
+| `validate-flow-data.js` terminology and avoid-word gates | `scripts/lib/terminology-check.js` |
+| `proposal-approaches-to-decisions.js` on an old proposal | the P0 says how to rewrite it |
+
+A `flow-data.json` from the default route still validates against `schemas/flow-data.schema.json`,
+and nothing renders it. Restore point: `feat/direct-reads-the-record`, the last commit that had all
+of it (`git checkout feat/direct-reads-the-record -- <path>`).
+
 ### The test suite moved out of the plugin directory (2026.9.62)
 
 `plugins/actian-design-system/tests/` is `tests/` at the repository root since 2026-09-22, plugin
@@ -133,9 +156,8 @@ do"), prefix the block with `<!-- doc-lint:ignore-block -->` on its own line.
 directory. A plugin install copies every tracked file under the plugin directory, so the suite (2.3 MB
 of tracked files, 352 of them, 3.2 MB on disk) shipped to every user for nothing. Every test still names the same targets, through
 `path.resolve(__dirname, "..", "..", "plugins", "actian-design-system")` and
-`require("../../plugins/actian-design-system/scripts/...")`. Scripts that read or write test data
-(the blank-box baseline, the fidelity ledger and diffs) resolve the tree through
-`scripts/lib/tests-root.js`. A change under `tests/` alone no longer needs a version bump: the CI
+`require("../../plugins/actian-design-system/scripts/...")`. No script under the plugin reads or
+writes test data. A change under `tests/` alone no longer needs a version bump: the CI
 gate counts files under the plugin directory, and the tests are no longer under it. A local branch
 that adds a test under the old path lands it outside the suite: `run-suite.sh` runs `<repo>/tests`
 only.
@@ -154,7 +176,7 @@ only.
 `scripts/transformers/brief-sourcing.js` (its one live function, `isStubGuideline`, now lives in
 `scripts/lib/stub-guideline.js`), and the `brief` and `presentation` types of `assemble-preview.js`
 and `merge-partials.js`. Nothing live read any of it (each removal was preceded by a requirer
-check; `category-defaults-loader.js` stays because the accessibility resolver reads it). A data
+check). A data
 file of a retired skill (`brief-data.json`, `slide-data.json`) no longer validates here. Restore
 point: git history, `git log --diff-filter=D --stat -- plugins/actian-design-system`.
 
@@ -212,9 +234,9 @@ the record of it rather than a link.
 `proposal-data.json` lost three top-level keys, `approaches`, `comparison` and
 `recommendation`, and gained `decisions[]`, `answer`, `change`, `latitude`,
 `breadboard` and `source`. A file written before this version fails validation
-with one P0 naming the converter,
-`scripts/migrations/proposal-approaches-to-decisions.js`, rather than a wall of
-schema errors.
+with one P0, rather than a wall of schema errors, that says how to rewrite it:
+the approaches become `decisions[0].options`, the comparison and the
+recommendation move inside that decision.
 
 This is the second break in three releases, after `scope`, and it is a
 documented exception to Rule 1 for the same reason: the affected population is

@@ -557,9 +557,9 @@ assert(
   "schema layer does NOT enforce extracted_at format (format:date-time is a hint only; runtime-enforced)",
 );
 
-// 7. Schema does NOT enforce layout_archetype enum (RECIPE_IDS validated at runtime)
-// The schema-layer validation only checks type=string. RECIPE_IDS membership is
-// enforced by scripts/sync/fingerprint-schema.js validateFingerprint at runtime.
+// 7. Schema does NOT enforce a layout_archetype enum
+// The schema-layer validation only checks type=string; the schema does not hold
+// the archetype list.
 const fpUnknownArchetype = makeFlowWithFingerprint({
   layout_archetype: "made-up-archetype",
 });

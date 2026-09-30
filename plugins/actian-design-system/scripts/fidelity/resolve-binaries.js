@@ -49,9 +49,8 @@ function resolveChrome(opts) {
   return resolveBinary(candidates, { exists: opts.exists });
 }
 
-// Chrome is the ONLY external tool the gate needs (rendering requires a browser
-// engine; there is no pure-JS substitute). Image decode + diff are pure-JS
-// (vendored pngjs + pixelmatch), so no system image tool is required.
+// Chrome is the only external tool a screenshot needs (rendering requires a
+// browser engine; there is no pure-JS substitute).
 function requireAll(resolved) {
   if (!resolved.chrome) {
     throw new Error(

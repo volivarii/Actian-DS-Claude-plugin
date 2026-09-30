@@ -48,8 +48,8 @@ var DS_KEYS = shared.buildKeyMapFromRegistry("dskit", "ds");
 // template "studio" → resolves chrome (global-header + side-nav + page-header),
 // content[] holds real DS INSTANCE nodes with the correct authoring vocabulary.
 //
-// Content slugs chosen because they are all in ds-components-authoring.md and
-// all have verified registry keys:
+// Content slugs chosen because they are all built DS leaves and all have
+// verified registry keys:
 //   text-input     → dsTextInput
 //   button         → dsButton
 //   search-result-card → dsSearchResultCard

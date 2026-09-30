@@ -1,10 +1,10 @@
 "use strict";
 
 /**
- * assemble-shared.js — Shared primitives for the assemble-* family.
+ * assemble-shared.js: shared primitives for assemble-direct.js and
+ * assemble-proposal.js.
  *
  * No side effects (no main, no process.exit at load).
- * Both assemble-preview.js and assemble-flow-share.js import from here.
  */
 
 var fs = require("fs");
@@ -40,34 +40,6 @@ function escapeJsonForScript(jsonStr) {
   return jsonStr.replace(/<\//g, "<\\/");
 }
 
-// Build the inline <script> that exposes the vendored icon geometry as a
-// browser global, so ds-html-map.js's renderIcon() can resolve glyphs client-
-// side. Geometry-only ({viewBox, body}) — drops dsKey/nodeId/group (the browser
-// needs no provenance). Read from the vendored read-surface via PATHS.
-function buildDsIconsScript() {
-  var PATHS = require("../lib/paths.js");
-  var doc = JSON.parse(fs.readFileSync(PATHS.components.icons.svg, "utf8"));
-  var icons = doc.icons || {};
-  var geo = {};
-  Object.keys(icons).forEach(function (slug) {
-    geo[slug] = { viewBox: icons[slug].viewBox, body: icons[slug].body };
-  });
-  // Slugs a NON-icon component also answers to (`calendar` is the glyph AND the
-  // Calendar component; `search` is the glyph AND the Search field). Ship the list
-  // with the geometry: the renderer runs in the BROWSER here, so it has no
-  // registry to consult and cannot work this out for itself. Without it, an
-  // anatomy that nests `search` — global-header does — resolves against the icon
-  // map and draws a magnifier where an entire search input belongs.
-  var shadowed = (doc._meta && doc._meta.shadowed_by_component) || [];
-  return (
-    "  <script>window.dsIcons = " +
-    escapeJsonForScript(JSON.stringify(geo)) +
-    "; window.dsIconsShadowedByComponent = " +
-    escapeJsonForScript(JSON.stringify(shadowed)) +
-    ";</script>"
-  );
-}
-
 // DS anatomy-doc-map / variant-style-map injection (Phase 1B). Every
 // server-side flow renderer that pre-renders DS leaves in Node needs the
 // same setup, then reset, sequence around its render pass: build both maps
@@ -75,8 +47,8 @@ function buildDsIconsScript() {
 // them into ds-html-map.js's module-level seam so a DS instance with no
 // authored override still picks up its harvested per-instance appearance,
 // run `fn`, then reset to null in a finally so this render's state never
-// leaks into a later one. Shared by assemble-flow-share.js and look.js so
-// the injection pattern lives in one place. Returns fn()'s return value.
+// leaks into a later one. assemble-direct.js renders the app frame through
+// it. Returns fn()'s return value.
 function withDsMaps(data, fn) {
   var renderer = require("../lib/renderer.js");
   var dsHtmlMap = renderer.dsHtmlMap;
@@ -95,7 +67,7 @@ function withDsMaps(data, fn) {
 }
 
 // ---------------------------------------------------------------------------
-// Flow CSS list (single source of truth — shared by flow preview + flow-share)
+// Flow CSS list (single source of truth: the app frame and the brief read it)
 // ---------------------------------------------------------------------------
 
 // Three roots since the fm relocation: ds-fonts.css, fm-base.css, and
@@ -109,8 +81,15 @@ var FLOW_CSS = [
   rendererCss.fmBase,
   path.join(RENDERERS_DIR, "render-node.css"),
   path.join(RENDERERS_DIR, "flow-renderer.css"),
-  rendererCss.base, // hi-fi DS tier; inert for lo-fi (only styles .ds-*).
+  rendererCss.base, // the DS leaf styles (only styles .ds-*).
 ];
+
+// Insert a zero-width space between consecutive dashes so a value can never
+// form a "-->" that closes the surrounding provenance HTML comment early (a
+// /--/g pair-replace would leave a live "-->" on an odd-length run like "--->").
+function maskComment(s) {
+  return String(s == null ? "" : s).replace(/-(?=-)/g, "-\u200b");
+}
 
 // ---------------------------------------------------------------------------
 // Exports
@@ -122,7 +101,7 @@ module.exports = {
   RENDERERS_DIR: RENDERERS_DIR,
   readFileChecked: readFileChecked,
   escapeJsonForScript: escapeJsonForScript,
-  buildDsIconsScript: buildDsIconsScript,
   withDsMaps: withDsMaps,
   FLOW_CSS: FLOW_CSS,
+  maskComment: maskComment,
 };

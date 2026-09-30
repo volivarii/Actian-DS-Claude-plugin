@@ -30,11 +30,6 @@
             "type": "command",
             "command": "bash \"${CLAUDE_PLUGIN_ROOT}/scripts/hooks/check-bare-node.sh\"",
             "async": false
-          },
-          {
-            "type": "command",
-            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/scripts/hooks/check-server-dir.sh\"",
-            "async": false
           }
         ]
       },

@@ -9,9 +9,7 @@
 
 // NOTE: These tests verify schema *shape* (field presence, types, conditional rules
 // being declared) rather than schema *behavior* (whether a sample document actually
-// validates). Behavioral validation against the schema lives in Task 12 of Sprint B1
-// (integration fixtures hitting validate-flow-data.js end-to-end). Structural-only
-// tests here keep this task scoped + zero-deps; behavioral coverage arrives in Task 12.
+// validates).
 
 const fs = require("node:fs");
 const path = require("node:path");

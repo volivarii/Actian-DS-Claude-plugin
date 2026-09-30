@@ -18,7 +18,7 @@ fi
 if [ -z "$NODE_BIN" ]; then
   echo "Error: node not found. Install Node.js (https://nodejs.org) or export NODE_BIN=/path/to/node." >&2
   # This file is meant to be sourced. When sourced, `return` hands control back to
-  # the caller (so e.g. ensure-server.sh can run its own fallback); `exit` would kill
+  # the caller (so it can run its own fallback); `exit` would kill
   # the caller's shell. Only `exit` when executed directly.
   if [ "${BASH_SOURCE[0]}" = "${0}" ]; then exit 1; else return 1; fi
 fi

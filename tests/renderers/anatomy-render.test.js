@@ -6,9 +6,9 @@
 // (branch feat/retire-tag-default-path-b) retired the token-injection
 // sidecar-reading chain (path b: loadTokenBindings/pickBinding/
 // resolveTokenDecls/resolveRootTokenStyle) that this file used to exercise.
-// This file now only exercises the two surviving exports: loadAnatomy (still
-// used by ds-coverage-report.js and by ds-anatomy-map.js's variant-color
-// builder) and passesRatioGate (shared ratio-floor gate).
+// This file now only exercises the two surviving exports: loadAnatomy (used
+// by ds-anatomy-map.js's variant-color builder) and passesRatioGate (shared
+// ratio-floor gate).
 var { test } = require("node:test");
 var assert = require("node:assert");
 var path = require("path");

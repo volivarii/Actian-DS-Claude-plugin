@@ -164,7 +164,7 @@
                   },
                   "layout_archetype": {
                     "type": "string",
-                    "description": "Recipe archetype from recipes/flow/_index.json. Enum membership enforced at runtime, not by this schema."
+                    "description": "A flow archetype name. Free text: this schema holds no archetype list."
                   },
                   "extracted_at": {
                     "type": "string",
@@ -178,7 +178,7 @@
         },
         "breakpoints": {
           "type": "array",
-          "description": "Sprint A surface flag --breakpoints payload. Breakpoints to generate variants for. Lo-fi level = structural decisions only (collapse, stack).",
+          "description": "Breakpoints to generate variants for: structural decisions only (collapse, stack).",
           "items": {
             "type": "string",
             "description": "Breakpoint name: 'tablet', 'mobile', or 'custom-Npx' (e.g. 'custom-1024px')"
@@ -219,7 +219,7 @@
         },
         "_glossary": {
           "type": "object",
-          "description": "Shared vocabulary for cross-screen terminology consistency. Built by actian-ux-prototype after Gate 3, consumed by screen-generator agents.",
+          "description": "Shared vocabulary for cross-screen terminology consistency. terminology-check.js masks its chrome, property and relationship labels before the terminology rules run.",
           "properties": {
             "entity": {
               "type": "string",
@@ -278,11 +278,11 @@
                   "example": { "type": "string" }
                 }
               },
-              "description": "Standard fields for this entity, resolved from app-context.json by resolve-properties.js. Each item is a field-name string (legacy) or a typed object {name,label,type,states?,example?}. Note: validate-schema.js has no oneOf, so the union is expressed as type:[string,object] with required:[name] — its required check is object-guarded, so string items stay valid. Used for table column headers + form field labels."
+              "description": "Standard fields for this entity, from app-context.json. Each item is a field-name string (legacy) or a typed object {name,label,type,states?,example?}. Note: validate-schema.js has no oneOf, so the union is expressed as type:[string,object] with required:[name] — its required check is object-guarded, so string items stay valid. Used for table column headers + form field labels."
             },
             "chrome": {
               "type": "object",
-              "description": "Canonical app shell resolved from app-context.json apps[app] (header + top-level sidebar). The authoritative default and the validator baseline. See scripts/lib/app-context/resolve-chrome.js.",
+              "description": "The app shell from app-context.json apps[app] (header + top-level sidebar).",
               "properties": {
                 "app": {
                   "type": "string",
@@ -360,7 +360,7 @@
           },
           "exit": {
             "type": "object",
-            "description": "Stamped by merge-partials from the screen list: what the user does on this screen to move on (via) and the id of the screen it leads to (to). Never authored.",
+            "description": "What the user does on this screen to move on (via) and the id of the screen it leads to (to).",
             "examples": [
               { "via": "Save descriptions", "to": "describe-catalog-items-4" }
             ],
@@ -379,7 +379,7 @@
           },
           "activeNavItem": {
             "type": "string",
-            "description": "Label for the active sidebar nav item. Stamped by merge-partials from the screen list's nav on an incremental merge."
+            "description": "Label for the active sidebar nav item; the flow renderer and the screen tree draw it active."
           },
           "navItems": {
             "oneOf": [
@@ -482,7 +482,7 @@
           },
           "pageRecipe": {
             "type": ["string", "null"],
-            "description": "Slug of the captured page recipe this screen composed from (adapted tier with a capture); null otherwise. Read by validate-flow-data.js findUnfilledSlots.",
+            "description": "Slug of the captured page recipe this screen composed from (adapted tier with a capture); null otherwise.",
             "examples": ["faceted-browse"]
           },
           "composition": {
@@ -562,7 +562,7 @@
           },
           "layout": {
             "enum": ["freehand"],
-            "description": "freehand: the author asked for a layout test; prepare-flow.js attaches no archetype and no pageRecipe, and the classifier records improvised.",
+            "description": "freehand: the author asked for a layout test. Nothing in the plugin reads it; it stays so earlier files keep validating.",
             "examples": ["freehand"]
           }
         },
@@ -715,12 +715,12 @@
         },
         "focus": {
           "type": "boolean",
-          "description": "FRAME nodes only. true marks this subtree as the feature under design. The lo-fi skin renders everything outside a focus subtree as placeholder (bars for text, muted leaves); the hi-fi skin ignores it. Chrome is never focus.",
+          "description": "FRAME nodes only. true marks this subtree as the feature under design; render-node.js adds the flow-focus class and no stylesheet in the plugin acts on it. Chrome is never focus.",
           "examples": [true]
         },
         "keep": {
           "type": "boolean",
-          "description": "TEXT nodes only. true keeps this TEXT legible in the lo-fi skin outside a focus subtree: the active nav item, a populated facet row, a title the reader needs for orientation.",
+          "description": "TEXT nodes only. true marks a TEXT the reader needs outside a focus subtree (the active nav item, a populated facet row, an orienting title); render-node.js adds the fm-text--keep class.",
           "examples": [true]
         },
         "goto": {

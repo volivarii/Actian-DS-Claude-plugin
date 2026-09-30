@@ -108,10 +108,8 @@ function runComponentReferenceRenderer() {
 }
 
 // #310: prune the vendored media oracles. `vendor/components/dist/media/<slug>/`
-// holds 365 .webp reference screenshots across 183 components. Exactly one caller
-// in this repo reads them (scripts/fidelity/run-fidelity.js, via
-// PATHS.components.media()/mediaDefault()), over a hardcoded 19-slug PILOT, in a
-// pr-checks job marked continue-on-error. They cost 6.9 MB in every install and,
+// holds 365 .webp reference screenshots across 183 components. No script in the
+// plugin reads them. They cost 6.9 MB in every install and,
 // because WebP does not delta-compress, tens of MB of git history that grows with
 // every nightly re-vendor.
 //

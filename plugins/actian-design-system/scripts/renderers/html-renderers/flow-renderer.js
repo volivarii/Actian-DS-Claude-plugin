@@ -593,9 +593,8 @@
     });
   }
 
-  // Canonical shared name. renderScreen IS screen — the per-screen renderer is
-  // the single source of truth used by both the strip preview (above) and the
-  // flow-share deliverable assembler (server-side). Aliased, never forked.
+  // Canonical shared name. renderScreen IS screen: the per-screen renderer
+  // assemble-direct.js draws the app frame with. Aliased, never forked.
   var renderScreen = screen;
 
   // -------------------------------------------------------------------------
@@ -617,8 +616,8 @@
   }
 
   // -------------------------------------------------------------------------
-  // Node exports (UMD tail — mirrors fm-html-map.js; browser behavior above is
-  // untouched, so this file still works inlined by assemble-preview.js)
+  // Node exports (UMD tail, mirrors fm-html-map.js; the browser behavior above
+  // is untouched, so this file also works inlined in a page)
   // -------------------------------------------------------------------------
 
   if (typeof module !== "undefined" && module.exports) {

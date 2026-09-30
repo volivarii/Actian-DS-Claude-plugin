@@ -31,7 +31,6 @@ in sync via the plugin's `vendor-snapshot.yml` workflow.
 | Content guidelines | `vendor/content/dist/global.md` + per-component `vendor/components/dist/guidelines/<slug>.json` `domains.content` | `content/` + `components/` | MD + JSON | Voice, tone, copy patterns |
 | Accessibility | `vendor/accessibility/src/<slug>.md` (per-section, ordered via `_order.json`) | `accessibility/src/` | MD | WCAG 2.2 AA conformance rules |
 | App context | `vendor/app-context/dist/app-context.json` | `app-context/` | JSON | Apps, entities, terminology, patterns |
-| FM↔DS map | `references/actian-ux-prototype/fm-to-ds-map.json` | (plugin only) | JSON | Wireframe-to-DS component mapping (plugin-owned; Track E eviction) |
 | Skill behavior | `plugins/actian-design-system/skills/*/SKILL.md` | (plugin only) | MD | Four skill cards; a file a card needs sits beside it |
 | Figma notes | `skills/actian-ux-prototype/figma-screen.md`, `skills/actian-ux-audit/figma-api-traps.md` | (plugin only) | MD | The screen JSON the Figma push takes; Plugin API traps |
 

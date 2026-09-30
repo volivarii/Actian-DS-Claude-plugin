@@ -251,10 +251,7 @@
 }
 
 /* ── Declared additions (Task 6.3). A node.adds ring on its FRAME/INSTANCE
-   root. Under --skin lofi the primary token below is remapped to gray by
-   lofi-skin.js's FM_MAP fallback (no rule matches --zen-color-primary-*),
-   which is acceptable: the ring and "new:" label both still show, just not
-   in brand blue. ── */
+   root. ── */
 .flow-adds {
   outline: 2px dashed var(--zen-color-primary-500, #1a6ee0);
   outline-offset: 4px;
