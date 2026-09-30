@@ -225,11 +225,18 @@ function prepareFlow(options) {
   var sidebar = record ? record.sidebar : [];
   var patterns = appPatterns(ctx, app);
   var list = options.screens || [];
-  var problems = screenListProblems(list, patterns, {
-    sidebarIds: railIds(sidebar),
-    nav: options.nav,
-    mode: options.mode,
-  });
+  var known = ctx && ctx.apps ? Object.keys(ctx.apps) : [];
+  var problems =
+    known.length && !ctx.apps[app]
+      ? ['app "' + app + '": the knowledge has no such app (it has ' + known.join(", ") + ")"]
+      : [];
+  problems = problems.concat(
+    screenListProblems(list, patterns, {
+      sidebarIds: railIds(sidebar),
+      nav: options.nav,
+      mode: options.mode,
+    })
+  );
   if (problems.length) {
     var invalid = new Error(problems.join("\n"));
     invalid.code = "SCREEN_LIST_INVALID";

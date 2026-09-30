@@ -189,3 +189,11 @@ describe("prepare-flow: the CLI", function () {
     assert.strictEqual(JSON.parse(r2.stdout).direct.steps[3].id, "describe-catalog-items-4");
   });
 });
+
+it("refuses an app the knowledge has no record for, naming the ones it has", () => {
+  const pf = require(path.join(__dirname, "../../plugins/actian-design-system/scripts/lib/app-context/prepare-flow.js"));
+  let err;
+  try { pf.prepareFlow({ app: "admin", screens: [{ name: "A" }] }); } catch (e) { err = e; }
+  assert.ok(err && err.code === "SCREEN_LIST_INVALID", "admin was accepted");
+  assert.match(err.message, /administration/);
+});
