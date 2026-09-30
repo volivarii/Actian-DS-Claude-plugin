@@ -106,8 +106,8 @@ function directBrief(brief, opts) {
   var chrome = (brief.glossary && brief.glossary.chrome) || {};
   var appSlug = chrome.app || (brief.app && brief.app.slug) || null;
   // The app record as the knowledge writes it (groups, icons, bottom block,
-  // header context and search); an old snapshot, or an app with no record,
-  // falls back to the flat label list the chrome carries.
+  // header context and search). prepare-flow refuses an app with no record;
+  // a brief built without one (a test's) falls back to the chrome's label list.
   var record = appSlug ? deps.readApp(appSlug) : null;
   var sidebar = record ? record.sidebar : chrome.sidebar || [];
   var found = {};

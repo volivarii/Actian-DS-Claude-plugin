@@ -7,9 +7,9 @@
 var fs = require("fs");
 var PATHS = require("./paths.js");
 
-// A missing snapshot is no record (the brief falls back to the chrome list, as
-// for an app the record does not have). A corrupt one is an error: skipping it
-// would let check-direct pass a rail it never compared.
+// A missing snapshot is no record (prepare-flow then refuses the app; check-direct
+// has no rail to compare). A corrupt one is an error: skipping it would let
+// check-direct pass a rail it never compared.
 function readApp(slug, file) {
   var f = file || PATHS.appContext;
   if (!fs.existsSync(f)) return null;
@@ -19,8 +19,13 @@ function readApp(slug, file) {
   } catch (e) {
     throw new Error("app-record: " + f + " (the app-context snapshot) is not valid JSON: " + e.message);
   }
+  return recordOf(ctx, slug);
+}
+
+// One app's record from a parsed app context, or null. Own names only:
+// "constructor" or "__proto__" is not an app.
+function recordOf(ctx, slug) {
   var key = String(slug || "").toLowerCase();
-  // Own names only: "constructor" or "__proto__" is not an app.
   var a = ctx && ctx.apps && Object.prototype.hasOwnProperty.call(ctx.apps, key) ? ctx.apps[key] : null;
   if (!a || typeof a !== "object") return null;
   return {
@@ -92,4 +97,4 @@ function headerProps(h) {
   return p;
 }
 
-module.exports = { readApp: readApp, railGroups: railGroups, headerProps: headerProps };
+module.exports = { readApp: readApp, recordOf: recordOf, railGroups: railGroups, headerProps: headerProps };

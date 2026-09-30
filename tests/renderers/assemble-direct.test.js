@@ -891,7 +891,14 @@ describe("assemble-direct: acceptance findings (2026-09-30)", () => {
     const b = JSON.parse(JSON.stringify(briefFor("studio", null)));
     b.direct.app.slug = null;
     b.screens.forEach((s) => (s.template = "overlay"));
-    assert.throws(() => renderFrame(b), /app/);
+    assert.throws(() => renderFrame(b), /names no app/);
+    delete b.direct.app;
+    assert.throws(() => renderFrame(b), /names no app/);
+  });
+  it("refuses an app whose frame draws no header rather than shipping it headerless", () => {
+    const b = JSON.parse(JSON.stringify(briefFor("studio", null)));
+    b.direct.app.slug = "foo";
+    assert.throws(() => renderFrame(b), /foo.*header/);
   });
   it("Show what is new: the badge never takes a click meant for what is under it", () => {
     assert.match(shell.CSS, /\[data-new\]::after\{[^}]*pointer-events:none/);
