@@ -253,6 +253,12 @@ describe("validateProposal (document)", function () {
     f = only(withMutation(function (d) { d.decisions[0].comparison.cells.b["literal-ask"].text = "Please click here"; }), "avoid-word");
     assert.ok(f.length >= 1, JSON.stringify(f)); assert.strictEqual(f[0].path, "decisions[0].comparison.criteria[0]");
   });
+  it("terminology and avoid-words read the target users too (check terminology, avoid-word)", function () {
+    var f = only(withMutation(function (d) { d.context.users = ["Business user (personas/business-user.md): please simply click here."]; }), "avoid-word");
+    assert.ok(f.length >= 1, JSON.stringify(f)); assert.strictEqual(f[0].path, "context.users[0]");
+    f = only(withMutation(function (d) { d.context.users = ["Data steward (personas/data-steward.md): reviews every catalog object in the change."]; }), "terminology");
+    assert.ok(f.length >= 1, JSON.stringify(f)); assert.strictEqual(f[0].path, "context.users[0]");
+  });
   it("a hex or rgb colour in a drawing's style or in any prose field is P1 (check hardcoded-color)", function () {
     var f = only(withMutation(function (d) { d.decisions[0].options[0].screen.html += '<div style="color:#fff;background:rgb(1,2,3)">x</div>'; }), "hardcoded-color");
     assert.strictEqual(f.length, 2);
@@ -1127,7 +1133,7 @@ describe("plain words: part and length", function () {
     var o = dec.options[0];
     var crit = dec.comparison.criteria[0].id;
     d.answer = long; d.latitude = long; d.context.product[0] = long; d.context.gap = long;
-    d.meta.title = long; d.context.ask = long;
+    d.meta.title = long; d.context.ask = long; d.context.users = [long];
     d.scope.goals[0] = long; d.scope.nonGoals[0] = long; d.change.userSide = long; d.change.adminSide = long;
     d.research.findings = [{ lane: "competitors", claim: long, source: "Example" }];
     d.openQuestions = [{ kind: "open question", text: long }];
@@ -1140,7 +1146,7 @@ describe("plain words: part and length", function () {
     var paths = hits.map(function (f) { return f.path; });
     var expected = [
       "meta.title", "context.ask",
-      "answer", "latitude", "context.product[0]", "context.gap", "scope.goals[0]", "scope.nonGoals[0]",
+      "answer", "latitude", "context.product[0]", "context.users[0]", "context.gap", "scope.goals[0]", "scope.nonGoals[0]",
       "change.userSide", "change.adminSide", "research.findings[0].claim", "openQuestions[0].text",
       "decisions[0].part", "decisions[0].blocker", "decisions[0].pick.cost", "decisions[0].pick.reasons[0].text",
       "decisions[0].comparison.criteria[0].label",

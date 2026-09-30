@@ -132,6 +132,7 @@ var WORD_LIMITS = {
   "comparison.criteria[].label": 5,
   "context.ask": 40,
   "context.product[]": 15,
+  "context.users[]": 20,
   "context.gap": 15,
   "scope.goals[]": 12,
   "scope.nonGoals[]": 12,
@@ -276,6 +277,7 @@ function lengthEntries(data) {
   add("context.ask", "context.ask", data.context.ask);
   add("latitude", "latitude", data.latitude);
   (data.context.product || []).forEach(function (s, i) { add("context.product[]", "context.product[" + i + "]", s); });
+  (data.context.users || []).forEach(function (s, i) { add("context.users[]", "context.users[" + i + "]", s); });
   add("context.gap", "context.gap", data.context.gap);
   (data.scope.goals || []).forEach(function (s, i) { add("scope.goals[]", "scope.goals[" + i + "]", s); });
   (data.scope.nonGoals || []).forEach(function (s, i) { add("scope.nonGoals[]", "scope.nonGoals[" + i + "]", s); });
@@ -484,11 +486,13 @@ function validateProposal(data) {
   // context
   checkProse(data.context.question, "", "context.question", findings);
   data.context.product.forEach(function (f, i) { checkProse(f, "", "context.product[" + i + "]", findings); });
+  (data.context.users || []).forEach(function (f, i) { checkProse(f, "", "context.users[" + i + "]", findings); });
   checkProse(data.context.gap, "", "context.gap", findings);
   checkProse(data.context.ask, "", "context.ask", findings);
   addPseudo("doc:context", "Context", [{ path: "context.question", text: data.context.question }]
     .concat(data.context.ask ? [{ path: "context.ask", text: data.context.ask }] : [])
     .concat(data.context.product.map(function (f, i) { return { path: "context.product[" + i + "]", text: f }; }))
+    .concat((data.context.users || []).map(function (f, i) { return { path: "context.users[" + i + "]", text: f }; }))
     .concat([{ path: "context.gap", text: data.context.gap || "" }]));
 
   // scope

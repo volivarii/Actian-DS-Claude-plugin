@@ -906,4 +906,17 @@ describe("assemble-direct: acceptance findings (2026-09-30)", () => {
   it("Show what is new puts a layer's badge inside it, where its scroll does not clip it", () => {
     assert.match(shell.CSS, /\[data-layer\]\[data-new\]::after\{top:\d+px;right:\d+px\}/);
   });
+  it("Show what is new keeps a new part's badge and outline inside a layer, where the layer's scroll would clip them", () => {
+    assert.match(shell.CSS, /\[data-layer\] \[data-new\]::after\{top:\d+px;right:\d+px\}/);
+    assert.match(shell.CSS, /\[data-layer\] \[data-new\]\{outline-offset:-2px\}/);
+  });
+  it("the step strip stays one line: a step's name shortens, with its full name as its tooltip", () => {
+    const btn = (shell.CSS.match(/\.proto-strip \[data-proto-step\]\{[^}]*\}/) || [""])[0];
+    assert.match(btn, /white-space:nowrap/);
+    assert.match(btn, /text-overflow:ellipsis/);
+    assert.match(btn, /min-width:0/);
+    assert.match(shell.CSS, /\.proto-strip>\*\{[^}]*flex:0 0 auto/);
+    assert.match(shell.CSS, /\.proto-strip\{[^}]*flex-wrap:nowrap/);
+    assert.match(shell.strip([{ n: 3, name: "Catalog, three items selected" }], []), /data-proto-step="3" title="Catalog, three items selected">3 Catalog, three items selected</);
+  });
 });

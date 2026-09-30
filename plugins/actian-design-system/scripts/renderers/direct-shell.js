@@ -10,9 +10,13 @@ var CSS = [
   // frames a screen as a card on a preview page. A prototype IS the app, so it
   // fills the window.
   "body{display:flex;flex-direction:column;padding:0;background:var(--zen-color-bg-default,#fff);font-family:var(--zen-font-family-text,Roboto,sans-serif)}",
-  ".proto-strip{display:flex;gap:8px;align-items:center;padding:6px 12px;background:#111;color:#fff;font:12px/1.4 Roboto,sans-serif;flex:0 0 auto}",
+  // One line whatever the step count: a step's name shortens (its title keeps
+  // the full name) rather than wrapping the strip and pushing the app down.
+  ".proto-strip{display:flex;flex-wrap:nowrap;gap:8px;align-items:center;padding:6px 12px;background:#111;color:#fff;font:12px/1.4 Roboto,sans-serif;flex:0 0 auto}",
+  ".proto-strip>*{flex:0 0 auto;white-space:nowrap}",
   ".proto-strip button{font:inherit;color:inherit;background:transparent;border:1px solid #555;border-radius:12px;padding:2px 10px;cursor:pointer}",
   ".proto-strip button[aria-current=step]{background:#fff;color:#111;border-color:#fff}",
+  ".proto-strip [data-proto-step]{flex:0 1 auto;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}",
   ".proto-strip .proto-hint{flex:1;opacity:.8;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}",
   // The stage clips and cannot scroll: the app frame scrolls its own content
   // area, as the product does. A scrollable stage moves the header and every
@@ -69,6 +73,10 @@ var CSS = [
   // A layer scrolls and clips what overhangs it: its outline and badge sit inside.
   "body[data-show-new] [data-layer][data-new]{outline-offset:-2px}",
   "body[data-show-new] [data-layer][data-new]::after{top:4px;right:8px}",
+  // A part inside a layer: the layer scrolls (overflow:auto), which clips
+  // anything drawn past its edge, so the outline and badge stay inside.
+  "body[data-show-new] [data-layer] [data-new]{outline-offset:-2px}",
+  "body[data-show-new] [data-layer] [data-new]::after{top:2px;right:2px}",
 ].join("\n");
 
 // Runs before the author's app.js. proto.go(n) is 1-based.
@@ -133,6 +141,8 @@ function strip(steps, adds) {
       return (
         '<button type="button" data-proto-step="' +
         s.n +
+        '" title="' +
+        esc(s.name) +
         '">' +
         s.n +
         " " +

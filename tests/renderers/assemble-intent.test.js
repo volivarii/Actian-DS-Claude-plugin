@@ -68,3 +68,15 @@ it("names a blocker's part as the proposal document does", () => {
   assert.ok(names.length > 0);
   names.forEach((n) => assert.ok(md.includes("- (blocker) " + n + ": "), "missing blocker part " + n));
 });
+it("writes Target Users from context.users, so the ux section is filled and the check stays quiet", () => {
+  const d = JSON.parse(JSON.stringify(data));
+  d.context.users = ["Business user (personas/business-user.md): signed in to Explorer, looking for the guidelines of their group."];
+  const md = assembleIntent(d, { template: tpl, proposalLink: "p" });
+  assert.match(md.split("## Target Users")[1].split("\n## ")[0], /^\s*- Business user \(personas\/business-user\.md\): signed in/);
+  const f = checkHandover("intent", md, { template: tpl }).filter((x) => JSON.stringify(x).includes("Target Users"));
+  assert.deepEqual(f, []);
+});
+it("keeps the gap marker in Target Users when the data names no users", () => {
+  const d = JSON.parse(JSON.stringify(data)); delete d.context.users;
+  assert.match(assembleIntent(d, { template: tpl, proposalLink: "p" }).split("## Target Users")[1], /^\s*To fill by PM/);
+});

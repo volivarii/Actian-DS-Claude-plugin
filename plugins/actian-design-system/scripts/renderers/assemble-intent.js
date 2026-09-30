@@ -35,6 +35,7 @@ function assembleIntent(data, opts) {
     "Business Context & Problem": [text(c.question), text(c.ask), list(c.product), text(c.gap)]
       .filter(Boolean)
       .join("\n\n"),
+    "Target Users": list(c.users),
     "In Scope": list(s.goals),
     "Out of Scope": list(s.nonGoals),
     "Design decisions": (data.decisions || [])
@@ -84,10 +85,8 @@ function assembleIntent(data, opts) {
     "**Design proposal:** " + opts.proposalLink,
     "",
   ];
-  // Sections the proposal data cannot fill: written as the gap marker on purpose.
-  var noData = ["Target Users"];
   fm.sections.forEach(function (sec) {
-    if (sec.owner !== "pm" && !(sec.title in body) && noData.indexOf(sec.title) === -1)
+    if (sec.owner !== "pm" && !(sec.title in body))
       throw new Error("assemble-intent: the template's section " + sec.title + " is not one this script knows");
     var v = sec.owner === "pm" ? gap : body[sec.title];
     out.push("## " + sec.title, v && String(v).trim() ? String(v).trim() : gap, "");

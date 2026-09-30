@@ -191,6 +191,19 @@
             ]
           }
         },
+        "users": {
+          "type": "array",
+          "description": "Who uses this and in what scenario, one line each, each naming its persona file. It fills intent.md's Target Users; left out, that section reads the gap marker and the handover check flags it",
+          "minItems": 1,
+          "maxItems": 4,
+          "items": {
+            "description": "One persona and its scenario in one line",
+            "type": "string",
+            "examples": [
+              "Business user (personas/business-user.md): signed in to Explorer, looking for the guidelines that go with their group."
+            ]
+          }
+        },
         "sources": {
           "type": "array",
           "description": "Where the product read came from: app-context facts and attachments, one line each",
