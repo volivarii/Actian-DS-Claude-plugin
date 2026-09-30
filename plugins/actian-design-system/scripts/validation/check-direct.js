@@ -367,6 +367,35 @@ function checkDirect(o) {
       ),
     );
   });
+  // The rail the page draws is the app record's, in order: a brief built from a
+  // summary of it (the label list that dropped Studio's icons and bottom block)
+  // or an edited one disagrees here.
+  var recSide = o.appRecord && o.appRecord.sidebar;
+  var briefRail = (o.brief && o.brief.direct && o.brief.direct.app && o.brief.direct.app.rail) || [];
+  var labels = function (list) {
+    return (list || []).map(function (r) {
+      return r.label;
+    });
+  };
+  // Labels, and the groups and header the page draws: a stale brief can keep
+  // every label and lose an icon, a group or the bottom block.
+  var app = (o.brief && o.brief.direct && o.brief.direct.app) || {};
+  var drawn = function () {
+    var ar = require("../lib/app-record.js");
+    return (
+      JSON.stringify(app.groups || null) === JSON.stringify(ar.railGroups(recSide, app.activeNav || null)) &&
+      JSON.stringify(app.header || {}) === JSON.stringify(ar.headerProps(o.appRecord.header))
+    );
+  };
+  if (Array.isArray(recSide) && (labels(briefRail).join("\n") !== labels(recSide).join("\n") || !drawn()))
+    f.push(
+      finding(
+        "error",
+        "rail-mismatch",
+        "brief.json",
+        "the rail is [" + labels(briefRail).join(", ") + "], the app record has [" + labels(recSide).join(", ") + "] (or its groups, icons or header differ): rebuild the brief",
+      ),
+    );
   if (!/<div[^>]*\sdata-app-frame/.test(body))
     f.push(
       finding(
@@ -623,6 +652,7 @@ function main(argv) {
     css: css,
     icons: icons,
     fragments: fragmentSources(brief.direct, rd),
+    appRecord: brief.direct.app && brief.direct.app.slug ? require("../lib/app-record.js").readApp(brief.direct.app.slug) : null,
   });
   findings.forEach(function (x) {
     process.stdout.write(

@@ -190,6 +190,9 @@ function chromeNodes(chrome, sidebarConfig, pageHeaderConfig, headerConfig) {
       },
       sizing: { horizontal: "FILL" },
     };
+    // The app record's search (scope dropdown, placeholder), when it has one.
+    if (c.searchScope != null) header.props.SearchScope = c.searchScope;
+    if (c.searchPlaceholder != null) header.props.SearchPlaceholder = c.searchPlaceholder;
   }
 
   // --- sidebar ---

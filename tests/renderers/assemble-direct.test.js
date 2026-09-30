@@ -62,10 +62,9 @@ describe("assemble-direct", () => {
     assert.ok(!html.includes("data-app-frame"), "the placeholder survived");
     // The real marker the side-nav leaf emits, read off a render:
     // <a class="ds-sidenav__item is-active">...<span class="ds-sidenav__label">Catalog</span></a>
-    const active = html.match(
-      /class="ds-sidenav__item is-active"[^>]*>[\s\S]{0,200}?ds-sidenav__label">Catalog</,
-    );
-    assert.ok(active, "Catalog is not the active rail item");
+    // The active <a> element, whatever it holds (an icon's svg comes first).
+    const active = html.match(/class="ds-sidenav__item is-active"[^>]*>((?:(?!<\/a>)[\s\S])*)<\/a>/);
+    assert.ok(active && active[1].includes('ds-sidenav__label">Catalog<'), "Catalog is not the active rail item");
     assert.ok(
       html.indexOf("2 results") > html.indexOf("ds-header"),
       "author content is not inside the frame",
@@ -239,6 +238,26 @@ describe("assemble-direct: a modal on a scrim, and an author's own script", () =
   it("adds no wrapper when the frame carries no attribute of its own", () => {
     const html = page("<div data-app-frame><p>2 results</p></div>");
     assert.ok(!/<div\s*>\s*<p>2 results/.test(html), "an empty wrapper was added");
+  });
+  it("draws the record's groups: icons, the active item and the bottom block", () => {
+    const b = JSON.parse(JSON.stringify(brief));
+    b.direct.app.activeNav = "catalog";
+    b.direct.app.groups = [
+      { bottom: false, items: [{ label: "Dashboard", id: "dashboard", icon: "dashboard" }, { label: "Catalog", id: "catalog", icon: "catalog" }] },
+      { bottom: true, items: [{ label: "Zeta analytics", id: "analytics", icon: "analytics" }] },
+    ];
+    const html = page("<div data-app-frame><p>x</p></div>", "", b);
+    const bottom = html.slice(html.indexOf("ds-sidenav__bottom"));
+    assert.ok(html.indexOf("ds-sidenav__bottom") !== -1 && bottom.indexOf("Zeta analytics") !== -1 && bottom.indexOf("Zeta analytics") < bottom.indexOf("</nav>"), "the bottom item is not in the bottom block");
+    assert.match(html, /class="ds-sidenav__item is-active"[^>]*>[\s\S]{0,4000}?ds-sidenav__label">Catalog</);
+    assert.match(html, /ds-sidenav__icon"><svg/);
+  });
+  it("draws the record's header context", () => {
+    const b = JSON.parse(JSON.stringify(brief));
+    b.direct.app.header = { Context: "Zeta context", ContextValue: "Zeta value" };
+    const html = page("<div data-app-frame><p>x</p></div>", "", b);
+    const header = html.slice(html.indexOf("ds-header"), html.indexOf("ds-sidenav"));
+    assert.ok(header.includes("Zeta context"), "context label missing from the header");
   });
   it("draws the scrim a modal sits on, which no author writes", () => {
     const html = page(MODAL);
@@ -475,13 +494,9 @@ describe("assemble-direct: PROTO_NAV moves the active rail item as a flow crosse
     const activeLabel = briefBase.direct.app.rail.filter(
       (r) => r.id === briefBase.direct.app.activeNav,
     )[0].label;
-    const re = new RegExp(
-      'class="ds-sidenav__item is-active">[\\s\\S]{0,200}?ds-sidenav__label">' +
-        activeLabel +
-        "<",
-    );
+    const active = html.match(/class="ds-sidenav__item is-active"[^>]*>((?:(?!<\/a>)[\s\S])*)<\/a>/);
     assert.ok(
-      re.test(html),
+      active && active[1].includes('ds-sidenav__label">' + activeLabel + "<"),
       ".ds-sidenav__label does not carry the active rail item's label text",
     );
   });
@@ -809,5 +824,26 @@ describe("assemble-direct: the page carries its provenance", () => {
   });
   it("no run file: no comment, the page starts at the doctype", () => {
     assert.ok(page(BODY_OK).startsWith("<!doctype html>"));
+  });
+});
+
+describe("assemble-direct: the chrome the frame hands the renderer (code-review high, Task 6)", () => {
+  const { frameChrome } = require(path.join(ROOT, "scripts/renderers/assemble-direct.js"));
+  const app = (o) => Object.assign({ rail: [], groups: [], header: {}, activeNav: null }, o);
+  it("says for every group whether it is at the bottom, which the knowledge renderer from v0.34.221 follows", () => {
+    const c = frameChrome(app({ groups: [{ bottom: false, items: [{ label: "Dashboard", id: "d", icon: "i" }] }, { bottom: false, items: [{ label: "Import", id: "m", icon: "i" }] }] }));
+    assert.deepStrictEqual(c.sidebar.groups.map((g) => g.bottom), [false, false]);
+  });
+  it("with nothing active, names the first item that is not an action", () => {
+    const c = frameChrome(app({ groups: [{ bottom: false, items: [{ label: "New item", id: "n", kind: "action", icon: "i" }, { label: "Catalog", id: "c", icon: "i" }] }] }));
+    assert.strictEqual(c.sidebar.activeItem, "Catalog");
+  });
+  it("draws groups for a record with actions or children and no icons", () => {
+    const c = frameChrome(app({ groups: [{ bottom: false, items: [{ label: "Catalog", id: "c" }, { label: "Import", id: "m", children: [{ label: "File", id: "f" }] }] }], activeNav: "f" }));
+    assert.ok(c.sidebar, "no grouped sidebar");
+    assert.strictEqual(c.sidebar.activeItem, "File");
+  });
+  it("passes a header that carries only a context value", () => {
+    assert.deepStrictEqual(frameChrome(app({ header: { ContextValue: "Zeta" } })).header.contextValue, "Zeta");
   });
 });

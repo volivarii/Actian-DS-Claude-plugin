@@ -35,6 +35,31 @@ const kinds = (o) => checkDirect(Object.assign({}, ok, o)).map((f) => f.check);
 describe("check-direct", () => {
   it("passes the clean fixture", () =>
     assert.deepStrictEqual(checkDirect(ok), []));
+  it("rail-mismatch: the brief's rail disagrees with the app record", () => {
+    const appRecord = { sidebar: [{ label: "Dashboard", id: "dashboard" }, { label: "Topics", id: "topics" }] };
+    const b = { direct: Object.assign({}, brief.direct, { app: { slug: "studio", rail: [{ label: "Dashboard", id: "dashboard" }] } }) };
+    const f = checkDirect(Object.assign({}, ok, { brief: b, appRecord })).filter((x) => x.check === "rail-mismatch");
+    assert.strictEqual(f.length, 1);
+    assert.strictEqual(f[0].severity, "error");
+  });
+  it("rail-mismatch: same labels, but the brief's groups or header are not the record's", () => {
+    const appRecord = { header: { type: "Studio", context: { label: "Catalog", value: "Default" } }, sidebar: [{ label: "Dashboard", id: "dashboard", icon: "dashboard", group: "main" }, { label: "Analytics", id: "analytics", icon: "analytics", position: "bottom" }] };
+    const rail = [{ label: "Dashboard", id: "dashboard" }, { label: "Analytics", id: "analytics" }];
+    const stale = { direct: Object.assign({}, brief.direct, { app: { slug: "studio", rail, groups: [{ bottom: false, items: rail }], header: {} } }) };
+    assert.ok(kinds({ brief: stale, appRecord }).includes("rail-mismatch"), "stale groups not caught");
+    const noGroups = { direct: Object.assign({}, brief.direct, { app: { slug: "studio", rail } }) };
+    assert.ok(kinds({ brief: noGroups, appRecord }).includes("rail-mismatch"), "a brief from before groups not caught");
+  });
+  it("rail-mismatch: quiet on a brief built from the record it is checked against", () => {
+    const appRecord = { header: { type: "Studio", context: { label: "Catalog", value: "Default" } }, sidebar: [{ label: "Dashboard", id: "dashboard", icon: "dashboard", group: "main" }, { label: "Import", id: "import", group: "w", children: [{ label: "Select a file", id: "import-file" }] }] };
+    const { directBrief } = require("../../plugins/actian-design-system/scripts/lib/app-context/direct-brief.js");
+    const app = directBrief({ app: { slug: "studio" }, screens: [], flow: [] }, { nav: "import", deps: { readApp: () => appRecord, exists: () => false, listFragments: () => [] } }).app;
+    assert.ok(!kinds({ brief: { direct: Object.assign({}, brief.direct, { app }) }, appRecord }).includes("rail-mismatch"));
+  });
+  it("rail-mismatch: quiet when no record is given", () => {
+    const b = { direct: Object.assign({}, brief.direct, { app: { slug: "studio", rail: [{ label: "Dashboard", id: "dashboard" }] } }) };
+    assert.ok(!kinds({ brief: b }).includes("rail-mismatch"));
+  });
   it("unstyled-class: a class styled in extra.css that no element carries", () => {
     const f = checkDirect(Object.assign({}, ok, { extraCss: ok.extraCss + ".cat{display:flex}" })).filter((x) => x.check === "unstyled-class");
     assert.strictEqual(f.length, 1);
