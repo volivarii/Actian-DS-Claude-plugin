@@ -686,7 +686,7 @@
                       ]
                     },
                     "html": {
-                      "description": "The Fat Marker fragment: fm-* classes and --fm-* tokens only, drawn in flow, no script, no external loads; see references/actian-ux-proposal/document-authoring.md",
+                      "description": "The Fat Marker fragment: fm-* classes and --fm-* tokens only, drawn in flow, no script, no external loads",
                       "type": "string",
                       "examples": [
                         "<div class=\"fm-menu\"><div class=\"fm-menu-item\">Support</div></div>"

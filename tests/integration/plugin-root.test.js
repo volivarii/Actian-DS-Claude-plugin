@@ -15,9 +15,10 @@ var { spawnSync } = require("node:child_process");
 
 var PLUGIN_ROOT = fs.realpathSync(path.resolve(__dirname, "..", "..", "plugins", "actian-design-system"));
 var SCRIPT = path.join(PLUGIN_ROOT, "scripts", "lib", "plugin-root.sh");
-var CANON = path.join(PLUGIN_ROOT, "references", "context", "plugin-root.md");
+// The canonical preamble is the actian-ux card's own block; the other cards
+// must carry it byte for byte.
+var CANON = path.join(PLUGIN_ROOT, "skills", "actian-ux", "SKILL.md");
 var SKILLS_DIR = path.join(PLUGIN_ROOT, "skills");
-var AGENTS_DIR = path.join(PLUGIN_ROOT, "agents");
 
 function bash(cmd, envOverrides) {
   var env = Object.assign({}, process.env, envOverrides || {});
@@ -59,7 +60,7 @@ function canonicalBlock() {
   );
   assert.ok(
     m,
-    "references/context/plugin-root.md must carry the plugin-root:begin/end markers",
+    "skills/actian-ux/SKILL.md must carry the plugin-root:begin/end markers",
   );
   return m[0];
 }
@@ -161,7 +162,7 @@ describe("scripts/lib/plugin-root.sh", function () {
   });
 });
 
-describe("the skill preamble (references/context/plugin-root.md)", function () {
+describe("the skill preamble (skills/actian-ux/SKILL.md)", function () {
   it("its bash one-liner resolves the same fake mount without sourcing anything", function () {
     var block = canonicalBlock();
     var fence = block.match(/```bash\n([\s\S]*?)\n```/);
@@ -198,7 +199,7 @@ describe("the skill preamble (references/context/plugin-root.md)", function () {
     assert.equal(fs.realpathSync(r.out), t.ours);
   });
 
-  it("is copied verbatim, exactly once, after the H1 of every skills/*/SKILL.md and any agents/*.md that carries the block", function () {
+  it("is copied verbatim, exactly once, after the H1 of every skills/*/SKILL.md", function () {
     var block = canonicalBlock();
     var dirs = fs.readdirSync(SKILLS_DIR).filter(function (d) {
       return fs.existsSync(path.join(SKILLS_DIR, d, "SKILL.md"));
@@ -213,23 +214,6 @@ describe("the skill preamble (references/context/plugin-root.md)", function () {
         path: path.join(SKILLS_DIR, d, "SKILL.md"),
         label: "skills/" + d + "/SKILL.md",
       };
-    });
-
-    // One agent carries Bash and runs plugin scripts through
-    // `$CLAUDE_PLUGIN_ROOT/scripts` (prototype-author); every other agent is
-    // Read/Grep/Glob/Write/WebFetch/WebSearch only, and one of those
-    // (screen-generator) carries the canonical block for its "paths are
-    // plugin-root-relative" framing with no script to run. Collecting agents
-    // by a script-path substring would drop that one from this loop, so
-    // agents are keyed on the block's own marker: any agent that carries it
-    // stays checked, whatever it carries it for.
-    fs.readdirSync(AGENTS_DIR).forEach(function (f) {
-      if (!/\.md$/.test(f)) return;
-      var full = path.join(AGENTS_DIR, f);
-      var text = fs.readFileSync(full, "utf8");
-      if (text.indexOf("<!-- plugin-root:begin -->") !== -1) {
-        files.push({ path: full, label: "agents/" + f });
-      }
     });
 
     files.forEach(function (f) {

@@ -97,23 +97,4 @@ describe("tier provenance stays with the author", function () {
         "emit it",
     );
   });
-
-  it("the classifier still runs, so the author has not lost the signal", function () {
-    // Without this the file above is satisfiable by deleting tier classification
-    // outright, which would "fix" the leak by destroying the thing it protects.
-    var agent = fs.readFileSync(
-      path.join(ROOT, "agents", "screen-generator.md"),
-      "utf8",
-    );
-    var required = ["tier", "confidence", "matchedRecipe", "composition", "justification"];
-    var missing = required.filter(function (f) {
-      return agent.indexOf(f) === -1;
-    });
-    assert.deepEqual(
-      missing,
-      [],
-      "screen-generator.md no longer asks for these provenance fields. They are " +
-        "where the author reads the tier now, so they have to keep being written.",
-    );
-  });
 });

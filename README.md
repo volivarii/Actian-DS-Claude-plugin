@@ -8,23 +8,19 @@ Built on Claude and connected directly to Figma, the Actian DS Plugin knows the 
 
 ## The core loop
 
-**Sketch → Audit.** Most design work flows through this loop.
+**Propose → Prototype → Audit.** Most design work runs through three skills, each handing a file to the next.
 
-1. **Sketch.** Describe a feature; get a DS-native flow (one screen or many) with correct app chrome, structured around real layout patterns from the product. `--lofi` renders the same tree in a gray skin; `--fm` opts into Fat Marker authoring. Converting a Figma URL to hi-fi is retired: a `--lofi` or `--fm` flow is regenerated DS-native from its brief.
-2. **Audit.** Check tokens, contrast, copy, and DS rules. Auto-fix what's safe, report what needs judgment.
+1. **Propose.** Paste a ticket; `/actian-ux-proposal` writes a proposal document (each decision the ticket forces, drawn inside the product, with options, a comparison, the pick and its cost) and the `intent.md` the PM owns.
+2. **Prototype.** Describe a flow; `/actian-ux-prototype` draws a clickable HTML prototype in the real app from the design system's own markup, checks it and looks at every step. On request it pushes each screen to Figma as design system instances.
+3. **Audit.** Point at a Figma frame; `/actian-ux-audit` lists every place it departs from the design system, with evidence and a fix, applies fixes on request, and writes `specs.md` from the final frame.
 
-Iterate inside the loop with **refine** (paste a screen-frame URL + edit instruction — only that screen is recreated, the rest stay byte-identical), **branch** (fork into a sibling for parallel exploration), or **variants** (three structurally-distinct alternatives side-by-side).
-
-## Supporting capabilities
-
-- Review and rewrite copy against DS content guidelines (`/actian-ux-audit --scope copy`)
-- Research UX patterns and competitor approaches on demand
+`/actian-ux` answers design system questions from the knowledge, citing the file, and names the skill that fits. Every skill also runs unattended: a question it would ask, or a look it cannot take, is written into its file as a flagged concern.
 
 The guidelines hold throughout — tokens, spacing, content rules, accessibility — but the output stays creative within them.
 
 DS knowledge (tokens, components, foundations, content + accessibility guidelines) is vendored from [`volivarii/actian-ds-knowledge`](https://github.com/volivarii/actian-ds-knowledge) — the canonical source-of-truth repo synced directly from Figma. The plugin pulls a pinned snapshot nightly via `vendor-snapshot.yml`.
 
-4 skills (tiered generation: recognized / adapted / improvised) · 6 agents · 12 recipes · 155 design tokens across 8 collections · 3 themes · WCAG 2.2 AA · **substrate-grounded flow authoring** (app chrome, UX patterns, and entity relationships + typed properties → idiomatic lo-fi screens, with enum columns rendered as status pills) · real icon glyphs in generated flows (resolved from the vendored icon set instead of placeholder boxes) · surgical refine engine · vision-grounded references · interactive gates · federated knowledge substrate
+4 skills · 463 design tokens · 3 themes · WCAG 2.2 AA · 333 DS Kit, 287 FM Kit and 28 Meta Kit components · 3 apps, 30 entities and 31 UX patterns in the app context · federated knowledge substrate
 
 ---
 
@@ -36,7 +32,7 @@ DS knowledge (tokens, components, foundations, content + accessibility guideline
 2. Click **+** > add marketplace: `volivarii/Actian-DS-Claude-plugin`
 3. Install **Actian Design System** from the marketplace
 
-The plugin is available in both **Cowork** and **Code** tabs after install. At this time, **Code** is recommended for best results. In the Actian org's Cowork, the plugin cannot take screenshots of its own output (there is no browser in the Cowork sandbox, so the `--direct` route hands over without looking at its page), and updates arrive on their own: a version cannot be held there.
+The plugin is available in both **Cowork** and **Code** tabs after install. At this time, **Code** is recommended for best results. In the Actian org's Cowork, the plugin cannot take screenshots of its own output (there is no browser in the Cowork sandbox, so the prototype hands over without looking at its page and names what you must look at), and updates arrive on their own: a version cannot be held there.
 
 > **Figma integration:** The plugin's Figma read/write uses the `claude.ai Figma` connector. On **Claude Desktop / Cowork** it's built in — you'll be prompted to authorize your Figma account on first use (no separate install). On the **Claude Code CLI**, connect it via `/mcp` (it's a Claude-managed connector, surfaced under `/mcp`). Works with Figma files in the browser and Figma desktop.
 
@@ -113,23 +109,23 @@ rm -rf ~/.claude/plugins/cache/actian-design-system/actian-design-system/
 
 ## How to work with the companion
 
-Two input shapes cover almost everything. The companion (`/actian-ux`) routes; you don't memorize commands.
+Two input shapes cover almost everything. `/actian-ux` names the skill that fits; you don't memorize commands.
 
 | Shape | Looks like | What you get |
 |-------|------------|--------------|
-| **Prompt** | "Design a connection setup wizard for Administration" | One screen or a flow, DS-native by default (lo-fi or Fat Marker on request), with the right app chrome |
-| **URL + intent** | `<figma url>` + "rename CTA to Publish" / "audit the copy" / "branch this" | Surgical refine, scoped audit, branch, or iterate — picked from your prose |
+| **Prompt** | "Design a connection setup wizard for Administration" / a pasted ticket | A clickable prototype in the right app, or a proposal document and `intent.md` |
+| **URL + intent** | `<figma url>` + "audit this" / "fix finding 3" / "generate the specs" | An audit with a fix per finding, the fixes applied on request, or `specs.md` from the final frame |
 
 ### Your first 30 minutes
 
 ```
 Design a connection setup wizard for Administration
-push
-<screen-3 url>  rename "Submit" to "Connect" and tighten the help text
-audit this --scope copy --fix all
+push the screens to Figma
+<screen-3 url>  audit this
+fix finding 1
 ```
 
-Sketch → push → refine one screen → auto-fix copy. Every step is a single message. **Full walkthrough in [USAGE.md](USAGE.md#a-feature-from-sketch-to-ship--worked-example).**
+Prototype → push → audit → fix. Every step is a single message. **Full walkthrough in [USAGE.md](USAGE.md#a-feature-from-ticket-to-specs-worked-example).**
 
 ### A few starting prompts
 
@@ -138,7 +134,7 @@ Design a Studio dashboard with popular items and watchlists
 ```
 
 ```
-Show me three takes on the data contract creation page
+DIP-I-496: show a logged-in user their roles and permissions, a few approaches
 ```
 
 ```
@@ -147,83 +143,56 @@ review the copy in this screen
 ```
 
 ```
-How do data platforms like Atlan and Collibra handle data lineage?
+What spacing goes between cards in a grid?
 ```
 
 ```
 Find every empty state we use across DS Kit
 ```
 
-The companion knows canonical layout patterns (dashboard, detail, browse, creation form, table view, explorer homepage, overlays), the registries (333 DS Kit + 287 FM Kit + 28 Meta Kit components — 73 / 33 / 11 component sets), and the content guidelines. Naming a pattern in your prompt gets you the right skeleton on the first try.
+The skills read the app patterns, the page recipes with their screenshots, the registries (333 DS Kit, 287 FM Kit and 28 Meta Kit components; 73, 33 and 11 component sets) and the content rules from the vendored knowledge.
 
 ---
 
 ## Power-user shortcuts
 
-Every capability is also available as a direct command. Use these when you know exactly which pipeline you want.
+Every capability is also available as a direct command. Use these when you know exactly which skill you want.
 
 **Core loop:**
 
 | Command | What it does |
 |---------|-------------|
-| `/actian-ux-prototype` | Sketch — one or more DS-native screens (n≥1), real DS components and tokens, correct app chrome; `--lofi` for the gray skin, `--fm` for Fat Marker authoring. Interactive gates (v1.63.0+) replace most CLI flags: variants, ref, states, breakpoints, hifi/audit chaining are picked through prompt-flow. Still flag-callable: `--from <url>` (iterate), `--from <url> --branch X` (fork), `--from proposals/proposal-data.json` (seed from a design proposal's picks). URL + prose = refine shape (v1.56.0+: surgical — only changed screen frames are recreated, validator findings stay scoped). Vision-grounded `--ref <url>` (v1.57.0+) extracts a structural fingerprint and biases recipe + density. `--direct` (opt-in): one author draws the whole flow as one clickable HTML page. |
-| `/actian-ux-proposal` | Propose: a short document for PMs and designers that opens with what was asked and leads with what ships (the answer in one sentence, then one block per part with the chosen drawing, why and what it costs, what to settle before building and what changes, then, folded until opened, the other options with their comparison and the research), in plain words held to word limits. HTML only, opens offline; for component-scale tickets. `--evaluate` stops after the decisions: what the ticket forces, written to `proposals/proposal-data.json` and no document, resumed with `--from`. The picks become a flow without being retyped: `/actian-ux-prototype --from proposals/proposal-data.json`. |
-| `/actian-ux-audit` | Audit — tokens, contrast, copy, a11y, heuristic. `--scope <copy\|tokens\|a11y\|heuristic>` narrows; `--fix N\|all` auto-applies. |
+| `/actian-ux` | Answers from the knowledge, citing each file; the rules every Actian design task follows; which skill fits. |
+| `/actian-ux-proposal` | Propose: a document a PM or designer reads once (each decision the ticket forces, heaviest first, its options drawn inside the product as Fat Marker fragments, a comparison and the pick with its cost) and the `intent.md` the PM owns, both from one `proposal-data.json`. Business fields read "To fill by PM", never invented. HTML only, no Figma push. |
+| `/actian-ux-prototype` | Prototype: a clickable HTML page of the flow in the real app, drawn from the design system's own markup, checked by `check-direct.js` and looked at step by step. On request, each screen is pushed to Figma through `figma-screen.js`. Seeds `specs.md` when no final Figma exists. |
+| `/actian-ux-audit` | Audit: components, tokens, accessibility, copy, layout and states, each finding with the rule quoted, the fix and a confidence. Fixes one finding at a time on request, P0 first. Writes `specs.md` from the final frame. |
 
 ---
 
-## Preview and iteration
+## Handover
 
-Every generation task pauses for review before pushing to Figma:
+Every skill ends with a handover that hides nothing: what is new, what was not checked, the open questions.
 
-| Reply | What happens |
+| Skill | Hands over |
 |-------|-------------|
-| **`push`** | Send everything to Figma |
-| **`push 2,4,5`** | Send specific items only |
-| **`push and wire`** | Push + wire prototype connections automatically |
-| **`prototype`** | Generate a clickable Alpine.js prototype for testing |
-| **`apply annotations`** | Apply visual annotations from the browser |
-| feedback | Describe changes, get updated output |
+| `/actian-ux-proposal` | `proposal.html` and `intent.md`, both rendered from `proposal-data.json`; a follow-up edits the data file and renders both again |
+| `/actian-ux-prototype` | `prototype.html` and a screenshot of every step; on request the Figma screens; `specs.md` seeded from the prototype when no final Figma exists |
+| `/actian-ux-audit` | The findings table, the fixes applied, `specs.md` from the final frame and its check result |
 
-### Visual annotations
-
-Instead of describing issues in text, click directly on any element in the preview:
-
-1. Click **Annotate** in the preview toolbar
-2. Click any element, type feedback, pick **Change** or **Note**
-3. Click **Apply** in the browser, then say **"apply annotations"** in the CLI
-
-Works at every preview gate across all skills.
+`intent.md` and `specs.md` are checked by `scripts/validation/check-handover.js` against the knowledge's templates, vendored at `vendor/app-context/src/handover/`. If a template is missing there, the scripts print `template not vendored yet` and exit 2, and the skills hand over without the file and say so.
 
 ---
 
 ## What the companion knows
 
-The companion has always-loaded knowledge of:
+The skills read the vendored knowledge (`vendor/`, indexed by `vendor/llms.txt`):
 
-- **Tokens** — 155 design tokens in W3C DTCG format across 8 collections (color, spacing, border, size, breakpoint, focus-ring, font, icon), 3 theme modes, CSS custom properties (`--zen-*`)
-- **Foundations**: `foundations.md` is the source of truth (v1.60.0+): a CI workflow regenerates 79 derived JSONs (color roles, spacing scale, type ramp, etc.) on every change, with PR comments confirming the regen
+- **Tokens**: 463 design tokens in W3C DTCG format, 3 themes (Actian, Studio, Explorer), CSS custom properties (`--zen-*`)
+- **Foundations**: `foundations.md` is the source of truth: the knowledge repo's CI regenerates 79 derived JSONs (color roles, spacing scale, type ramp, etc.) on every change
 - **Content rules** — sentence case, action verbs, error message patterns, empty state CTAs
-- **App context**: Studio (integration/catalog), Explorer (discovery), Administration (settings/users), a structured, queryable domain (3 apps, 30 entities with typed properties + a relationship graph, 31 named UX patterns, terminology rules) that now **grounds flow authoring** directly: chrome, patterns, entities, and properties are resolved into the flow before screens are generated
-- **Component inventory** — 333 DS Kit + 287 FM Kit + 28 Meta Kit components (73 / 33 / 11 sets) — dynamically derived from synced registries
-- **Component guidelines** — 61 per-component guideline docs (54 components + 7 registry-key aliases), all curated in the current snapshot; components without a doc fall back to per-category structural defaults
-
-It loads detailed references on demand: per-component guidelines, accessibility standards, UX patterns, foundation docs.
-
----
-
-## Agents
-
-Agents are dispatched automatically by skills — they run as background subprocesses and feed results back into the main task.
-
-| Agent | What it does | When |
-|-------|-------------|------|
-| `flow-researcher` | Research UX patterns and competitors | Flow generation (opt-in research phase) |
-| `flow-consistency` | Check HTML for chrome/terminology correctness | Flow generation (after HTML) |
-| `wiring-analyzer` | Analyze flow structure for prototype wiring | Flow push (wire step) |
-| `screen-generator` | Generate one flow screen per instance, all in parallel | Flow generation (every screen count, one agent per screen) |
-| `ds-researcher` | Research a design question across competitors, public design systems, the Actian substrate and supplied references | Design proposal (the lanes the reader opts into) |
-| `prototype-author` | Draw the whole flow as one clickable HTML page from the design system's own markup, check it, and look at it where a browser is available (not in Cowork) | Flow generation with `--direct` |
+- **App context**: Studio (integration/catalog), Explorer (discovery), Administration (settings/users), a structured, queryable domain (3 apps, 30 entities with typed properties and a relationship graph, 31 named UX patterns, personas, terminology rules) that the prototype's brief is built from
+- **Component inventory**: 333 DS Kit, 287 FM Kit and 28 Meta Kit components (73, 33 and 11 sets), from the synced registries
+- **Component guidelines**: 61 per-component guideline docs (54 components and 7 registry-key aliases)
 
 ---
 
@@ -243,30 +212,24 @@ plugin's vendor/ snapshot (refreshed nightly via vendor-snapshot.yml)
     ├─ vendor/tokens/                 -- DTCG + CSS custom properties
     ├─ vendor/{content,accessibility,app-context}/
     |
-Companion + skills read at runtime
+The four skills read at runtime
 ```
 
 ### Design system layers
 
 | Layer | Font | Components | Used for |
 |-------|------|-----------|----------|
-| **Fat Marker (lo-fi)** | Inter | 287 FM Kit components (33 sets) | Wireframe flows |
-| **DS Kit (hi-fi)** | Roboto | 333 DS Kit components (73 sets) | DS-native screens, audits, proposals |
-| **Meta Kit** | Inter | 28 Meta Kit components (11 sets) | All output skills (cards, headers, badges) |
+| **Fat Marker (wireframe)** | Inter | 287 FM Kit components (33 sets) | Proposal mockups (`fm-*` fragments) |
+| **DS Kit (hi-fi)** | Roboto | 333 DS Kit components (73 sets) | Prototypes, Figma pushes, audits |
 
 3 themes: **Actian**, **Studio**, **Explorer** — tokens switch via `[data-theme]` CSS or Figma variable modes.
 
-**Pipeline quality gates:**
-- **Foundations MD-as-SoT** (v1.60.0+): `foundations.md` is the editable source; CI regenerates 79 derived JSONs and posts a PR comment confirming the regen.
-- **Substrate-grounded glossary**: before authoring, `prepare-flow.js` writes one brief (`flows/.brief.json`) joining the app chrome, the matched UX pattern, the entity's relationships and typed properties, the page recipe or archetype per screen and the captured sections each screen is made of, and the property rules of the components each screen needs, plus a per-screen slice (`flows/.brief/<n>.json`); a `screen-generator` agent authors each screen from its own slice, one agent per screen, in parallel, so screens are idiomatic to the app with consistent terminology.
-- **Validation** — `validate-flow-data.js` runs before every push: banned placeholder text (P0, blocks push), unresolved token references (P1), terminology violations checked against `app-context.json` (P1), avoid-word warnings from `vendor/content/dist/words-to-avoid.json` (non-blocking; `--skip-avoid-words` to suppress), plus non-blocking **grounding advisories** that flag when a flow drifts from the substrate — ungrounded chrome/patterns, or tables/forms that don't reflect the entity's relationships, properties, or typed (enum→pill) rendering.
-- **Scope-aware filtering** (v1.55.0+) — refines pass `--scope single-unit:<id>` so findings on untouched screens don't drown out findings on the screen the designer actually edited.
-- **Refine engine** (v1.56.0+) — `resolve-unit.js` maps a Figma URL to a `pushedNodes` entry, `snapshot-store.js` reads/writes a `flow-data.snapshot.json` sidecar, `derive-scope.js` diffs before/after by `screens[].id` to produce the canonical scope tag. Surgical push deletes and recreates only the changed screen frames.
-- **Vision-grounded references** (v1.57.0+) — `--ref <figma-url>` triggers a structural fingerprint extraction (`density`, `hierarchy_depth`, `primary_components`, `layout_archetype`) that biases recipe + density. Refine path reuses the cached fingerprint when the URL is unchanged.
-- **Auto-bump on vendor refresh** — the nightly `vendor-snapshot.yml` bumps `plugin.json` whenever the knowledge snapshot changes.
-- **Design changelog** — `changelog.js` compares the current push against the previous `.last-push.json` manifest, reporting source data changes, token drift, and component additions/removals.
-
-**DS-native by default:** `/actian-ux-prototype X` authors screens against the DS Kit vocabulary and renders real components with real tokens in the HTML deliverable; `--push` adds the Figma frames. `--lofi` renders the same tree in a focus-aware lo-fi skin, and `--fm` opts back into FatMarker authoring (required for a lo-fi Figma push). The Figma-URL conversion skill was retired on 2026-09-10 and its code deleted on 2026-09-22 (see the CHANGELOG).
+**Checks the skills run:**
+- **One brief per prototype**: `prepare-flow.js --direct` writes one brief joining the app's rail and header, each step's captured page (its regions, notes and screenshot), the design system's own component markup and usage notes, the stylesheets, the icons and the content rules.
+- **Prototype check**: `check-direct.js` checks the four author files; each finding and its fix is listed in `skills/actian-ux-prototype/prototype-files.md`. `look-direct.js` screenshots every step at two widths, and exits 2 when no browser answers.
+- **Figma push**: `figma-screen.js` resolves every `var(--zen-...)` token in the screen's app theme and stops, naming the token, on one it cannot resolve.
+- **Proposal and handover**: `validate-proposal.js` checks `proposal-data.json`; `check-handover.js` checks `intent.md` and `specs.md` against the knowledge's templates.
+- **Auto-bump on vendor refresh**: the nightly `vendor-snapshot.yml` bumps `plugin.json` whenever the knowledge snapshot changes.
 
 ---
 
@@ -280,8 +243,7 @@ actian-design-system-plugin/
 │   ├── .claude-plugin/plugin.json
 │   ├── ARCHITECTURE.md                    # canonical map (read first)
 │   ├── CLAUDE.md
-│   ├── skills/                            # 4 skills (actian-ux + 3 specialized)
-│   ├── agents/                            # parallel-generation + validation/research agents
+│   ├── skills/                            # 4 skill cards, each with the files it needs beside it
 │   ├── recipes/                           # flow recipes
 │   ├── scripts/
 │   │   ├── lib/                           # paths.js, shared-constants, registry loaders, palette, buildGenLog
@@ -292,13 +254,7 @@ actian-design-system-plugin/
 │   │   ├── renderers/                     # assemble-preview + html-renderers + render-component-reference
 │   │   ├── bridges/                       # proposal-to-flow: a proposal's picks as an actian-ux-prototype seed
 │   │   └── changelog/                     # push-to-push diffing
-│   ├── references/
-│   │   ├── figma/                         # MCP workflow, push patterns, parity, prototype, annotations
-│   │   ├── ds-rules/                      # tokens, layout, component-instance rules, quality checklist
-│   │   ├── context/                       # companion-context.md, knowledge bases
-│   │   ├── actian-ux-audit/               # skill-specific
-│   │   ├── actian-ux-prototype/           # skill-specific
-│   │   └── actian-ux-proposal/            # skill-specific
+│   ├── references/actian-ux-prototype/    # fm-to-ds-map.json + ds-components-authoring.md (data files scripts read)
 │   ├── schemas/                           # JSON schemas (flow-data, proposal-data, proposal-evaluation)
 │   ├── templates/                         # HTML wrappers (flow, annotation-layer, proposal-document)
 │   ├── vendor/                            # pinned knowledge-repo snapshot — the DS substrate

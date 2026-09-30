@@ -105,17 +105,6 @@ Quick draft of a user registration flow
 Production flow for data contract management with all states and edge cases
 ```
 
-### With research
-
-```
-Generate a flow for data lineage visualization
-Research competitor patterns first
-```
-
-```
-Create an access request workflow in Explorer, no research, just build it
-```
-
 ### Different screen types
 
 ```
@@ -126,40 +115,16 @@ Mock up a mobile notification screen for scanner alerts
 Design a compact modal for connection deletion confirmation
 ```
 
-### Lo-fi on request (DS-native is the default)
+### One clickable prototype
 
 ```
-Generate a connection settings flow in Studio --lofi
+/actian-ux-prototype let a steward describe several catalog items at once
 ```
 
-```
-/actian-ux-prototype Admin dashboard for Administration --fm
-```
-
-### One clickable prototype (`--direct`)
+### Push to Figma
 
 ```
-/actian-ux-prototype --direct let a steward describe several catalog items at once
-```
-
-### At the action gate
-
-```
-push                    # Send all screens to Figma
-push 1,3,5              # Send specific screens only
-push and wire           # Push + wire prototype connections
-preview                 # Open HTML preview first
-prototype               # Generate interactive HTML prototype
-```
-
-### Wire existing Figma flows
-
-```
-Wire a prototype on https://figma.com/design/FILEKEY/Flow?node-id=123-456
-```
-
-```
-Make this flow interactive https://figma.com/design/FILEKEY/Flow?node-id=123-456
+push the screens to Figma
 ```
 
 ---
@@ -170,19 +135,6 @@ Make this flow interactive https://figma.com/design/FILEKEY/Flow?node-id=123-456
 
 ```
 /actian-ux-proposal DIP-I-496 Ability to show user roles and permissions for a logged-in user
-```
-
-### With research and a chosen count
-
-```
-/actian-ux-proposal show a user their roles in the account menu --concepts 2
-```
-(answer "yes" at the research gate)
-
-### Re-render after editing the data file
-
-```
-/actian-ux-proposal --from proposals/proposal-data.json
 ```
 
 ---
@@ -275,30 +227,12 @@ What's wrong with this design? https://figma.com/design/FILEKEY/File?node-id=123
 Fix finding #3
 ```
 
-```
-Fix all auto-fixable findings
-```
-
 ---
 
 ## Direct skill invocation (power-user shortcuts)
 
 ```
 /actian-ux-prototype Admin Dashboard for Administration
-/actian-ux-prototype Connection settings in Studio --lofi
-/actian-ux-prototype --direct Connection settings in Studio
+/actian-ux-prototype Connection settings in Studio
 /actian-ux-audit https://figma.com/design/FILEKEY/File?node-id=123-456
-```
-
----
-
-## Browser annotations
-
-Available during any preview:
-
-```
-1. Click "Annotate" in the preview toolbar
-2. Click an element, type feedback, pick Change or Note
-3. Click "Apply" in the browser
-4. Say "apply" in the CLI
 ```

@@ -82,7 +82,7 @@ Data flows: `Figma -> volivarii/actian-ds-knowledge CI -> vendor/ (snapshot pull
 The plugin reads design-system knowledge from the vendored substrate. Two rules keep references fast + drift-proof:
 
 1. **Code resolves via `PATHS`** (`scripts/lib/paths.js`) — logical names, never hardcoded `vendor/…` literals. Guarded by `tests/integration/no-bare-vendor-paths.test.js`.
-2. **Prose may name concrete `vendor/…` paths** (skills/references/agents markdown + the plugin's own docs — `CLAUDE.md`, `ARCHITECTURE.md`, `README.md`, `docs/` — the agent needs them to open files) **but every such path is CI-guarded to resolve** to a real vendored file/dir by `tests/integration/vendor-paths-resolve.test.js` (template-aware: `<slug>` paths are checked at the containing-directory level; relative refs written with leading parent-dir hops are normalized to the substrate root and checked too). A re-vendor that moves a path fails CI loudly instead of silently breaking a skill at runtime.
+2. **Prose may name concrete `vendor/…` paths** (skills/references markdown and the plugin's own docs, `CLAUDE.md`, `ARCHITECTURE.md`, `README.md`, `docs/`: the agent needs them to open files) **but every such path is CI-guarded to resolve** to a real vendored file/dir by `tests/integration/vendor-paths-resolve.test.js` (template-aware: `<slug>` paths are checked at the containing-directory level; relative refs written with leading parent-dir hops are normalized to the substrate root and checked too). A re-vendor that moves a path fails CI loudly instead of silently breaking a skill at runtime.
 3. **For whole-domain coverage, prefer the `*.bundle.json` roll-ups** (`guidelines.bundle.json`, `categories.bundle.json`, `accessibility.bundle.json`, `foundations.bundle.json`) over globbing per-file.
 
 ---
@@ -91,9 +91,8 @@ The plugin reads design-system knowledge from the vendored substrate. Two rules 
 
 `ARCHITECTURE.md` (plugin root) is the canonical map. When unsure where a new artifact belongs, consult it first. Quick rules:
 
-- **Reference doc that's used by ≥2 skills?** Goes in `references/figma/`, `references/ds-rules/`, or `references/context/` depending on subject. Workflow → `figma/`, system constraints → `ds-rules/`, knowledge base → `context/`.
-- **Reference doc specific to one skill?** Goes in `references/<skill-name>/`.
-- **New skill?** Follow the checklist in `ARCHITECTURE.md` Section 4. New skill = new `skills/<name>/`, new `references/<name>/` (only if it has skill-specific docs), entry added to `ARCHITECTURE.md` Section 2.
+- **Instructions** live in the four skill cards (`skills/<name>/SKILL.md`). The knowledge carries the detail, so no reference doc restates it; a file a card needs sits beside it in its skill directory (the audit's `figma-api-traps.md` and `evidence-and-fixes.md`).
+- **New skill?** Follow the checklist in `ARCHITECTURE.md` Section 4 and add its entry to `ARCHITECTURE.md` Section 2.
 - **Script bucketing** (`scripts/<bucket>/`) and the test suite's layout are described in `ARCHITECTURE.md` Section 3. The suite lives at `tests/` at the **repository root**, next to `plugins/`, not under this directory: a plugin install copies every tracked file under the plugin, and the tests are not shipped. Run `npm test` from the repository root. A path written here as `tests/...` names that tree.
 
 When generating code or docs in this plugin, consult `ARCHITECTURE.md` for placement and update Section 2 if you add a new artifact.
@@ -125,9 +124,9 @@ Every output includes a generation card (first element) with: skill name, prompt
 - **Content guidelines:** `vendor/content/dist/global.md` (cross-cutting voice/tone/word rules) + `vendor/content/dist/words-to-avoid.json` (structured avoid-word rules for tooling; `PATHS.content.wordsToAvoid`) + per-component `vendor/components/dist/guidelines/<slug>.json` `domains.content`
 - **Accessibility:** `vendor/accessibility/src/<slug>.md` (per-section) — WCAG 2.2 AA
 - **Never hardcode:** colors, fonts, spacing, radius, shadows, icons. Use tokens. FM outputs use `--fm-*` variables only.
-- **Component instances:** set ALL properties (variants, text, booleans, nested). See `references/ds-rules/component-instance-rules.md`.
-- **Library gaps:** check catalog before custom frames. See `references/ds-rules/library-gap-detection.md`.
-- **Forms layout:** 480px max-width for simple inputs, full-width for tables/tiles. See `references/ds-rules/layout-patterns.md`.
+- **Component instances:** set ALL properties (variants, text, booleans, nested), from the component's guideline `vendor/components/dist/guidelines/<slug>.json`.
+- **Library gaps:** check the registry (`vendor/components/dist/registries/dskit.json`) before a custom frame, and mark what is new.
+- **Layout:** the page's recipe and its screenshot decide structure (`vendor/llms.txt`, "Building a screen").
 
 ---
 
@@ -138,19 +137,17 @@ Every output includes a generation card (first element) with: skill name, prompt
 - WCAG AA contrast on all text/background pairs
 - 100% token binding — zero hardcoded values
 
-Full checklist: `references/ds-rules/quality-checklist.md`
 
 ---
 
 ## Figma MCP Flow
 
-1. `get_design_context` first. 2. `get_metadata` if response too large. 3. `get_screenshot` for visual ref. 4. Push to Figma using small direct `use_figma` calls (200-2000 bytes each, one operation per call) — see `references/figma/figma-push-patterns.md` for component keys and patterns. Always pass `skillNames: "figma-use"`. 5. Validate against screenshot. See `references/figma/figma-output.md`.
+1. `get_design_context` first. 2. `get_metadata` if response too large. 3. `get_screenshot` for visual ref. 4. Push a screen with `scripts/renderers/figma-screen.js <screen.json> --parent-id <id>` (the prototype card), its output as one `use_figma` call. Always pass `skillNames: "figma-use"`. 5. Validate against a screenshot.
 
 ### Critical Plugin API Rules
 
-Every `use_figma` invocation must respect these. Full callouts in
-`references/figma/figma-push-patterns.md` `## Critical Rules`; trap
-catalogue in `references/figma/figma-api-traps.md`.
+Every `use_figma` invocation must respect these. Trap catalogue in
+`skills/actian-ux-audit/figma-api-traps.md`.
 
 - **`skillNames: "figma-use"` mandatory** on every call (Figma's
   official contract).
@@ -175,21 +172,6 @@ catalogue in `references/figma/figma-api-traps.md`.
 - **DS work**: start at `figma-use/references/working-with-design-systems/wwds.md`.
 - **Use `getSharedPluginData`** — `getPluginData`/`setPluginData` are
   not supported in `use_figma`.
-
-For the trap catalogue (methods that don't exist, fields that aren't
-bindable, patterns that silently fail), see `references/figma/figma-api-traps.md`.
-
----
-
-## Local Server
-
-Use `ensure-server.sh` for all preview serving. Never manually run servers or kill processes. Always pass the project directory, never `.`. See `references/figma/annotation-reference.md` for browser annotations. See `references/figma/prototype-reference.md` for interactive prototypes.
-
----
-
-## Parity Check
-
-Parity check is **opt-in** — only run when the user asks ("check parity", "verify output"). When triggered: screenshot → check for clipping, empty text, missing children → fix P0s. See `references/figma/parity-check.md`.
 
 ---
 

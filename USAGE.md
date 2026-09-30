@@ -1,6 +1,6 @@
 # Usage Guide
 
-Your design system teammate. Two input shapes, prompt and URL + intent, cover everything. The companion (`/actian-ux`) routes; you don't memorize commands.
+Your design system teammate. Two input shapes, prompt and URL + intent, cover everything. `/actian-ux` names the skill that fits; you don't memorize commands.
 
 ---
 
@@ -8,7 +8,7 @@ Your design system teammate. Two input shapes, prompt and URL + intent, cover ev
 
 ### 1. Prompt — describe what you need
 
-Single screen or full flow, DS-native by default (`--lofi` or `--fm` to opt out), draft to production. The companion handles screen count, detail level, and chrome.
+A flow or a screen gets a clickable prototype in the right app; a ticket gets a proposal.
 
 ```
 Mock me a connection setup screen for Administration
@@ -19,125 +19,85 @@ Design the data product publishing flow in Studio
 ```
 
 ```
-Build me a ship-ready user registration flow end-to-end
-```
-
-```
 Show me three ways to do a notification preferences page
 ```
-*Proposal: a plan in chat, then a document that leads with what ships (`/actian-ux-proposal`).*
+*Proposal: each decision the page forces, with options drawn inside the product, a comparison and the pick (`/actian-ux-proposal`).*
 
 ```
 Show a logged-in user their roles and permissions in the account menu, a few approaches
 ```
-*Proposal: what it would build, part by part, then a document that leads with what ships (`/actian-ux-proposal`).*
-
-Single-screen output is first-class — `mock me X` produces one screen, `design a flow for X` produces multiple.
+*Proposal: the document, and the `intent.md` the PM owns (`/actian-ux-proposal`).*
 
 ### 2. URL + intent — operate on existing work
 
-Share a Figma URL plus what you want done. The companion picks the right pipeline.
+Share a Figma URL plus what you want done.
 
 ```
 https://figma.com/design/FILEKEY/File?node-id=123-456
-rename the primary CTA to "Publish"
+audit this, then fix the copy
 ```
-*Refine — surgical edit on a previously-pushed unit.*
+*Audit: every finding with evidence and a fix; fixes applied one at a time when you ask (`/actian-ux-audit`).*
 
 ```
 https://figma.com/design/FILEKEY/File?node-id=123-456
-try a different angle on this
+generate the specs
 ```
-*Iterate — re-roll the same flow with a different recipe selection.*
-
-```
-https://figma.com/design/FILEKEY/File?node-id=123-456
-branch this for the admin variant
-```
-*Branch — fork into a sibling frame for parallel exploration.*
-
-```
-https://figma.com/design/FILEKEY/File?node-id=123-456
-audit this — fix the copy
-```
-*Audit with focused scope (`/actian-ux-audit --scope copy --fix all`).*
+*Specs: `specs.md` from the final frame, the prototype and `intent.md` (`/actian-ux-audit`).*
 
 ---
 
-## A feature from sketch to ship — worked example
+## A feature from ticket to specs: worked example
 
-A complete designer flow for adding a connection setup wizard to Administration. Each numbered step is a single message to the companion.
+A complete designer flow for adding a connection setup wizard to Administration. Each numbered step is a single message.
 
-### 1. Sketch the flow
-
-```
-Design a connection setup wizard for Administration — type picker, credentials, scope review, success
-```
-
-The companion proposes 4 screens, asks if you want competitor research, and surfaces the screen list before generating anything.
-
-> **Researcher's path:** say "yes" to research and you get findings on how Atlan, Collibra, and Stripe handle credential flows — with source URLs — presented before any screen is drafted. The research also lands as a card in the Figma output.
-
-### 2. Approve and push
+### 1. Propose
 
 ```
-push
+<TICKET-ID>: let an admin set up a connection in Administration. A few approaches, and pick one.
 ```
 
-DS-native screens land in Figma with the right Administration chrome (header, nav, page title) structured around recipes (`form-create` for input screens, `confirmation` for success). Each screen gets a stable `screenId` stamped into `.last-push.json` so later refines target the right one.
+`/actian-ux-proposal` writes `proposal-data.json`, then renders `proposal.html` (each decision the ticket forces, heaviest first, its options drawn as Fat Marker fragments, a comparison and the pick with its cost) and `intent.md` from it. Business fields (value, stakeholders, metrics, constraints, deliverables) read "To fill by PM". To change it, ask for the change: the skill edits the data file and renders both again.
 
-### 3. Refine one screen — surgical edit
+### 2. Prototype the flow
 
-You spot something off on screen 3. Paste the screen-frame URL:
+```
+Design a connection setup wizard for Administration: type picker, credentials, scope review, success
+```
+
+`/actian-ux-prototype` writes the screen list, builds one brief from the knowledge (`prepare-flow.js --direct`), writes the four author files and assembles `prototype.html`: the app's real header and side navigation, live state between steps, a strip to jump to a step, and a "Show what is new" switch that marks what the product does not have today. `check-direct.js` checks the files, and the skill looks at a screenshot of every step before handing over.
+
+### 3. Push to Figma
+
+```
+push the screens to Figma
+```
+
+One JSON per screen goes through `figma-screen.js`, whose output is the code of one `use_figma` call: real design system instances, colours as tokens in the app's theme, text in Roboto. Properties the live component refuses come back in `droppedProps`, and the skill screenshots each screen.
+
+### 4. Audit before ship
 
 ```
 https://figma.com/design/FILEKEY/File?node-id=42-100
-rename "Submit" to "Connect" and tighten the help text under the password field
-```
-
-`resolve-unit.js` maps the URL to a `pushedNodes` entry → derives `single-unit:<id>` scope → loads the cached data model from `flow-data.snapshot.json` → applies the edit → recreates only that screen frame. Other screens stay byte-identical. Validator findings stay scoped to the changed screen so you don't drown in noise from screens you didn't touch.
-
-### 4. Make it hifi
-
-```
-make it hifi
-```
-
-DS-native is already the default for a new flow; this re-rolls an existing `--fm` or `--lofi` flow into DS-native. The same screens are authored against the DS Kit vocabulary and rendered with real components and tokens in a new HTML deliverable next to the wireframe. Add "push to Figma" to also get the frames.
-
-### 5. Audit before ship
-
-```
 audit this
 ```
 
-Runs `/actian-ux-audit` — tokens, contrast, copy, heuristics — with confidence-scored findings. Auto-fix what's safe, flag what needs judgment.
+Runs `/actian-ux-audit`: components, tokens, accessibility (WCAG 2.2 AA), copy (`vendor/content/dist/global.md` and the terminology), layout and states. Each finding names the node, quotes the rule, says what the file has, gives the fix and a confidence; below 0.5 it goes to needs review.
 
-> **Content designer's path:** `audit this --scope copy --fix all` rewrites strings against `vendor/content/dist/global.md` and each component's content rules — sentence case, action verbs, error-message patterns, empty-state CTAs — applied automatically.
->
-> **A11y specialist's path:** `audit this --scope a11y` focuses on contrast (4.5:1 normal, 3:1 large), focus order, and target sizes (44×44px min). Other findings stay quiet.
-
-### 6. Branch a variant
-
-The team wants an inline-form variant of the wizard. Paste the wizard URL:
+### 5. Fix
 
 ```
-https://figma.com/design/FILEKEY/File?node-id=42-99
-branch this as the inline variant
+fix finding 3
 ```
 
-A sibling frame appears: `[Original] — inline variant`.
+One finding at a time, P0 first, looking at the result after each.
 
-### 7. Match a reference (vision-grounded)
-
-A PM shares a Stripe screenshot. Paste it into a Figma frame, then point the companion at it:
+### 6. Specs for engineering
 
 ```
-Generate the credentials screen but match the density of this:
-https://figma.com/design/REF/File?node-id=99-1
+generate the specs
 ```
 
-The companion screenshots the reference, vision-extracts a 4-field structural fingerprint (`density`, `hierarchy_depth`, `primary_components`, `layout_archetype`), validates it, and biases the generation. The fingerprint persists on `meta.references[].fingerprint` and is reused on later refines of the same URL — no re-extraction cost.
+`specs.md` from three sources: the final frame (components by DS name and slug, copy, accessibility, screens), the prototype (flow order, states, interactions) and `intent.md` (edge cases, scope, open questions). Unfixed findings and open questions go to Flagged concerns, and the designer reviews it before it is pushed.
 
 That's the spine. Each step is one message. The doc below is just expansion on the parts you'll use most.
 
@@ -147,7 +107,7 @@ That's the spine. Each step is one message. The doc below is just expansion on t
 
 ### Point at something, get help
 
-Share a Figma URL and describe what you need. The companion reads the design, checks it against DS rules, and either fixes it directly (obvious violations) or asks when there's a judgment call.
+Share a Figma URL and describe what you need. The audit reads the frame, checks it against the design system, and fixes a finding when you ask.
 
 ```
 https://figma.com/design/FILEKEY/File?node-id=123-456
@@ -156,12 +116,10 @@ the spacing in this card feels off
 
 ### Ask a question — no URL needed
 
-```
-What's the correct spacing between cards in a grid?
-```
+`/actian-ux` answers from the knowledge and cites each file it used; if the knowledge does not say, it says so.
 
 ```
-How do competitors handle multi-step onboarding?
+What's the correct spacing between cards in a grid?
 ```
 
 ```
@@ -169,8 +127,6 @@ Is there a Tab component in the FM Kit?
 ```
 
 ### Look up the library inline
-
-The companion reads the registries directly — no skill invocation needed.
 
 ```
 Find every empty state we use across DS Kit
@@ -190,7 +146,7 @@ Show me all the components that have a destructive variant
 
 ### Spot fixes — wrong tokens, spacing, auto-layout
 
-Share a URL + describe what looks wrong. The companion fixes obvious violations (wrong color, spacing off-scale, missing auto-layout) directly and asks on ambiguous ones.
+Share a URL + describe what looks wrong. The audit lists what departs from the design system, with a fix each, and applies the fixes you ask for.
 
 ```
 https://figma.com/design/FILEKEY/File?node-id=123-456
@@ -199,7 +155,7 @@ check the tokens on this component
 
 ### Flows and screens — from idea to Figma
 
-The worked example above is the canonical shape: prompt → preview → push → refine → audit. The companion knows canonical layout patterns for each screen type — naming the pattern in your prompt gets you the right skeleton on the first try:
+The worked example above is the canonical shape: prompt, prototype, push, audit, specs. The prototype takes each page's structure from the app's recipe and its screenshot, and its appearance from the design system:
 
 ```
 Design a Studio dashboard with popular items cards and watchlists
@@ -221,83 +177,15 @@ Generate a new glossary term creation screen with type picker cards and sticky f
 Design a table view for the Administration users page with filters and bulk actions
 ```
 
-**Research:** Claude asks if you want competitor research. Say "yes" to get findings with source URLs presented before any screens are proposed. The research also appears as a card in the Figma output.
+**One clickable prototype:** the whole flow is one HTML page drawn from the design system's own markup, with every control working and the product's own words. What the product lacks is marked new on the page itself. Where a browser is available the skill looks at a screenshot of every step before handing over; in Cowork there is none, and the handover names what you must look at.
 
-**Detail levels:** When approving screens, pick your detail level:
+**Figma push, on request:** say "push to Figma" and each screen lands as design system instances, drawers and toasts as layers over the page.
 
-| Command | Level | What you get |
-|---------|-------|-------------|
-| `approve draft` | Draft | Layout zones with placeholders — "is this the right structure?" |
-| `approve` | Standard | Feature fully realized, contextual labels, realistic data |
-| `approve production` | Production | All states: happy, empty, error, loading, edge cases |
-| `push draft [URL]` | Draft + push | Approve + push in one command |
-| `push [URL]` | Standard + push | Approve + push in one command |
-| `push production [URL]` | Production + push | Approve + push in one command |
-
-At every level, only the feature you're designing gets detailed content — sidebar, header, and unrelated chrome stay as muted placeholders.
-
-**DS-native by default:** every generation is a hi-fi HTML deliverable unless `--lofi` or `--fm` opts out; add `--push` for a Figma artifact. Regenerate later from the same brief to drop back to DS-native.
-
-**One author, one clickable prototype (`--direct`):** add `--direct` and a single author draws the whole flow as one HTML page, from the design system's own markup: the app's real header and side navigation, live state between steps (a selection selects, a save changes the list behind the panel), a strip to jump to a step, and a "Show what is new" switch that marks what the product does not have today. Scripts check the page, and where a browser is available the author looks at a screenshot of every step before handing over (in Cowork there is none); the handover says whether anyone looked. It is HTML only: no Figma push, no audit, and two runs of one prompt differ in structure. Without the flag nothing changes.
-
-**Prototype wiring:** Say "push and wire" and your flow becomes playable in Figma Presentation mode.
-
-### Variants — explore alternatives side-by-side
-
-```
-Show me three takes on the data contract creation page
-```
-
-Reached by the explicit `--variants 3` flag on `/actian-ux-prototype` (the companion sends "three ways to do X" to `/actian-ux-proposal`). Each variant uses a different recipe or composition, laid out side-by-side. Range 2–5 (n=1 is just generation; n>5 is refused). Useful for early-stage shape-finding before committing to a direction.
-
-### State coverage and responsive breakpoints
-
-```
-https://figma.com/design/FILEKEY/File?node-id=42-100
-add empty + error states
-```
-
-Routes to `/actian-ux-prototype <url> --states empty,error,loading`. Generates each state as additional screens.
-
-```
-Design a Studio dashboard with popular items, breakpoints tablet,mobile
-```
-
-Routes to `/actian-ux-prototype ... --breakpoints tablet,mobile`. Lo-fi level = structural decisions only (collapse, stack). Hifi level applies the structural decisions to DS Kit responsive variants.
-
-### Vision-grounded references — match a reference's structure
-
-```
-Match the density of this screenshot:
-https://figma.com/design/REF/File?node-id=99-1
-```
-
-The companion screenshots the reference, vision-extracts a 4-field fingerprint (`density`, `hierarchy_depth`, `primary_components`, `layout_archetype`), validates it against the recipe registry, and biases generation toward that structure. The fingerprint persists on `meta.references[].fingerprint` and is reused on later refines of the same URL — extraction runs once.
-
-For external references (Stripe, Linear, Atlan), screenshot into a Figma frame first. Direct image URL support is planned.
-
-### Tier review — what got recognized vs. improvised
-
-After a push, every screen is classified into one of three tiers:
-
-| Tier | Meaning |
-|------|---------|
-| **Recognized** | Screen matched a recipe directly — uses the canonical skeleton |
-| **Adapted** | Screen matched a recipe but composes 2-3 archetype patterns (e.g., detail + audit-log) |
-| **Improvised** | No recipe fit — the AI proposed a structure with explicit justification |
-
-Ask for the deviations explicitly:
-
-```
-https://figma.com/design/FILEKEY/File?node-id=42-99
-review tier-3 screens
-```
-
-Companion reads `.last-push.json` and surfaces every `improvised` (or `adapted` with a recipe match) screen with its `justification` text — so you can decide whether to override, refine, or accept the AI's reasoning.
+**specs.md seed:** when no final Figma exists, the prototype seeds `specs.md`, every section marked `Source: Prototype`.
 
 ### Copy review — content guidelines applied
 
-Share a screen and ask about the text. The companion checks against Actian content guidelines: sentence case, action verbs, error message patterns, empty state CTAs.
+Share a screen and ask about the text. The audit checks against Actian content guidelines: sentence case, action verbs, error message patterns, empty state CTAs.
 
 ```
 https://figma.com/design/FILEKEY/File?node-id=123-456
@@ -325,57 +213,21 @@ Check the contrast on these cards
 
 For a full audit with confidence-scored findings, say "audit this screen."
 
-### Research — patterns and competitors
-
-```
-How do data platforms like Atlan and Collibra handle data lineage visualization?
-```
-
-```
-What's the best practice for destructive action confirmation?
-```
-
-```
-Research wizard patterns for multi-step configuration
-```
-
 ### Proposals: a reasoned document for a ticket
 
 ```
-DIP-I-496: show the user's roles and permissions. Research first, then a few approaches, and pick one.
+DIP-I-496: show the user's roles and permissions. A few approaches, and pick one.
 ```
 
-Routes to `/actian-ux-proposal`. It first says in chat what it would build, part by part, with the pick for each and the options it looked at, and it stops there and asks whether to change anything before it draws: that is the cheap moment to move a pick, because after it every option is drawn. `--no-prompt` draws straight through. Then `proposals/<slug>.html`, which opens with what was asked and the ticket it came from, then leads with what ships: the answer in one sentence, What ships (one row per part), one block per part with the chosen drawing, why, where it breaks and what it costs, how the parts connect, what to settle before building, what changes, the background, then, folded until you open them, the other options with their comparison and the research (in the lanes you asked for at the research gate), and the sources. No question is printed as a heading, and its prose is held to word limits. Research is a gate now, asked before the sweep is paid for: four lanes, `competitors` (the product space),
-`designSystems` (the public canon), `ours` (our own substrate, no web search) and `yours` (references you
-paste, which is the fastest lane when you already know the space). Answer `all`, `none`, a subset, or just
-paste links. `--research <lanes>` answers it without being asked and `--no-prompt` runs `ours` alone, so an
-unattended run is still grounded. What comes back is its own section in the document, grouped by lane, and
-a lane that found nothing prints nothing. One agent, `ds-researcher`, does the work for every DS skill.
+Routes to `/actian-ux-proposal`. It reads the ticket, then the knowledge on what it touches (the app file, the entities, personas, patterns and content rules), and writes `proposal-data.json` (shape: `schemas/proposal-data.schema.json`). From that one file it renders `proposal.html` and `intent.md`, so the two never disagree. Every question the ticket forces that a reader could answer differently is a decision, heaviest first; each has options drawn inside the product as Fat Marker fragments, the design system components they use, a comparison, and a pick with its reasons and cost. Every drawn part is marked existing or new, and every product fact names its knowledge file. `validate-proposal.js` and `check-handover.js intent` must show no P0. No Figma push.
 
-A document with more than one part pins a bar naming each part, so a reader can see the shape of the
-design and move inside it from anywhere. Edit `proposals/proposal-data.json` and re-run with `--from`
-to adjust. No Figma push. The document can also be published
-as a page: Step 6 offers it, `--publish` skips the ask, and what the link buys over the file is the way
-back, because a reader can comment on any part of the document and send the thread to Claude, where it
-arrives attached to the decision it argues with. Re-publishing lands on the same link. "Make it a flow" is now a command rather than a hand-off: `/actian-ux-prototype --from proposals/proposal-data.json` composes every decision's pick into one screen list and a brief, merging the screens two decisions land on into one that carries both notes. `--decision <id>` seeds from one decision alone, and `--option <id>` beside it draws a rejected option, which is how you argue with a pick rather than only read it.
+### Handover files: intent.md and specs.md
 
-`--evaluate` stops after the decisions. It runs the frame, the product read and the decomposition, writes `proposals/proposal-data.json` at `stage: evaluation` and says in chat what the ticket forces: no research, no options, no picks and no document. Use it to triage a stack of tickets, or to find out before the work whether a ticket carries enough to decide. Resume one with `/actian-ux-proposal --from proposals/proposal-data.json`: the resume skips the ticket and the product read, which the file already records, runs the research against the named decisions rather than the ticket in general, and authors the options, the comparisons and the picks. `--no-research` and `--concepts N` alongside `--evaluate` are accepted and do nothing, because an evaluation runs no research and authors no options; `--from` alongside it is refused, since it runs the other way, and re-evaluating a ticket is another `--evaluate`.
+`intent.md` (from the proposal) and `specs.md` (from the audit, or seeded by the prototype) are checked by `scripts/validation/check-handover.js` against the knowledge's templates, vendored at `vendor/app-context/src/handover/`. If a template is missing there, the scripts print `template not vendored yet` and exit 2, and the skills hand over without the file and say so.
 
 ### Design system sync — automatic
 
-There is nothing to run. The knowledge repository syncs from Figma every night, and the plugin takes the new snapshot the same morning. Asking the plugin to "sync the design system" gets that explanation.
-
-### Guideline proposals — evolve the DS
-
-```
-We should add a rule about minimum card padding
-```
-
-```
-The content guidelines don't cover date formatting — can we add that?
-```
-
-The companion drafts the guideline and shows where it would go. You approve before any file changes.
+There is nothing to run. The knowledge repository syncs from Figma every night, and the plugin takes the new snapshot the same morning.
 
 ---
 
@@ -385,55 +237,18 @@ Every capability is also a direct command. Use these when you know exactly what 
 
 | Command | When to use |
 |---------|------------|
-| `/actian-ux-prototype [description]` | Generate one or more DS-native screens from a prompt (`--lofi` or `--fm` for lo-fi) |
-| `/actian-ux-prototype [URL] [instruction]` | Refine — surgical edit on a prior push |
-| `/actian-ux-prototype --from [URL]` | Iterate — re-roll the same flow |
-| `/actian-ux-prototype --from proposals/proposal-data.json` | Seed a flow from a design proposal: every decision's pick composed into one screen list and a brief (`--decision <id>`, `--option <id>`) |
-| `/actian-ux-prototype --from [URL] --branch [name]` | Branch — fork into a sibling frame |
-| `/actian-ux-prototype [description] --variants 3` | Three structurally-distinct alternatives |
-| `/actian-ux-prototype [description] --ref [URL]` | Vision-grounded reference — fingerprint extraction biases recipe + density (Figma URLs only; image URLs planned) |
-| `/actian-ux-prototype [URL] --states empty,error` | Add state coverage to a pushed flow |
-| `/actian-ux-prototype [description] --breakpoints tablet,mobile` | Add responsive breakpoint variants |
-| `/actian-ux-prototype [description]` | DS-native hi-fi HTML deliverable by default (`--lofi` for a lo-fi skin, `--fm` for FatMarker authoring); add `--push` for a Figma artifact |
-| `/actian-ux-prototype --direct [description]` | One clickable HTML prototype drawn by a single author from the design system's own markup, checked, and looked at where a browser is available (not in Cowork), before it is handed over. HTML only: no Figma push, and two runs of one prompt differ in structure |
-| `/actian-ux-proposal [ticket or request] [--concepts N] [--no-research]` | A document that leads with what ships: the answer, one block per part (the chosen drawing, why, cost), what to settle before building, what changes, then, folded, the other options and the research |
-| `/actian-ux-proposal [ticket or request] --evaluate` | Stop after the decisions: what the ticket forces, written to `proposals/proposal-data.json`, no document |
-| `/actian-ux-proposal --from proposals/proposal-data.json` | Resume an evaluation into a proposal, or re-render a finished one |
-| `/actian-ux-proposal [ticket or request] --publish` | The same document, published as a shareable page whose comments come back to Claude |
-| `/actian-ux-audit [URL] [--scope copy\|tokens\|a11y\|heuristic] [--fix N\|all]` | Audit with focused scope and optional auto-fix |
+| `/actian-ux [question]` | An answer from the knowledge, citing each file; which skill fits a task |
+| `/actian-ux-proposal [ticket or request]` | A proposal document and `intent.md`, both from one `proposal-data.json` |
+| `/actian-ux-prototype [description]` | A clickable HTML prototype of the flow in the real app, checked and looked at step by step; "push to Figma" to add the Figma screens |
+| `/actian-ux-audit [URL]` | Findings with evidence and a fix each; fixes on request, P0 first; `specs.md` from the final frame |
 
 ---
 
-## Preview and iteration
+## Running in Cowork
 
-Generation tasks pause for review before pushing to Figma:
+In the Cowork tab, bash runs inside a VM where the plugin is mounted under a sessions directory, not at the path the skill header names. Every skill starts with a "Where the plugin lives" block that sets `CLAUDE_PLUGIN_ROOT` for that shell, so the renderer and validator scripts are found on the first try. If a run ever says the scripts are not available, run that block's bash line by hand and retry.
 
-| Reply | What happens |
-|-------|-------------|
-| **"push"** | Send everything to Figma (standard detail) |
-| **"push draft"** | Send as a quick structural sketch |
-| **"push production"** | Send with all states and edge cases |
-| **"push 2,4,5"** | Send specific items |
-| **"preview"** | Open HTML preview first |
-| **"push and wire"** | Push + wire prototype connections |
-| **"prototype"** | Generate clickable HTML prototype |
-| **feedback** | Describe changes, get updated output |
-
-### Visual annotations
-
-Click directly on elements in the preview instead of describing issues in text:
-
-1. Click **Annotate** in the preview toolbar
-2. Click any element, type feedback, pick **Change** or **Note**
-3. Click **Apply** in the browser, then say **"apply"** in the CLI
-
-**Change** = modify the element. **Note** = carry forward to Figma without changing.
-
-### Running in Cowork
-
-In the Cowork tab, bash runs inside a VM where the plugin is mounted under a sessions directory, not at the path the skill header names. Every skill now starts with a "Where the plugin lives" block that sets `CLAUDE_PLUGIN_ROOT` for that shell, so the renderer and validator scripts are found on the first try. If a run ever says the scripts are not available, run that block's bash line by hand and retry.
-
-Two limits in the Actian org's Cowork. The plugin cannot see its own output: the Cowork sandbox has no browser, browser downloads are blocked, and Claude in Chrome is switched off, so any step that screenshots a page (such as `--direct`'s look) is skipped and the handover says so. Look at the page yourself. And the plugin updates on its own there, so a version cannot be held.
+Two limits in the Actian org's Cowork. The plugin cannot see its own output: the Cowork sandbox has no browser, browser downloads are blocked, and Claude in Chrome is switched off, so any step that screenshots a page (such as the prototype's look at every step) is skipped and the handover says so. Look at the page yourself. And the plugin updates on its own there, so a version cannot be held.
 
 ---
 

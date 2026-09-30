@@ -135,20 +135,6 @@ jobs:
             --kit all \
             --output vendor/components/dist
 
-      - name: Sync doc inventory counts
-        # A re-vendor can change a registry component count. The doc-counts
-        # guard (tests/integration/doc-counts.test.js) then fails on the now
-        # stale prose, leaving this auto-merge PR stuck with no self-healing
-        # path (observed on the v0.30.5 refresh: DS Kit 318→319). This rewrites
-        # the managed docs (README, llms.txt, marketplace.json, plugin.json,
-        # companion-context, figma-push-patterns) from the registries so the
-        # guard passes. Idempotent no-op when no count changed. Shares its
-        # source of truth (scripts/lib/doc-counts.js) with the guard, so the
-        # two can't disagree.
-        working-directory: plugins/actian-design-system
-        run: |
-          node scripts/vendor/sync-doc-counts.js
-
       - name: Regenerate the authoring vocabulary table
         # The vocabulary table in references/actian-ux-prototype/
         # ds-components-authoring.md is generated from the vendored dskit
@@ -156,9 +142,10 @@ jobs:
         # (tests/integration/authoring-table-sync.test.js) fails when they
         # disagree. Without this step, a vendor refresh that renames a
         # component or a variant axis would leave this auto-merge PR stuck
-        # red with no self-healing path (same class as the doc-counts guard
-        # above). Idempotent no-op when the registry change doesn't touch
-        # the table.
+        # red with no self-healing path. ds-coverage-report.js and the
+        # blank-box budget read this table, so it stays until the default
+        # route and this file go. Idempotent no-op when the registry change
+        # doesn't touch the table.
         working-directory: plugins/actian-design-system
         run: |
           node scripts/renderers/render-authoring-table.js
@@ -270,12 +257,6 @@ jobs:
             plugins/actian-design-system/vendor/**
             plugins/actian-design-system/vendored.json
             plugins/actian-design-system/.claude-plugin/plugin.json
-            README.md
-            llms.txt
-            USAGE.md
-            .claude-plugin/marketplace.json
-            plugins/actian-design-system/references/context/companion-context.md
-            plugins/actian-design-system/references/figma/figma-push-patterns.md
             plugins/actian-design-system/references/actian-ux-prototype/ds-components-authoring.md
             tests/renderers/blank-box-baseline.json
             tests/renderers/__goldens__/**

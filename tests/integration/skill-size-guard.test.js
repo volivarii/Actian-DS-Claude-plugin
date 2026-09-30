@@ -41,73 +41,39 @@ describe("SKILL.md size ceiling (progressive disclosure)", () => {
       assert.ok(
         lines < MAX_LINES,
         `${d}/SKILL.md is ${lines} lines (ceiling ${MAX_LINES}). ` +
-          `Move detail to references/ via progressive disclosure.`,
+          `The knowledge carries the detail; keep the card short.`,
       );
     });
   }
 });
 
-const MAX_BYTES = 30000;
-const MAX_REACHABLE_BYTES = 48000;
-const HTML_ONLY_SET = [
-  "skills/actian-ux-prototype/SKILL.md",
-  "references/actian-ux-prototype/gates.md",
-  "references/actian-ux-prototype/share.md",
-  "references/ds-rules/quality-tiers.md",
-];
-// What a --direct run loads on top of the gates: the skill and its route file.
-const MAX_DIRECT_BYTES = 40000;
-const DIRECT_SET = [
-  "skills/actian-ux-prototype/SKILL.md",
-  "references/actian-ux-prototype/direct.md",
-];
+// The skills are short cards: the knowledge carries the detail, and a card that
+// grows back into a manual is the thing this simplification removed (124 KB of
+// instructions against the thin kit's 8.7 KB, benchmark 2026-09).
+const MAX_CARD_BYTES = 4000;
+const MAX_SKILLS_BYTES = 32000;
 
-describe("actian-ux-prototype byte ceilings (what an HTML-only run loads)", () => {
-  it(`SKILL.md is under ${MAX_BYTES} bytes`, () => {
-    const bytes = fs.statSync(
-      path.join(PLUGIN_ROOT, "skills/actian-ux-prototype/SKILL.md"),
-    ).size;
-    assert.ok(
-      bytes < MAX_BYTES,
-      `actian-ux-prototype/SKILL.md is ${bytes} bytes (ceiling ${MAX_BYTES})`,
-    );
-  });
-  it(`the HTML-only reachable set is under ${MAX_REACHABLE_BYTES} bytes`, () => {
-    const total = HTML_ONLY_SET.reduce(
-      (n, rel) => n + fs.statSync(path.join(PLUGIN_ROOT, rel)).size,
-      0,
-    );
-    assert.ok(
-      total < MAX_REACHABLE_BYTES,
-      `reachable set is ${total} bytes (ceiling ${MAX_REACHABLE_BYTES}): ${HTML_ONLY_SET.join(", ")}`,
-    );
-  });
-  it(`the --direct set is under ${MAX_DIRECT_BYTES} bytes`, () => {
-    const total = DIRECT_SET.reduce(
-      (n, rel) => n + fs.statSync(path.join(PLUGIN_ROOT, rel)).size,
-      0,
-    );
-    assert.ok(
-      total < MAX_DIRECT_BYTES,
-      `--direct set is ${total} bytes (ceiling ${MAX_DIRECT_BYTES}): ${DIRECT_SET.join(", ")}`,
-    );
-  });
-});
+function filesUnder(dir) {
+  return fs.readdirSync(dir, { withFileTypes: true }).flatMap((e) =>
+    e.isDirectory() ? filesUnder(path.join(dir, e.name)) : [path.join(dir, e.name)],
+  );
+}
 
-// screen-generator is dispatched once per screen (in parallel); it reads only
-// its own brief slice plus html-reference.md (and ds-components-authoring.md
-// under --hifi), never the full brief, so it carries a much smaller ceiling
-// than a skill body loaded once per run.
-const MAX_AGENT_BYTES = 22000;
-
-describe("screen-generator agent byte ceiling", () => {
-  it(`agents/screen-generator.md is under ${MAX_AGENT_BYTES} bytes`, () => {
-    const bytes = fs.statSync(
-      path.join(PLUGIN_ROOT, "agents/screen-generator.md"),
-    ).size;
-    assert.ok(
-      bytes < MAX_AGENT_BYTES,
-      `agents/screen-generator.md is ${bytes} bytes (ceiling ${MAX_AGENT_BYTES})`,
-    );
+describe("skill cards stay short", () => {
+  const dirs = fs
+    .readdirSync(SKILLS_DIR)
+    .filter((d) => fs.existsSync(path.join(SKILLS_DIR, d, "SKILL.md")));
+  for (const d of dirs) {
+    it(`${d}/SKILL.md is under ${MAX_CARD_BYTES} bytes`, () => {
+      const bytes = fs.statSync(path.join(SKILLS_DIR, d, "SKILL.md")).size;
+      assert.ok(bytes < MAX_CARD_BYTES, `${d}/SKILL.md is ${bytes} bytes (ceiling ${MAX_CARD_BYTES})`);
+    });
+  }
+  it(`everything under skills/ is under ${MAX_SKILLS_BYTES} bytes`, () => {
+    const total = filesUnder(SKILLS_DIR).reduce((n, f) => n + fs.statSync(f).size, 0);
+    assert.ok(total < MAX_SKILLS_BYTES, `skills/ holds ${total} bytes (ceiling ${MAX_SKILLS_BYTES})`);
+  });
+  it("the plugin ships no agents: the main session does the work", () => {
+    assert.ok(!fs.existsSync(path.join(PLUGIN_ROOT, "agents")), "agents/ is back");
   });
 });
