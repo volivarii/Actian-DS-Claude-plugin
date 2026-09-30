@@ -216,27 +216,31 @@ function screenListProblems(screens, patterns, opts) {
 
 // The brief for one flow. options: { app, screens, feature, nav, mode,
 // useCase, entity, ctx (a pre-loaded app-context object, for tests) }.
-// Throws an Error with code SCREEN_LIST_INVALID, listing every problem, when
-// the screen list cannot be routed.
+// Throws an Error with code APP_UNKNOWN when the knowledge has no record for
+// the app, and with code SCREEN_LIST_INVALID, listing every problem, when the
+// screen list cannot be routed.
 function prepareFlow(options) {
   var app = normalize(options.app);
   var ctx = options.ctx || readAppContext();
   var record = appRecord.readApp(app);
-  var sidebar = record ? record.sidebar : [];
+  if (!record) {
+    var known = ctx && ctx.apps ? Object.keys(ctx.apps) : [];
+    var unknown = new Error(
+      known.length
+        ? 'the knowledge has no app "' + app + '" (it has ' + known.join(", ") + ")"
+        : 'no app can be checked: the app-context snapshot is missing or lists no apps'
+    );
+    unknown.code = "APP_UNKNOWN";
+    throw unknown;
+  }
+  var sidebar = record.sidebar;
   var patterns = appPatterns(ctx, app);
   var list = options.screens || [];
-  var known = ctx && ctx.apps ? Object.keys(ctx.apps) : [];
-  var problems =
-    known.length && !ctx.apps[app]
-      ? ['app "' + app + '": the knowledge has no such app (it has ' + known.join(", ") + ")"]
-      : [];
-  problems = problems.concat(
-    screenListProblems(list, patterns, {
-      sidebarIds: railIds(sidebar),
-      nav: options.nav,
-      mode: options.mode,
-    })
-  );
+  var problems = screenListProblems(list, patterns, {
+    sidebarIds: railIds(sidebar),
+    nav: options.nav,
+    mode: options.mode,
+  });
   if (problems.length) {
     var invalid = new Error(problems.join("\n"));
     invalid.code = "SCREEN_LIST_INVALID";
@@ -361,6 +365,10 @@ function main(argv) {
       nav: meta.nav,
     });
   } catch (e) {
+    if (e.code === "APP_UNKNOWN") {
+      process.stderr.write("prepare-flow: --app " + app + ": " + e.message + "\n");
+      return 1;
+    }
     if (e.code !== "SCREEN_LIST_INVALID") throw e;
     process.stderr.write("prepare-flow: " + list + " cannot be routed:\n" + e.message + "\n");
     return 1;

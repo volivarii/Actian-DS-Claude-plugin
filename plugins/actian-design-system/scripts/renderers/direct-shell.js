@@ -65,7 +65,7 @@ var CSS = [
   // keeps it, and only a static one becomes the badge's anchor.
   "body[data-show-new] [data-new]{outline:2px dashed #111;outline-offset:2px}",
   ":where(body[data-show-new] [data-new]){position:relative}",
-  "body[data-show-new] [data-new]::after{content:'NEW';position:absolute;top:-10px;right:-6px;background:#111;color:#fff;font:700 9px/1 Roboto,sans-serif;padding:2px 4px;border-radius:2px}",
+  "body[data-show-new] [data-new]::after{content:'NEW';position:absolute;top:-10px;right:-6px;background:#111;color:#fff;font:700 9px/1 Roboto,sans-serif;padding:2px 4px;border-radius:2px;pointer-events:none}",
   // A layer scrolls and clips what overhangs it: its outline and badge sit inside.
   "body[data-show-new] [data-layer][data-new]{outline-offset:-2px}",
   "body[data-show-new] [data-layer][data-new]::after{top:4px;right:8px}",

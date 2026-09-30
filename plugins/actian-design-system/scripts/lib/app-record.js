@@ -19,8 +19,10 @@ function readApp(slug, file) {
   } catch (e) {
     throw new Error("app-record: " + f + " (the app-context snapshot) is not valid JSON: " + e.message);
   }
-  var a = ctx && ctx.apps && ctx.apps[String(slug || "").toLowerCase()];
-  if (!a) return null;
+  var key = String(slug || "").toLowerCase();
+  // Own names only: "constructor" or "__proto__" is not an app.
+  var a = ctx && ctx.apps && Object.prototype.hasOwnProperty.call(ctx.apps, key) ? ctx.apps[key] : null;
+  if (!a || typeof a !== "object") return null;
   return {
     header: a.header && typeof a.header === "object" ? a.header : {},
     sidebar: Array.isArray(a.sidebar) ? a.sidebar : [],

@@ -887,6 +887,15 @@ describe("assemble-direct: acceptance findings (2026-09-30)", () => {
     // Zero specificity: any class that positions the element (.proto-layer) wins.
     rule.forEach((r) => assert.match(r.trim(), /^:where\([^{]*\)\{/, "an element that positions itself is made relative: " + r));
   });
+  it("refuses a brief that names no app rather than drawing a frame from the screen list's template word", () => {
+    const b = JSON.parse(JSON.stringify(briefFor("studio", null)));
+    b.direct.app.slug = null;
+    b.screens.forEach((s) => (s.template = "overlay"));
+    assert.throws(() => renderFrame(b), /app/);
+  });
+  it("Show what is new: the badge never takes a click meant for what is under it", () => {
+    assert.match(shell.CSS, /\[data-new\]::after\{[^}]*pointer-events:none/);
+  });
   it("Show what is new puts a layer's badge inside it, where its scroll does not clip it", () => {
     assert.match(shell.CSS, /\[data-layer\]\[data-new\]::after\{top:\d+px;right:\d+px\}/);
   });

@@ -19,6 +19,7 @@ var MARK = "@@DIRECT-CONTENT@@";
 // the author's content lands exactly where a generated screen's content does.
 function renderFrame(brief) {
   var d = brief.direct;
+  if (!d.app.slug) throw new Error("assemble-direct: the brief names no app; build it with prepare-flow --app");
   var rail = d.app.rail || [];
   var active = rail.filter(function (r) {
     return r.id === d.app.activeNav;
@@ -28,7 +29,7 @@ function renderFrame(brief) {
     // The app the brief was built for (prepare-flow --app), like the rail and
     // the active item below: a screen list's own template word may be absent,
     // an overlay's, or another app's.
-    template: d.app.slug || brief.screens[0].template,
+    template: d.app.slug,
     library: "ds",
     navItems: rail.map(function (r) {
       return r.id === d.app.activeNav

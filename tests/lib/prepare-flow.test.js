@@ -190,10 +190,36 @@ describe("prepare-flow: the CLI", function () {
   });
 });
 
-it("refuses an app the knowledge has no record for, naming the ones it has", () => {
-  const pf = require(path.join(__dirname, "../../plugins/actian-design-system/scripts/lib/app-context/prepare-flow.js"));
-  let err;
-  try { pf.prepareFlow({ app: "admin", screens: [{ name: "A" }] }); } catch (e) { err = e; }
-  assert.ok(err && err.code === "SCREEN_LIST_INVALID", "admin was accepted");
-  assert.match(err.message, /administration/);
+describe("prepare-flow: the app", function () {
+  var refusal = function (app, screens) {
+    try { prepare.prepareFlow({ app: app, screens: screens || [{ name: "A" }] }); } catch (e) { return e; }
+    return null;
+  };
+  it("refuses an app the knowledge has no record for, naming the ones it has", function () {
+    var err = refusal("admin");
+    assert.ok(err && err.code === "APP_UNKNOWN", "admin was accepted");
+    assert.match(err.message, /studio, explorer, administration|administration/);
+  });
+  it("reads only the knowledge's own app names, never an object's built-in ones", function () {
+    ["constructor", "toString", "__proto__", "hasOwnProperty"].forEach(function (app) {
+      var err = refusal(app);
+      assert.ok(err && err.code === "APP_UNKNOWN", app + " was accepted");
+    });
+    var record = require(path.join(PLUGIN_ROOT, "scripts", "lib", "app-record.js"));
+    assert.strictEqual(record.readApp("constructor"), null);
+  });
+  it("reports an unknown app alone, not the screen list's patterns against it", function () {
+    var err = refusal("admin", [{ name: "A", pattern: "list-page", exit: "x" }, { name: "B" }]);
+    assert.ok(err && err.code === "APP_UNKNOWN");
+    assert.strictEqual(err.message.split("\n").length, 1, err.message);
+  });
+  it("blames --app, not the screen list, on the command line", function () {
+    var dir = fs.mkdtempSync(path.join(os.tmpdir(), "pf-app-"));
+    var list = path.join(dir, "sl.json");
+    fs.writeFileSync(list, JSON.stringify({ screens: [{ name: "A" }] }));
+    var r = spawnSync(process.execPath, [SCRIPT, "--app", "admin", "--screen-list", list], { encoding: "utf8" });
+    assert.strictEqual(r.status, 1);
+    assert.match(r.stderr, /--app admin/);
+    assert.doesNotMatch(r.stderr, /cannot be routed/);
+  });
 });
