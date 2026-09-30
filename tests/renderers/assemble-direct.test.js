@@ -847,3 +847,63 @@ describe("assemble-direct: the chrome the frame hands the renderer (code-review 
     assert.deepStrictEqual(frameChrome(app({ header: { ContextValue: "Zeta" } })).header.contextValue, "Zeta");
   });
 });
+
+describe("assemble-direct: acceptance findings (2026-09-30)", () => {
+  const { renderFrame } = require(path.join(ROOT, "scripts/renderers/assemble-direct.js"));
+  const shell = require(path.join(ROOT, "scripts/renderers/direct-shell.js"));
+  // The brief's app decides the frame: its rail, header and active item come
+  // from direct.app, so a template word on the screen list must not change it.
+  const briefFor = (app, list) => {
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "frame-app-"));
+    const out = path.join(dir, "b.json");
+    const r = cp.spawnSync(process.execPath, [path.join(ROOT, "scripts/lib/app-context/prepare-flow.js"), "--app", app, "--screen-list", list || path.join(FIX, "screen-list.json"), "-o", out, "--direct"], { encoding: "utf8" });
+    assert.strictEqual(r.status, 0, r.stderr);
+    return JSON.parse(fs.readFileSync(out, "utf8"));
+  };
+  ["studio", "explorer", "administration"].forEach((app) => {
+    it("draws " + app + "'s frame whatever template word the screen list carries", () => {
+      const b = briefFor(app, app === "studio" ? null : (() => {
+        const l = JSON.parse(fs.readFileSync(path.join(FIX, "screen-list.json"), "utf8"));
+        (l.screens || l).forEach((s) => { delete s.pattern; delete s.nav; });
+        if (l.meta) delete l.meta.nav;
+        const f = path.join(fs.mkdtempSync(path.join(os.tmpdir(), "sl-")), "sl.json");
+        fs.writeFileSync(f, JSON.stringify(l));
+        return f;
+      })());
+      const withTemplate = (t) => {
+        b.screens.forEach((s) => (t === undefined ? delete s.template : (s.template = t)));
+        return renderFrame(b).before;
+      };
+      const own = withTemplate(app);
+      assert.match(own, /\bds-header\b/, app + ": no header on its own template");
+      [undefined, "overlay", app === "explorer" ? "studio" : "explorer"].forEach((t) => {
+        assert.strictEqual(withTemplate(t), own, app + " with template " + t + ": not " + app + "'s frame");
+      });
+    });
+  });
+  it("Show what is new outlines a layer without moving it out of its dock", () => {
+    const rule = shell.CSS.split("}").filter((r) => /data-show-new\][^{]*\[data-new\][^{]*\{[^}]*position:relative/.test(r + "}"));
+    assert.ok(rule.length > 0, "the outline rule is gone");
+    // Zero specificity: any class that positions the element (.proto-layer) wins.
+    rule.forEach((r) => assert.match(r.trim(), /^:where\([^{]*\)\{/, "an element that positions itself is made relative: " + r));
+  });
+  it("refuses a brief that names no app rather than drawing a frame from the screen list's template word", () => {
+    const b = JSON.parse(JSON.stringify(briefFor("studio", null)));
+    b.direct.app.slug = null;
+    b.screens.forEach((s) => (s.template = "overlay"));
+    assert.throws(() => renderFrame(b), /names no app/);
+    delete b.direct.app;
+    assert.throws(() => renderFrame(b), /names no app/);
+  });
+  it("refuses an app whose frame draws no header rather than shipping it headerless", () => {
+    const b = JSON.parse(JSON.stringify(briefFor("studio", null)));
+    b.direct.app.slug = "foo";
+    assert.throws(() => renderFrame(b), /foo.*header/);
+  });
+  it("Show what is new: the badge never takes a click meant for what is under it", () => {
+    assert.match(shell.CSS, /\[data-new\]::after\{[^}]*pointer-events:none/);
+  });
+  it("Show what is new puts a layer's badge inside it, where its scroll does not clip it", () => {
+    assert.match(shell.CSS, /\[data-layer\]\[data-new\]::after\{top:\d+px;right:\d+px\}/);
+  });
+});

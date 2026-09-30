@@ -216,13 +216,28 @@ function screenListProblems(screens, patterns, opts) {
 
 // The brief for one flow. options: { app, screens, feature, nav, mode,
 // useCase, entity, ctx (a pre-loaded app-context object, for tests) }.
-// Throws an Error with code SCREEN_LIST_INVALID, listing every problem, when
-// the screen list cannot be routed.
+// Throws an Error with code APP_CONTEXT_MISSING when there is no app context to
+// read, APP_UNKNOWN when it has no record for the app, and SCREEN_LIST_INVALID, listing every problem, when the
+// screen list cannot be routed.
 function prepareFlow(options) {
   var app = normalize(options.app);
   var ctx = options.ctx || readAppContext();
-  var record = appRecord.readApp(app);
-  var sidebar = record ? record.sidebar : [];
+  // The record comes from the same app context as the patterns and use cases.
+  var known = ctx && ctx.apps ? Object.keys(ctx.apps) : [];
+  if (!known.length) {
+    var missing = new Error(
+      "the app-context snapshot (" + PATHS.appContext + ") is missing, unreadable or lists no apps: refresh the vendored knowledge"
+    );
+    missing.code = "APP_CONTEXT_MISSING";
+    throw missing;
+  }
+  var record = appRecord.recordOf(ctx, app);
+  if (!record) {
+    var unknown = new Error('the knowledge has no app "' + app + '" (it has ' + known.join(", ") + ")");
+    unknown.code = "APP_UNKNOWN";
+    throw unknown;
+  }
+  var sidebar = record.sidebar;
   var patterns = appPatterns(ctx, app);
   var list = options.screens || [];
   var problems = screenListProblems(list, patterns, {
@@ -246,7 +261,7 @@ function prepareFlow(options) {
     else process.stderr.write("prepare-flow: no use case matches " + options.useCase + ", keeping all\n");
   }
 
-  var headerType = record && record.header && record.header.type ? record.header.type : "";
+  var headerType = record.header && record.header.type ? record.header.type : "";
   var chrome = {
     app: app,
     header: { type: headerType },
@@ -354,6 +369,10 @@ function main(argv) {
       nav: meta.nav,
     });
   } catch (e) {
+    if (e.code === "APP_UNKNOWN" || e.code === "APP_CONTEXT_MISSING") {
+      process.stderr.write("prepare-flow: " + (e.code === "APP_UNKNOWN" ? "--app " + app + ": " : "") + e.message + "\n");
+      return 1;
+    }
     if (e.code !== "SCREEN_LIST_INVALID") throw e;
     process.stderr.write("prepare-flow: " + list + " cannot be routed:\n" + e.message + "\n");
     return 1;

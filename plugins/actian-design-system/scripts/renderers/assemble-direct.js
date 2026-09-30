@@ -19,13 +19,17 @@ var MARK = "@@DIRECT-CONTENT@@";
 // the author's content lands exactly where a generated screen's content does.
 function renderFrame(brief) {
   var d = brief.direct;
+  if (!d.app || !d.app.slug) throw new Error("assemble-direct: the brief names no app; build it with prepare-flow --app");
   var rail = d.app.rail || [];
   var active = rail.filter(function (r) {
     return r.id === d.app.activeNav;
   })[0];
   var screen = {
     name: "frame",
-    template: brief.screens[0].template,
+    // The app the brief was built for (prepare-flow --app), like the rail and
+    // the active item below: a screen list's own template word may be absent,
+    // an overlay's, or another app's.
+    template: d.app.slug,
     library: "ds",
     navItems: rail.map(function (r) {
       return r.id === d.app.activeNav
@@ -52,6 +56,8 @@ function renderFrame(brief) {
     throw new Error(
       "assemble-direct: the frame did not render the content marker",
     );
+  if (!/\bds-header\b/.test(html.slice(0, m.index)))
+    throw new Error("assemble-direct: app \"" + d.app.slug + "\" draws no header; build the brief with prepare-flow --app");
   return {
     before: html.slice(0, m.index),
     after: html.slice(m.index + m[0].length),
@@ -369,7 +375,7 @@ function assemble(o) {
     (o.run ? provenanceComment(o.run) : "") +
     '<!doctype html><html lang="en"><head><meta charset="utf-8">' +
     "<title>" +
-    shell.esc((o.brief.direct.app.slug || "") + " prototype") +
+    shell.esc(o.brief.direct.app.slug + " prototype") +
     "</title>" +
     "<style>" +
     o.css +
@@ -379,7 +385,7 @@ function assemble(o) {
     (o.extraCss || "") +
     "</style>" +
     '</head><body data-theme="' +
-    shell.esc(o.brief.direct.app.slug || "actian") +
+    shell.esc(o.brief.direct.app.slug) +
     '">' +
     shell.strip(steps, (o.meta && o.meta.adds) || []) +
     '<div class="proto-stage">' +

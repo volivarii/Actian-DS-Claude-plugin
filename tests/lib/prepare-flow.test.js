@@ -189,3 +189,51 @@ describe("prepare-flow: the CLI", function () {
     assert.strictEqual(JSON.parse(r2.stdout).direct.steps[3].id, "describe-catalog-items-4");
   });
 });
+
+describe("prepare-flow: the app", function () {
+  var refusal = function (app, screens) {
+    try { prepare.prepareFlow({ app: app, screens: screens || [{ name: "A" }] }); } catch (e) { return e; }
+    return null;
+  };
+  it("refuses an app the knowledge has no record for, naming the ones it has", function () {
+    var err = refusal("admin");
+    assert.ok(err && err.code === "APP_UNKNOWN", "admin was accepted");
+    assert.match(err.message, /studio, explorer, administration|administration/);
+  });
+  it("reads only the knowledge's own app names, never an object's built-in ones", function () {
+    ["constructor", "__proto__"].forEach(function (app) {
+      var err = refusal(app);
+      assert.ok(err && err.code === "APP_UNKNOWN", app + " was accepted");
+    });
+    var record = require(path.join(PLUGIN_ROOT, "scripts", "lib", "app-record.js"));
+    assert.strictEqual(record.readApp("constructor"), null);
+    assert.strictEqual(record.recordOf({ apps: {} }, "__proto__"), null);
+  });
+  it("reports an unknown app alone, not the screen list's patterns against it", function () {
+    var err = refusal("admin", [{ name: "A", pattern: "list-page", exit: "x" }, { name: "B" }]);
+    assert.ok(err && err.code === "APP_UNKNOWN");
+    assert.strictEqual(err.message.split("\n").length, 1, err.message);
+  });
+  it("blames --app, not the screen list, on the command line", function () {
+    var r = cli(["--app", "admin", "--screen-list", writeList({ screens: [{ name: "A" }] }).file]);
+    assert.strictEqual(r.status, 1);
+    assert.match(r.stderr, /--app admin/);
+    assert.doesNotMatch(r.stderr, /cannot be routed/);
+  });
+  it("knows the apps of the app context it is given, the same one its patterns come from", function () {
+    var ctx = JSON.parse(fs.readFileSync(require(path.join(PLUGIN_ROOT, "scripts", "lib", "paths.js")).appContext, "utf8"));
+    ctx.apps.demo = ctx.apps.studio;
+    var b = prepare.prepareFlow({ app: "demo", ctx: ctx, screens: [{ name: "A" }] });
+    assert.ok(b.direct.app.rail.length > 0, "demo drew no rail");
+    delete ctx.apps.studio;
+    var err;
+    try { prepare.prepareFlow({ app: "studio", ctx: ctx, screens: [{ name: "A" }] }); } catch (e) { err = e; }
+    assert.ok(err && err.code === "APP_UNKNOWN", "studio was accepted from a context without it");
+  });
+  it("says the app context is missing, not that the app is wrong, when there is none to check", function () {
+    var err;
+    try { prepare.prepareFlow({ app: "studio", ctx: {}, screens: [{ name: "A" }] }); } catch (e) { err = e; }
+    assert.ok(err && err.code === "APP_CONTEXT_MISSING", err && err.code);
+    assert.match(err.message, /app-context/);
+  });
+});
