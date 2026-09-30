@@ -40,7 +40,7 @@ are summarized at the release level.
 
 ### Removed
 
-- **The default flow route is removed.** The screen generator path goes with the scripts only it
+- **The default flow route is removed.** The screen generator path goes with the scripts only it ([#432](https://github.com/volivarii/Actian-DS-Claude-plugin/pull/432))
   ran: the summarising app-context resolvers (`resolve-chrome.js`, `resolve-patterns.js`,
   `resolve-properties.js`, `resolve-relationships.js`), the Fat Marker transformers
   (`scripts/transformers/`), `validate-flow-data.js`, the proposal-to-flow bridge, the flow recipes,
