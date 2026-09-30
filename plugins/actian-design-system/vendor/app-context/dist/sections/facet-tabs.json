@@ -23,17 +23,17 @@
   ],
   "derivedFrom": {
     "surface": "Studio > Catalog > Dataset > General",
-    "capturedOn": "2026-08-18",
-    "productVersion": "next.dev.zeenea.app"
+    "capturedOn": "2026-09-30",
+    "productVersion": "manufacturing.zeenea.app/studio"
   },
   "slots": {
-    "tabs": "One fmTabs instance listing the object's facets in the product's order, counts in parentheses, the first tab active. {{facets}} is the entity's facets: General first, then one tab per relationship the entity holds (for a Dataset: Fields, Sample Data, Data Quality, Lineage, View 360, Data Model, Activity, Discussions; for a Data Product: Input ports, Output ports, View 360, Activity), never invented names such as Overview or Schema. {{first_facet}} is the label of the first tab, which is the active one.",
-    "people": "Two short avatar stacks on the right: Curators then Contacts, three `fmUser` each at most."
+    "tabs": "One tabs instance listing the item's facets in the product's order, a count after the label where the product shows one, the first tab active. {{facets}} is the entity's facets: General first, then one tab per relationship the entity holds (for a Dataset: Fields, Sample Data, Data Quality, Lineage, View 360, Data Model, Activity; for a Data Product: Input ports, Output ports, View 360, Activity), never invented names such as Overview or Schema. {{first_facet}} is the label of the first tab, which is the active one.",
+    "people": "Two avatar stacks on the right: Curators then Contacts, initials only."
   },
   "renderNotes": [
-    "`fmTabs` reads `Tabs` (comma-separated or array) and `Active`; it has no per-tab children and no count badge, so a count is written into the label text.",
-    "`fmUser` always renders initials AND the name, so a stack draws as a row of name chips. Keep stacks to three.",
-    "Captured value on the Dataset page, 2026-08-18: 'General, Fields (2), Sample Data, Data Quality, Lineage, View 360, Data Model, Activity, Discussions (0)', Active 'General'."
+    "`tabs` reads `Items` (comma list) and `Active`; it has no count badge, so a count is written into the label text (\"Fields 2\"). The product greys a tab with nothing in it (Sample Data); tabs has no disabled tab.",
+    "Parameters, filled by the page that splices it: facets, first_facet, curator_1..2, contact_1..4 (initials). The stacks draw as many avatars as the product shows on the captured page: two curators, four contacts.",
+    "Captured value on the Dataset page, 2026-09-30: 'General, Fields 2, Sample Data, Data Quality, Lineage, View 360, Data Model, Activity', Active 'General'; curators AH, ES; contacts AA, TK, ES, ES."
   ],
   "skeleton": {
     "content": [
@@ -49,10 +49,10 @@
         "children": [
           {
             "type": "INSTANCE",
-            "ref": "fmTabs",
-            "ds": "tabs",
+            "library": "ds",
+            "dsSlug": "tabs",
             "props": {
-              "Tabs": "{{facets}}",
+              "Items": "{{facets}}",
               "Active": "{{first_facet}}"
             }
           },
@@ -76,26 +76,20 @@
                 "children": [
                   {
                     "type": "INSTANCE",
-                    "ref": "fmUser",
-                    "ds": "avatar",
+                    "library": "ds",
+                    "dsSlug": "avatar",
+                    "variant": "Type=Default, State=Default",
                     "props": {
-                      "Name": "Thomas Desvenain"
+                      "Initials": "{{curator_1}}"
                     }
                   },
                   {
                     "type": "INSTANCE",
-                    "ref": "fmUser",
-                    "ds": "avatar",
+                    "library": "ds",
+                    "dsSlug": "avatar",
+                    "variant": "Type=Default, State=Default",
                     "props": {
-                      "Name": "Florent Aubertin"
-                    }
-                  },
-                  {
-                    "type": "INSTANCE",
-                    "ref": "fmUser",
-                    "ds": "avatar",
-                    "props": {
-                      "Name": "Faten Habachi"
+                      "Initials": "{{curator_2}}"
                     }
                   }
                 ]
@@ -111,26 +105,38 @@
                 "children": [
                   {
                     "type": "INSTANCE",
-                    "ref": "fmUser",
-                    "ds": "avatar",
+                    "library": "ds",
+                    "dsSlug": "avatar",
+                    "variant": "Type=Default, State=Default",
                     "props": {
-                      "Name": "Alexis Thomas"
+                      "Initials": "{{contact_1}}"
                     }
                   },
                   {
                     "type": "INSTANCE",
-                    "ref": "fmUser",
-                    "ds": "avatar",
+                    "library": "ds",
+                    "dsSlug": "avatar",
+                    "variant": "Type=Default, State=Default",
                     "props": {
-                      "Name": "Alexis Resp"
+                      "Initials": "{{contact_2}}"
                     }
                   },
                   {
                     "type": "INSTANCE",
-                    "ref": "fmUser",
-                    "ds": "avatar",
+                    "library": "ds",
+                    "dsSlug": "avatar",
+                    "variant": "Type=Default, State=Default",
                     "props": {
-                      "Name": "Florian Thierry"
+                      "Initials": "{{contact_3}}"
+                    }
+                  },
+                  {
+                    "type": "INSTANCE",
+                    "library": "ds",
+                    "dsSlug": "avatar",
+                    "variant": "Type=Default, State=Default",
+                    "props": {
+                      "Initials": "{{contact_4}}"
                     }
                   }
                 ]

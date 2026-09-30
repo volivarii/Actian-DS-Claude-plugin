@@ -11,6 +11,7 @@
     "description",
     "apps",
     "derivedFrom",
+    "reference",
     "skeleton"
   ],
   "additionalProperties": false,
@@ -103,6 +104,12 @@
           "examples": ["captures/faceted-browse.png"]
         }
       }
+    },
+    "reference": {
+      "type": "string",
+      "enum": ["product", "design"],
+      "description": "What the composition answers to (#716). `product`: derivedFrom.screenshot is the shipped product, and where the product and a design disagree the product wins. `design`: the page is not in the product yet, so the composition follows a design and carries no product screenshot.",
+      "examples": ["product"]
     },
     "slots": {
       "type": "object",

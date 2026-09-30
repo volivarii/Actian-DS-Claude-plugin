@@ -1610,12 +1610,11 @@
   text-decoration: none;
   cursor: pointer;
 }
-/* Sub-items (.ds-sidenav__item--sub, Import's Select a connection / Select a
-   file) take no rule of their own: their empty 16px icon slot already puts
+/* Sub-items (.ds-sidenav__item--sub, Import's two sub-items) take no rule of their own: their empty 16px icon slot already puts
    the label under the parent's label, which is where
    components/dist/media/side-nav/default.webp draws it. */
-/* Trailing chevron of an open item with sub-items — anatomy: Icon right,
-   16px, pushed to the row's right edge. */
+/* Trailing chevron of an item with sub-items (up expanded, down collapsed) —
+   anatomy: Icon right, 16px, pushed to the row's right edge. */
 .ds-sidenav__chevron {
   display: flex;
   align-items: center;

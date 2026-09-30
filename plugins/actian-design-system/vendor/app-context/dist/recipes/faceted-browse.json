@@ -26,36 +26,36 @@
   ],
   "derivedFrom": {
     "surface": "Studio > Catalog",
-    "capturedOn": "2026-08-18",
-    "productVersion": "studio-dev",
+    "capturedOn": "2026-09-30",
+    "productVersion": "manufacturing.zeenea.app/studio",
     "screenshot": "captures/faceted-browse.png"
   },
+  "reference": "product",
   "slots": {
     "rail": "Filter rail: a range facet, a counted checkbox facet list, a toggle facet, and type-to-search selects",
     "results-header": "Live result total plus a save-this-view action",
     "bulk-bar": "Select-all plus batch actions, with the sort control opposite",
-    "results": "Result cards: type and sharing tags, title, source metadata, summary, domain, pending-suggestion chip, and a right meta column with completion and last-updated"
+    "results": "Result cards: type and sharing tags, title and technical name, lifecycle stage and completion, a Data Product / Connection line, summary, property chips, pending-suggestion chip, and last updated"
   },
   "renderNotes": [
     "Children of a VERTICAL frame must omit `sizing`. `sizing.horizontal:\"FILL\"` emits `flex:1`, which in a column container stretches them vertically and distributes the height evenly.",
     "fmSlider and fmProgressBar read the VARIANT (Progress= / Completion=), not props, and collapse to zero width inside a centred row unless hosted in a fixed-width frame.",
-    "fmCheckbox and fmToggle render no text; pair them with a sibling TEXT node.",
     "Use DIVIDER for full-width rules. RECT takes a fixed pixel width and will not span.",
-    "The six facet rows carry item-type-tag Type values resolved straight off the registry axis, one per Studio item type: facet1=Data product, facet2=Dataset, facet3=Visualization, facet4=Data process, facet5=Use case, facet6=Category. That axis mapping is a structural fact of the page (the six Studio item types are always these six facets, in this order), so Type= is authored as a real value, not a placeholder. The chip's short initials (item-type-tag's Label prop) are NOT: review round 2 found captures/faceted-browse.png actually reads DP, Da, Vi, DP, UC, Ap, including two differently-coloured \"Data Products\" rows sharing the same two-letter initial, which makes the initials per-tenant data, not a registry fact this recipe can author once and reuse. Carried as placeholders {{facet1_initials}} through {{facet6_initials}} accordingly, one per facet row, matching the {{facetN_label}}/{{facetN_count}} placeholders already beside them. item-type-tag's own case (ds-html-map.js) falls back to the raw Type text when Label is empty, so an unsubstituted placeholder never regresses to a blank chip; a real render substitutes the tenant's own initials at render time.",
+    "The Item facet lists the tenant's item types with their initials and counts, as the capture shows: Data Products (DP, 7), Datasets (Da, 34), Visualizations (Vi, 1), Data Processes (DP, 37), Use Cases (UC, 1), Data Products (DP, 2), Application (Ap, 3), Audit (A, 2), then \"View more (7)\". The types, their order and the initials are the tenant's data, not a registry fact: the sixth row is a second, differently coloured \"Data Products\" type. A type with an item-type-tag rule of its own takes its Type; the tenant's custom types (rows 6 to 8) pass Type=Custom and draw as the base tag.",
     "item-type-tag reads props[\"Show counter\"] || props[\"Show Counter\"] (registry kept both spellings across the glossary/catalog fold-in); either one true shows the counter badge, and both default false, so the registry default is off, not on.",
     "checkbox, toggle and dropdown-select-default render no label element at all when Label is the empty string (Task 1.2), which is how a facet row's own TEXT sibling stays the only visible label.",
     "The results-header/bulk-bar leaves (button, checkbox) are authored in ../sections/control-bar.json, spliced in here as the SECTION node above; its own renderNotes carry their deviations.",
-    "Each result is ONE search-result-card at App=Studio (#722): the card itself draws the selection checkbox, the item type tag, the Shared tag, the title and technical name, the completion bar with its percentage, the Connection line, the description (\"No summary available\" when it is empty), and Last updated, inside one flat row closed by its own bottom rule. So no sibling read-only-tag, no sibling progress-bar-small, and no DIVIDER between results.",
+    "Each result is ONE search-result-card at App=Studio (#722): the card itself draws the selection checkbox, the item type tag, the Shared tag, the title and technical name, the lifecycle stage tag, the completion bar with its percentage, the \"Data Product / Connection\" line, the property chips, the pending-suggestion chip, the description (\"No summary available\" when it is empty), and Last updated, inside one flat row closed by its own bottom rule. So no sibling read-only-tag, no sibling progress-bar-small, and no DIVIDER between results.",
     "The Studio card's type tag is the item-type-tag markup (.ds-item-type-tag--<type>): a type with a rule of its own (Dataset, Data process, Data product, ...) takes its colour, and a tenant's custom type renders as the base tag.",
     "All six results render the Shared tag (search-result-card's Shared prop defaults true), matching every sample row in the capture; the recipe does not model a non-shared result, which would pass Shared: false.",
-    "derivedFrom.screenshot is a 2026-03-30 product capture of Studio > Catalog on the dev tenant (1583x1100), not the 2026-08-18 capture derivedFrom.capturedOn names: the original 08-18 screenshot was not retained on disk, and this is the closest real capture of the same surface, not the Figma frame (the design, not the product).",
-    "No DS-tier slider exists (checked ds-components-authoring.md's vocabulary table): the range facet keeps fmSlider, unreplaced, same as the pre-2.2 capture.",
-    "The stage pill and the glossary badge are Explorer card parts; the Studio card draws neither, so these cards pass no Stage and no Glossary props. Every optional part of the card draws nothing when its prop is absent.",
-    "Every {{...}} placeholder this recipe's own skeleton carries (70 keys), grouped so a future author can check coverage without grepping: facets -- {{facet1_count}}, {{facet1_initials}}, {{facet1_label}}, {{facet2_count}}, {{facet2_initials}}, {{facet2_label}}, {{facet3_count}}, {{facet3_initials}}, {{facet3_label}}, {{facet4_count}}, {{facet4_initials}}, {{facet4_label}}, {{facet5_count}}, {{facet5_initials}}, {{facet5_label}}, {{facet6_count}}, {{facet6_initials}}, {{facet6_label}}, {{facet_overflow}}, {{range_facet_label}}, {{select1_label}}, {{select2_label}}, {{select3_label}}, {{toggle_facet_label}}, {{toggle_label}}; results -- {{result_count}}, {{result_1_completion}}, {{result_1_connection}}, {{result_1_description}}, {{result_1_tech}}, {{result_1_title}}, {{result_1_type}}, {{result_1_updated}}, {{result_2_completion}}, {{result_2_connection}}, {{result_2_description}}, {{result_2_tech}}, {{result_2_title}}, {{result_2_type}}, {{result_2_updated}}, {{result_3_completion}}, {{result_3_connection}}, {{result_3_description}}, {{result_3_tech}}, {{result_3_title}}, {{result_3_type}}, {{result_3_updated}}, {{result_4_completion}}, {{result_4_connection}}, {{result_4_description}}, {{result_4_tech}}, {{result_4_title}}, {{result_4_type}}, {{result_4_updated}}, {{result_5_completion}}, {{result_5_connection}}, {{result_5_description}}, {{result_5_tech}}, {{result_5_title}}, {{result_5_type}}, {{result_5_updated}}, {{result_6_completion}}, {{result_6_connection}}, {{result_6_description}}, {{result_6_tech}}, {{result_6_title}}, {{result_6_type}}, {{result_6_updated}}; header -- {{app}}; pagination -- {{page_count}}. The spliced-in ../sections/control-bar.json carries two more of its own ({{result_count}} again, plus {{sort_label}}), inventoried in its own renderNotes."
+    "derivedFrom.screenshot is the live Studio Catalog on manufacturing.zeenea.app, captured 2026-09-30 at a 1440px viewport (saved 1370x897). Every label, count and result on this page is the capture's.",
+    "No DS-tier slider exists (checked ds-components-authoring.md's vocabulary table): the range facet keeps fmSlider, unreplaced, same as the pre-2.2 capture. tests/recipes-ds-native.test.js names it as the one exception, with that reason (#742).",
+    "Studio's card draws the lifecycle stage left of the completion bar (\"In Review\", \"Approved\", \"Not staged\"). `Stage` is the tenant's word, `Stage type` the read-only-tag hue it maps to: In Review = Stage-6 (blue), Approved = Stage-8 (green), Not staged = Stage-1 (the base pill). The dot stays the shared grey: the product tints it per stage, the design system has no per-stage dot. A result with no stage (Customer 360 Profile) passes none. Property values drop the tenant's option emoji (the hourglass, the medal, the check), which are its own data.",
+    "The result list has no pagination: the product loads more results as the list scrolls (40 of 118 on first load, no page control)."
   ],
   "skeleton": {
     "chrome": "standard",
-    "appHeader": "{{app}}",
+    "appHeader": "Studio",
     "content": [
       {
         "type": "FRAME",
@@ -112,7 +112,7 @@
                     "children": [
                       {
                         "type": "TEXT",
-                        "content": "{{range_facet_label}}",
+                        "content": "Completion level",
                         "font": "Inter:Semi Bold",
                         "size": 14,
                         "color": "var(--zen-color-text-default)"
@@ -128,7 +128,7 @@
                   },
                   {
                     "type": "TEXT",
-                    "content": "{{result_count}} results",
+                    "content": "118 results",
                     "font": "Inter:Regular",
                     "size": 12,
                     "color": "var(--zen-color-text-secondary)"
@@ -211,7 +211,7 @@
                   },
                   {
                     "type": "FRAME",
-                    "name": "Facet: {{facet1_label}}",
+                    "name": "Facet: Data Products",
                     "layout": {
                       "mode": "HORIZONTAL",
                       "spacing": 8,
@@ -247,13 +247,13 @@
                             "dsSlug": "item-type-tag",
                             "variant": "Type=Data product",
                             "props": {
-                              "Label": "{{facet1_initials}}",
+                              "Label": "DP",
                               "Show counter": false
                             }
                           },
                           {
                             "type": "TEXT",
-                            "content": "{{facet1_label}}",
+                            "content": "Data Products",
                             "font": "Inter:Regular",
                             "size": 13,
                             "color": "var(--zen-color-text-default)"
@@ -262,7 +262,7 @@
                       },
                       {
                         "type": "TEXT",
-                        "content": "{{facet1_count}}",
+                        "content": "7",
                         "font": "Inter:Regular",
                         "size": 13,
                         "color": "var(--zen-color-text-secondary)"
@@ -271,7 +271,7 @@
                   },
                   {
                     "type": "FRAME",
-                    "name": "Facet: {{facet2_label}}",
+                    "name": "Facet: Datasets",
                     "layout": {
                       "mode": "HORIZONTAL",
                       "spacing": 8,
@@ -307,13 +307,13 @@
                             "dsSlug": "item-type-tag",
                             "variant": "Type=Dataset",
                             "props": {
-                              "Label": "{{facet2_initials}}",
+                              "Label": "Da",
                               "Show counter": false
                             }
                           },
                           {
                             "type": "TEXT",
-                            "content": "{{facet2_label}}",
+                            "content": "Datasets",
                             "font": "Inter:Regular",
                             "size": 13,
                             "color": "var(--zen-color-text-default)"
@@ -322,7 +322,7 @@
                       },
                       {
                         "type": "TEXT",
-                        "content": "{{facet2_count}}",
+                        "content": "34",
                         "font": "Inter:Regular",
                         "size": 13,
                         "color": "var(--zen-color-text-secondary)"
@@ -331,7 +331,7 @@
                   },
                   {
                     "type": "FRAME",
-                    "name": "Facet: {{facet3_label}}",
+                    "name": "Facet: Visualizations",
                     "layout": {
                       "mode": "HORIZONTAL",
                       "spacing": 8,
@@ -367,13 +367,13 @@
                             "dsSlug": "item-type-tag",
                             "variant": "Type=Visualization",
                             "props": {
-                              "Label": "{{facet3_initials}}",
+                              "Label": "Vi",
                               "Show counter": false
                             }
                           },
                           {
                             "type": "TEXT",
-                            "content": "{{facet3_label}}",
+                            "content": "Visualizations",
                             "font": "Inter:Regular",
                             "size": 13,
                             "color": "var(--zen-color-text-default)"
@@ -382,7 +382,7 @@
                       },
                       {
                         "type": "TEXT",
-                        "content": "{{facet3_count}}",
+                        "content": "1",
                         "font": "Inter:Regular",
                         "size": 13,
                         "color": "var(--zen-color-text-secondary)"
@@ -391,7 +391,7 @@
                   },
                   {
                     "type": "FRAME",
-                    "name": "Facet: {{facet4_label}}",
+                    "name": "Facet: Data Processes",
                     "layout": {
                       "mode": "HORIZONTAL",
                       "spacing": 8,
@@ -427,13 +427,13 @@
                             "dsSlug": "item-type-tag",
                             "variant": "Type=Data process",
                             "props": {
-                              "Label": "{{facet4_initials}}",
+                              "Label": "DP",
                               "Show counter": false
                             }
                           },
                           {
                             "type": "TEXT",
-                            "content": "{{facet4_label}}",
+                            "content": "Data Processes",
                             "font": "Inter:Regular",
                             "size": 13,
                             "color": "var(--zen-color-text-default)"
@@ -442,7 +442,7 @@
                       },
                       {
                         "type": "TEXT",
-                        "content": "{{facet4_count}}",
+                        "content": "37",
                         "font": "Inter:Regular",
                         "size": 13,
                         "color": "var(--zen-color-text-secondary)"
@@ -451,7 +451,7 @@
                   },
                   {
                     "type": "FRAME",
-                    "name": "Facet: {{facet5_label}}",
+                    "name": "Facet: Use Cases",
                     "layout": {
                       "mode": "HORIZONTAL",
                       "spacing": 8,
@@ -487,13 +487,13 @@
                             "dsSlug": "item-type-tag",
                             "variant": "Type=Use case",
                             "props": {
-                              "Label": "{{facet5_initials}}",
+                              "Label": "UC",
                               "Show counter": false
                             }
                           },
                           {
                             "type": "TEXT",
-                            "content": "{{facet5_label}}",
+                            "content": "Use Cases",
                             "font": "Inter:Regular",
                             "size": 13,
                             "color": "var(--zen-color-text-default)"
@@ -502,7 +502,7 @@
                       },
                       {
                         "type": "TEXT",
-                        "content": "{{facet5_count}}",
+                        "content": "1",
                         "font": "Inter:Regular",
                         "size": 13,
                         "color": "var(--zen-color-text-secondary)"
@@ -511,7 +511,7 @@
                   },
                   {
                     "type": "FRAME",
-                    "name": "Facet: {{facet6_label}}",
+                    "name": "Facet: Data Products",
                     "layout": {
                       "mode": "HORIZONTAL",
                       "spacing": 8,
@@ -545,15 +545,15 @@
                             "type": "INSTANCE",
                             "library": "ds",
                             "dsSlug": "item-type-tag",
-                            "variant": "Type=Category",
+                            "variant": "Type=Custom",
                             "props": {
-                              "Label": "{{facet6_initials}}",
+                              "Label": "DP",
                               "Show counter": false
                             }
                           },
                           {
                             "type": "TEXT",
-                            "content": "{{facet6_label}}",
+                            "content": "Data Products",
                             "font": "Inter:Regular",
                             "size": 13,
                             "color": "var(--zen-color-text-default)"
@@ -562,7 +562,127 @@
                       },
                       {
                         "type": "TEXT",
-                        "content": "{{facet6_count}}",
+                        "content": "2",
+                        "font": "Inter:Regular",
+                        "size": 13,
+                        "color": "var(--zen-color-text-secondary)"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "FRAME",
+                    "name": "Facet: Application",
+                    "layout": {
+                      "mode": "HORIZONTAL",
+                      "spacing": 8,
+                      "primaryAxisAlignItems": "SPACE_BETWEEN",
+                      "counterAxisAlignItems": "CENTER"
+                    },
+                    "children": [
+                      {
+                        "type": "FRAME",
+                        "name": "Facet left",
+                        "layout": {
+                          "mode": "HORIZONTAL",
+                          "spacing": 8,
+                          "counterAxisAlignItems": "CENTER"
+                        },
+                        "sizing": {
+                          "horizontal": "HUG",
+                          "vertical": "HUG"
+                        },
+                        "children": [
+                          {
+                            "type": "INSTANCE",
+                            "library": "ds",
+                            "dsSlug": "checkbox",
+                            "variant": "Selection=Unchecked, State=Default",
+                            "props": {
+                              "Label": ""
+                            }
+                          },
+                          {
+                            "type": "INSTANCE",
+                            "library": "ds",
+                            "dsSlug": "item-type-tag",
+                            "variant": "Type=Custom",
+                            "props": {
+                              "Label": "Ap",
+                              "Show counter": false
+                            }
+                          },
+                          {
+                            "type": "TEXT",
+                            "content": "Application",
+                            "font": "Inter:Regular",
+                            "size": 13,
+                            "color": "var(--zen-color-text-default)"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "TEXT",
+                        "content": "3",
+                        "font": "Inter:Regular",
+                        "size": 13,
+                        "color": "var(--zen-color-text-secondary)"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "FRAME",
+                    "name": "Facet: Audit",
+                    "layout": {
+                      "mode": "HORIZONTAL",
+                      "spacing": 8,
+                      "primaryAxisAlignItems": "SPACE_BETWEEN",
+                      "counterAxisAlignItems": "CENTER"
+                    },
+                    "children": [
+                      {
+                        "type": "FRAME",
+                        "name": "Facet left",
+                        "layout": {
+                          "mode": "HORIZONTAL",
+                          "spacing": 8,
+                          "counterAxisAlignItems": "CENTER"
+                        },
+                        "sizing": {
+                          "horizontal": "HUG",
+                          "vertical": "HUG"
+                        },
+                        "children": [
+                          {
+                            "type": "INSTANCE",
+                            "library": "ds",
+                            "dsSlug": "checkbox",
+                            "variant": "Selection=Unchecked, State=Default",
+                            "props": {
+                              "Label": ""
+                            }
+                          },
+                          {
+                            "type": "INSTANCE",
+                            "library": "ds",
+                            "dsSlug": "item-type-tag",
+                            "variant": "Type=Custom",
+                            "props": {
+                              "Label": "A",
+                              "Show counter": false
+                            }
+                          },
+                          {
+                            "type": "TEXT",
+                            "content": "Audit",
+                            "font": "Inter:Regular",
+                            "size": 13,
+                            "color": "var(--zen-color-text-default)"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "TEXT",
+                        "content": "2",
                         "font": "Inter:Regular",
                         "size": 13,
                         "color": "var(--zen-color-text-secondary)"
@@ -571,7 +691,7 @@
                   },
                   {
                     "type": "TEXT",
-                    "content": "View more ({{facet_overflow}})",
+                    "content": "View more (7)",
                     "font": "Inter:Regular",
                     "size": 12,
                     "color": "var(--zen-color-text-primary)"
@@ -606,7 +726,7 @@
                     "children": [
                       {
                         "type": "TEXT",
-                        "content": "{{toggle_facet_label}}",
+                        "content": "User Suggestions",
                         "font": "Inter:Semi Bold",
                         "size": 14,
                         "color": "var(--zen-color-text-default)"
@@ -632,7 +752,7 @@
                     "children": [
                       {
                         "type": "TEXT",
-                        "content": "{{toggle_label}}",
+                        "content": "Show Items with pending suggestions",
                         "font": "Inter:Regular",
                         "size": 13,
                         "color": "var(--zen-color-text-default)"
@@ -678,7 +798,7 @@
                     "children": [
                       {
                         "type": "TEXT",
-                        "content": "{{select1_label}}",
+                        "content": "Item Lifecycle Event",
                         "font": "Inter:Semi Bold",
                         "size": 14,
                         "color": "var(--zen-color-text-default)"
@@ -729,7 +849,7 @@
                     "children": [
                       {
                         "type": "TEXT",
-                        "content": "{{select2_label}}",
+                        "content": "Curator",
                         "font": "Inter:Semi Bold",
                         "size": 14,
                         "color": "var(--zen-color-text-default)"
@@ -780,7 +900,7 @@
                     "children": [
                       {
                         "type": "TEXT",
-                        "content": "{{select3_label}}",
+                        "content": "Contact",
                         "font": "Inter:Semi Bold",
                         "size": 14,
                         "color": "var(--zen-color-text-default)"
@@ -834,7 +954,7 @@
                 "children": [
                   {
                     "type": "TEXT",
-                    "content": "{{result_count}} results",
+                    "content": "118 results",
                     "font": "Inter:Semi Bold",
                     "size": 24,
                     "color": "var(--zen-color-text-default)"
@@ -845,7 +965,7 @@
                     "dsSlug": "button",
                     "variant": "Type=Secondary, State=Default",
                     "props": {
-                      "Label": "Save filters"
+                      "Label": "Save Filters"
                     }
                   }
                 ]
@@ -874,13 +994,6 @@
                     "props": {
                       "Label": ""
                     }
-                  },
-                  {
-                    "type": "TEXT",
-                    "content": "Sort  {{sort_label}}",
-                    "font": "Inter:Regular",
-                    "size": 13,
-                    "color": "var(--zen-color-text-default)"
                   },
                   {
                     "type": "INSTANCE",
@@ -917,6 +1030,13 @@
                     "props": {
                       "Label": "Export selection"
                     }
+                  },
+                  {
+                    "type": "TEXT",
+                    "content": "Sort by Popularity",
+                    "font": "Inter:Regular",
+                    "size": 13,
+                    "color": "var(--zen-color-text-default)"
                   }
                 ]
               },
@@ -937,13 +1057,17 @@
                     "dsSlug": "search-result-card",
                     "variant": "App=Studio, State=Default",
                     "props": {
-                      "Type": "{{result_1_type}}",
-                      "Title": "{{result_1_title}}",
-                      "Tech name": "[{{result_1_tech}}]",
-                      "Completion": "{{result_1_completion}}",
-                      "Connection": "{{result_1_connection}}",
-                      "Description": "{{result_1_description}}",
-                      "Last updated": "{{result_1_updated}}"
+                      "Type": "Dataset",
+                      "Title": "COUNT BY ORDER STATUS",
+                      "Tech name": "[COUNT_BY_ORDER_STATUS]",
+                      "Stage": "In Review",
+                      "Stage type": "Stage-6",
+                      "Completion": "100",
+                      "Data product": "removal",
+                      "Connection": "connPowerBI",
+                      "Description": "COUNT BY ORDER STATUS is a summary dataset sourced from the connPowerBI connection. It aggregates orders by their current status, providing a high-level operational view of order pipeline distribution.",
+                      "Properties": "Approval Status: Approved, Audit: Plant Audit 2024; Plant Audit 2023, Data Contract apply: No, Data Contract Title: Order contract, Data domain: Operations, Dataset Creation Date: 2024/10/01, Documentation Status: In Progress, Layer: Silver, Personally Identifiable Inform…: Yes, Sensitivity: Restricted",
+                      "Last updated": "Jul 6, 2026"
                     },
                     "sizing": {
                       "horizontal": "FILL",
@@ -966,13 +1090,17 @@
                     "dsSlug": "search-result-card",
                     "variant": "App=Studio, State=Default",
                     "props": {
-                      "Type": "{{result_2_type}}",
-                      "Title": "{{result_2_title}}",
-                      "Tech name": "[{{result_2_tech}}]",
-                      "Completion": "{{result_2_completion}}",
-                      "Connection": "{{result_2_connection}}",
-                      "Description": "{{result_2_description}}",
-                      "Last updated": "{{result_2_updated}}"
+                      "Type": "Visualization",
+                      "Title": "Monthly Sales Report & Estimates",
+                      "Tech name": "[Monthly Sales Report & Estimates]",
+                      "Stage": "Approved",
+                      "Stage type": "Stage-8",
+                      "Completion": "100",
+                      "Connection": "connPowerBI",
+                      "Description": "Track multiple metrics (margin, revenue, sales per agents, etc...) in one place.",
+                      "Properties": "Axis of analysis: Sales; Sales Reps; Orders; + 1, Data domain: Operations; Finance, KPI: Sales volume, Personally Identifiable Inform…: Yes, Retention period: 2026/02/04, Sensitivity: Restricted, Workspace Name: Zeenea",
+                      "Suggestion": "2 suggestions are pending.",
+                      "Last updated": "Sep 22, 2026"
                     },
                     "sizing": {
                       "horizontal": "FILL",
@@ -995,13 +1123,12 @@
                     "dsSlug": "search-result-card",
                     "variant": "App=Studio, State=Default",
                     "props": {
-                      "Type": "{{result_3_type}}",
-                      "Title": "{{result_3_title}}",
-                      "Tech name": "[{{result_3_tech}}]",
-                      "Completion": "{{result_3_completion}}",
-                      "Connection": "{{result_3_connection}}",
-                      "Description": "{{result_3_description}}",
-                      "Last updated": "{{result_3_updated}}"
+                      "Type": "Data Product",
+                      "Title": "Customer 360 Profile",
+                      "Tech name": "[Customer 360 Profile]",
+                      "Completion": "86",
+                      "Description": "",
+                      "Last updated": "Apr 1, 2026"
                     },
                     "sizing": {
                       "horizontal": "FILL",
@@ -1024,13 +1151,18 @@
                     "dsSlug": "search-result-card",
                     "variant": "App=Studio, State=Default",
                     "props": {
-                      "Type": "{{result_4_type}}",
-                      "Title": "{{result_4_title}}",
-                      "Tech name": "[{{result_4_tech}}]",
-                      "Completion": "{{result_4_completion}}",
-                      "Connection": "{{result_4_connection}}",
-                      "Description": "{{result_4_description}}",
-                      "Last updated": "{{result_4_updated}}"
+                      "Type": "Dataset",
+                      "Title": "German Customers",
+                      "Tech name": "[CUSTOMER]",
+                      "Stage": "Approved",
+                      "Stage type": "Stage-8",
+                      "Completion": "62",
+                      "Data product": "Customers",
+                      "Connection": "Oracle - Database",
+                      "Description": "Table containing exclusively german customers",
+                      "Properties": "Approval Status: Pending, Data domain: Marketing; Operations, Data Policy: GDPR, Layer: dummy value, Personally Identifiable Inform…: Yes, Retention period: 2027/04/30, Schema: RETAIL",
+                      "Suggestion": "2 suggestions are pending.",
+                      "Last updated": "Sep 29, 2026"
                     },
                     "sizing": {
                       "horizontal": "FILL",
@@ -1053,13 +1185,18 @@
                     "dsSlug": "search-result-card",
                     "variant": "App=Studio, State=Default",
                     "props": {
-                      "Type": "{{result_5_type}}",
-                      "Title": "{{result_5_title}}",
-                      "Tech name": "[{{result_5_tech}}]",
-                      "Completion": "{{result_5_completion}}",
-                      "Connection": "{{result_5_connection}}",
-                      "Description": "{{result_5_description}}",
-                      "Last updated": "{{result_5_updated}}"
+                      "Type": "Dataset",
+                      "Title": "Customers",
+                      "Tech name": "[Customer]",
+                      "Stage": "Not staged",
+                      "Stage type": "Stage-1",
+                      "Completion": "100",
+                      "Data product": "Customers",
+                      "Connection": "Hamilton - Data warehouse",
+                      "Description": "A customer is a company or an individual who buys our products or services.",
+                      "Properties": "Approval Status: Approved, Data domain: Finance, Data Policy: GDPR, Dataset Creation Date: 2024/03/18, Documentation Status: Approved, Layer: Silver, Personally Identifiable Inform…: Yes, Schema: automotive, Sensitivity: Confidential",
+                      "Suggestion": "3 suggestions are pending.",
+                      "Last updated": "Jul 6, 2026"
                     },
                     "sizing": {
                       "horizontal": "FILL",
@@ -1082,13 +1219,16 @@
                     "dsSlug": "search-result-card",
                     "variant": "App=Studio, State=Default",
                     "props": {
-                      "Type": "{{result_6_type}}",
-                      "Title": "{{result_6_title}}",
-                      "Tech name": "[{{result_6_tech}}]",
-                      "Completion": "{{result_6_completion}}",
-                      "Connection": "{{result_6_connection}}",
-                      "Description": "{{result_6_description}}",
-                      "Last updated": "{{result_6_updated}}"
+                      "Type": "Dataset",
+                      "Title": "stg_customers",
+                      "Tech name": "[stg_customers]",
+                      "Stage": "Not staged",
+                      "Stage type": "Stage-1",
+                      "Completion": "77",
+                      "Connection": "connBigQuery",
+                      "Description": "Customers table from SuperStore not cleaned",
+                      "Properties": "Approval Status: Approved, Data Policy: GDPR, Documentation Status: Approved, Layer: Silver, Personally Identifiable Inform…: No, Sensitivity: Confidential",
+                      "Last updated": "Jun 4, 2025"
                     },
                     "sizing": {
                       "horizontal": "FILL",
@@ -1096,15 +1236,6 @@
                     }
                   }
                 ]
-              },
-              {
-                "type": "INSTANCE",
-                "library": "ds",
-                "dsSlug": "pagination",
-                "props": {
-                  "Page": "1",
-                  "Pages": "{{page_count}}"
-                }
               }
             ],
             "sizing": {

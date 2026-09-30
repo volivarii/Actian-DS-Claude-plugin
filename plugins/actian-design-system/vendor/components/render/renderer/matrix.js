@@ -708,7 +708,10 @@ var MATRIX_OVERRIDES = {
         Title: "Financial Summary EY2024",
         "Tech name": "[Financial Summary EY2024]",
         Type: "Dataset",
+        Stage: "Not staged",
+        "Stage type": "Stage-1",
         Completion: 75,
+        "Data product": "Customers",
         Connection: "Powerbi",
         Description:
           "A product is anything that can be offered to a market that might satisfy a want or need by potential customers.",
@@ -724,7 +727,10 @@ var MATRIX_OVERRIDES = {
         Title: "Financial Summary EY2024",
         "Tech name": "[Financial Summary EY2024]",
         Type: "Dataset",
+        Stage: "Not staged",
+        "Stage type": "Stage-1",
         Completion: 75,
+        "Data product": "Customers",
         Connection: "Powerbi",
         Description:
           "A product is anything that can be offered to a market that might satisfy a want or need by potential customers.",

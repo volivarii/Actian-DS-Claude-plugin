@@ -9,14 +9,16 @@
   "tags": ["detail", "object", "tabs", "properties", "stewardship", "metadata"],
   "derivedFrom": {
     "surface": "Studio > Catalog > Dataset > General",
-    "capturedOn": "2026-08-18",
-    "productVersion": "next.dev.zeenea.app"
+    "capturedOn": "2026-09-30",
+    "productVersion": "manufacturing.zeenea.app/studio",
+    "screenshot": "captures/asset-detail-360.png"
   },
+  "reference": "product",
   "slots": {
-    "header": "Identity row (type tag, sharing tag, title, status tag, Actions button) over three metadata lines: technical name, a catalog/category/connection path with links, and a last-updated date.",
-    "tabs": "Nine object facets, some carrying a count, one disabled when the source supplies nothing. Opposite them, two avatar stacks: curators and contacts, which are a summary of the People panel below.",
-    "left": "Authored narrative: access-request policy select, glossary multi-select of removable chips, a description block with a rich-text switch and a use-source checkbox, and a relations section that is empty far more often than not.",
-    "right": "Completion meter, then a second tab set. Properties is a long label-and-control form mixing selects, multi-selects, plain values, date inputs with a format caption, and unset properties that read 'No data has been registered.', ending in a read-only source-properties definition list.",
+    "header": "Breadcrumb, then the identity row (item type tag, Shared tag, title, lifecycle stage tag, Actions button) over three metadata lines: technical name, a catalog / data product / connection path with links, and a last-updated date.",
+    "tabs": "The item's facets (eight on a Dataset), some carrying a count, one greyed when the source supplies nothing. Opposite them, two avatar stacks: curators and contacts, which are a summary of the People panel.",
+    "left": "Authored narrative: access-request policy select, glossary multi-select of removable chips, a description block (use-source checkbox, summary, full rich-text description), and a relations section that is empty far more often than not.",
+    "right": "Completion meter, then a second tab set. Properties is a long form in the item type's groups (DATA Contract, OUTPUT PORT, Cataloging, GOVERNANCE) mixing selects, multi-selects, text and date fields, ending in a read-only source-properties list.",
     "right-people": "Not drawn here. Two role sections (Curator, Contact), each with an add-person icon action and a two-column grid of avatar, name and a remove control.",
     "right-suggestions": "Not drawn here. A four-way segmented control (Accepted, Rejected, Pending, All) over suggestion cards: author avatar, name, relative time, status at the right, body text, a comment textarea, and a Reject/Accept footer pair.",
     "toast": "Not drawn here. A transient error toast appears bottom-centre on a slow response. It is real chrome on this page, and the DS tier has no toast component to carry it."
@@ -24,17 +26,15 @@
   "undrawnSlots": ["right-people", "right-suggestions", "toast"],
   "renderNotes": [
     "Inside a VERTICAL frame, never set `sizing.horizontal:\"FILL\"`. `render-node.js` emits `flex:1` for it with no axis awareness, so in a column it distributes HEIGHT; width already fills because the renderer only sets `align-items` when `counterAxisAlignItems` is given, so the flex default of `stretch` applies. FILL is correct only for children of a HORIZONTAL frame, which is why the two body columns carry it and nothing below them does. Plugin #298.",
-    "`fmTabs` reads `Tabs` (a comma-separated string or an array) and `Active`. It has no per-tab children and no count badge, so a count has to be written into the label text.",
-    "`fmUser` always renders initials AND the name (plugin #299), so an overlapping avatar stack is not expressible: it draws as a row of name chips. Keep stacks to three.",
-    "`fmEmptyState` takes no props and always renders the words 'No items' (plugin #299). Any empty state with real copy must be composed from `fmPlaceholder` plus a TEXT sibling, as the relations section does here.",
-    "`fmTextArea` reads only the `Content=` variant and no text prop (plugin #299), so the suggestion comment box cannot carry its placeholder. That is why the Suggestions panel is described in `slots` rather than drawn.",
-    "`fmProgressBar` reads the VARIANT (`Completion=`), not props, and collapses to zero width in a centred row unless hosted in a fixed-width frame.",
-    "`fmDropdown` carries its own label and caption via `Label Text` / `Caption Text` when `Show label` is not false. `fmDateInput` does not: its caption ('YYYY/MM/DD') must be a sibling TEXT.",
-    "Prop keys may carry Figma's `#nodeId` suffix or not; `normalizeProps` in `fm-html-map.js` strips it, so `Label` and `Label#1411:32` are equivalent. Plain names are used here."
+    "Every value is the captured Dataset's (COUNT BY ORDER STATUS, manufacturing.zeenea.app, 2026-09-30). The three sections are shared parts; this page gives them its values through each SECTION node's `values`.",
+    "The full description is the product's rich text: a heading, a paragraph, a schema table (drawn with `table`) and a bullet list of key characteristics, cut here after the table.",
+    "The empty relations block is the product's folder illustration over \"No related Datasets\". It is drawn as the text alone: `empty-state` prints its specimen body and buttons when those props are empty (the #717 gap, still open for empty-state), and a relations block has no buttons.",
+    "`tabs` has no count badge, so a count is written into the label text (\"Fields 2\").",
+    "`checkbox` carries its own label here (\"Use source description\"); the product has no \"Switch to rich text\" control on this page any more."
   ],
   "skeleton": {
     "chrome": "standard",
-    "appHeader": "{{app}}",
+    "appHeader": "Studio",
     "content": [
       {
         "type": "FRAME",
@@ -51,12 +51,33 @@
           {
             "type": "SECTION",
             "section": "item-header",
-            "slot": "header"
+            "slot": "header",
+            "values": {
+              "item_name": "COUNT BY ORDER STATUS",
+              "item_type": "Dataset",
+              "stage": "In Review",
+              "stage_type": "Stage-6",
+              "technical_name": "COUNT_BY_ORDER_STATUS",
+              "catalog": "Default",
+              "data_product": "removal",
+              "connection": "connPowerBI",
+              "last_updated": "Jul 6, 2026"
+            }
           },
           {
             "type": "SECTION",
             "section": "facet-tabs",
-            "slot": "tabs"
+            "slot": "tabs",
+            "values": {
+              "facets": "General, Fields 2, Sample Data, Data Quality, Lineage, View 360, Data Model, Activity",
+              "first_facet": "General",
+              "curator_1": "AH",
+              "curator_2": "ES",
+              "contact_1": "AA",
+              "contact_2": "TK",
+              "contact_3": "ES",
+              "contact_4": "ES"
+            }
           },
           {
             "type": "DIVIDER"
@@ -99,11 +120,12 @@
                       },
                       {
                         "type": "INSTANCE",
-                        "ref": "fmDropdown",
-                        "variant": "Type=Filled",
+                        "library": "ds",
+                        "dsSlug": "dropdown-select-default",
+                        "variant": "Type=Default, State=Filled",
                         "props": {
-                          "Dropdown Text": "Data access request policy for dataset",
-                          "Show label": false
+                          "Label": "",
+                          "Value": "No access request policy"
                         }
                       }
                     ]
@@ -118,17 +140,19 @@
                     "children": [
                       {
                         "type": "TEXT",
-                        "content": "Glossary Items ({{glossary_count}})",
+                        "content": "Glossary Items (2)",
                         "font": "Inter:Semi Bold",
                         "size": 15,
                         "color": "var(--zen-color-text-default)"
                       },
                       {
                         "type": "INSTANCE",
-                        "ref": "fmMultiSelectDropdown",
+                        "library": "ds",
+                        "dsSlug": "dropdown-select-default",
+                        "variant": "Type=Search/Multiple, State=Filled",
                         "props": {
-                          "Dropdown Text": "IRA (individual retirement account)   Article",
-                          "Show label": false
+                          "Label": "",
+                          "Value": "Order Contract, Body components"
                         }
                       }
                     ]
@@ -142,61 +166,75 @@
                     },
                     "children": [
                       {
-                        "type": "FRAME",
-                        "name": "Description header",
-                        "layout": {
-                          "mode": "HORIZONTAL",
-                          "spacing": 0,
-                          "primaryAxisAlignItems": "SPACE_BETWEEN",
-                          "counterAxisAlignItems": "CENTER"
-                        },
-                        "children": [
-                          {
-                            "type": "TEXT",
-                            "content": "Description",
-                            "font": "Inter:Semi Bold",
-                            "size": 15,
-                            "color": "var(--zen-color-text-default)"
-                          },
-                          {
-                            "type": "TEXT",
-                            "content": "Switch to rich text",
-                            "font": "Inter:Regular",
-                            "size": 13,
-                            "color": "var(--zen-color-text-primary)"
-                          }
-                        ]
+                        "type": "TEXT",
+                        "content": "Description",
+                        "font": "Inter:Semi Bold",
+                        "size": 15,
+                        "color": "var(--zen-color-text-default)"
                       },
                       {
-                        "type": "FRAME",
-                        "name": "Use source description",
-                        "layout": {
-                          "mode": "HORIZONTAL",
-                          "spacing": 10,
-                          "counterAxisAlignItems": "CENTER"
-                        },
-                        "children": [
-                          {
-                            "type": "INSTANCE",
-                            "ref": "fmCheckbox",
-                            "variant": "State=Off",
-                            "props": {}
-                          },
-                          {
-                            "type": "TEXT",
-                            "content": "Use source description",
-                            "font": "Inter:Regular",
-                            "size": 13,
-                            "color": "var(--zen-color-text-default)"
-                          }
-                        ]
+                        "type": "INSTANCE",
+                        "library": "ds",
+                        "dsSlug": "checkbox",
+                        "variant": "Selection=Unchecked, State=Default",
+                        "props": {
+                          "Label": "Use source description"
+                        }
                       },
                       {
                         "type": "TEXT",
-                        "content": "Edit description",
+                        "content": "Summary",
+                        "font": "Inter:Semi Bold",
+                        "size": 13,
+                        "color": "var(--zen-color-text-default)"
+                      },
+                      {
+                        "type": "TEXT",
+                        "content": "COUNT BY ORDER STATUS is a summary dataset sourced from the connPowerBI connection. It aggregates orders by their current status, providing a high-level operational view of order pipeline distribution.",
                         "font": "Inter:Regular",
                         "size": 13,
-                        "color": "var(--zen-color-text-secondary)"
+                        "color": "var(--zen-color-text-default)"
+                      },
+                      {
+                        "type": "TEXT",
+                        "content": "Full description",
+                        "font": "Inter:Semi Bold",
+                        "size": 15,
+                        "color": "var(--zen-color-text-default)"
+                      },
+                      {
+                        "type": "TEXT",
+                        "content": "COUNT BY ORDER STATUS",
+                        "font": "Inter:Semi Bold",
+                        "size": 18,
+                        "color": "var(--zen-color-text-default)"
+                      },
+                      {
+                        "type": "TEXT",
+                        "content": "COUNT BY ORDER STATUS is a summary dataset sourced from the connPowerBI connection. It aggregates orders by their current status, providing a high-level operational view of order pipeline distribution.",
+                        "font": "Inter:Regular",
+                        "size": 13,
+                        "color": "var(--zen-color-text-default)"
+                      },
+                      {
+                        "type": "INSTANCE",
+                        "library": "ds",
+                        "dsSlug": "table",
+                        "props": {
+                          "Columns": "Field, Type, Description",
+                          "Rows": [
+                            [
+                              "STATUS",
+                              "string",
+                              "The order status category (e.g. pending, shipped, cancelled)"
+                            ],
+                            [
+                              "TOTAL",
+                              "long",
+                              "The count of orders in that status"
+                            ]
+                          ]
+                        }
                       },
                       {
                         "type": "DIVIDER"
@@ -213,7 +251,7 @@
                     "children": [
                       {
                         "type": "TEXT",
-                        "content": "Data Model relations ({{relation_count}})",
+                        "content": "Data Model relations (0)",
                         "font": "Inter:Semi Bold",
                         "size": 15,
                         "color": "var(--zen-color-text-default)"
@@ -228,12 +266,6 @@
                           "padding": [40, 0, 40, 0]
                         },
                         "children": [
-                          {
-                            "type": "INSTANCE",
-                            "ref": "fmPlaceholder",
-                            "variant": "Type=Label+1line",
-                            "props": {}
-                          },
                           {
                             "type": "TEXT",
                             "content": "No related Datasets",
@@ -250,7 +282,10 @@
               {
                 "type": "SECTION",
                 "section": "properties-panel",
-                "slot": "right"
+                "slot": "right",
+                "values": {
+                  "completion_percent": "100"
+                }
               }
             ]
           }

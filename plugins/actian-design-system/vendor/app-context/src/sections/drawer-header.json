@@ -3,7 +3,7 @@
   "kind": "section",
   "slug": "drawer-header",
   "label": "Drawer header",
-  "description": "The header of the Studio quick-edit drawer: qualifier tags and an editable title with two icon buttons, a 'Catalog: …' line, and a three-metric strip (Last updated, Linked items, Completion).",
+  "description": "The header of the Studio quick-edit drawer: item type and Shared tags beside the item name, two icon buttons (open in full page, close), the technical name, a catalog / data product / connection line, the lifecycle stage, and a three-metric strip (Last updated, the linked items, Completion).",
   "role": "drawer-header",
   "apps": [
     "studio"
@@ -18,18 +18,19 @@
   ],
   "derivedFrom": {
     "surface": "Studio > Catalog > result row body > quick edit drawer",
-    "capturedOn": "2026-08-20",
+    "capturedOn": "2026-09-30",
     "productVersion": "manufacturing.zeenea.app/studio"
   },
   "slots": {
-    "title": "Qualifier tags then the item name as an editable text input; two icon buttons on the right.",
-    "catalog": "'Catalog: {{catalog_name}}'.",
-    "metrics": "Three label-over-value pairs; Completion holds a progress bar and its percent."
+    "title": "Item type tag, Shared tag and the item name on one row; two icon buttons on the right: open in full page (view-detail) and close.",
+    "catalog": "'Technical name: …', then 'Catalog: … / Data Product: … / Connection: …', then 'Stage:' with the lifecycle stage tag.",
+    "metrics": "Three label-over-value pairs: Last updated with a date, the linked items (Fields on a Dataset) with a count as a link, and Completion with a progress bar and its percent."
   },
   "renderNotes": [
-    "`fmIconButtons` renders an empty div; the two header actions read as blank squares in lo-fi.",
-    "`fmIconButtons` maps to the DS `button` leaf at `Emphasis=Icon-only`, but the capture carries no icon identity, so a hi-fi author chooses the icon from the action's meaning (the two header actions are edit and close on the product's drawer).",
-    "`fmTextInput` reads `Input Text`; the title is an input because the drawer edits in place."
+    "Parameters, filled by the page that splices it: item_type (an item-type-tag Type), item_name, technical_name, catalog_name, data_product, connection, stage and stage_type (read-only-tag Stage-1..8), last_updated, linked_label and linked_value (\"Fields\", \"2 Fields\" on a Dataset), completion_percent (a number).",
+    "The two header actions are `button` Emphasis=Icon-only with `Icon` view-detail and close, the glyphs the DS drawer's own header draws.",
+    "The item name is plain text on the captured drawer; it becomes an input only when clicked, so it is not drawn as one.",
+    "The Shared tag is read-only-tag Type=Shared, the design system's light Shared; the product paints it solid dark."
   ],
   "skeleton": {
     "content": [
@@ -52,56 +53,47 @@
             "name": "Title row",
             "layout": {
               "mode": "HORIZONTAL",
-              "spacing": 8
+              "spacing": 8,
+              "counterAxisAlignItems": "CENTER"
             },
             "children": [
               {
                 "type": "FRAME",
                 "name": "Title block",
                 "layout": {
-                  "mode": "VERTICAL",
-                  "spacing": 4
+                  "mode": "HORIZONTAL",
+                  "spacing": 8,
+                  "counterAxisAlignItems": "CENTER"
                 },
                 "sizing": {
                   "horizontal": "FILL"
                 },
                 "children": [
                   {
-                    "type": "FRAME",
-                    "name": "Qualifier tags",
-                    "layout": {
-                      "mode": "HORIZONTAL",
-                      "spacing": 8
-                    },
-                    "children": [
-                      {
-                        "type": "INSTANCE",
-                        "ref": "fmTag",
-                        "ds": "read-only-tag",
-                        "variant": "Style=Light",
-                        "props": {
-                          "Tag Text": "{{item_type}}"
-                        }
-                      },
-                      {
-                        "type": "INSTANCE",
-                        "ref": "fmTag",
-                        "ds": "read-only-tag",
-                        "variant": "Style=Filled",
-                        "props": {
-                          "Tag Text": "Shared"
-                        }
-                      }
-                    ]
+                    "type": "INSTANCE",
+                    "library": "ds",
+                    "dsSlug": "item-type-tag",
+                    "variant": "Type={{item_type}}",
+                    "props": {
+                      "Label": "{{item_type}}"
+                    }
                   },
                   {
                     "type": "INSTANCE",
-                    "ref": "fmTextInput",
-                    "ds": "text-input",
-                    "variant": "Type=Default",
+                    "library": "ds",
+                    "dsSlug": "read-only-tag",
+                    "variant": "Type=Shared",
                     "props": {
-                      "Input Text": "{{item_name}}"
+                      "Label": "Shared",
+                      "Leading icon show": false
                     }
+                  },
+                  {
+                    "type": "TEXT",
+                    "content": "{{item_name}}",
+                    "font": "Inter:Semi Bold",
+                    "size": 18,
+                    "color": "var(--zen-color-text-default)"
                   }
                 ]
               },
@@ -115,17 +107,23 @@
                 "children": [
                   {
                     "type": "INSTANCE",
-                    "ref": "fmIconButtons",
-                    "ds": "button",
-                    "variant": "Type=Secondary",
-                    "props": {}
+                    "library": "ds",
+                    "dsSlug": "button",
+                    "variant": "Emphasis=Icon-only, Size=Small, State=Default",
+                    "props": {
+                      "Label": "Open in full page",
+                      "Icon": "view-detail"
+                    }
                   },
                   {
                     "type": "INSTANCE",
-                    "ref": "fmIconButtons",
-                    "ds": "button",
-                    "variant": "Type=Secondary",
-                    "props": {}
+                    "library": "ds",
+                    "dsSlug": "button",
+                    "variant": "Emphasis=Icon-only, Size=Small, State=Default",
+                    "props": {
+                      "Label": "Close",
+                      "Icon": "close"
+                    }
                   }
                 ]
               }
@@ -133,10 +131,44 @@
           },
           {
             "type": "TEXT",
-            "content": "Catalog: {{catalog_name}}",
+            "content": "Technical name: {{technical_name}}",
+            "font": "Inter:Regular",
+            "size": 14,
+            "color": "var(--zen-color-text-default)"
+          },
+          {
+            "type": "TEXT",
+            "content": "Catalog: {{catalog_name}} / Data Product: {{data_product}} / Connection: {{connection}}",
             "font": "Inter:Regular",
             "size": 14,
             "color": "var(--zen-color-text-secondary)"
+          },
+          {
+            "type": "FRAME",
+            "name": "Stage",
+            "layout": {
+              "mode": "HORIZONTAL",
+              "spacing": 6,
+              "counterAxisAlignItems": "CENTER"
+            },
+            "children": [
+              {
+                "type": "TEXT",
+                "content": "Stage:",
+                "font": "Inter:Regular",
+                "size": 14,
+                "color": "var(--zen-color-text-default)"
+              },
+              {
+                "type": "INSTANCE",
+                "library": "ds",
+                "dsSlug": "read-only-tag",
+                "variant": "Type={{stage_type}}",
+                "props": {
+                  "Label": "{{stage}}"
+                }
+              }
+            ]
           },
           {
             "type": "FRAME",
@@ -151,7 +183,7 @@
                 "name": "Metric: Last updated",
                 "layout": {
                   "mode": "VERTICAL",
-                  "spacing": 2
+                  "spacing": 4
                 },
                 "children": [
                   {
@@ -172,25 +204,27 @@
               },
               {
                 "type": "FRAME",
-                "name": "Metric: Linked items",
+                "name": "Metric: {{linked_label}}",
                 "layout": {
                   "mode": "VERTICAL",
-                  "spacing": 2
+                  "spacing": 4
                 },
                 "children": [
                   {
                     "type": "TEXT",
-                    "content": "Linked items",
+                    "content": "{{linked_label}}",
                     "font": "Inter:Regular",
                     "size": 13,
                     "color": "var(--zen-color-text-secondary)"
                   },
                   {
-                    "type": "TEXT",
-                    "content": "{{linked_items_count}}",
-                    "font": "Inter:Regular",
-                    "size": 14,
-                    "color": "var(--zen-color-text-primary)"
+                    "type": "INSTANCE",
+                    "library": "ds",
+                    "dsSlug": "link",
+                    "variant": "State=Default",
+                    "props": {
+                      "Label": "{{linked_value}}"
+                    }
                   }
                 ]
               },
@@ -199,7 +233,7 @@
                 "name": "Metric: Completion",
                 "layout": {
                   "mode": "VERTICAL",
-                  "spacing": 2
+                  "spacing": 4
                 },
                 "children": [
                   {
@@ -210,41 +244,13 @@
                     "color": "var(--zen-color-text-secondary)"
                   },
                   {
-                    "type": "FRAME",
-                    "name": "Completion value",
-                    "layout": {
-                      "mode": "HORIZONTAL",
-                      "spacing": 8
-                    },
-                    "children": [
-                      {
-                        "type": "FRAME",
-                        "name": "Completion bar",
-                        "layout": {
-                          "mode": "HORIZONTAL",
-                          "spacing": 0
-                        },
-                        "sizing": {
-                          "horizontal": 80
-                        },
-                        "children": [
-                          {
-                            "type": "INSTANCE",
-                            "ref": "fmProgressBar",
-                            "ds": "progress-bar-small",
-                            "variant": "Completion={{completion_percent}}",
-                            "props": {}
-                          }
-                        ]
-                      },
-                      {
-                        "type": "TEXT",
-                        "content": "{{completion_percent}}",
-                        "font": "Inter:Regular",
-                        "size": 14,
-                        "color": "var(--zen-color-text-default)"
-                      }
-                    ]
+                    "type": "INSTANCE",
+                    "library": "ds",
+                    "dsSlug": "progress-bar-small",
+                    "variant": "Size=Default",
+                    "props": {
+                      "Percent": "{{completion_percent}}"
+                    }
                   }
                 ]
               }

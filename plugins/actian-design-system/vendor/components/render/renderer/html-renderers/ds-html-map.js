@@ -921,12 +921,14 @@
           // hard-codes the same 32px round chrome for this control on the
           // collapse header, from the same capture.
           //
-          // The glyph is `add`, which is the button's own captured default
-          // leading icon (registry `Leading icon` default instance, and the
-          // slug the label path already uses). Quoting the capture's default
-          // rather than choosing a glyph, because an icon-only button whose
-          // icon we invented would be a different kind of wrong.
+          // The glyph is the one `Icon` names (an icons.json slug: a drawer
+          // header's `view-detail` and `close`), else `add`, the button's own
+          // captured default leading icon (registry `Leading icon` default
+          // instance, and the slug the label path already uses). A slug the
+          // icon set does not carry falls back to that default rather than
+          // drawing nothing.
           if (v.Emphasis === "Icon-only") {
+            var btnIcon = renderIcon(String(props.Icon || "")) || renderIcon("add");
             return (
               '<button class="' +
               btnCls +
@@ -936,7 +938,7 @@
               esc(props.Label || "Button") +
               '">' +
               '<span class="ds-button__icon">' +
-              renderIcon("add") +
+              btnIcon +
               "</span>" +
               "</button>"
             );
@@ -1941,10 +1943,10 @@
           // modifier is "action" (an entry that does something, New Item) or
           // "sub" (a sub-item under its parent, Import's Select a file).
           // expanded is true/false for an item with sub-items (said to
-          // assistive tech as aria-expanded), undefined for any other item. An
-          // open item carries the anatomy's trailing chevron (Icon right,
-          // drawn pointing up in components/dist/media/side-nav/default.webp);
-          // a closed one carries none, as the product screenshot shows.
+          // assistive tech as aria-expanded), undefined for any other item.
+          // Both carry the anatomy's trailing chevron (Icon right): up while
+          // expanded, as components/dist/media/side-nav/default.webp draws it,
+          // and down while collapsed, as the live product draws it.
           function renderNavItem(label, icon, isActive, modifier, expanded) {
             var itemCls = "ds-sidenav__item";
             if (modifier) itemCls += " ds-sidenav__item--" + modifier;
@@ -1964,9 +1966,9 @@
               '<span class="ds-sidenav__label">' +
               esc(label) +
               "</span>" +
-              (expanded === true
+              (expanded === true || expanded === false
                 ? '<span class="ds-sidenav__chevron" aria-hidden="true">' +
-                  renderIcon("arrow-up") +
+                  renderIcon(expanded ? "arrow-up" : "arrow-down") +
                   "</span>"
                 : "") +
               "</a>"
@@ -2001,22 +2003,19 @@
             });
             var navActive = resolveActive(allLabels, props.Active);
 
-            // An item's sub-items render right after it, and only while the
-            // item or one of its sub-items is the active one (Vincent,
-            // 2026-09-29). The product screenshot shows Import closed; the
-            // Figma component is drawn open (default.webp), so the closed
-            // default is the screenshot's, which wins where the two disagree.
+            // An item's sub-items render right after it while it is expanded.
+            // Expanded or collapsed is the USER's, and it persists across
+            // pages whichever item is active (the live Studio, 2026-09-30:
+            // Import collapsed stayed collapsed on the Dashboard). Expanded is
+            // the default the product and default.webp both draw; a screen
+            // that wants it collapsed says `expanded: false` on the item.
             // Sub-items carry no icon of their own in the record, and no
             // nesting below them.
             var renderGroup = function (g) {
               var groupItems = (g.items || [])
                 .map(function (it) {
                   var subs = it.children || [];
-                  var open =
-                    (it.label || "") === navActive ||
-                    subs.some(function (ch) {
-                      return (ch.label || "") === navActive;
-                    });
+                  var open = it.expanded !== false;
                   var row = renderNavItem(
                     it.label || "",
                     it.icon || null,
@@ -4115,8 +4114,10 @@
             // (app-context/src/recipes/captures/faceted-browse.png) and as
             // Figma's App=Studio lists its parts (#722): a selection
             // checkbox, the item type tag, a Shared tag, the title and
-            // technical name, the completion bar with its percentage at the
-            // right of that row; under it a Connection line, the description
+            // technical name, the lifecycle stage tag and the completion bar
+            // with its percentage at the right of that row (the stage from the
+            // live Catalog, 2026-09-30); under it a "Data Product / Connection"
+            // source line, the description
             // (or "No summary available", the product's words for none),
             // property chips and a pending-suggestion chip; "Last updated"
             // at the bottom right. A flat row closed by a bottom rule, no box
@@ -4176,6 +4177,42 @@
                   "%</span>" +
                   "</div>";
             var sConnection = authored(props.Connection, "");
+            var sDataProduct = authored(props["Data product"], "");
+            // The lifecycle stage is the tenant's own word (stages are
+            // configurable), so the screen passes the label and the design
+            // system hue it maps to: read-only-tag's Stage-1..8, whose fills
+            // live in the .ds-tag--stage-<n> rules. A missing or malformed
+            // type is Stage-1, the base pill. The dot is the shared grey
+            // .ds-tag-stage__dot: the live product tints it per stage, and the
+            // design system carries no per-stage dot hue to tint it with.
+            var sStageLabel = authored(props.Stage, "");
+            var sStageType = String(props["Stage type"] || "")
+              .toLowerCase()
+              .trim();
+            if (!/^stage-[1-8]$/.test(sStageType)) sStageType = "stage-1";
+            var sStage = sStageLabel
+              ? '<span class="ds-tag ds-tag--' +
+                sStageType +
+                ' ds-tag-stage ds-search-result-card__stage"><span class="ds-tag-stage__dot"></span>' +
+                esc(sStageLabel) +
+                "</span>"
+              : "";
+            // The source line, as Studio draws it: "Data Product: <name> /
+            // Connection: <name>", each part only when the screen gives it.
+            var sSource = [
+              sDataProduct
+                ? 'Data Product: <span class="ds-search-result-card__link">' +
+                  esc(sDataProduct) +
+                  "</span>"
+                : "",
+              sConnection
+                ? 'Connection: <span class="ds-search-result-card__link">' +
+                  esc(sConnection) +
+                  "</span>"
+                : "",
+            ]
+              .filter(Boolean)
+              .join(" / ");
             var sDesc = authored(props.Description, props.Body, "");
             // Properties: a comma list of "Label: value" pairs, the label
             // drawn bold as the capture draws "Code:" and "Year:".
@@ -4217,14 +4254,14 @@
                   "</span>"
                 : "") +
               "</div>" +
+              sStage +
               sProgress +
               "</div>" +
               '<div class="ds-search-result-card__details">' +
-              (sConnection
-                ? '<p class="ds-search-result-card__connection">Connection: ' +
-                  '<span class="ds-search-result-card__link">' +
-                  esc(sConnection) +
-                  "</span></p>"
+              (sSource
+                ? '<p class="ds-search-result-card__connection">' +
+                  sSource +
+                  "</p>"
                 : "") +
               (sDesc
                 ? '<p class="ds-search-result-card__desc">' +

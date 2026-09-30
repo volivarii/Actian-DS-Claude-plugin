@@ -30,8 +30,8 @@ sidebar:
     icon: download
     group: create
     children:
-      - label: Select a connection
-        id: import-connection
+      - label: Select a data source
+        id: import-data-source
       - label: Select a file
         id: import-file
   - label: New Item
