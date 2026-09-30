@@ -16,27 +16,33 @@
     "preview"
   ],
   "derivedFrom": {
-    "surface": "Explorer > Marketplace > Search > result card body > quick view",
-    "capturedOn": "2026-08-19",
-    "productVersion": "next.dev.zeenea.app/explorer"
+    "surface": "Explorer > Search > result card body > quick view",
+    "capturedOn": "2026-09-30",
+    "productVersion": "manufacturing.zeenea.app/explorer",
+    "screenshot": "captures/right-sliding-drawer.png"
   },
+  "reference": "product",
   "slots": {
-    "header": "Item title, an optional subtitle holding the technical path, an optional primary action, and three icon buttons: favourite, open in full page, close",
-    "tags": "Item type, catalog folder, connection, and a data quality indicator carrying a coloured traffic light",
+    "header": "Item title and its technical name in brackets, a Request Access action, and three icon buttons: favourite, open in full page, close.",
+    "tags": "Item type, catalog folder, connection, and a data quality indicator carrying a coloured traffic light.",
     "summary": "A Summary heading with an information icon, over the item's description",
     "featured-properties": "A Featured properties heading over pinned label and value pairs, laid out as a definition list",
-    "tabs": "A tab bar whose labels carry result counts, over the selected tab's panel"
+    "tabs": "A tab bar whose labels carry result counts, over the selected tab's panel",
+    "glossary": "A Glossary heading over the item's glossary links, each an initials badge and its name.",
+    "related": "A line counting the items this one is related to, with a link to the schema at the right."
   },
   "renderNotes": [
-    "Do NOT compose this from `fmDialog`. It is a stub: it returns a hardcoded `<div class=\"fm-dialog__title\">Dialog</div>` and an empty body, reads no props at all, and cannot be given a title, an action or any content. The drawer is therefore composed from frames, TEXT and the components below. This is the same class of gap as the ones filed in plugin #299.",
-    "`fmTabs` reads `Tabs` (a comma string or an array) and `Active`, and renders no count badge. The real drawer's tabs read `Fields 2`, `Properties 8`, `Contacts 4`, `Suggestions 0`, so the counts cannot be drawn. They are written into the tab label here so the count is at least visible, which is a workaround and not a fix.",
-    "`fmIconButtons` renders an empty div carrying only a Type class, with no glyph inside. The favourite, open-in-page and close buttons therefore draw as blank squares. Do not read a blank square in the render as a missing node.",
     "Children of a VERTICAL frame must omit `sizing`. `sizing.horizontal:\"FILL\"` emits `flex:1`, which in a column container distributes height instead of hugging content. `faceted-browse` carried 20 of these against its own notes and `tests/app-context-recipes.test.js` now walks every skeleton for the case.",
-    "This recipe composes the overlay surface ONLY, at its captured width of 550px. In the product the dialog is `position: fixed` with `inset: 70px 0 0 0`, so it docks to the right edge below the app header and runs to the bottom of the viewport. The page beneath is not part of this composition and stays interactive."
+    "This recipe composes the overlay surface ONLY, at its captured width of 550px. In the product the dialog is `position: fixed` with `inset: 70px 0 0 0`, so it docks to the right edge below the app header and runs to the bottom of the viewport. The page beneath is not part of this composition and stays interactive.",
+    "Every value is the captured quick view's (the Customers dataset, found by searching \"customer\" in Explorer, manufacturing.zeenea.app, 2026-09-30).",
+    "The three icon buttons are `button` Emphasis=Icon-only with `Icon` favorite, view-detail and close, the glyphs the DS drawer's own Explorer header draws. Request Access is drawn without its leading icon: the product's glyph (a hand over a key) is not one `button` can take.",
+    "The Data Quality tag's traffic light is red on this item; it is drawn as read-only-tag Status-error, whose leading icon is the error glyph, not the product's dot.",
+    "Explorer's tabs put a count after four of the five labels; `tabs` has no count badge, so the count is written into the label text.",
+    "The Description panel is the tenant's rich text: a heading, a paragraph and a schema table (drawn with `table`, cut here after four rows). The paragraph is left out: it is the tenant's writing, not product copy, and it uses a word the product's terminology forbids (\"record\")."
   ],
   "skeleton": {
     "chrome": "standard",
-    "appHeader": "{{app}}",
+    "appHeader": "Explorer",
     "content": [
       {
         "type": "FRAME",
@@ -57,18 +63,23 @@
               {
                 "type": "FRAME",
                 "name": "Title block",
-                "layout": { "mode": "VERTICAL", "spacing": 2 },
+                "layout": {
+                  "mode": "HORIZONTAL",
+                  "spacing": 6,
+                  "counterAxisAlignItems": "CENTER"
+                },
+                "sizing": { "horizontal": "FILL" },
                 "children": [
                   {
                     "type": "TEXT",
-                    "content": "{{item_name}}",
+                    "content": "Customers",
                     "font": "Inter:Semi Bold",
                     "size": 16,
                     "color": "var(--zen-color-text-default)"
                   },
                   {
                     "type": "TEXT",
-                    "content": "{{item_path}}",
+                    "content": "[Customer]",
                     "font": "Inter:Regular",
                     "size": 14,
                     "color": "var(--zen-color-text-secondary)"
@@ -77,27 +88,31 @@
               },
               {
                 "type": "INSTANCE",
-                "ref": "fmButton",
-                "variant": "Type=Secondary, Size=Small",
-                "props": { "Label": "{{primary_action}}" }
+                "library": "ds",
+                "dsSlug": "button",
+                "variant": "Emphasis=Outlined, Size=Small, State=Default",
+                "props": { "Label": "Request Access" }
               },
               {
                 "type": "INSTANCE",
-                "ref": "fmIconButtons",
-                "variant": "Type=Secondary",
-                "props": {}
+                "library": "ds",
+                "dsSlug": "button",
+                "variant": "Emphasis=Icon-only, Size=Small, State=Default",
+                "props": { "Label": "Add to favorites", "Icon": "favorite" }
               },
               {
                 "type": "INSTANCE",
-                "ref": "fmIconButtons",
-                "variant": "Type=Secondary",
-                "props": {}
+                "library": "ds",
+                "dsSlug": "button",
+                "variant": "Emphasis=Icon-only, Size=Small, State=Default",
+                "props": { "Label": "Open in full page", "Icon": "view-detail" }
               },
               {
                 "type": "INSTANCE",
-                "ref": "fmIconButtons",
-                "variant": "Type=Secondary",
-                "props": {}
+                "library": "ds",
+                "dsSlug": "button",
+                "variant": "Emphasis=Icon-only, Size=Small, State=Default",
+                "props": { "Label": "Close", "Icon": "close" }
               }
             ]
           },
@@ -118,26 +133,33 @@
                 "children": [
                   {
                     "type": "INSTANCE",
-                    "ref": "fmTag",
-                    "variant": "Type=Default",
-                    "props": { "Label": "{{item_type}}" }
+                    "library": "ds",
+                    "dsSlug": "item-type-tag",
+                    "variant": "Type=Dataset",
+                    "props": { "Label": "Dataset" }
                   },
                   {
                     "type": "INSTANCE",
-                    "ref": "fmTag",
-                    "variant": "Type=Default",
-                    "props": { "Label": "{{catalog_folder}}" }
+                    "library": "ds",
+                    "dsSlug": "read-only-tag",
+                    "variant": "Type=Catalog",
+                    "props": { "Label": "Default" }
                   },
                   {
                     "type": "INSTANCE",
-                    "ref": "fmTag",
+                    "library": "ds",
+                    "dsSlug": "read-only-tag",
                     "variant": "Type=Default",
-                    "props": { "Label": "Connection: {{connection_name}}" }
+                    "props": {
+                      "Label": "Connection: Hamilton - Data warehouse",
+                      "Leading icon show": false
+                    }
                   },
                   {
                     "type": "INSTANCE",
-                    "ref": "fmTag",
-                    "variant": "Type=Default",
+                    "library": "ds",
+                    "dsSlug": "read-only-tag",
+                    "variant": "Type=Status-error",
                     "props": { "Label": "Data Quality" }
                   }
                 ]
@@ -157,7 +179,7 @@
                   },
                   {
                     "type": "TEXT",
-                    "content": "{{item_summary}}",
+                    "content": "A customer is a company or an individual who buys our products or services.",
                     "font": "Inter:Regular",
                     "size": 14,
                     "color": "var(--zen-color-text-default)"
@@ -180,23 +202,23 @@
                   {
                     "type": "FRAME",
                     "name": "Pinned property pairs",
-                    "layout": { "mode": "HORIZONTAL", "spacing": 24 },
+                    "layout": { "mode": "VERTICAL", "spacing": 4 },
                     "children": [
                       {
                         "type": "FRAME",
-                        "name": "Property: first",
+                        "name": "Property: Data Policy",
                         "layout": { "mode": "HORIZONTAL", "spacing": 6 },
                         "children": [
                           {
                             "type": "TEXT",
-                            "content": "{{property1_label}}:",
+                            "content": "Data Policy:",
                             "font": "Inter:Semi Bold",
                             "size": 14,
                             "color": "var(--zen-color-text-default)"
                           },
                           {
                             "type": "TEXT",
-                            "content": "{{property1_value}}",
+                            "content": "GDPR",
                             "font": "Inter:Regular",
                             "size": 14,
                             "color": "var(--zen-color-text-default)"
@@ -205,19 +227,166 @@
                       },
                       {
                         "type": "FRAME",
-                        "name": "Property: second",
+                        "name": "Property: Data domain",
                         "layout": { "mode": "HORIZONTAL", "spacing": 6 },
                         "children": [
                           {
                             "type": "TEXT",
-                            "content": "{{property2_label}}:",
+                            "content": "Data domain:",
                             "font": "Inter:Semi Bold",
                             "size": 14,
                             "color": "var(--zen-color-text-default)"
                           },
                           {
                             "type": "TEXT",
-                            "content": "{{property2_value}}",
+                            "content": "Finance",
+                            "font": "Inter:Regular",
+                            "size": 14,
+                            "color": "var(--zen-color-text-default)"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "FRAME",
+                        "name": "Property: Documentation Status",
+                        "layout": { "mode": "HORIZONTAL", "spacing": 6 },
+                        "children": [
+                          {
+                            "type": "TEXT",
+                            "content": "Documentation Status:",
+                            "font": "Inter:Semi Bold",
+                            "size": 14,
+                            "color": "var(--zen-color-text-default)"
+                          },
+                          {
+                            "type": "TEXT",
+                            "content": "Approved",
+                            "font": "Inter:Regular",
+                            "size": 14,
+                            "color": "var(--zen-color-text-default)"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "FRAME",
+                        "name": "Property: Dataset Creation Date",
+                        "layout": { "mode": "HORIZONTAL", "spacing": 6 },
+                        "children": [
+                          {
+                            "type": "TEXT",
+                            "content": "Dataset Creation Date:",
+                            "font": "Inter:Semi Bold",
+                            "size": 14,
+                            "color": "var(--zen-color-text-default)"
+                          },
+                          {
+                            "type": "TEXT",
+                            "content": "2024/03/18",
+                            "font": "Inter:Regular",
+                            "size": 14,
+                            "color": "var(--zen-color-text-default)"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "FRAME",
+                        "name": "Property: Layer",
+                        "layout": { "mode": "HORIZONTAL", "spacing": 6 },
+                        "children": [
+                          {
+                            "type": "TEXT",
+                            "content": "Layer:",
+                            "font": "Inter:Semi Bold",
+                            "size": 14,
+                            "color": "var(--zen-color-text-default)"
+                          },
+                          {
+                            "type": "TEXT",
+                            "content": "Silver",
+                            "font": "Inter:Regular",
+                            "size": 14,
+                            "color": "var(--zen-color-text-default)"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "FRAME",
+                        "name": "Property: Sensitivity",
+                        "layout": { "mode": "HORIZONTAL", "spacing": 6 },
+                        "children": [
+                          {
+                            "type": "TEXT",
+                            "content": "Sensitivity:",
+                            "font": "Inter:Semi Bold",
+                            "size": 14,
+                            "color": "var(--zen-color-text-default)"
+                          },
+                          {
+                            "type": "TEXT",
+                            "content": "Confidential",
+                            "font": "Inter:Regular",
+                            "size": 14,
+                            "color": "var(--zen-color-text-default)"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "FRAME",
+                        "name": "Property: Approval Status",
+                        "layout": { "mode": "HORIZONTAL", "spacing": 6 },
+                        "children": [
+                          {
+                            "type": "TEXT",
+                            "content": "Approval Status:",
+                            "font": "Inter:Semi Bold",
+                            "size": 14,
+                            "color": "var(--zen-color-text-default)"
+                          },
+                          {
+                            "type": "TEXT",
+                            "content": "Approved",
+                            "font": "Inter:Regular",
+                            "size": 14,
+                            "color": "var(--zen-color-text-default)"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "FRAME",
+                        "name": "Property: Personally Identifiable Inform…",
+                        "layout": { "mode": "HORIZONTAL", "spacing": 6 },
+                        "children": [
+                          {
+                            "type": "TEXT",
+                            "content": "Personally Identifiable Inform…:",
+                            "font": "Inter:Semi Bold",
+                            "size": 14,
+                            "color": "var(--zen-color-text-default)"
+                          },
+                          {
+                            "type": "TEXT",
+                            "content": "Yes",
+                            "font": "Inter:Regular",
+                            "size": 14,
+                            "color": "var(--zen-color-text-default)"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "FRAME",
+                        "name": "Property: Schema",
+                        "layout": { "mode": "HORIZONTAL", "spacing": 6 },
+                        "children": [
+                          {
+                            "type": "TEXT",
+                            "content": "Schema:",
+                            "font": "Inter:Semi Bold",
+                            "size": 14,
+                            "color": "var(--zen-color-text-default)"
+                          },
+                          {
+                            "type": "TEXT",
+                            "content": "automotive",
                             "font": "Inter:Regular",
                             "size": 14,
                             "color": "var(--zen-color-text-default)"
@@ -229,12 +398,139 @@
                 ]
               },
               {
+                "type": "FRAME",
+                "name": "Section: Glossary",
+                "slot": "glossary",
+                "layout": { "mode": "VERTICAL", "spacing": 8 },
+                "children": [
+                  {
+                    "type": "TEXT",
+                    "content": "Glossary",
+                    "font": "Inter:Semi Bold",
+                    "size": 15,
+                    "color": "var(--zen-color-text-default)"
+                  },
+                  {
+                    "type": "FRAME",
+                    "name": "Glossary items",
+                    "layout": { "mode": "HORIZONTAL", "spacing": 16 },
+                    "children": [
+                      {
+                        "type": "FRAME",
+                        "name": "Glossary: Address",
+                        "layout": {
+                          "mode": "HORIZONTAL",
+                          "spacing": 6,
+                          "counterAxisAlignItems": "CENTER"
+                        },
+                        "children": [
+                          {
+                            "type": "INSTANCE",
+                            "library": "ds",
+                            "dsSlug": "digram-item-types",
+                            "variant": "Item type=Glossary 1, Size=SM",
+                            "props": { "Initials": "BD", "Label": "Address" }
+                          },
+                          {
+                            "type": "TEXT",
+                            "content": "Address",
+                            "font": "Inter:Regular",
+                            "size": 14,
+                            "color": "var(--zen-color-text-default)"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "FRAME",
+                        "name": "Glossary: Customer",
+                        "layout": {
+                          "mode": "HORIZONTAL",
+                          "spacing": 6,
+                          "counterAxisAlignItems": "CENTER"
+                        },
+                        "children": [
+                          {
+                            "type": "INSTANCE",
+                            "library": "ds",
+                            "dsSlug": "digram-item-types",
+                            "variant": "Item type=Glossary 2, Size=SM",
+                            "props": { "Initials": "BO", "Label": "Customer" }
+                          },
+                          {
+                            "type": "TEXT",
+                            "content": "Customer",
+                            "font": "Inter:Regular",
+                            "size": 14,
+                            "color": "var(--zen-color-text-default)"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "FRAME",
+                        "name": "Glossary: Customer relationship management",
+                        "layout": {
+                          "mode": "HORIZONTAL",
+                          "spacing": 6,
+                          "counterAxisAlignItems": "CENTER"
+                        },
+                        "children": [
+                          {
+                            "type": "INSTANCE",
+                            "library": "ds",
+                            "dsSlug": "digram-item-types",
+                            "variant": "Item type=Glossary 2, Size=SM",
+                            "props": {
+                              "Initials": "BO",
+                              "Label": "Customer relationship management"
+                            }
+                          },
+                          {
+                            "type": "TEXT",
+                            "content": "Customer relationship management",
+                            "font": "Inter:Regular",
+                            "size": 14,
+                            "color": "var(--zen-color-text-default)"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "FRAME",
+                "name": "Related items",
+                "slot": "related",
+                "layout": {
+                  "mode": "HORIZONTAL",
+                  "spacing": 0,
+                  "primaryAxisAlignItems": "SPACE_BETWEEN",
+                  "counterAxisAlignItems": "CENTER"
+                },
+                "children": [
+                  {
+                    "type": "TEXT",
+                    "content": "This dataset is related to 1 item(s)",
+                    "font": "Inter:Regular",
+                    "size": 14,
+                    "color": "var(--zen-color-text-default)"
+                  },
+                  {
+                    "type": "INSTANCE",
+                    "library": "ds",
+                    "dsSlug": "link",
+                    "variant": "State=Default",
+                    "props": { "Label": "Go to schema" }
+                  }
+                ]
+              },
+              {
                 "type": "INSTANCE",
-                "ref": "fmTabs",
+                "library": "ds",
+                "dsSlug": "tabs",
                 "slot": "tabs",
-                "variant": "Type=Default",
                 "props": {
-                  "Tabs": "Description, Fields {{fields_count}}, Properties {{properties_count}}, Contacts {{contacts_count}}, Suggestions {{suggestions_count}}",
+                  "Items": "Description, Fields 7, Properties 19, Contacts 9, Suggestions 1",
                   "Active": "Description"
                 }
               },
@@ -242,18 +538,33 @@
                 "type": "FRAME",
                 "name": "Tab panel: Description",
                 "slot": "tabs",
-                "layout": {
-                  "mode": "VERTICAL",
-                  "spacing": 8,
-                  "padding": [16, 16, 16, 16]
-                },
+                "layout": { "mode": "VERTICAL", "spacing": 8 },
                 "children": [
                   {
                     "type": "TEXT",
-                    "content": "{{item_description}}",
-                    "font": "Inter:Regular",
-                    "size": 14,
+                    "content": "Customers",
+                    "font": "Inter:Semi Bold",
+                    "size": 18,
                     "color": "var(--zen-color-text-default)"
+                  },
+                  {
+                    "type": "INSTANCE",
+                    "library": "ds",
+                    "dsSlug": "table",
+                    "props": {
+                      "Columns": "Field, Type, Key, Description",
+                      "Rows": [
+                        [
+                          "CustomerID",
+                          "integer",
+                          "PK",
+                          "Unique identifier for each customer"
+                        ],
+                        ["name", "string", "NK", "Full name of the customer"],
+                        ["phone", "string", "", "Contact phone number"],
+                        ["address", "string", "NK", "Street address"]
+                      ]
+                    }
                   }
                 ]
               }

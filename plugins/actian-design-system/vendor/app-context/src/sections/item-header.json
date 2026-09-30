@@ -3,7 +3,7 @@
   "kind": "section",
   "slug": "item-header",
   "label": "Item header",
-  "description": "The top of every item page: identity row (type tag, sharing tag, item name; status tag and an Actions button on the right) over three metadata lines: technical name, a catalog / category / connection path with links, and a last-updated date.",
+  "description": "The top of every item page: a breadcrumb back to the search, then the identity row (item type tag, Shared tag, item name; the lifecycle stage tag and an Actions button on the right) over three metadata lines: technical name, a catalog / data product / connection path with links, and a last-updated date.",
   "role": "header",
   "apps": [
     "studio"
@@ -18,17 +18,18 @@
   ],
   "derivedFrom": {
     "surface": "Studio > Catalog > Dataset > General",
-    "capturedOn": "2026-08-18",
-    "productVersion": "next.dev.zeenea.app"
+    "capturedOn": "2026-09-30",
+    "productVersion": "manufacturing.zeenea.app/studio"
   },
   "slots": {
-    "identity": "Type tag (light), sharing tag (filled), item name at 22px; on the right a status tag (outline) and the Actions button. There is no primary button here: the product's page-level actions live in the Actions menu.",
-    "meta": "Three 13px lines under the identity row: 'Technical name: …', 'Catalog: … / Category: … / Connection: …' (category and connection are links), 'Last updated: …'."
+    "identity": "Breadcrumb (Search > the item), then the item type tag, the Shared tag and the item name at 22px; on the right the lifecycle stage tag (it opens a menu to move the stage) and the Actions button. There is no primary button here: the product's page-level actions live in the Actions menu.",
+    "meta": "Three 13px lines under the identity row: 'Technical name: …', 'Catalog: … / Data Product: … / Connection: …' (data product and connection are links), 'Last updated: …'."
   },
   "renderNotes": [
     "The whole part is one VERTICAL frame with spacing 6; nothing inside sets sizing.horizontal.",
-    "`fmTag` reads `Tag Text`; the three tags differ by `Style=` variant only (Light, Filled, Outline).",
-    "`fmButton` `Type=Outline, Size=sm, Shape=Pill` is the product's Actions control; do not add a primary button beside it."
+    "Parameters, filled by the page that splices it (a SECTION node's `values`): item_name, item_type (an item-type-tag Type, e.g. Dataset), stage and stage_type (the tenant's stage word and its read-only-tag Stage-1..8 hue), technical_name, catalog, data_product, connection, last_updated.",
+    "The Shared tag is read-only-tag Type=Shared, the design system's light Shared; the product paints it solid dark. The stage tag's trailing chevron (it opens the stage menu) has no read-only-tag equivalent.",
+    "The Actions button is button Emphasis=Outlined, Size=Small with its trailing icon; do not add a primary button beside it."
   ],
   "skeleton": {
     "content": [
@@ -40,6 +41,14 @@
           "spacing": 6
         },
         "children": [
+          {
+            "type": "INSTANCE",
+            "library": "ds",
+            "dsSlug": "breadcrumb",
+            "props": {
+              "Items": "Search, {{item_name}}"
+            }
+          },
           {
             "type": "FRAME",
             "name": "Identity row",
@@ -61,20 +70,21 @@
                 "children": [
                   {
                     "type": "INSTANCE",
-                    "ref": "fmTag",
-                    "ds": "read-only-tag",
-                    "variant": "Style=Light",
+                    "library": "ds",
+                    "dsSlug": "item-type-tag",
+                    "variant": "Type={{item_type}}",
                     "props": {
-                      "Tag Text": "Dataset"
+                      "Label": "{{item_type}}"
                     }
                   },
                   {
                     "type": "INSTANCE",
-                    "ref": "fmTag",
-                    "ds": "read-only-tag",
-                    "variant": "Style=Filled",
+                    "library": "ds",
+                    "dsSlug": "read-only-tag",
+                    "variant": "Type=Shared",
                     "props": {
-                      "Tag Text": "Shared"
+                      "Label": "Shared",
+                      "Leading icon show": false
                     }
                   },
                   {
@@ -97,20 +107,21 @@
                 "children": [
                   {
                     "type": "INSTANCE",
-                    "ref": "fmTag",
-                    "ds": "read-only-tag",
-                    "variant": "Style=Outline",
+                    "library": "ds",
+                    "dsSlug": "read-only-tag",
+                    "variant": "Type={{stage_type}}",
                     "props": {
-                      "Tag Text": "{{status}}"
+                      "Label": "{{stage}}"
                     }
                   },
                   {
                     "type": "INSTANCE",
-                    "ref": "fmButton",
-                    "ds": "button",
-                    "variant": "Type=Outline, Size=sm, Shape=Pill, State=Default",
+                    "library": "ds",
+                    "dsSlug": "button",
+                    "variant": "Emphasis=Outlined, Size=Small, State=Default",
                     "props": {
-                      "Label": "Actions"
+                      "Label": "Actions",
+                      "Trailing icon show": true
                     }
                   }
                 ]
@@ -149,7 +160,7 @@
               },
               {
                 "type": "TEXT",
-                "content": "Category: {{category}}",
+                "content": "Data Product: {{data_product}}",
                 "font": "Inter:Regular",
                 "size": 13,
                 "color": "var(--zen-color-text-primary)"

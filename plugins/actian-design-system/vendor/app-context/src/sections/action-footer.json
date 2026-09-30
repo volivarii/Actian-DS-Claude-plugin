@@ -22,7 +22,7 @@
     "actions": "A single primary button, label 'Confirm', at the right edge; `State=Disabled` until required fields are filled. A second, secondary action to its left is not in the product and should not be added without a capture that shows one."
   },
   "renderNotes": [
-    "`fmButton` reads the `Type=`, `Size=` and `State=` axes of `variant` (State=Disabled draws the disabled style) and the `Label` prop.",
+    "`button` Emphasis=Filled is the primary button; State=Disabled draws it disabled until the form is valid.",
     "The bar is a HORIZONTAL frame with `primaryAxisAlignItems: MAX`; the page recipe or archetype that places it owns the sticky positioning, which the node tree cannot express.",
     "The import wizard's footer is a different part: `import-wizard.md` describes a persistent Back and Next bar, which no capture here holds yet."
   ],
@@ -46,9 +46,9 @@
         "children": [
           {
             "type": "INSTANCE",
-            "ref": "fmButton",
-            "ds": "button",
-            "variant": "Type=Primary, Size=md, Shape=Pill, State=Disabled",
+            "library": "ds",
+            "dsSlug": "button",
+            "variant": "Emphasis=Filled, Size=Default, State=Disabled",
             "props": {
               "Label": "Confirm"
             }

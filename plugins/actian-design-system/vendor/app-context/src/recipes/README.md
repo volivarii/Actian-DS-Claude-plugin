@@ -110,9 +110,18 @@ under `captures/` (e.g. `captures/faceted-browse.png`). What goes there is a scr
 running product surface, never a Figma frame: the frame is the design, `derivedFrom.screenshot` is
 what a reader compares a render TO, and the two answer different questions. The plugin's look step is
 what reads it, opening the render beside this file so a person (or a future automated check) can tell
-a faithful composition from a guess. `faceted-browse.png`, the one committed today, is a dev-tenant
-capture carrying the pre-Actian wordmark and a personal avatar; swap it for a clean one at PR time if
-that matters for the audience, since neither affects what the recipe itself asserts.
+a faithful composition from a guess. Every recipe with `reference: "product"` names one, and
+`tests/recipes-ds-native.test.js` fails when the file is missing. The captures in `captures/` were taken
+on 2026-09-30 from `manufacturing.zeenea.app` at a 1440px viewport (saved 1370x897): they carry the
+product's pre-Actian wordmark and the capturing user's initials in the header, neither of which a
+recipe asserts. A capture showing other people's names or emails has them replaced before it is taken
+(`admin-users.png`). A recipe whose page is not in the product yet says `reference: "design"` and
+names no screenshot.
+
+A SECTION splice may carry `values`, the page's own words for the section's `{{placeholders}}`: a
+section is a part several pages share, so its labels are parameters, and the page that splices it
+knows what the product says. The derive fills them, and rejects a value for a placeholder the section
+does not carry.
 
 ## Status: wired
 
@@ -168,13 +177,15 @@ The fragments this file said belong with the renderer (`overlay`, `action-bar`, 
 `composition-*` archetypes) are still not captures, and that position stands for them. A section is
 the other thing: a capture of a part. See `../sections/README.md` for the rules.
 
-A `{ "type": "SECTION", "section": "<slug>" }` reference node may also carry `slot`, the one per-use
-exception to "a section's content is edited only in the section file": `inlineSections` stamps it
+A `{ "type": "SECTION", "section": "<slug>" }` reference node may also carry `slot` and `values`, the
+two per-use exceptions to "a section's content is edited only in the section file". `values` fills
+the section's own `{{placeholders}}` and nothing else (see `derivedFrom.screenshot` above). `inlineSections` stamps `slot`
 onto root 0 of the spliced-in subtree (the first top-level node of the section's own
 `skeleton.content`), overriding whatever `slot` that root authored on itself. It reaches root 0
 only; any other root of a multi-root section keeps whatever `slot` it authored, stamped or not. Any
-OTHER key on a SECTION reference node besides `type`, `section` and `slot` is still rejected, so
-`slot` does not reopen per-use content overrides in general, just this one narrow, addressable case.
+OTHER key on a SECTION reference node besides `type`, `section`, `slot` and `values` is still
+rejected, so neither reopens per-use content overrides in general: a section's structure and its fixed
+words are still edited only in the section file.
 
 ## Known gap in the pattern set
 

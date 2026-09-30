@@ -35,7 +35,7 @@
     "checkbox renders no label element when Label is the empty string (Task 1.2).",
     "button's variant here (`Type=Secondary, State=Default` for Save filters; `Type=Tertiary, State=Default` for the four bulk verbs) is the renderer's legacy Type axis (ds-html-map.js button case, typeMap fallback), not the Intent/Emphasis/Size/State axis pair the authoring doc's vocabulary table documents as current; both are read by the same case, so this is a deliberate, working choice, not a stale example. Type=Tertiary paints `background: transparent` with no visible border (ds-base.css), which is the closest built equivalent to the capture's plain-text bulk verbs.",
     "Review round 2 (Important, plan defect): the bulk bar previously drew a `toolbar` instance, which the product does not have here (it draws Filter/Sort/View/More icons instead, and dropped the four verbs the product actually shows). Removed. No DS-tier bulk-action-bar leaf exists at all (checked ds-components-authoring.md's vocabulary table), so the four verbs are carried as `button Type=Tertiary` leaves, capture content rather than placeholders (the product always shows these same four words on this row), until a dedicated component ships -- a follow-up, not done here.",
-    "This section's own {{...}} placeholders: {{result_count}} (also used independently by the page recipe's rail) and {{sort_label}}."
+    "Parameters, filled by the page that splices it (a SECTION node's `values`): result_count and sort_label. The live Catalog (2026-09-30) reads \"Save Filters\" (with a chevron: it opens a menu) and puts \"Sort by <order>\" after the four verbs, at the row's right end."
   ],
   "skeleton": {
     "content": [
@@ -63,7 +63,7 @@
             "dsSlug": "button",
             "variant": "Type=Secondary, State=Default",
             "props": {
-              "Label": "Save filters"
+              "Label": "Save Filters"
             }
           }
         ]
@@ -92,13 +92,6 @@
             "props": {
               "Label": ""
             }
-          },
-          {
-            "type": "TEXT",
-            "content": "Sort  {{sort_label}}",
-            "font": "Inter:Regular",
-            "size": 13,
-            "color": "var(--zen-color-text-default)"
           },
           {
             "type": "INSTANCE",
@@ -135,6 +128,13 @@
             "props": {
               "Label": "Export selection"
             }
+          },
+          {
+            "type": "TEXT",
+            "content": "Sort by {{sort_label}}",
+            "font": "Inter:Regular",
+            "size": 13,
+            "color": "var(--zen-color-text-default)"
           }
         ]
       }

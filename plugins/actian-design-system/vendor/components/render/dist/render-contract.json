@@ -152,6 +152,9 @@
       "group": "Action",
       "props": [
         {
+          "name": "Icon"
+        },
+        {
           "name": "Label",
           "default": "Button"
         },
@@ -1896,6 +1899,9 @@
           "name": "Connection"
         },
         {
+          "name": "Data product"
+        },
+        {
           "name": "Description",
           "default": "A product is anything that can be offered to a market that might satisfy a want or need by potential customers."
         },
@@ -1924,6 +1930,9 @@
         },
         {
           "name": "Stage"
+        },
+        {
+          "name": "Stage type"
         },
         {
           "name": "Suggestion"
