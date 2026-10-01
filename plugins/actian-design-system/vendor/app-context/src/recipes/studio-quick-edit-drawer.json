@@ -79,6 +79,7 @@
           },
           {
             "type": "INSTANCE",
+            "name": "Tabs",
             "library": "ds",
             "dsSlug": "tabs",
             "slot": "tabs",
@@ -107,6 +108,7 @@
                 "children": [
                   {
                     "type": "TEXT",
+                    "name": "Glossary items title",
                     "content": "Glossary Items (2)",
                     "font": "Inter:Semi Bold",
                     "size": 15,
@@ -114,6 +116,7 @@
                   },
                   {
                     "type": "INSTANCE",
+                    "name": "Glossary items select",
                     "library": "ds",
                     "dsSlug": "dropdown-select-default",
                     "variant": "Type=Search/Multiple, State=Filled",
@@ -134,6 +137,7 @@
                 "children": [
                   {
                     "type": "TEXT",
+                    "name": "Description title",
                     "content": "Description",
                     "font": "Inter:Semi Bold",
                     "size": 15,
@@ -141,6 +145,7 @@
                   },
                   {
                     "type": "TEXT",
+                    "name": "Description text",
                     "content": "COUNT BY ORDER STATUS is a summary dataset sourced from the connPowerBI connection. It aggregates orders by their current status, providing a high-level operational view of order pipeline distribution.",
                     "font": "Inter:Regular",
                     "size": 14,
@@ -158,6 +163,7 @@
                 "children": [
                   {
                     "type": "TEXT",
+                    "name": "Source Description title",
                     "content": "Source Description",
                     "font": "Inter:Semi Bold",
                     "size": 15,
@@ -165,6 +171,7 @@
                   },
                   {
                     "type": "TEXT",
+                    "name": "Source Description text",
                     "content": "No source description",
                     "font": "Inter:Regular",
                     "size": 14,

@@ -2339,15 +2339,20 @@
           var esIllus = renderGraphic(
             props.Illustration || "illustration-empty-state",
           );
+          // An authored empty string is a value (#717): a screen whose empty
+          // state has no body or no actions says so with "", and the part is
+          // not drawn. An absent prop still draws the Figma specimen's copy.
           var esTitle = esc(
-            props.Headline || props.Title || "No policies available",
+            authored(props.Headline, props.Title, "No policies available"),
           );
           var esBody = esc(
-            props.Body ||
+            authored(
+              props.Body,
               "Create policies to define how your platform operates.",
+            ),
           );
-          var esPrimary = esc(props.Cta || props.Primary || "Create policy");
-          var esTertiary = esc(props.Secondary || "Learn more");
+          var esPrimary = esc(authored(props.Cta, props.Primary, "Create policy"));
+          var esTertiary = esc(authored(props.Secondary, "Learn more"));
           return (
             '<div class="ds-empty-state">' +
             (esIllus
@@ -2355,20 +2360,27 @@
                 esIllus +
                 "</div>"
               : "") +
-            '<p class="ds-empty-state__headline">' +
-            esTitle +
-            "</p>" +
-            '<p class="ds-empty-state__body">' +
-            esBody +
-            "</p>" +
-            '<div class="ds-empty-state__actions">' +
-            '<button class="ds-button ds-button--tertiary ds-empty-state__cta">' +
-            esTertiary +
-            "</button>" +
-            '<button class="ds-button ds-button--primary ds-empty-state__cta">' +
-            esPrimary +
-            "</button>" +
-            "</div></div>"
+            (esTitle
+              ? '<p class="ds-empty-state__headline">' + esTitle + "</p>"
+              : "") +
+            (esBody
+              ? '<p class="ds-empty-state__body">' + esBody + "</p>"
+              : "") +
+            (esTertiary || esPrimary
+              ? '<div class="ds-empty-state__actions">' +
+                (esTertiary
+                  ? '<button class="ds-button ds-button--tertiary ds-empty-state__cta">' +
+                    esTertiary +
+                    "</button>"
+                  : "") +
+                (esPrimary
+                  ? '<button class="ds-button ds-button--primary ds-empty-state__cta">' +
+                    esPrimary +
+                    "</button>"
+                  : "") +
+                "</div>"
+              : "") +
+            "</div>"
           );
         }
 
@@ -2672,13 +2684,19 @@
                 esc(props.Helper) +
                 "</span>"
               : "";
+          // An authored empty Label is a value (#717): a screen that labels
+          // the date beside it, as the other form controls are labelled, says
+          // Label "" and no label row is drawn. Absent, the specimen's "Date".
+          var dateLabel = esc(authored(props.Label, "Date"));
           return (
             '<div class="' +
             dateCls +
             '">' +
-            '<div class="ds-calendar__label-row"><span class="ds-calendar__label">' +
-            esc(props.Label || "Date") +
-            "</span></div>" +
+            (dateLabel
+              ? '<div class="ds-calendar__label-row"><span class="ds-calendar__label">' +
+                dateLabel +
+                "</span></div>"
+              : "") +
             '<div class="ds-calendar__inputs">' +
             dateInputs +
             "</div>" +

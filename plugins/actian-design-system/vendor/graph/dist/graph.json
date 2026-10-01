@@ -5417,19 +5417,19 @@
       "id": "pattern:access-request-workflow",
       "type": "ux_pattern",
       "title": "Access request workflow",
-      "description": "Request Access button, form with Use Case dropdown, 6 statuses, policy-driven approval."
+      "description": "Explorer's item page carries a Request Access action. It opens 'Create an access request' (`recipes/captures/access-request-workflow.png`): the item's type tag and name, Reason (required, free text), Audience (required, a select), the approvers as avatars, and Close and Create, Create disabled while the form is empty. The approvers are shown, not chosen. Requests are handled on Studio's Access requests page (access-request-management)."
     },
     {
       "id": "pattern:activity-timeline",
       "type": "ux_pattern",
       "title": "Activity timeline",
-      "description": "Chronological timeline with date headers, user avatars, action descriptions."
+      "description": "Chronological timeline on an item's Activity tab (`recipes/captures/activity-timeline.png`): month headings, a date marker per day on a vertical line, and one sentence per event led by an icon, such as '<user> changed the stage from 'Approved' to 'In Review''. The product draws no avatar on an event."
     },
     {
       "id": "pattern:ai-analyst-panel",
       "type": "ux_pattern",
       "title": "AI Analyst Panel",
-      "description": "Conversational analytics assistant (AI Analyst, formerly Wobby) for business users to query and understand data in natural language."
+      "description": "Conversational analytics assistant (AI Analyst, formerly Wobby) for business users to query and understand data in natural language. Not in the product as captured on 2026-10-01: no AI Analyst entry in Explorer or the app switcher (Zeenea Studio, Administration, Data Contract Builder) on the manufacturing tenant."
     },
     {
       "id": "pattern:analytics-dashboard",
@@ -5441,61 +5441,43 @@
       "id": "pattern:ask-ai",
       "type": "ux_pattern",
       "title": "Ask AI",
-      "description": "Natural language query search through the knowledge graph with AI-generated summaries."
+      "description": "Natural language query search through the knowledge graph with AI-generated summaries. Not in the product as captured on 2026-10-01: Explorer's home, search, item page and app switcher carry no Ask AI entry on the manufacturing tenant."
     },
     {
       "id": "pattern:asset-detail-360",
       "type": "ux_pattern",
       "title": "360-degree asset detail view",
-      "description": "The page every item opens into. A full-width identity header carries the type and sharing tags, the object name, a status control and an Actions menu, over three metadata lines: technical name, a catalog/category/connection path whose parts are links, and a last-updated date. Below it a tab bar spans the object's facets (General, Fields, Sample Data, Data Quality, Lineage, View 360, Data Model, Activity, Discussions), some carrying a count, any of which is disabled when the source supplies nothing for it. Opposite the tabs sit two avatar stacks, curators and contacts, which summarise the People panel further down.\n\nThe body is two columns that scroll independently of each other and of the header. The left column holds the authored narrative: an access-request policy select, a glossary multi-select of removable chips, a description block with a rich-text switch and a use-source checkbox, and a relations section that is empty more often than not. The right column holds a completion meter over a second tab set (Properties, People, Suggestions), and that panel is the densest form in the product: label-and-control pairs mixing selects, multi-selects, plain values, date inputs with a format caption, and unset properties that read \"No data has been registered.\", closing with a read-only source-properties definition list. People is two role sections with an add action and a grid of avatar, name and remove. Suggestions is a four-way segmented control over cards that each carry an author, a relative time, a status, a comment box and an accept/reject pair.\n\nThe defining trait is two independent tab levels over one object, with columns that scroll separately while the header and tab bar stay put. That is what separates it from every list shape here.\n\nDistinct from `faceted-browse`, which composes a collection rather than one object, and from `search-filtered-table`, which is real on this page but is the content of a single tab (Fields) rather than the page itself. Choose this pattern whenever one object has more peer facets than a screen can hold."
+      "description": "The page every item opens into. A full-width identity header carries the type and sharing tags, the object name, a status control and an Actions menu, over three metadata lines: technical name, a catalog/category/connection path whose parts are links, and a last-updated date. Below it a tab bar spans the object's facets (General, Fields, Sample Data, Data Quality, Lineage, View 360, Data Model, Activity), some carrying a count, any of which is disabled when the source supplies nothing for it. Opposite the tabs sit two avatar stacks, curators and contacts, which summarise the People panel further down.\n\nThe body is two columns that scroll independently of each other and of the header. The left column holds the authored narrative: an access-request policy select, a glossary multi-select of removable chips, a description block with a rich-text switch and a use-source checkbox, and a relations section that is empty more often than not. The right column holds a completion meter over a second tab set (Properties, People, Suggestions), and that panel is the densest form in the product: label-and-control pairs mixing selects, multi-selects, plain values, date inputs with a format caption, and unset properties that read \"No data has been registered.\", closing with a read-only source-properties definition list. People is two role sections with an add action and a grid of avatar, name and remove. Suggestions is a four-way segmented control over cards that each carry an author, a relative time, a status, a comment box and an accept/reject pair.\n\nThe defining trait is two independent tab levels over one object, with columns that scroll separately while the header and tab bar stay put. That is what separates it from every list shape here.\n\nDistinct from `faceted-browse`, which composes a collection rather than one object, and from `search-filtered-table`, which is real on this page but is the content of a single tab (Fields) rather than the page itself. Choose this pattern whenever one object has more peer facets than a screen can hold."
     },
     {
       "id": "pattern:bulk-edit",
       "type": "ux_pattern",
       "title": "Bulk Edit",
-      "description": "Multi-item batch update of properties, contacts, and glossary links across the catalog."
+      "description": "Multi-item batch update from Studio's Catalog (`recipes/captures/bulk-edit-menu.png`). Selecting results turns the bulk bar's count into 'N selected' and its Edit menu offers Assign curators, Add Contacts, Manage Properties, Manage Glossary Items and Edit lifecycle stage. Manage Properties is a modal (`recipes/captures/bulk-edit.png`): a banner naming how many Items are selected, a warning that only the Items the user can curate are modified, a drop target for the properties to change on the left, the available properties grouped on the right, and Confirm, disabled until a property is dropped."
     },
     {
       "id": "pattern:data-profiling-sampling",
       "type": "ux_pattern",
       "title": "Data profiling and sampling",
-      "description": "Statistical graphs on fields (profiling) and sample data preview rows (sampling).\n\nThe profiling graphs are bar-shaped on the page, and `bar-graph` was retired from the Figma library on\n2026-08-31 with no replacement, so the design system cannot express that half today. `line-graph` stays\nbecause it is a real component; the gap is recorded rather than hidden by dropping the pattern."
+      "description": "Statistical graphs on fields (profiling) and sample data preview rows (sampling). On an item page the Sample Data tab is disabled when the source supplies no sample.\n\nThe profiling graphs are bar-shaped on the page, and `bar-graph` was retired from the Figma library on\n2026-08-31 with no replacement, so the design system cannot express that half today. `line-graph` stays\nbecause it is a real component; the gap is recorded rather than hidden by dropping the pattern."
     },
     {
       "id": "pattern:data-steward-agent-panel",
       "type": "ux_pattern",
       "title": "Data Steward Agent Panel",
-      "description": "AI metadata-curation agent panel with approval-gated writes, tenant memory, and plan mode, assisting stewards in Studio."
+      "description": "Studio's Data Steward Agent (`recipes/captures/data-steward-agent-panel.png`). A sparkle button in the header, left of What's new, opens a panel floating at the bottom right: the title Data Steward with expand and close, a conversation menu (New chat, and the conversations for the current catalog), a welcome on a new chat, and a composer reading 'Give Steward a task' with the catalog it is looking at and a Plan toggle. Its footer reads 'Data Steward Agent is AI and can make mistakes. Please double-check responses.' Administration > Agents enables the agent (Studio Steward) per group."
     },
     {
       "id": "pattern:discussion-threads",
       "type": "ux_pattern",
       "title": "Discussion threads",
-      "description": "Available on Dataset detail pages. Users create threads, reply, edit own messages."
-    },
-    {
-      "id": "pattern:documentation-completion-dashboard",
-      "type": "ux_pattern",
-      "title": "Completion Level Dashboard",
-      "description": "Stewardship dashboard of per-item completion levels and the criteria contributing to each score.\n\nThe card this screen shows was recorded as `card-for-items`, which Figma retired in the 2026-08-24 sync (#526). The reference is removed rather than repointed: `card-for-perimeter`, `card-for-grouped-content`, `search-result-card` and `radio-card` all survive, and choosing between them is a fact about the running product that nobody has checked for this screen. The two earlier corrections to this same slug (`analytics-dashboard`, `type-picker-grid`) were both made by looking at the product and both found a different component, so guessing here would be the third such error rather than the first.\n\nIt is not repointed at the new `card` either. That component is a blank container with a content slot, carries `status: in-progress`, and is a styling basis rather than something a screen composes as-is. `components` means what this pattern COMPOSES, so naming it there would assert something false. The basis relationship is already recorded where it belongs, between components: the family shares `group: \"Card\"` in the registry, and `registryAliases` routes `card-for-perimeter` and `card-for-grouped-content` to the `card` guideline doc."
+      "description": "Threads on an item: users create a thread, reply and edit their own messages. Not in the product as captured on 2026-10-01: neither Studio's item page nor Explorer's carries a Discussions tab on the manufacturing tenant."
     },
     {
       "id": "pattern:faceted-browse",
       "type": "ux_pattern",
       "title": "Faceted browse",
       "description": "Three pane browse over a large item set: app sidebar, a filter rail, and a result list. The rail holds several independent facet groups (a range facet, a counted checkbox list of item types, a boolean toggle, and type-to-search selects), each collapsible. Results are composed cards rather than table rows: each carries type and sharing tags, a title, source metadata, a summary, domain values, a pending-suggestion chip, and a right-hand meta column with a completion meter and a last-updated date. A bulk action bar sits above the list with select-all, batch actions and a sort control.\n\nThe defining trait is scale. A live total is shown against the current filter state, and each facet value carries its own count, so narrowing is visible before it is committed. Studio Catalog is the canonical instance.\n\nDistinct from `search-filtered-table`, which is the single-search-input case with no facet rail, and from `table-with-tabs`, where pre-filtering is by one categorical axis rather than several independent ones. Choose this pattern whenever more than one facet narrows the same collection."
-    },
-    {
-      "id": "pattern:federated-catalog",
-      "type": "ux_pattern",
-      "title": "Federated Catalog",
-      "description": "Multi-catalog federation with scoped permissions and cross-catalog search."
-    },
-    {
-      "id": "pattern:federated-knowledge-graph",
-      "type": "ux_pattern",
-      "title": "Federated knowledge graph",
-      "description": "Underlying architecture connecting all metadata with domain-specific ontologies."
     },
     {
       "id": "pattern:filter-groups-form",
@@ -5507,7 +5489,7 @@
       "id": "pattern:import-wizard",
       "type": "ux_pattern",
       "title": "Multi-step import wizard",
-      "description": "7-step horizontal stepper: Data source → Connection → Items → Curator → Contact → Category → Confirm. Each step is a numbered circle with a label and a one-line helper beneath it, and a persistent action bar at the foot of the page carries Back and Next, with Next disabled until the step is satisfied. Step one is a grid of radio cards, one per data source, each with the source's logo."
+      "description": "7-step horizontal stepper: Data source → Connection → Items → Curator → Contact → Data Product → Confirm, under the page title Import Items (`recipes/captures/import-wizard.png`). Each step is a numbered circle with a label and a one-line helper beneath it (Select a data source, Select a connection, Select the Items, Assign curators, Add a contact to your items, Associate a Data Product), and a persistent action bar at the foot of the page carries Back and Next, with Next disabled until the step is satisfied. Step one is a grid of radio cards, one per data source, each with the source's logo."
     },
     {
       "id": "pattern:interactive-graph",
@@ -5525,19 +5507,13 @@
       "id": "pattern:marketplace-browsing",
       "type": "ux_pattern",
       "title": "Marketplace browsing",
-      "description": "Explorer homepage: search-first with curated sections (carousels, filter chips, topic cards).\n\nThe card this screen shows was recorded as `card-for-items`, which Figma retired in the 2026-08-24 sync (#526). The reference is removed rather than repointed: `card-for-perimeter`, `card-for-grouped-content`, `search-result-card` and `radio-card` all survive, and choosing between them is a fact about the running product that nobody has checked for this screen. The two earlier corrections to this same slug (`analytics-dashboard`, `type-picker-grid`) were both made by looking at the product and both found a different component, so guessing here would be the third such error rather than the first.\n\nIt is not repointed at the new `card` either. That component is a blank container with a content slot, carries `status: in-progress`, and is a styling basis rather than something a screen composes as-is. `components` means what this pattern COMPOSES, so naming it there would assert something false. The basis relationship is already recorded where it belongs, between components: the family shares `group: \"Card\"` in the registry, and `registryAliases` routes `card-for-perimeter` and `card-for-grouped-content` to the `card` guideline doc."
-    },
-    {
-      "id": "pattern:mcp-server",
-      "type": "ux_pattern",
-      "title": "Actian MCP Server",
-      "description": "7 tools for AI integrations (Find Glossary, Semantic Search, Get Data Model, etc.)."
+      "description": "Explorer's home page, 'Discover Your Data Assets' (`recipes/captures/marketplace-browsing.png`): a large search, then carousels of cards: Topics (with an All / Favorites switch and 'Browse all topics'), Catalog item types and Glossary item types, each type card carrying its type tag, item count and description. Explorer has no side navigation; its header carries Access requests, What's new, the app switcher and the avatar.\n\nThe card this screen shows was recorded as `card-for-items`, which Figma retired in the 2026-08-24 sync (#526). The reference is removed rather than repointed: `card-for-perimeter`, `card-for-grouped-content`, `search-result-card` and `radio-card` all survive, and choosing between them is a fact about the running product that nobody has checked for this screen. The two earlier corrections to this same slug (`analytics-dashboard`, `type-picker-grid`) were both made by looking at the product and both found a different component, so guessing here would be the third such error rather than the first.\n\nIt is not repointed at the new `card` either. That component is a blank container with a content slot, carries `status: in-progress`, and is a styling basis rather than something a screen composes as-is. `components` means what this pattern COMPOSES, so naming it there would assert something false. The basis relationship is already recorded where it belongs, between components: the family shares `group: \"Card\"` in the registry, and `registryAliases` routes `card-for-perimeter` and `card-for-grouped-content` to the `card` guideline doc."
     },
     {
       "id": "pattern:metamodel-designer",
       "type": "ux_pattern",
       "title": "Metamodel Designer",
-      "description": "Drag-and-drop configuration of templates and properties per item type in Studio Catalog Design."
+      "description": "Studio's Catalog design page (`recipes/captures/metamodel-designer.png`): tabs Physical & Logical Metamodel, Glossary, Properties and Responsibilities. The first holds a searchable list of item types (type badge, name, Items count, and per-row actions: a template action on most types, an edit action on some, custom types among them) with Create custom type, beside the metamodel diagram, which has Expand the view, Export as image and zoom controls. Each type's template is edited in the template-builder modal."
     },
     {
       "id": "pattern:notification-system",
@@ -5555,7 +5531,7 @@
       "id": "pattern:search-filtered-table",
       "type": "ux_pattern",
       "title": "Search-filtered list table",
-      "description": "List table with an inline Search input directly above it (no separate filter sidebar). Common for member directories, group lists, scanner inventories, connection lists. Pairs Page header → Search → Table. Search filters table contents in place; no other facets."
+      "description": "List table with an inline Search input directly above it and no separate filter sidebar. Common for member directories, group lists, scanner inventories, connection lists. Search filters table contents in place; a Filter button beside it may open a menu of further filters, but there is no rail of facets."
     },
     {
       "id": "pattern:smart-suggestions",
@@ -5567,7 +5543,7 @@
       "id": "pattern:suggestion-workflow",
       "type": "ux_pattern",
       "title": "Suggestion workflow",
-      "description": "Explorer users submit suggestions, curators review (accept/decline with comment)."
+      "description": "Explorer's item page carries 'Submit a suggestion', which opens a New Suggestion modal (`recipes/captures/suggestion-workflow.png`): 'Suggest any modification or enhancement regarding this item. It will be submitted for review by curators.', one text area of 20 to 1000 characters, and Cancel and Submit, Submit disabled while it is empty. Explorer's item page counts them on a Suggestions tab, and a Studio Catalog result carries an 'N suggestions are pending.' chip."
     },
     {
       "id": "pattern:table-with-tabs",
@@ -5579,13 +5555,13 @@
       "id": "pattern:template-builder",
       "type": "ux_pattern",
       "title": "Drag-and-drop template builder",
-      "description": "Studio feature for creating documentation templates via Catalog Design page."
+      "description": "A modal on Studio's Catalog design page, opened from an item type's template action in the Physical & Logical Metamodel list (`recipes/captures/template-builder.png`). Titled '<Item type> Template', it carries an information banner, a New section action, the template's sections on the left (each a capitals heading with a remove action, its properties in order, and a 'Drop a property here' target), the property list on the right to drag from, and a single Confirm."
     },
     {
       "id": "pattern:topic-browse",
       "type": "ux_pattern",
       "title": "Topic Browse",
-      "description": "Curated topic collections browsed via carousel + selector + favorites for business-user discovery.\n\nThe card this screen shows was recorded as `card-for-items`, which Figma retired in the 2026-08-24 sync (#526). The reference is removed rather than repointed: `card-for-perimeter`, `card-for-grouped-content`, `search-result-card` and `radio-card` all survive, and choosing between them is a fact about the running product that nobody has checked for this screen. The two earlier corrections to this same slug (`analytics-dashboard`, `type-picker-grid`) were both made by looking at the product and both found a different component, so guessing here would be the third such error rather than the first.\n\nIt is not repointed at the new `card` either. That component is a blank container with a content slot, carries `status: in-progress`, and is a styling basis rather than something a screen composes as-is. `components` means what this pattern COMPOSES, so naming it there would assert something false. The basis relationship is already recorded where it belongs, between components: the family shares `group: \"Card\"` in the registry, and `registryAliases` routes `card-for-perimeter` and `card-for-grouped-content` to the `card` guideline doc."
+      "description": "Explorer's topics, curated collections of items. The home page's Topics carousel shows each as a card (a two-letter badge, the name, a description and a favourite star) under an All / Favorites switch, with 'Browse all topics'. That opens Explore all Topics (`recipes/captures/topic-browse.png`), a search over a sortable table: Name, Description, Creation date, Favorite, Saved by. A topic opens a faceted search scoped to it (`recipes/captures/explorer-faceted-browse.png`).\n\nThe card this screen shows was recorded as `card-for-items`, which Figma retired in the 2026-08-24 sync (#526). The reference is removed rather than repointed: `card-for-perimeter`, `card-for-grouped-content`, `search-result-card` and `radio-card` all survive, and choosing between them is a fact about the running product that nobody has checked for this screen. The two earlier corrections to this same slug (`analytics-dashboard`, `type-picker-grid`) were both made by looking at the product and both found a different component, so guessing here would be the third such error rather than the first.\n\nIt is not repointed at the new `card` either. That component is a blank container with a content slot, carries `status: in-progress`, and is a styling basis rather than something a screen composes as-is. `components` means what this pattern COMPOSES, so naming it there would assert something false. The basis relationship is already recorded where it belongs, between components: the family shares `group: \"Card\"` in the registry, and `registryAliases` routes `card-for-perimeter` and `card-for-grouped-content` to the `card` guideline doc."
     },
     {
       "id": "pattern:type-picker-grid",
@@ -10223,17 +10199,6 @@
       }
     },
     {
-      "source": "pattern:documentation-completion-dashboard",
-      "target": "app:studio",
-      "type": "in_app",
-      "confidence": "asserted",
-      "provenance": {
-        "source_file": "app-context/dist/app-context.json",
-        "deriver": "derive-graph.js",
-        "method": "patterns.apps"
-      }
-    },
-    {
       "source": "pattern:faceted-browse",
       "target": "app:explorer",
       "type": "in_app",
@@ -10246,39 +10211,6 @@
     },
     {
       "source": "pattern:faceted-browse",
-      "target": "app:studio",
-      "type": "in_app",
-      "confidence": "asserted",
-      "provenance": {
-        "source_file": "app-context/dist/app-context.json",
-        "deriver": "derive-graph.js",
-        "method": "patterns.apps"
-      }
-    },
-    {
-      "source": "pattern:federated-catalog",
-      "target": "app:administration",
-      "type": "in_app",
-      "confidence": "asserted",
-      "provenance": {
-        "source_file": "app-context/dist/app-context.json",
-        "deriver": "derive-graph.js",
-        "method": "patterns.apps"
-      }
-    },
-    {
-      "source": "pattern:federated-knowledge-graph",
-      "target": "app:explorer",
-      "type": "in_app",
-      "confidence": "asserted",
-      "provenance": {
-        "source_file": "app-context/dist/app-context.json",
-        "deriver": "derive-graph.js",
-        "method": "patterns.apps"
-      }
-    },
-    {
-      "source": "pattern:federated-knowledge-graph",
       "target": "app:studio",
       "type": "in_app",
       "confidence": "asserted",
@@ -10357,28 +10289,6 @@
     {
       "source": "pattern:marketplace-browsing",
       "target": "app:explorer",
-      "type": "in_app",
-      "confidence": "asserted",
-      "provenance": {
-        "source_file": "app-context/dist/app-context.json",
-        "deriver": "derive-graph.js",
-        "method": "patterns.apps"
-      }
-    },
-    {
-      "source": "pattern:mcp-server",
-      "target": "app:explorer",
-      "type": "in_app",
-      "confidence": "asserted",
-      "provenance": {
-        "source_file": "app-context/dist/app-context.json",
-        "deriver": "derive-graph.js",
-        "method": "patterns.apps"
-      }
-    },
-    {
-      "source": "pattern:mcp-server",
-      "target": "app:studio",
       "type": "in_app",
       "confidence": "asserted",
       "provenance": {
@@ -13597,28 +13507,6 @@
       }
     },
     {
-      "source": "term:federated-catalog",
-      "target": "pattern:federated-catalog",
-      "type": "term_about",
-      "confidence": "inferred",
-      "provenance": {
-        "source_file": "app-context/dist/app-context.json",
-        "deriver": "derive-graph.js",
-        "method": "term-slug-match"
-      }
-    },
-    {
-      "source": "term:federated-knowledge-graph",
-      "target": "pattern:federated-knowledge-graph",
-      "type": "term_about",
-      "confidence": "inferred",
-      "provenance": {
-        "source_file": "app-context/dist/app-context.json",
-        "deriver": "derive-graph.js",
-        "method": "term-slug-match"
-      }
-    },
-    {
       "source": "term:input-port",
       "target": "entity:input-port",
       "type": "term_about",
@@ -13786,17 +13674,6 @@
     {
       "source": "pattern:access-request-workflow",
       "target": "component:text-input",
-      "type": "uses_component",
-      "confidence": "asserted",
-      "provenance": {
-        "source_file": "app-context/dist/app-context.json",
-        "deriver": "derive-graph.js",
-        "method": "patterns.components"
-      }
-    },
-    {
-      "source": "pattern:activity-timeline",
-      "target": "component:avatar",
       "type": "uses_component",
       "confidence": "asserted",
       "provenance": {
@@ -14213,28 +14090,6 @@
       }
     },
     {
-      "source": "pattern:documentation-completion-dashboard",
-      "target": "component:progress-bar-small",
-      "type": "uses_component",
-      "confidence": "asserted",
-      "provenance": {
-        "source_file": "app-context/dist/app-context.json",
-        "deriver": "derive-graph.js",
-        "method": "patterns.components"
-      }
-    },
-    {
-      "source": "pattern:documentation-completion-dashboard",
-      "target": "component:table",
-      "type": "uses_component",
-      "confidence": "asserted",
-      "provenance": {
-        "source_file": "app-context/dist/app-context.json",
-        "deriver": "derive-graph.js",
-        "method": "patterns.components"
-      }
-    },
-    {
       "source": "pattern:faceted-browse",
       "target": "component:button",
       "type": "uses_component",
@@ -14314,28 +14169,6 @@
     {
       "source": "pattern:faceted-browse",
       "target": "component:toggle",
-      "type": "uses_component",
-      "confidence": "asserted",
-      "provenance": {
-        "source_file": "app-context/dist/app-context.json",
-        "deriver": "derive-graph.js",
-        "method": "patterns.components"
-      }
-    },
-    {
-      "source": "pattern:federated-catalog",
-      "target": "component:search",
-      "type": "uses_component",
-      "confidence": "asserted",
-      "provenance": {
-        "source_file": "app-context/dist/app-context.json",
-        "deriver": "derive-graph.js",
-        "method": "patterns.components"
-      }
-    },
-    {
-      "source": "pattern:federated-catalog",
-      "target": "component:table",
       "type": "uses_component",
       "confidence": "asserted",
       "provenance": {

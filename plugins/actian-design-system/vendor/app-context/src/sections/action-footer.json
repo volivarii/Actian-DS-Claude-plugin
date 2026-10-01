@@ -46,6 +46,7 @@
         "children": [
           {
             "type": "INSTANCE",
+            "name": "Confirm button",
             "library": "ds",
             "dsSlug": "button",
             "variant": "Emphasis=Filled, Size=Default, State=Disabled",

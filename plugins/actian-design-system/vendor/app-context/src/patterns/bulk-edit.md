@@ -17,4 +17,4 @@ components:
   - button
   - modal
 ---
-Multi-item batch update of properties, contacts, and glossary links across the catalog.
+Multi-item batch update from Studio's Catalog (`recipes/captures/bulk-edit-menu.png`). Selecting results turns the bulk bar's count into 'N selected' and its Edit menu offers Assign curators, Add Contacts, Manage Properties, Manage Glossary Items and Edit lifecycle stage. Manage Properties is a modal (`recipes/captures/bulk-edit.png`): a banner naming how many Items are selected, a warning that only the Items the user can curate are modified, a drop target for the properties to change on the left, the available properties grouped on the right, and Confirm, disabled until a property is dropped.

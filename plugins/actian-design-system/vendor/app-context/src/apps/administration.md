@@ -5,23 +5,38 @@ slug: administration
 label: Administration
 header:
   type: Admin
+  actions: [app-switcher, avatar]
 sidebar:
   - label: Users and contacts
     id: users-and-contacts
+    icon: user-group
   - label: Catalogs
     id: catalogs
   - label: Groups
     id: groups
   - label: Connections
     id: connections
+    icon: database
   - label: Scanners
     id: scanners
+    icon: scanner
   - label: API keys
     id: api-keys
+    icon: api-key
+  - label: Agents
+    id: agents
+    icon: stars
   - label: Policies
     id: policies
+    icon: security-services
+    children:
+      - label: Access requests
+        id: policies-access-requests
+      - label: Lifecycles
+        id: policies-lifecycles
   - label: Maintenance mode
     id: maintenance-mode
+    icon: maintenance
 useCases:
   - audience: [Administrator]
     jobs:

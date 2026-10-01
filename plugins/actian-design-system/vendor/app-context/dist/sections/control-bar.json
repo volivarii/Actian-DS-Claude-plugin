@@ -33,8 +33,8 @@
   "renderNotes": [
     "Two sibling frames, spliced in this order; the DIVIDER that follows them belongs to the page recipe.",
     "checkbox renders no label element when Label is the empty string (Task 1.2).",
-    "button's variant here (`Type=Secondary, State=Default` for Save filters; `Type=Tertiary, State=Default` for the four bulk verbs) is the renderer's legacy Type axis (ds-html-map.js button case, typeMap fallback), not the Intent/Emphasis/Size/State axis pair the authoring doc's vocabulary table documents as current; both are read by the same case, so this is a deliberate, working choice, not a stale example. Type=Tertiary paints `background: transparent` with no visible border (ds-base.css), which is the closest built equivalent to the capture's plain-text bulk verbs.",
-    "Review round 2 (Important, plan defect): the bulk bar previously drew a `toolbar` instance, which the product does not have here (it draws Filter/Sort/View/More icons instead, and dropped the four verbs the product actually shows). Removed. No DS-tier bulk-action-bar leaf exists at all (checked ds-components-authoring.md's vocabulary table), so the four verbs are carried as `button Type=Tertiary` leaves, capture content rather than placeholders (the product always shows these same four words on this row), until a dedicated component ships -- a follow-up, not done here.",
+    "button's variant here (`Emphasis=Outlined, Size=Default, State=Default` for Save filters; `Emphasis=Ghost, Size=Default, State=Default` for the four bulk verbs) uses the axes the registry publishes for button (Intent, Emphasis, Size, State); `tests/recipes-ds-native.test.js` fails on an axis or value the registry does not publish (#719). It used to be the retired `Type=Secondary` / `Type=Tertiary`, which the HTML leaf shims but a Figma push, matching variants by name, would not. Ghost draws the same leaf class Type=Tertiary did (`background: transparent`, no visible border), the closest built equivalent to the capture's plain-text bulk verbs; in the capture they read grey because nothing is selected.",
+    "Review round 2 (Important, plan defect): the bulk bar previously drew a `toolbar` instance, which the product does not have here (it draws Filter/Sort/View/More icons instead, and dropped the four verbs the product actually shows). Removed. No DS-tier bulk-action-bar leaf exists at all (checked ds-components-authoring.md's vocabulary table), so the four verbs are carried as `button Emphasis=Ghost` leaves, capture content rather than placeholders (the product always shows these same four words on this row), until a dedicated component ships -- a follow-up, not done here.",
     "Parameters, filled by the page that splices it (a SECTION node's `values`): result_count and sort_label. The live Catalog (2026-09-30) reads \"Save Filters\" (with a chevron: it opens a menu) and puts \"Sort by <order>\" after the four verbs, at the row's right end."
   ],
   "skeleton": {
@@ -52,6 +52,7 @@
         "children": [
           {
             "type": "TEXT",
+            "name": "Result count",
             "content": "{{result_count}} results",
             "font": "Inter:Semi Bold",
             "size": 24,
@@ -59,9 +60,10 @@
           },
           {
             "type": "INSTANCE",
+            "name": "Save Filters button",
             "library": "ds",
             "dsSlug": "button",
-            "variant": "Type=Secondary, State=Default",
+            "variant": "Emphasis=Outlined, Size=Default, State=Default",
             "props": {
               "Label": "Save Filters"
             }
@@ -86,6 +88,7 @@
         "children": [
           {
             "type": "INSTANCE",
+            "name": "Select all checkbox",
             "library": "ds",
             "dsSlug": "checkbox",
             "variant": "Selection=Unchecked, State=Default",
@@ -95,42 +98,47 @@
           },
           {
             "type": "INSTANCE",
+            "name": "Edit button",
             "library": "ds",
             "dsSlug": "button",
-            "variant": "Type=Tertiary, State=Default",
+            "variant": "Emphasis=Ghost, Size=Default, State=Default",
             "props": {
               "Label": "Edit"
             }
           },
           {
             "type": "INSTANCE",
+            "name": "Move to catalog button",
             "library": "ds",
             "dsSlug": "button",
-            "variant": "Type=Tertiary, State=Default",
+            "variant": "Emphasis=Ghost, Size=Default, State=Default",
             "props": {
               "Label": "Move to catalog"
             }
           },
           {
             "type": "INSTANCE",
+            "name": "Delete button",
             "library": "ds",
             "dsSlug": "button",
-            "variant": "Type=Tertiary, State=Default",
+            "variant": "Emphasis=Ghost, Size=Default, State=Default",
             "props": {
               "Label": "Delete"
             }
           },
           {
             "type": "INSTANCE",
+            "name": "Export selection button",
             "library": "ds",
             "dsSlug": "button",
-            "variant": "Type=Tertiary, State=Default",
+            "variant": "Emphasis=Ghost, Size=Default, State=Default",
             "props": {
               "Label": "Export selection"
             }
           },
           {
             "type": "TEXT",
+            "name": "Sort by",
             "content": "Sort by {{sort_label}}",
             "font": "Inter:Regular",
             "size": 13,

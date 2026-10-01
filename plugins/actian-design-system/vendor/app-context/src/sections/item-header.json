@@ -43,6 +43,7 @@
         "children": [
           {
             "type": "INSTANCE",
+            "name": "Breadcrumb",
             "library": "ds",
             "dsSlug": "breadcrumb",
             "props": {
@@ -70,6 +71,7 @@
                 "children": [
                   {
                     "type": "INSTANCE",
+                    "name": "Item type tag",
                     "library": "ds",
                     "dsSlug": "item-type-tag",
                     "variant": "Type={{item_type}}",
@@ -79,6 +81,7 @@
                   },
                   {
                     "type": "INSTANCE",
+                    "name": "Shared tag",
                     "library": "ds",
                     "dsSlug": "read-only-tag",
                     "variant": "Type=Shared",
@@ -89,6 +92,7 @@
                   },
                   {
                     "type": "TEXT",
+                    "name": "Item name",
                     "content": "{{item_name}}",
                     "font": "Inter:Semi Bold",
                     "size": 22,
@@ -107,6 +111,7 @@
                 "children": [
                   {
                     "type": "INSTANCE",
+                    "name": "Stage tag",
                     "library": "ds",
                     "dsSlug": "read-only-tag",
                     "variant": "Type={{stage_type}}",
@@ -116,6 +121,7 @@
                   },
                   {
                     "type": "INSTANCE",
+                    "name": "Actions button",
                     "library": "ds",
                     "dsSlug": "button",
                     "variant": "Emphasis=Outlined, Size=Small, State=Default",
@@ -130,6 +136,7 @@
           },
           {
             "type": "TEXT",
+            "name": "Technical name",
             "content": "Technical name: {{technical_name}}",
             "font": "Inter:Regular",
             "size": 13,
@@ -146,6 +153,7 @@
             "children": [
               {
                 "type": "TEXT",
+                "name": "Catalog",
                 "content": "Catalog: {{catalog}}",
                 "font": "Inter:Regular",
                 "size": 13,
@@ -153,6 +161,7 @@
               },
               {
                 "type": "TEXT",
+                "name": "Source path separator 1",
                 "content": "/",
                 "font": "Inter:Regular",
                 "size": 13,
@@ -160,6 +169,7 @@
               },
               {
                 "type": "TEXT",
+                "name": "Data Product",
                 "content": "Data Product: {{data_product}}",
                 "font": "Inter:Regular",
                 "size": 13,
@@ -167,6 +177,7 @@
               },
               {
                 "type": "TEXT",
+                "name": "Source path separator 2",
                 "content": "/",
                 "font": "Inter:Regular",
                 "size": 13,
@@ -174,6 +185,7 @@
               },
               {
                 "type": "TEXT",
+                "name": "Connection",
                 "content": "Connection: {{connection}}",
                 "font": "Inter:Regular",
                 "size": 13,
@@ -183,6 +195,7 @@
           },
           {
             "type": "TEXT",
+            "name": "Last updated",
             "content": "Last updated: {{last_updated}}",
             "font": "Inter:Regular",
             "size": 12,

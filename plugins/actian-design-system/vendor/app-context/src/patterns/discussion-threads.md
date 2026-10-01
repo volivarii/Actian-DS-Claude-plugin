@@ -18,4 +18,4 @@ components:
   - text-input
   - button
 ---
-Available on Dataset detail pages. Users create threads, reply, edit own messages.
+Threads on an item: users create a thread, reply and edit their own messages. Not in the product as captured on 2026-10-01: neither Studio's item page nor Explorer's carries a Discussions tab on the manufacturing tenant.

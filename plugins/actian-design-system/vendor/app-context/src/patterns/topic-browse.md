@@ -14,7 +14,7 @@ tags:
 components:
   - search
 ---
-Curated topic collections browsed via carousel + selector + favorites for business-user discovery.
+Explorer's topics, curated collections of items. The home page's Topics carousel shows each as a card (a two-letter badge, the name, a description and a favourite star) under an All / Favorites switch, with 'Browse all topics'. That opens Explore all Topics (`recipes/captures/topic-browse.png`), a search over a sortable table: Name, Description, Creation date, Favorite, Saved by. A topic opens a faceted search scoped to it (`recipes/captures/explorer-faceted-browse.png`).
 
 The card this screen shows was recorded as `card-for-items`, which Figma retired in the 2026-08-24 sync (#526). The reference is removed rather than repointed: `card-for-perimeter`, `card-for-grouped-content`, `search-result-card` and `radio-card` all survive, and choosing between them is a fact about the running product that nobody has checked for this screen. The two earlier corrections to this same slug (`analytics-dashboard`, `type-picker-grid`) were both made by looking at the product and both found a different component, so guessing here would be the third such error rather than the first.
 

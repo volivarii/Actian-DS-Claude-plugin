@@ -82,6 +82,7 @@
             "children": [
               {
                 "type": "TEXT",
+                "name": "Filters title",
                 "content": "Filters",
                 "font": "Inter:Semi Bold",
                 "size": 18,
@@ -112,6 +113,7 @@
                     "children": [
                       {
                         "type": "TEXT",
+                        "name": "Completion level title",
                         "content": "Completion level",
                         "font": "Inter:Semi Bold",
                         "size": 14,
@@ -119,6 +121,7 @@
                       },
                       {
                         "type": "TEXT",
+                        "name": "Completion level chevron",
                         "content": "v",
                         "font": "Inter:Regular",
                         "size": 12,
@@ -128,6 +131,7 @@
                   },
                   {
                     "type": "TEXT",
+                    "name": "Completion level result count",
                     "content": "118 results",
                     "font": "Inter:Regular",
                     "size": 12,
@@ -135,6 +139,7 @@
                   },
                   {
                     "type": "INSTANCE",
+                    "name": "Completion level slider",
                     "ref": "fmSlider",
                     "variant": "Progress=100%",
                     "props": {}
@@ -151,6 +156,7 @@
                     "children": [
                       {
                         "type": "TEXT",
+                        "name": "Range min",
                         "content": "0%",
                         "font": "Inter:Regular",
                         "size": 11,
@@ -158,6 +164,7 @@
                       },
                       {
                         "type": "TEXT",
+                        "name": "Range max",
                         "content": "100%",
                         "font": "Inter:Regular",
                         "size": 11,
@@ -168,7 +175,8 @@
                 ]
               },
               {
-                "type": "DIVIDER"
+                "type": "DIVIDER",
+                "name": "Divider after Completion level"
               },
               {
                 "type": "FRAME",
@@ -195,6 +203,7 @@
                     "children": [
                       {
                         "type": "TEXT",
+                        "name": "Item title",
                         "content": "Item",
                         "font": "Inter:Semi Bold",
                         "size": 14,
@@ -202,6 +211,7 @@
                       },
                       {
                         "type": "TEXT",
+                        "name": "Item chevron",
                         "content": "v",
                         "font": "Inter:Regular",
                         "size": 12,
@@ -221,7 +231,7 @@
                     "children": [
                       {
                         "type": "FRAME",
-                        "name": "Facet left",
+                        "name": "Facet left: Data Products",
                         "layout": {
                           "mode": "HORIZONTAL",
                           "spacing": 8,
@@ -234,6 +244,7 @@
                         "children": [
                           {
                             "type": "INSTANCE",
+                            "name": "Checkbox: Data Products",
                             "library": "ds",
                             "dsSlug": "checkbox",
                             "variant": "Selection=Unchecked, State=Default",
@@ -243,6 +254,7 @@
                           },
                           {
                             "type": "INSTANCE",
+                            "name": "Type tag: Data Products",
                             "library": "ds",
                             "dsSlug": "item-type-tag",
                             "variant": "Type=Data product",
@@ -253,6 +265,7 @@
                           },
                           {
                             "type": "TEXT",
+                            "name": "Label: Data Products",
                             "content": "Data Products",
                             "font": "Inter:Regular",
                             "size": 13,
@@ -262,6 +275,7 @@
                       },
                       {
                         "type": "TEXT",
+                        "name": "Count: Data Products",
                         "content": "7",
                         "font": "Inter:Regular",
                         "size": 13,
@@ -281,7 +295,7 @@
                     "children": [
                       {
                         "type": "FRAME",
-                        "name": "Facet left",
+                        "name": "Facet left: Datasets",
                         "layout": {
                           "mode": "HORIZONTAL",
                           "spacing": 8,
@@ -294,6 +308,7 @@
                         "children": [
                           {
                             "type": "INSTANCE",
+                            "name": "Checkbox: Datasets",
                             "library": "ds",
                             "dsSlug": "checkbox",
                             "variant": "Selection=Unchecked, State=Default",
@@ -303,6 +318,7 @@
                           },
                           {
                             "type": "INSTANCE",
+                            "name": "Type tag: Datasets",
                             "library": "ds",
                             "dsSlug": "item-type-tag",
                             "variant": "Type=Dataset",
@@ -313,6 +329,7 @@
                           },
                           {
                             "type": "TEXT",
+                            "name": "Label: Datasets",
                             "content": "Datasets",
                             "font": "Inter:Regular",
                             "size": 13,
@@ -322,6 +339,7 @@
                       },
                       {
                         "type": "TEXT",
+                        "name": "Count: Datasets",
                         "content": "34",
                         "font": "Inter:Regular",
                         "size": 13,
@@ -341,7 +359,7 @@
                     "children": [
                       {
                         "type": "FRAME",
-                        "name": "Facet left",
+                        "name": "Facet left: Visualizations",
                         "layout": {
                           "mode": "HORIZONTAL",
                           "spacing": 8,
@@ -354,6 +372,7 @@
                         "children": [
                           {
                             "type": "INSTANCE",
+                            "name": "Checkbox: Visualizations",
                             "library": "ds",
                             "dsSlug": "checkbox",
                             "variant": "Selection=Unchecked, State=Default",
@@ -363,6 +382,7 @@
                           },
                           {
                             "type": "INSTANCE",
+                            "name": "Type tag: Visualizations",
                             "library": "ds",
                             "dsSlug": "item-type-tag",
                             "variant": "Type=Visualization",
@@ -373,6 +393,7 @@
                           },
                           {
                             "type": "TEXT",
+                            "name": "Label: Visualizations",
                             "content": "Visualizations",
                             "font": "Inter:Regular",
                             "size": 13,
@@ -382,6 +403,7 @@
                       },
                       {
                         "type": "TEXT",
+                        "name": "Count: Visualizations",
                         "content": "1",
                         "font": "Inter:Regular",
                         "size": 13,
@@ -401,7 +423,7 @@
                     "children": [
                       {
                         "type": "FRAME",
-                        "name": "Facet left",
+                        "name": "Facet left: Data Processes",
                         "layout": {
                           "mode": "HORIZONTAL",
                           "spacing": 8,
@@ -414,6 +436,7 @@
                         "children": [
                           {
                             "type": "INSTANCE",
+                            "name": "Checkbox: Data Processes",
                             "library": "ds",
                             "dsSlug": "checkbox",
                             "variant": "Selection=Unchecked, State=Default",
@@ -423,6 +446,7 @@
                           },
                           {
                             "type": "INSTANCE",
+                            "name": "Type tag: Data Processes",
                             "library": "ds",
                             "dsSlug": "item-type-tag",
                             "variant": "Type=Data process",
@@ -433,6 +457,7 @@
                           },
                           {
                             "type": "TEXT",
+                            "name": "Label: Data Processes",
                             "content": "Data Processes",
                             "font": "Inter:Regular",
                             "size": 13,
@@ -442,6 +467,7 @@
                       },
                       {
                         "type": "TEXT",
+                        "name": "Count: Data Processes",
                         "content": "37",
                         "font": "Inter:Regular",
                         "size": 13,
@@ -461,7 +487,7 @@
                     "children": [
                       {
                         "type": "FRAME",
-                        "name": "Facet left",
+                        "name": "Facet left: Use Cases",
                         "layout": {
                           "mode": "HORIZONTAL",
                           "spacing": 8,
@@ -474,6 +500,7 @@
                         "children": [
                           {
                             "type": "INSTANCE",
+                            "name": "Checkbox: Use Cases",
                             "library": "ds",
                             "dsSlug": "checkbox",
                             "variant": "Selection=Unchecked, State=Default",
@@ -483,6 +510,7 @@
                           },
                           {
                             "type": "INSTANCE",
+                            "name": "Type tag: Use Cases",
                             "library": "ds",
                             "dsSlug": "item-type-tag",
                             "variant": "Type=Use case",
@@ -493,6 +521,7 @@
                           },
                           {
                             "type": "TEXT",
+                            "name": "Label: Use Cases",
                             "content": "Use Cases",
                             "font": "Inter:Regular",
                             "size": 13,
@@ -502,6 +531,7 @@
                       },
                       {
                         "type": "TEXT",
+                        "name": "Count: Use Cases",
                         "content": "1",
                         "font": "Inter:Regular",
                         "size": 13,
@@ -511,7 +541,7 @@
                   },
                   {
                     "type": "FRAME",
-                    "name": "Facet: Data Products",
+                    "name": "Facet: Data Products (custom type)",
                     "layout": {
                       "mode": "HORIZONTAL",
                       "spacing": 8,
@@ -521,7 +551,7 @@
                     "children": [
                       {
                         "type": "FRAME",
-                        "name": "Facet left",
+                        "name": "Facet left: Data Products (custom type)",
                         "layout": {
                           "mode": "HORIZONTAL",
                           "spacing": 8,
@@ -534,6 +564,7 @@
                         "children": [
                           {
                             "type": "INSTANCE",
+                            "name": "Checkbox: Data Products (custom type)",
                             "library": "ds",
                             "dsSlug": "checkbox",
                             "variant": "Selection=Unchecked, State=Default",
@@ -543,9 +574,10 @@
                           },
                           {
                             "type": "INSTANCE",
+                            "name": "Type tag: Data Products (custom type)",
                             "library": "ds",
                             "dsSlug": "item-type-tag",
-                            "variant": "Type=Custom",
+                            "variant": "Type=Custom-2",
                             "props": {
                               "Label": "DP",
                               "Show counter": false
@@ -553,6 +585,7 @@
                           },
                           {
                             "type": "TEXT",
+                            "name": "Label: Data Products (custom type)",
                             "content": "Data Products",
                             "font": "Inter:Regular",
                             "size": 13,
@@ -562,6 +595,7 @@
                       },
                       {
                         "type": "TEXT",
+                        "name": "Count: Data Products (custom type)",
                         "content": "2",
                         "font": "Inter:Regular",
                         "size": 13,
@@ -581,7 +615,7 @@
                     "children": [
                       {
                         "type": "FRAME",
-                        "name": "Facet left",
+                        "name": "Facet left: Application",
                         "layout": {
                           "mode": "HORIZONTAL",
                           "spacing": 8,
@@ -594,6 +628,7 @@
                         "children": [
                           {
                             "type": "INSTANCE",
+                            "name": "Checkbox: Application",
                             "library": "ds",
                             "dsSlug": "checkbox",
                             "variant": "Selection=Unchecked, State=Default",
@@ -603,9 +638,10 @@
                           },
                           {
                             "type": "INSTANCE",
+                            "name": "Type tag: Application",
                             "library": "ds",
                             "dsSlug": "item-type-tag",
-                            "variant": "Type=Custom",
+                            "variant": "Type=Custom-10",
                             "props": {
                               "Label": "Ap",
                               "Show counter": false
@@ -613,6 +649,7 @@
                           },
                           {
                             "type": "TEXT",
+                            "name": "Label: Application",
                             "content": "Application",
                             "font": "Inter:Regular",
                             "size": 13,
@@ -622,6 +659,7 @@
                       },
                       {
                         "type": "TEXT",
+                        "name": "Count: Application",
                         "content": "3",
                         "font": "Inter:Regular",
                         "size": 13,
@@ -641,7 +679,7 @@
                     "children": [
                       {
                         "type": "FRAME",
-                        "name": "Facet left",
+                        "name": "Facet left: Audit",
                         "layout": {
                           "mode": "HORIZONTAL",
                           "spacing": 8,
@@ -654,6 +692,7 @@
                         "children": [
                           {
                             "type": "INSTANCE",
+                            "name": "Checkbox: Audit",
                             "library": "ds",
                             "dsSlug": "checkbox",
                             "variant": "Selection=Unchecked, State=Default",
@@ -663,9 +702,10 @@
                           },
                           {
                             "type": "INSTANCE",
+                            "name": "Type tag: Audit",
                             "library": "ds",
                             "dsSlug": "item-type-tag",
-                            "variant": "Type=Custom",
+                            "variant": "Type=Custom-15",
                             "props": {
                               "Label": "A",
                               "Show counter": false
@@ -673,6 +713,7 @@
                           },
                           {
                             "type": "TEXT",
+                            "name": "Label: Audit",
                             "content": "Audit",
                             "font": "Inter:Regular",
                             "size": 13,
@@ -682,6 +723,7 @@
                       },
                       {
                         "type": "TEXT",
+                        "name": "Count: Audit",
                         "content": "2",
                         "font": "Inter:Regular",
                         "size": 13,
@@ -691,6 +733,7 @@
                   },
                   {
                     "type": "TEXT",
+                    "name": "Item view more",
                     "content": "View more (7)",
                     "font": "Inter:Regular",
                     "size": 12,
@@ -699,7 +742,8 @@
                 ]
               },
               {
-                "type": "DIVIDER"
+                "type": "DIVIDER",
+                "name": "Divider after Item"
               },
               {
                 "type": "FRAME",
@@ -726,6 +770,7 @@
                     "children": [
                       {
                         "type": "TEXT",
+                        "name": "User Suggestions title",
                         "content": "User Suggestions",
                         "font": "Inter:Semi Bold",
                         "size": 14,
@@ -733,6 +778,7 @@
                       },
                       {
                         "type": "TEXT",
+                        "name": "User Suggestions chevron",
                         "content": "v",
                         "font": "Inter:Regular",
                         "size": 12,
@@ -752,6 +798,7 @@
                     "children": [
                       {
                         "type": "TEXT",
+                        "name": "Pending suggestions label",
                         "content": "Show Items with pending suggestions",
                         "font": "Inter:Regular",
                         "size": 13,
@@ -759,6 +806,7 @@
                       },
                       {
                         "type": "INSTANCE",
+                        "name": "Pending suggestions toggle",
                         "library": "ds",
                         "dsSlug": "toggle",
                         "variant": "Toggle position=On right (default), Selection=Off, State=Default",
@@ -771,7 +819,8 @@
                 ]
               },
               {
-                "type": "DIVIDER"
+                "type": "DIVIDER",
+                "name": "Divider after User Suggestions"
               },
               {
                 "type": "FRAME",
@@ -798,6 +847,7 @@
                     "children": [
                       {
                         "type": "TEXT",
+                        "name": "Item Lifecycle Event title",
                         "content": "Item Lifecycle Event",
                         "font": "Inter:Semi Bold",
                         "size": 14,
@@ -805,6 +855,7 @@
                       },
                       {
                         "type": "TEXT",
+                        "name": "Item Lifecycle Event chevron",
                         "content": "v",
                         "font": "Inter:Regular",
                         "size": 12,
@@ -814,6 +865,7 @@
                   },
                   {
                     "type": "INSTANCE",
+                    "name": "Item Lifecycle Event select",
                     "library": "ds",
                     "dsSlug": "dropdown-select-default",
                     "variant": "Type=Default, State=Default",
@@ -849,6 +901,7 @@
                     "children": [
                       {
                         "type": "TEXT",
+                        "name": "Curator title",
                         "content": "Curator",
                         "font": "Inter:Semi Bold",
                         "size": 14,
@@ -856,6 +909,7 @@
                       },
                       {
                         "type": "TEXT",
+                        "name": "Curator chevron",
                         "content": "v",
                         "font": "Inter:Regular",
                         "size": 12,
@@ -865,6 +919,7 @@
                   },
                   {
                     "type": "INSTANCE",
+                    "name": "Curator select",
                     "library": "ds",
                     "dsSlug": "dropdown-select-default",
                     "variant": "Type=Default, State=Default",
@@ -900,6 +955,7 @@
                     "children": [
                       {
                         "type": "TEXT",
+                        "name": "Contact title",
                         "content": "Contact",
                         "font": "Inter:Semi Bold",
                         "size": 14,
@@ -907,6 +963,7 @@
                       },
                       {
                         "type": "TEXT",
+                        "name": "Contact chevron",
                         "content": "v",
                         "font": "Inter:Regular",
                         "size": 12,
@@ -916,6 +973,7 @@
                   },
                   {
                     "type": "INSTANCE",
+                    "name": "Contact select",
                     "library": "ds",
                     "dsSlug": "dropdown-select-default",
                     "variant": "Type=Default, State=Default",
@@ -954,6 +1012,7 @@
                 "children": [
                   {
                     "type": "TEXT",
+                    "name": "Result count",
                     "content": "118 results",
                     "font": "Inter:Semi Bold",
                     "size": 24,
@@ -961,9 +1020,10 @@
                   },
                   {
                     "type": "INSTANCE",
+                    "name": "Save Filters button",
                     "library": "ds",
                     "dsSlug": "button",
-                    "variant": "Type=Secondary, State=Default",
+                    "variant": "Emphasis=Outlined, Size=Default, State=Default",
                     "props": {
                       "Label": "Save Filters"
                     }
@@ -988,6 +1048,7 @@
                 "children": [
                   {
                     "type": "INSTANCE",
+                    "name": "Select all checkbox",
                     "library": "ds",
                     "dsSlug": "checkbox",
                     "variant": "Selection=Unchecked, State=Default",
@@ -997,42 +1058,47 @@
                   },
                   {
                     "type": "INSTANCE",
+                    "name": "Edit button",
                     "library": "ds",
                     "dsSlug": "button",
-                    "variant": "Type=Tertiary, State=Default",
+                    "variant": "Emphasis=Ghost, Size=Default, State=Default",
                     "props": {
                       "Label": "Edit"
                     }
                   },
                   {
                     "type": "INSTANCE",
+                    "name": "Move to catalog button",
                     "library": "ds",
                     "dsSlug": "button",
-                    "variant": "Type=Tertiary, State=Default",
+                    "variant": "Emphasis=Ghost, Size=Default, State=Default",
                     "props": {
                       "Label": "Move to catalog"
                     }
                   },
                   {
                     "type": "INSTANCE",
+                    "name": "Delete button",
                     "library": "ds",
                     "dsSlug": "button",
-                    "variant": "Type=Tertiary, State=Default",
+                    "variant": "Emphasis=Ghost, Size=Default, State=Default",
                     "props": {
                       "Label": "Delete"
                     }
                   },
                   {
                     "type": "INSTANCE",
+                    "name": "Export selection button",
                     "library": "ds",
                     "dsSlug": "button",
-                    "variant": "Type=Tertiary, State=Default",
+                    "variant": "Emphasis=Ghost, Size=Default, State=Default",
                     "props": {
                       "Label": "Export selection"
                     }
                   },
                   {
                     "type": "TEXT",
+                    "name": "Sort by",
                     "content": "Sort by Popularity",
                     "font": "Inter:Regular",
                     "size": 13,
@@ -1041,7 +1107,8 @@
                 ]
               },
               {
-                "type": "DIVIDER"
+                "type": "DIVIDER",
+                "name": "Divider below control bar"
               },
               {
                 "type": "FRAME",
@@ -1053,6 +1120,7 @@
                 "children": [
                   {
                     "type": "INSTANCE",
+                    "name": "Result 1 card",
                     "library": "ds",
                     "dsSlug": "search-result-card",
                     "variant": "App=Studio, State=Default",
@@ -1086,6 +1154,7 @@
                 "children": [
                   {
                     "type": "INSTANCE",
+                    "name": "Result 2 card",
                     "library": "ds",
                     "dsSlug": "search-result-card",
                     "variant": "App=Studio, State=Default",
@@ -1119,6 +1188,7 @@
                 "children": [
                   {
                     "type": "INSTANCE",
+                    "name": "Result 3 card",
                     "library": "ds",
                     "dsSlug": "search-result-card",
                     "variant": "App=Studio, State=Default",
@@ -1147,6 +1217,7 @@
                 "children": [
                   {
                     "type": "INSTANCE",
+                    "name": "Result 4 card",
                     "library": "ds",
                     "dsSlug": "search-result-card",
                     "variant": "App=Studio, State=Default",
@@ -1181,6 +1252,7 @@
                 "children": [
                   {
                     "type": "INSTANCE",
+                    "name": "Result 5 card",
                     "library": "ds",
                     "dsSlug": "search-result-card",
                     "variant": "App=Studio, State=Default",
@@ -1215,6 +1287,7 @@
                 "children": [
                   {
                     "type": "INSTANCE",
+                    "name": "Result 6 card",
                     "library": "ds",
                     "dsSlug": "search-result-card",
                     "variant": "App=Studio, State=Default",

@@ -28,7 +28,7 @@
     "Inside a VERTICAL frame, never set `sizing.horizontal:\"FILL\"`. `render-node.js` emits `flex:1` for it with no axis awareness, so in a column it distributes HEIGHT; width already fills because the renderer only sets `align-items` when `counterAxisAlignItems` is given, so the flex default of `stretch` applies. FILL is correct only for children of a HORIZONTAL frame, which is why the two body columns carry it and nothing below them does. Plugin #298.",
     "Every value is the captured Dataset's (COUNT BY ORDER STATUS, manufacturing.zeenea.app, 2026-09-30). The three sections are shared parts; this page gives them its values through each SECTION node's `values`.",
     "The full description is the product's rich text: a heading, a paragraph, a schema table (drawn with `table`) and a bullet list of key characteristics, cut here after the table.",
-    "The empty relations block is the product's folder illustration over \"No related Datasets\". It is drawn as the text alone: `empty-state` prints its specimen body and buttons when those props are empty (the #717 gap, still open for empty-state), and a relations block has no buttons.",
+    "The empty relations block is `empty-state` with Headline \"No related Datasets\" and Body, Cta and Secondary set to \"\": the product draws a folder illustration over those words, with no body and no buttons. The renderer draws the same illustration at every Size, so Size=Small, chosen for a block inside a column, does not change the render.",
     "`tabs` has no count badge, so a count is written into the label text (\"Fields 2\").",
     "`checkbox` carries its own label here (\"Use source description\"); the product has no \"Switch to rich text\" control on this page any more."
   ],
@@ -80,7 +80,8 @@
             }
           },
           {
-            "type": "DIVIDER"
+            "type": "DIVIDER",
+            "name": "Divider below tabs"
           },
           {
             "type": "FRAME",
@@ -113,6 +114,7 @@
                     "children": [
                       {
                         "type": "TEXT",
+                        "name": "Access request policy title",
                         "content": "Access request policy",
                         "font": "Inter:Semi Bold",
                         "size": 15,
@@ -120,6 +122,7 @@
                       },
                       {
                         "type": "INSTANCE",
+                        "name": "Access request policy select",
                         "library": "ds",
                         "dsSlug": "dropdown-select-default",
                         "variant": "Type=Default, State=Filled",
@@ -140,6 +143,7 @@
                     "children": [
                       {
                         "type": "TEXT",
+                        "name": "Glossary Items title",
                         "content": "Glossary Items (2)",
                         "font": "Inter:Semi Bold",
                         "size": 15,
@@ -147,6 +151,7 @@
                       },
                       {
                         "type": "INSTANCE",
+                        "name": "Glossary Items select",
                         "library": "ds",
                         "dsSlug": "dropdown-select-default",
                         "variant": "Type=Search/Multiple, State=Filled",
@@ -167,6 +172,7 @@
                     "children": [
                       {
                         "type": "TEXT",
+                        "name": "Description title",
                         "content": "Description",
                         "font": "Inter:Semi Bold",
                         "size": 15,
@@ -174,6 +180,7 @@
                       },
                       {
                         "type": "INSTANCE",
+                        "name": "Use source description checkbox",
                         "library": "ds",
                         "dsSlug": "checkbox",
                         "variant": "Selection=Unchecked, State=Default",
@@ -183,6 +190,7 @@
                       },
                       {
                         "type": "TEXT",
+                        "name": "Summary label",
                         "content": "Summary",
                         "font": "Inter:Semi Bold",
                         "size": 13,
@@ -190,6 +198,7 @@
                       },
                       {
                         "type": "TEXT",
+                        "name": "Summary text",
                         "content": "COUNT BY ORDER STATUS is a summary dataset sourced from the connPowerBI connection. It aggregates orders by their current status, providing a high-level operational view of order pipeline distribution.",
                         "font": "Inter:Regular",
                         "size": 13,
@@ -197,6 +206,7 @@
                       },
                       {
                         "type": "TEXT",
+                        "name": "Full description label",
                         "content": "Full description",
                         "font": "Inter:Semi Bold",
                         "size": 15,
@@ -204,6 +214,7 @@
                       },
                       {
                         "type": "TEXT",
+                        "name": "Full description heading",
                         "content": "COUNT BY ORDER STATUS",
                         "font": "Inter:Semi Bold",
                         "size": 18,
@@ -211,6 +222,7 @@
                       },
                       {
                         "type": "TEXT",
+                        "name": "Full description text",
                         "content": "COUNT BY ORDER STATUS is a summary dataset sourced from the connPowerBI connection. It aggregates orders by their current status, providing a high-level operational view of order pipeline distribution.",
                         "font": "Inter:Regular",
                         "size": 13,
@@ -218,6 +230,7 @@
                       },
                       {
                         "type": "INSTANCE",
+                        "name": "Full description table",
                         "library": "ds",
                         "dsSlug": "table",
                         "props": {
@@ -237,7 +250,8 @@
                         }
                       },
                       {
-                        "type": "DIVIDER"
+                        "type": "DIVIDER",
+                        "name": "Divider after Description"
                       }
                     ]
                   },
@@ -251,29 +265,24 @@
                     "children": [
                       {
                         "type": "TEXT",
+                        "name": "Data Model relations title",
                         "content": "Data Model relations (0)",
                         "font": "Inter:Semi Bold",
                         "size": 15,
                         "color": "var(--zen-color-text-default)"
                       },
                       {
-                        "type": "FRAME",
-                        "name": "Relations empty",
-                        "layout": {
-                          "mode": "VERTICAL",
-                          "spacing": 10,
-                          "counterAxisAlignItems": "CENTER",
-                          "padding": [40, 0, 40, 0]
-                        },
-                        "children": [
-                          {
-                            "type": "TEXT",
-                            "content": "No related Datasets",
-                            "font": "Inter:Semi Bold",
-                            "size": 13,
-                            "color": "var(--zen-color-text-secondary)"
-                          }
-                        ]
+                        "type": "INSTANCE",
+                        "name": "Relations empty state",
+                        "library": "ds",
+                        "dsSlug": "empty-state",
+                        "variant": "Empty=Default, Size=Small",
+                        "props": {
+                          "Headline": "No related Datasets",
+                          "Body": "",
+                          "Cta": "",
+                          "Secondary": ""
+                        }
                       }
                     ]
                   }

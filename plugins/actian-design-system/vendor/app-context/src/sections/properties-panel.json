@@ -29,7 +29,7 @@
   "renderNotes": [
     "Parameter, filled by the page that splices it: completion_percent (a number, no % sign: progress-bar-small prints the sign).",
     "The form is the captured Dataset's (manufacturing.zeenea.app, 2026-09-30): DATA Contract (4 properties), OUTPUT PORT (5), the first three of Cataloging, then Source properties. The product's form continues below the fold: the rest of Cataloging (Layer, Sensitivity, Approval Status, Market study, Stage, Personally Identifiable Information, Retention period) and GOVERNANCE (Complaints, Data Quality, Data Sampling, Topic_select).",
-    "A date property is `calendar` carrying the property name as its own Label: calendar prints \"Date\" when its Label is empty, so it cannot take a sibling TEXT label as the other controls do. Every other control takes Label \"\" beside a TEXT label.",
+    "Every control, the date ones included, takes Label \"\" beside a TEXT label: the product labels a property above its control, and an empty Label draws no label of the component's own.",
     "A multiple select's values are one comma list in `Value`; the product draws each as a removable chip, dropdown-select-default draws the list as text. Option emoji the tenant sets (the hourglass on In Progress) are the tenant's data and are left out."
   ],
   "skeleton": {
@@ -56,6 +56,7 @@
             "children": [
               {
                 "type": "TEXT",
+                "name": "Completion Level label",
                 "content": "Completion Level",
                 "font": "Inter:Semi Bold",
                 "size": 15,
@@ -63,6 +64,7 @@
               },
               {
                 "type": "INSTANCE",
+                "name": "Completion Level meter",
                 "library": "ds",
                 "dsSlug": "progress-bar-small",
                 "variant": "Size=Large",
@@ -74,6 +76,7 @@
           },
           {
             "type": "INSTANCE",
+            "name": "Property tabs",
             "library": "ds",
             "dsSlug": "tabs",
             "props": {
@@ -91,6 +94,7 @@
             "children": [
               {
                 "type": "TEXT",
+                "name": "DATA Contract group title",
                 "content": "DATA Contract",
                 "font": "Inter:Semi Bold",
                 "size": 12,
@@ -106,6 +110,7 @@
                 "children": [
                   {
                     "type": "TEXT",
+                    "name": "Data Contract apply label",
                     "content": "Data Contract apply",
                     "font": "Inter:Semi Bold",
                     "size": 13,
@@ -113,6 +118,7 @@
                   },
                   {
                     "type": "INSTANCE",
+                    "name": "Data Contract apply select",
                     "library": "ds",
                     "dsSlug": "dropdown-select-default",
                     "variant": "Type=Default, State=Filled",
@@ -133,6 +139,7 @@
                 "children": [
                   {
                     "type": "TEXT",
+                    "name": "Data Contract Title label",
                     "content": "Data Contract Title",
                     "font": "Inter:Semi Bold",
                     "size": 13,
@@ -140,6 +147,7 @@
                   },
                   {
                     "type": "INSTANCE",
+                    "name": "Data Contract Title input",
                     "library": "ds",
                     "dsSlug": "text-input",
                     "variant": "States=Filled",
@@ -160,6 +168,7 @@
                 "children": [
                   {
                     "type": "TEXT",
+                    "name": "Data Contract Version label",
                     "content": "Data Contract Version",
                     "font": "Inter:Semi Bold",
                     "size": 13,
@@ -167,6 +176,7 @@
                   },
                   {
                     "type": "INSTANCE",
+                    "name": "Data Contract Version input",
                     "library": "ds",
                     "dsSlug": "text-input",
                     "variant": "States=Filled",
@@ -178,17 +188,37 @@
                 ]
               },
               {
-                "type": "INSTANCE",
-                "library": "ds",
-                "dsSlug": "calendar",
-                "variant": "Type=Single date, States=Filled",
-                "props": {
-                  "Label": "Data Contract Creation Date",
-                  "Placeholder text": "2025/09/23"
-                }
+                "type": "FRAME",
+                "name": "Property: Data Contract Creation Date",
+                "layout": {
+                  "mode": "VERTICAL",
+                  "spacing": 6
+                },
+                "children": [
+                  {
+                    "type": "TEXT",
+                    "name": "Data Contract Creation Date label",
+                    "content": "Data Contract Creation Date",
+                    "font": "Inter:Semi Bold",
+                    "size": 13,
+                    "color": "var(--zen-color-text-default)"
+                  },
+                  {
+                    "type": "INSTANCE",
+                    "name": "Data Contract Creation Date input",
+                    "library": "ds",
+                    "dsSlug": "calendar",
+                    "variant": "Type=Single date, States=Filled",
+                    "props": {
+                      "Label": "",
+                      "Placeholder text": "2025/09/23"
+                    }
+                  }
+                ]
               },
               {
                 "type": "TEXT",
+                "name": "OUTPUT PORT group title",
                 "content": "OUTPUT PORT",
                 "font": "Inter:Semi Bold",
                 "size": 12,
@@ -204,6 +234,7 @@
                 "children": [
                   {
                     "type": "TEXT",
+                    "name": "Output Port Type label",
                     "content": "Output Port Type",
                     "font": "Inter:Semi Bold",
                     "size": 13,
@@ -211,6 +242,7 @@
                   },
                   {
                     "type": "INSTANCE",
+                    "name": "Output Port Type select",
                     "library": "ds",
                     "dsSlug": "dropdown-select-default",
                     "variant": "Type=Default, State=Filled",
@@ -231,6 +263,7 @@
                 "children": [
                   {
                     "type": "TEXT",
+                    "name": "Data Policy label",
                     "content": "Data Policy",
                     "font": "Inter:Semi Bold",
                     "size": 13,
@@ -238,6 +271,7 @@
                   },
                   {
                     "type": "INSTANCE",
+                    "name": "Data Policy select",
                     "library": "ds",
                     "dsSlug": "dropdown-select-default",
                     "variant": "Type=Default, State=Default",
@@ -258,6 +292,7 @@
                 "children": [
                   {
                     "type": "TEXT",
+                    "name": "Authentification Method label",
                     "content": "Authentification Method",
                     "font": "Inter:Semi Bold",
                     "size": 13,
@@ -265,6 +300,7 @@
                   },
                   {
                     "type": "INSTANCE",
+                    "name": "Authentification Method select",
                     "library": "ds",
                     "dsSlug": "dropdown-select-default",
                     "variant": "Type=Default, State=Filled",
@@ -285,6 +321,7 @@
                 "children": [
                   {
                     "type": "TEXT",
+                    "name": "Regulations label",
                     "content": "Regulations",
                     "font": "Inter:Semi Bold",
                     "size": 13,
@@ -292,6 +329,7 @@
                   },
                   {
                     "type": "INSTANCE",
+                    "name": "Regulations select",
                     "library": "ds",
                     "dsSlug": "dropdown-select-default",
                     "variant": "Type=Search/Multiple, State=Filled",
@@ -312,6 +350,7 @@
                 "children": [
                   {
                     "type": "TEXT",
+                    "name": "Data domain label",
                     "content": "Data domain",
                     "font": "Inter:Semi Bold",
                     "size": 13,
@@ -319,6 +358,7 @@
                   },
                   {
                     "type": "INSTANCE",
+                    "name": "Data domain select",
                     "library": "ds",
                     "dsSlug": "dropdown-select-default",
                     "variant": "Type=Search/Multiple, State=Filled",
@@ -331,6 +371,7 @@
               },
               {
                 "type": "TEXT",
+                "name": "Cataloging group title",
                 "content": "Cataloging",
                 "font": "Inter:Semi Bold",
                 "size": 12,
@@ -346,6 +387,7 @@
                 "children": [
                   {
                     "type": "TEXT",
+                    "name": "Audit label",
                     "content": "Audit",
                     "font": "Inter:Semi Bold",
                     "size": 13,
@@ -353,6 +395,7 @@
                   },
                   {
                     "type": "INSTANCE",
+                    "name": "Audit select",
                     "library": "ds",
                     "dsSlug": "dropdown-select-default",
                     "variant": "Type=Search/Multiple, State=Filled",
@@ -373,6 +416,7 @@
                 "children": [
                   {
                     "type": "TEXT",
+                    "name": "Documentation Status label",
                     "content": "Documentation Status",
                     "font": "Inter:Semi Bold",
                     "size": 13,
@@ -380,6 +424,7 @@
                   },
                   {
                     "type": "INSTANCE",
+                    "name": "Documentation Status select",
                     "library": "ds",
                     "dsSlug": "dropdown-select-default",
                     "variant": "Type=Default, State=Filled",
@@ -391,20 +436,41 @@
                 ]
               },
               {
-                "type": "INSTANCE",
-                "library": "ds",
-                "dsSlug": "calendar",
-                "variant": "Type=Single date, States=Filled",
-                "props": {
-                  "Label": "Dataset Creation Date",
-                  "Placeholder text": "YYYY/MM/DD"
-                }
+                "type": "FRAME",
+                "name": "Property: Dataset Creation Date",
+                "layout": {
+                  "mode": "VERTICAL",
+                  "spacing": 6
+                },
+                "children": [
+                  {
+                    "type": "TEXT",
+                    "name": "Dataset Creation Date label",
+                    "content": "Dataset Creation Date",
+                    "font": "Inter:Semi Bold",
+                    "size": 13,
+                    "color": "var(--zen-color-text-default)"
+                  },
+                  {
+                    "type": "INSTANCE",
+                    "name": "Dataset Creation Date input",
+                    "library": "ds",
+                    "dsSlug": "calendar",
+                    "variant": "Type=Single date, States=Filled",
+                    "props": {
+                      "Label": "",
+                      "Placeholder text": "YYYY/MM/DD"
+                    }
+                  }
+                ]
               },
               {
-                "type": "DIVIDER"
+                "type": "DIVIDER",
+                "name": "Divider before source properties"
               },
               {
                 "type": "TEXT",
+                "name": "Source properties title",
                 "content": "Source properties",
                 "font": "Inter:Semi Bold",
                 "size": 13,
@@ -428,6 +494,7 @@
                     "children": [
                       {
                         "type": "TEXT",
+                        "name": "PowerBI Dataset label",
                         "content": "PowerBI Dataset",
                         "font": "Inter:Regular",
                         "size": 13,
@@ -435,6 +502,7 @@
                       },
                       {
                         "type": "TEXT",
+                        "name": "PowerBI Dataset separator",
                         "content": ":",
                         "font": "Inter:Regular",
                         "size": 13,
@@ -442,6 +510,7 @@
                       },
                       {
                         "type": "TEXT",
+                        "name": "PowerBI Dataset value",
                         "content": "orders_big_query",
                         "font": "Inter:Regular",
                         "size": 13,
