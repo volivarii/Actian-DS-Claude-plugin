@@ -76,6 +76,7 @@
                 "children": [
                   {
                     "type": "INSTANCE",
+                    "name": "Item type tag",
                     "library": "ds",
                     "dsSlug": "item-type-tag",
                     "variant": "Type={{item_type}}",
@@ -85,6 +86,7 @@
                   },
                   {
                     "type": "INSTANCE",
+                    "name": "Shared tag",
                     "library": "ds",
                     "dsSlug": "read-only-tag",
                     "variant": "Type=Shared",
@@ -95,6 +97,7 @@
                   },
                   {
                     "type": "TEXT",
+                    "name": "Item name",
                     "content": "{{item_name}}",
                     "font": "Inter:Semi Bold",
                     "size": 18,
@@ -112,6 +115,7 @@
                 "children": [
                   {
                     "type": "INSTANCE",
+                    "name": "Open in full page button",
                     "library": "ds",
                     "dsSlug": "button",
                     "variant": "Emphasis=Icon-only, Size=Small, State=Default",
@@ -122,6 +126,7 @@
                   },
                   {
                     "type": "INSTANCE",
+                    "name": "Close button",
                     "library": "ds",
                     "dsSlug": "button",
                     "variant": "Emphasis=Icon-only, Size=Small, State=Default",
@@ -136,6 +141,7 @@
           },
           {
             "type": "TEXT",
+            "name": "Technical name",
             "content": "Technical name: {{technical_name}}",
             "font": "Inter:Regular",
             "size": 14,
@@ -143,6 +149,7 @@
           },
           {
             "type": "TEXT",
+            "name": "Source path",
             "content": "Catalog: {{catalog_name}} / Data Product: {{data_product}} / Connection: {{connection}}",
             "font": "Inter:Regular",
             "size": 14,
@@ -159,6 +166,7 @@
             "children": [
               {
                 "type": "TEXT",
+                "name": "Stage label",
                 "content": "Stage:",
                 "font": "Inter:Regular",
                 "size": 14,
@@ -166,6 +174,7 @@
               },
               {
                 "type": "INSTANCE",
+                "name": "Stage tag",
                 "library": "ds",
                 "dsSlug": "read-only-tag",
                 "variant": "Type={{stage_type}}",
@@ -193,6 +202,7 @@
                 "children": [
                   {
                     "type": "TEXT",
+                    "name": "Last updated label",
                     "content": "Last updated",
                     "font": "Inter:Regular",
                     "size": 13,
@@ -200,6 +210,7 @@
                   },
                   {
                     "type": "TEXT",
+                    "name": "Last updated value",
                     "content": "{{last_updated}}",
                     "font": "Inter:Regular",
                     "size": 14,
@@ -217,6 +228,7 @@
                 "children": [
                   {
                     "type": "TEXT",
+                    "name": "Linked label",
                     "content": "{{linked_label}}",
                     "font": "Inter:Regular",
                     "size": 13,
@@ -224,6 +236,7 @@
                   },
                   {
                     "type": "INSTANCE",
+                    "name": "Linked link",
                     "library": "ds",
                     "dsSlug": "link",
                     "variant": "State=Default",
@@ -243,6 +256,7 @@
                 "children": [
                   {
                     "type": "TEXT",
+                    "name": "Completion label",
                     "content": "Completion",
                     "font": "Inter:Regular",
                     "size": 13,
@@ -250,6 +264,7 @@
                   },
                   {
                     "type": "INSTANCE",
+                    "name": "Completion meter",
                     "library": "ds",
                     "dsSlug": "progress-bar-small",
                     "variant": "Size=Default",

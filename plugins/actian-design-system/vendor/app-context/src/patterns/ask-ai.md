@@ -14,4 +14,4 @@ tags:
 components:
   - search
 ---
-Natural language query search through the knowledge graph with AI-generated summaries.
+Natural language query search through the knowledge graph with AI-generated summaries. Not in the product as captured on 2026-10-01: Explorer's home, search, item page and app switcher carry no Ask AI entry on the manufacturing tenant.

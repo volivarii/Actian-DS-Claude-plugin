@@ -112,16 +112,28 @@ what a reader compares a render TO, and the two answer different questions. The 
 what reads it, opening the render beside this file so a person (or a future automated check) can tell
 a faithful composition from a guess. Every recipe with `reference: "product"` names one, and
 `tests/recipes-ds-native.test.js` fails when the file is missing. The captures in `captures/` were taken
-on 2026-09-30 from `manufacturing.zeenea.app` at a 1440px viewport (saved 1370x897): they carry the
-product's pre-Actian wordmark and the capturing user's initials in the header, neither of which a
-recipe asserts. A capture showing other people's names or emails has them replaced before it is taken
-(`admin-users.png`). A recipe whose page is not in the product yet says `reference: "design"` and
+on 2026-09-30 and 2026-10-01 from `manufacturing.zeenea.app` at a 1440px viewport (saved 1370x897):
+they carry the product's pre-Actian wordmark and the capturing user's initials in the header (and
+first name, in `studio-dashboard.png`'s greeting), none of which a recipe asserts. A capture showing other people's names or emails has them replaced before
+it is taken (`admin-users.png`, `activity-timeline.png`). A capture no recipe names yet is the product
+reference for its pattern, cited in the pattern's body, and the screenshot the next recipe for that
+screen is composed against. A recipe whose page is not in the product yet says `reference: "design"` and
 names no screenshot.
 
 A SECTION splice may carry `values`, the page's own words for the section's `{{placeholders}}`: a
 section is a part several pages share, so its labels are parameters, and the page that splices it
 knows what the product says. The derive fills them, and rejects a value for a placeholder the section
 does not carry.
+
+Every node carries a `name`, unique in the recipe once its sections are spliced in. The recipes carry
+the product's values, not tokens, so a screen built from one changes a node by its address ("set
+`Result 3 card`'s Title", "insert after `Divider after Item`"), and the name is that address. Name a
+node by its role, not its current content: `Count: Datasets`, `Save Filters button`, `Result 1 card`,
+so the address survives a new value. A section's names are written once in the section file; a recipe
+that spliced the same section twice would collide, and the check below says so. Every design system
+instance's `variant` uses only the axes and values `components/dist/registries/dskit.json` publishes
+for its slug: the HTML leaf may still shim a retired axis, a Figma push matches variants by name and
+would not. `tests/recipes-ds-native.test.js` checks both over the spliced tree (#719).
 
 ## Status: wired
 

@@ -72,6 +72,7 @@
                 "children": [
                   {
                     "type": "TEXT",
+                    "name": "Item name",
                     "content": "Customers",
                     "font": "Inter:Semi Bold",
                     "size": 16,
@@ -79,6 +80,7 @@
                   },
                   {
                     "type": "TEXT",
+                    "name": "Technical name",
                     "content": "[Customer]",
                     "font": "Inter:Regular",
                     "size": 14,
@@ -88,6 +90,7 @@
               },
               {
                 "type": "INSTANCE",
+                "name": "Request Access button",
                 "library": "ds",
                 "dsSlug": "button",
                 "variant": "Emphasis=Outlined, Size=Small, State=Default",
@@ -95,6 +98,7 @@
               },
               {
                 "type": "INSTANCE",
+                "name": "Add to favorites button",
                 "library": "ds",
                 "dsSlug": "button",
                 "variant": "Emphasis=Icon-only, Size=Small, State=Default",
@@ -102,6 +106,7 @@
               },
               {
                 "type": "INSTANCE",
+                "name": "Open in full page button",
                 "library": "ds",
                 "dsSlug": "button",
                 "variant": "Emphasis=Icon-only, Size=Small, State=Default",
@@ -109,6 +114,7 @@
               },
               {
                 "type": "INSTANCE",
+                "name": "Close button",
                 "library": "ds",
                 "dsSlug": "button",
                 "variant": "Emphasis=Icon-only, Size=Small, State=Default",
@@ -133,6 +139,7 @@
                 "children": [
                   {
                     "type": "INSTANCE",
+                    "name": "Item type tag",
                     "library": "ds",
                     "dsSlug": "item-type-tag",
                     "variant": "Type=Dataset",
@@ -140,6 +147,7 @@
                   },
                   {
                     "type": "INSTANCE",
+                    "name": "Catalog tag",
                     "library": "ds",
                     "dsSlug": "read-only-tag",
                     "variant": "Type=Catalog",
@@ -147,6 +155,7 @@
                   },
                   {
                     "type": "INSTANCE",
+                    "name": "Connection tag",
                     "library": "ds",
                     "dsSlug": "read-only-tag",
                     "variant": "Type=Default",
@@ -157,6 +166,7 @@
                   },
                   {
                     "type": "INSTANCE",
+                    "name": "Data Quality tag",
                     "library": "ds",
                     "dsSlug": "read-only-tag",
                     "variant": "Type=Status-error",
@@ -172,6 +182,7 @@
                 "children": [
                   {
                     "type": "TEXT",
+                    "name": "Summary title",
                     "content": "Summary",
                     "font": "Inter:Semi Bold",
                     "size": 15,
@@ -179,6 +190,7 @@
                   },
                   {
                     "type": "TEXT",
+                    "name": "Summary text",
                     "content": "A customer is a company or an individual who buys our products or services.",
                     "font": "Inter:Regular",
                     "size": 14,
@@ -194,6 +206,7 @@
                 "children": [
                   {
                     "type": "TEXT",
+                    "name": "Featured properties title",
                     "content": "Featured properties",
                     "font": "Inter:Semi Bold",
                     "size": 15,
@@ -211,6 +224,7 @@
                         "children": [
                           {
                             "type": "TEXT",
+                            "name": "Data Policy label",
                             "content": "Data Policy:",
                             "font": "Inter:Semi Bold",
                             "size": 14,
@@ -218,6 +232,7 @@
                           },
                           {
                             "type": "TEXT",
+                            "name": "Data Policy value",
                             "content": "GDPR",
                             "font": "Inter:Regular",
                             "size": 14,
@@ -232,6 +247,7 @@
                         "children": [
                           {
                             "type": "TEXT",
+                            "name": "Data domain label",
                             "content": "Data domain:",
                             "font": "Inter:Semi Bold",
                             "size": 14,
@@ -239,6 +255,7 @@
                           },
                           {
                             "type": "TEXT",
+                            "name": "Data domain value",
                             "content": "Finance",
                             "font": "Inter:Regular",
                             "size": 14,
@@ -253,6 +270,7 @@
                         "children": [
                           {
                             "type": "TEXT",
+                            "name": "Documentation Status label",
                             "content": "Documentation Status:",
                             "font": "Inter:Semi Bold",
                             "size": 14,
@@ -260,6 +278,7 @@
                           },
                           {
                             "type": "TEXT",
+                            "name": "Documentation Status value",
                             "content": "Approved",
                             "font": "Inter:Regular",
                             "size": 14,
@@ -274,6 +293,7 @@
                         "children": [
                           {
                             "type": "TEXT",
+                            "name": "Dataset Creation Date label",
                             "content": "Dataset Creation Date:",
                             "font": "Inter:Semi Bold",
                             "size": 14,
@@ -281,6 +301,7 @@
                           },
                           {
                             "type": "TEXT",
+                            "name": "Dataset Creation Date value",
                             "content": "2024/03/18",
                             "font": "Inter:Regular",
                             "size": 14,
@@ -295,6 +316,7 @@
                         "children": [
                           {
                             "type": "TEXT",
+                            "name": "Layer label",
                             "content": "Layer:",
                             "font": "Inter:Semi Bold",
                             "size": 14,
@@ -302,6 +324,7 @@
                           },
                           {
                             "type": "TEXT",
+                            "name": "Layer value",
                             "content": "Silver",
                             "font": "Inter:Regular",
                             "size": 14,
@@ -316,6 +339,7 @@
                         "children": [
                           {
                             "type": "TEXT",
+                            "name": "Sensitivity label",
                             "content": "Sensitivity:",
                             "font": "Inter:Semi Bold",
                             "size": 14,
@@ -323,6 +347,7 @@
                           },
                           {
                             "type": "TEXT",
+                            "name": "Sensitivity value",
                             "content": "Confidential",
                             "font": "Inter:Regular",
                             "size": 14,
@@ -337,6 +362,7 @@
                         "children": [
                           {
                             "type": "TEXT",
+                            "name": "Approval Status label",
                             "content": "Approval Status:",
                             "font": "Inter:Semi Bold",
                             "size": 14,
@@ -344,6 +370,7 @@
                           },
                           {
                             "type": "TEXT",
+                            "name": "Approval Status value",
                             "content": "Approved",
                             "font": "Inter:Regular",
                             "size": 14,
@@ -358,6 +385,7 @@
                         "children": [
                           {
                             "type": "TEXT",
+                            "name": "Personally Identifiable Inform… label",
                             "content": "Personally Identifiable Inform…:",
                             "font": "Inter:Semi Bold",
                             "size": 14,
@@ -365,6 +393,7 @@
                           },
                           {
                             "type": "TEXT",
+                            "name": "Personally Identifiable Inform… value",
                             "content": "Yes",
                             "font": "Inter:Regular",
                             "size": 14,
@@ -379,6 +408,7 @@
                         "children": [
                           {
                             "type": "TEXT",
+                            "name": "Schema label",
                             "content": "Schema:",
                             "font": "Inter:Semi Bold",
                             "size": 14,
@@ -386,6 +416,7 @@
                           },
                           {
                             "type": "TEXT",
+                            "name": "Schema value",
                             "content": "automotive",
                             "font": "Inter:Regular",
                             "size": 14,
@@ -405,6 +436,7 @@
                 "children": [
                   {
                     "type": "TEXT",
+                    "name": "Glossary title",
                     "content": "Glossary",
                     "font": "Inter:Semi Bold",
                     "size": 15,
@@ -426,6 +458,7 @@
                         "children": [
                           {
                             "type": "INSTANCE",
+                            "name": "Glossary icon: Address",
                             "library": "ds",
                             "dsSlug": "digram-item-types",
                             "variant": "Item type=Glossary 1, Size=SM",
@@ -433,6 +466,7 @@
                           },
                           {
                             "type": "TEXT",
+                            "name": "Glossary label: Address",
                             "content": "Address",
                             "font": "Inter:Regular",
                             "size": 14,
@@ -451,6 +485,7 @@
                         "children": [
                           {
                             "type": "INSTANCE",
+                            "name": "Glossary icon: Customer",
                             "library": "ds",
                             "dsSlug": "digram-item-types",
                             "variant": "Item type=Glossary 2, Size=SM",
@@ -458,6 +493,7 @@
                           },
                           {
                             "type": "TEXT",
+                            "name": "Glossary label: Customer",
                             "content": "Customer",
                             "font": "Inter:Regular",
                             "size": 14,
@@ -476,6 +512,7 @@
                         "children": [
                           {
                             "type": "INSTANCE",
+                            "name": "Glossary icon: Customer relationship management",
                             "library": "ds",
                             "dsSlug": "digram-item-types",
                             "variant": "Item type=Glossary 2, Size=SM",
@@ -486,6 +523,7 @@
                           },
                           {
                             "type": "TEXT",
+                            "name": "Glossary label: Customer relationship management",
                             "content": "Customer relationship management",
                             "font": "Inter:Regular",
                             "size": 14,
@@ -510,6 +548,7 @@
                 "children": [
                   {
                     "type": "TEXT",
+                    "name": "Related items text",
                     "content": "This dataset is related to 1 item(s)",
                     "font": "Inter:Regular",
                     "size": 14,
@@ -517,6 +556,7 @@
                   },
                   {
                     "type": "INSTANCE",
+                    "name": "Go to schema link",
                     "library": "ds",
                     "dsSlug": "link",
                     "variant": "State=Default",
@@ -526,6 +566,7 @@
               },
               {
                 "type": "INSTANCE",
+                "name": "Tabs",
                 "library": "ds",
                 "dsSlug": "tabs",
                 "slot": "tabs",
@@ -542,6 +583,7 @@
                 "children": [
                   {
                     "type": "TEXT",
+                    "name": "Description heading",
                     "content": "Customers",
                     "font": "Inter:Semi Bold",
                     "size": 18,
@@ -549,6 +591,7 @@
                   },
                   {
                     "type": "INSTANCE",
+                    "name": "Description table",
                     "library": "ds",
                     "dsSlug": "table",
                     "props": {

@@ -23,4 +23,4 @@ components:
   - radio-card
   - action-bar
 ---
-7-step horizontal stepper: Data source → Connection → Items → Curator → Contact → Category → Confirm. Each step is a numbered circle with a label and a one-line helper beneath it, and a persistent action bar at the foot of the page carries Back and Next, with Next disabled until the step is satisfied. Step one is a grid of radio cards, one per data source, each with the source's logo.
+7-step horizontal stepper: Data source → Connection → Items → Curator → Contact → Data Product → Confirm, under the page title Import Items (`recipes/captures/import-wizard.png`). Each step is a numbered circle with a label and a one-line helper beneath it (Select a data source, Select a connection, Select the Items, Assign curators, Add a contact to your items, Associate a Data Product), and a persistent action bar at the foot of the page carries Back and Next, with Next disabled until the step is satisfied. Step one is a grid of radio cards, one per data source, each with the source's logo.

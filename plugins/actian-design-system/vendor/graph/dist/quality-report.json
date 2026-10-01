@@ -51,7 +51,7 @@
   {
     "dimension": "connectivity",
     "metric": "orphan_nodes",
-    "value": 269,
+    "value": 271,
     "timestamp": null,
     "severity": "info"
   },
@@ -86,7 +86,7 @@
   {
     "dimension": "connectivity",
     "metric": "pattern_component_edges",
-    "value": 110,
+    "value": 105,
     "timestamp": null,
     "severity": "info"
   },

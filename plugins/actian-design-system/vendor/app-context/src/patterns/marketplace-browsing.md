@@ -16,7 +16,7 @@ components:
   - search
   - global-header
 ---
-Explorer homepage: search-first with curated sections (carousels, filter chips, topic cards).
+Explorer's home page, 'Discover Your Data Assets' (`recipes/captures/marketplace-browsing.png`): a large search, then carousels of cards: Topics (with an All / Favorites switch and 'Browse all topics'), Catalog item types and Glossary item types, each type card carrying its type tag, item count and description. Explorer has no side navigation; its header carries Access requests, What's new, the app switcher and the avatar.
 
 The card this screen shows was recorded as `card-for-items`, which Figma retired in the 2026-08-24 sync (#526). The reference is removed rather than repointed: `card-for-perimeter`, `card-for-grouped-content`, `search-result-card` and `radio-card` all survive, and choosing between them is a fact about the running product that nobody has checked for this screen. The two earlier corrections to this same slug (`analytics-dashboard`, `type-picker-grid`) were both made by looking at the product and both found a different component, so guessing here would be the third such error rather than the first.
 

@@ -18,4 +18,4 @@ components:
   - text-input
   - read-only-tag
 ---
-Request Access button, form with Use Case dropdown, 6 statuses, policy-driven approval.
+Explorer's item page carries a Request Access action. It opens 'Create an access request' (`recipes/captures/access-request-workflow.png`): the item's type tag and name, Reason (required, free text), Audience (required, a select), the approvers as avatars, and Close and Create, Create disabled while the form is empty. The approvers are shown, not chosen. Requests are handled on Studio's Access requests page (access-request-management).

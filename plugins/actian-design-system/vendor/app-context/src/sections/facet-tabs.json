@@ -44,6 +44,7 @@
         "children": [
           {
             "type": "INSTANCE",
+            "name": "Tabs",
             "library": "ds",
             "dsSlug": "tabs",
             "props": {
@@ -71,6 +72,7 @@
                 "children": [
                   {
                     "type": "INSTANCE",
+                    "name": "Curator avatar 1",
                     "library": "ds",
                     "dsSlug": "avatar",
                     "variant": "Type=Default, State=Default",
@@ -80,6 +82,7 @@
                   },
                   {
                     "type": "INSTANCE",
+                    "name": "Curator avatar 2",
                     "library": "ds",
                     "dsSlug": "avatar",
                     "variant": "Type=Default, State=Default",
@@ -100,6 +103,7 @@
                 "children": [
                   {
                     "type": "INSTANCE",
+                    "name": "Contact avatar 1",
                     "library": "ds",
                     "dsSlug": "avatar",
                     "variant": "Type=Default, State=Default",
@@ -109,6 +113,7 @@
                   },
                   {
                     "type": "INSTANCE",
+                    "name": "Contact avatar 2",
                     "library": "ds",
                     "dsSlug": "avatar",
                     "variant": "Type=Default, State=Default",
@@ -118,6 +123,7 @@
                   },
                   {
                     "type": "INSTANCE",
+                    "name": "Contact avatar 3",
                     "library": "ds",
                     "dsSlug": "avatar",
                     "variant": "Type=Default, State=Default",
@@ -127,6 +133,7 @@
                   },
                   {
                     "type": "INSTANCE",
+                    "name": "Contact avatar 4",
                     "library": "ds",
                     "dsSlug": "avatar",
                     "variant": "Type=Default, State=Default",

@@ -108,6 +108,7 @@
                     "children": [
                       {
                         "type": "INSTANCE",
+                        "name": "Item type tag",
                         "library": "ds",
                         "dsSlug": "item-type-tag",
                         "variant": "Type=Dataset",
@@ -117,6 +118,7 @@
                       },
                       {
                         "type": "INSTANCE",
+                        "name": "Shared tag",
                         "library": "ds",
                         "dsSlug": "read-only-tag",
                         "variant": "Type=Shared",
@@ -127,6 +129,7 @@
                       },
                       {
                         "type": "TEXT",
+                        "name": "Item name",
                         "content": "COUNT BY ORDER STATUS",
                         "font": "Inter:Semi Bold",
                         "size": 18,
@@ -144,6 +147,7 @@
                     "children": [
                       {
                         "type": "INSTANCE",
+                        "name": "Open in full page button",
                         "library": "ds",
                         "dsSlug": "button",
                         "variant": "Emphasis=Icon-only, Size=Small, State=Default",
@@ -154,6 +158,7 @@
                       },
                       {
                         "type": "INSTANCE",
+                        "name": "Close button",
                         "library": "ds",
                         "dsSlug": "button",
                         "variant": "Emphasis=Icon-only, Size=Small, State=Default",
@@ -168,6 +173,7 @@
               },
               {
                 "type": "TEXT",
+                "name": "Technical name",
                 "content": "Technical name: COUNT_BY_ORDER_STATUS",
                 "font": "Inter:Regular",
                 "size": 14,
@@ -175,6 +181,7 @@
               },
               {
                 "type": "TEXT",
+                "name": "Source path",
                 "content": "Catalog: Default / Data Product: removal / Connection: connPowerBI",
                 "font": "Inter:Regular",
                 "size": 14,
@@ -191,6 +198,7 @@
                 "children": [
                   {
                     "type": "TEXT",
+                    "name": "Stage label",
                     "content": "Stage:",
                     "font": "Inter:Regular",
                     "size": 14,
@@ -198,6 +206,7 @@
                   },
                   {
                     "type": "INSTANCE",
+                    "name": "Stage tag",
                     "library": "ds",
                     "dsSlug": "read-only-tag",
                     "variant": "Type=Stage-6",
@@ -225,6 +234,7 @@
                     "children": [
                       {
                         "type": "TEXT",
+                        "name": "Last updated label",
                         "content": "Last updated",
                         "font": "Inter:Regular",
                         "size": 13,
@@ -232,6 +242,7 @@
                       },
                       {
                         "type": "TEXT",
+                        "name": "Last updated value",
                         "content": "Jul 6, 2026",
                         "font": "Inter:Regular",
                         "size": 14,
@@ -249,6 +260,7 @@
                     "children": [
                       {
                         "type": "TEXT",
+                        "name": "Linked label",
                         "content": "Fields",
                         "font": "Inter:Regular",
                         "size": 13,
@@ -256,6 +268,7 @@
                       },
                       {
                         "type": "INSTANCE",
+                        "name": "Linked link",
                         "library": "ds",
                         "dsSlug": "link",
                         "variant": "State=Default",
@@ -275,6 +288,7 @@
                     "children": [
                       {
                         "type": "TEXT",
+                        "name": "Completion label",
                         "content": "Completion",
                         "font": "Inter:Regular",
                         "size": 13,
@@ -282,6 +296,7 @@
                       },
                       {
                         "type": "INSTANCE",
+                        "name": "Completion meter",
                         "library": "ds",
                         "dsSlug": "progress-bar-small",
                         "variant": "Size=Default",
@@ -302,6 +317,7 @@
           },
           {
             "type": "INSTANCE",
+            "name": "Tabs",
             "library": "ds",
             "dsSlug": "tabs",
             "slot": "tabs",
@@ -335,6 +351,7 @@
                 "children": [
                   {
                     "type": "TEXT",
+                    "name": "Glossary items title",
                     "content": "Glossary Items (2)",
                     "font": "Inter:Semi Bold",
                     "size": 15,
@@ -342,6 +359,7 @@
                   },
                   {
                     "type": "INSTANCE",
+                    "name": "Glossary items select",
                     "library": "ds",
                     "dsSlug": "dropdown-select-default",
                     "variant": "Type=Search/Multiple, State=Filled",
@@ -362,6 +380,7 @@
                 "children": [
                   {
                     "type": "TEXT",
+                    "name": "Description title",
                     "content": "Description",
                     "font": "Inter:Semi Bold",
                     "size": 15,
@@ -369,6 +388,7 @@
                   },
                   {
                     "type": "TEXT",
+                    "name": "Description text",
                     "content": "COUNT BY ORDER STATUS is a summary dataset sourced from the connPowerBI connection. It aggregates orders by their current status, providing a high-level operational view of order pipeline distribution.",
                     "font": "Inter:Regular",
                     "size": 14,
@@ -386,6 +406,7 @@
                 "children": [
                   {
                     "type": "TEXT",
+                    "name": "Source Description title",
                     "content": "Source Description",
                     "font": "Inter:Semi Bold",
                     "size": 15,
@@ -393,6 +414,7 @@
                   },
                   {
                     "type": "TEXT",
+                    "name": "Source Description text",
                     "content": "No source description",
                     "font": "Inter:Regular",
                     "size": 14,

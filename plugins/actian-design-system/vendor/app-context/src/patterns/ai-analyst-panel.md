@@ -15,4 +15,4 @@ components:
   - drawer
   - text-input
 ---
-Conversational analytics assistant (AI Analyst, formerly Wobby) for business users to query and understand data in natural language.
+Conversational analytics assistant (AI Analyst, formerly Wobby) for business users to query and understand data in natural language. Not in the product as captured on 2026-10-01: no AI Analyst entry in Explorer or the app switcher (Zeenea Studio, Administration, Data Contract Builder) on the manufacturing tenant.

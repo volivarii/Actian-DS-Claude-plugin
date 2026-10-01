@@ -20,4 +20,4 @@ components:
   - button
   - text-input
 ---
-Drag-and-drop configuration of templates and properties per item type in Studio Catalog Design.
+Studio's Catalog design page (`recipes/captures/metamodel-designer.png`): tabs Physical & Logical Metamodel, Glossary, Properties and Responsibilities. The first holds a searchable list of item types (type badge, name, Items count, and per-row actions: a template action on most types, an edit action on some, custom types among them) with Create custom type, beside the metamodel diagram, which has Expand the view, Export as image and zoom controls. Each type's template is edited in the template-builder modal.

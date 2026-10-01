@@ -1,0 +1,277 @@
+{
+  "_schema_version": 1,
+  "_meta": {
+    "auto_generated": true,
+    "source": "scripts/app-context/derive-app-context.js",
+    "do_not_edit": "Edit the app-context/src/ files; CI regenerates this file."
+  },
+  "slug": "search-filtered-table",
+  "label": "Search filtered table",
+  "description": "One list in one table, narrowed by an inline search above it and a Filter menu beside the search, with no filter rail. The page title sits over a tab bar that splits the list in two (Users, Contacts), a line saying what the current tab lists, and the page's actions on the right. Each row ends in its own edit and delete actions. Derived from Administration's Users and contacts page.",
+  "when": "Use when an administrator finds and manages one kind of thing in one list: users, contacts, groups, connections, scanners, API keys. Do NOT use faceted-browse: that is a filter rail of several counted facets over results richer than a row, and this page has one search and one Filter menu over plain rows. It is table-with-tabs as well: the Users / Contacts tabs split the page in two, so this recipe declares both patterns. The capture shows the Users tab; the Contacts tab was not captured.",
+  "apps": [
+    "administration"
+  ],
+  "patterns": [
+    "search-filtered-table",
+    "table-with-tabs"
+  ],
+  "tags": [
+    "admin",
+    "table",
+    "search",
+    "filter",
+    "list",
+    "users",
+    "directory"
+  ],
+  "derivedFrom": {
+    "surface": "Administration > Users and contacts",
+    "capturedOn": "2026-09-30",
+    "productVersion": "manufacturing.zeenea.app/admin",
+    "screenshot": "captures/admin-users.png"
+  },
+  "reference": "product",
+  "slots": {
+    "header": "The page title, 'Users and contacts', at 24px.",
+    "tabs": "A tab bar splitting the page in two: Users and Contacts, Users active. Labels carry no counts.",
+    "description": "One line saying what the active tab lists: 'A user can log in to the application and be linked to items.'",
+    "actions": "Right-aligned opposite the description: an icon-only refresh button, then the filled primary 'Create user' with a leading add icon.",
+    "search": "A search input with the placeholder 'Search', about 445px wide (some 40 percent of the content width), and beside it an outlined 'Filter' button with a funnel icon and a trailing chevron that opens the filter menu. There is no filter rail.",
+    "table": "Columns Name, Email, Groups, License, Contact, Curator, Actions. Name is an initials avatar and the bold name; Groups is a comma list, empty when the user is in none; Contact and Curator hold a number per user; Actions is an edit (pencil) and a delete (trash) icon button per row."
+  },
+  "renderNotes": [
+    "Every value is the captured page's (manufacturing.zeenea.app, 2026-09-30). The tenant's people were replaced in the DOM before the capture, so the names and emails are User 01 to User 10 at example.com, not real people.",
+    "`table` takes text cells only: the Name column's initials avatar and the Actions column's edit and delete icon buttons cannot be drawn inside it, so Name carries the name alone and Actions is left empty, the column kept so the table has the product's seven columns. The slot prose says what the product draws there.",
+    "The Filter button's funnel icon is not one `button` can take (its leading icon is always `add`), so Filter is drawn with its label and trailing chevron only.",
+    "The refresh button is `button` Emphasis=Icon-only with `Icon` rotate-back. Icon-only draws FILLED, so the render shows a second filled blue button beside Create user where the product draws an outlined circle; the design system publishes no outlined icon-only button.",
+    "`search` hugs its placeholder; the product's field is about 445px wide, some 40 percent of the content width.",
+    "The capture shows the first ten of the tenant's users, and the list scrolls; the recipe draws the ten."
+  ],
+  "skeleton": {
+    "chrome": "standard",
+    "appHeader": "Admin",
+    "content": [
+      {
+        "type": "FRAME",
+        "name": "Users and contacts page",
+        "layout": {
+          "mode": "VERTICAL",
+          "spacing": 16
+        },
+        "children": [
+          {
+            "type": "TEXT",
+            "name": "Page title",
+            "slot": "header",
+            "content": "Users and contacts",
+            "font": "Inter:Semi Bold",
+            "size": 24,
+            "color": "var(--zen-color-text-default)"
+          },
+          {
+            "type": "INSTANCE",
+            "name": "Tabs",
+            "slot": "tabs",
+            "library": "ds",
+            "dsSlug": "tabs",
+            "props": {
+              "Items": "Users, Contacts",
+              "Active": "Users"
+            }
+          },
+          {
+            "type": "FRAME",
+            "name": "Description row",
+            "layout": {
+              "mode": "HORIZONTAL",
+              "spacing": 16,
+              "primaryAxisAlignItems": "SPACE_BETWEEN",
+              "counterAxisAlignItems": "CENTER"
+            },
+            "children": [
+              {
+                "type": "TEXT",
+                "name": "Tab description",
+                "slot": "description",
+                "content": "A user can log in to the application and be linked to items.",
+                "font": "Inter:Regular",
+                "size": 14,
+                "color": "var(--zen-color-text-default)"
+              },
+              {
+                "type": "FRAME",
+                "name": "Page actions",
+                "slot": "actions",
+                "layout": {
+                  "mode": "HORIZONTAL",
+                  "spacing": 12,
+                  "counterAxisAlignItems": "CENTER"
+                },
+                "children": [
+                  {
+                    "type": "INSTANCE",
+                    "name": "Refresh button",
+                    "library": "ds",
+                    "dsSlug": "button",
+                    "variant": "Emphasis=Icon-only, Size=Default, State=Default",
+                    "props": {
+                      "Label": "Refresh",
+                      "Icon": "rotate-back"
+                    }
+                  },
+                  {
+                    "type": "INSTANCE",
+                    "name": "Create user button",
+                    "library": "ds",
+                    "dsSlug": "button",
+                    "variant": "Emphasis=Filled, Size=Default, State=Default",
+                    "props": {
+                      "Label": "Create user",
+                      "Leading icon show": true
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "FRAME",
+            "name": "Search row",
+            "slot": "search",
+            "layout": {
+              "mode": "HORIZONTAL",
+              "spacing": 16,
+              "counterAxisAlignItems": "CENTER"
+            },
+            "children": [
+              {
+                "type": "INSTANCE",
+                "name": "Search input",
+                "library": "ds",
+                "dsSlug": "search",
+                "props": {
+                  "Placeholder text": "Search"
+                }
+              },
+              {
+                "type": "INSTANCE",
+                "name": "Filter button",
+                "library": "ds",
+                "dsSlug": "button",
+                "variant": "Emphasis=Outlined, Size=Small, State=Default",
+                "props": {
+                  "Label": "Filter",
+                  "Trailing icon show": true
+                }
+              }
+            ]
+          },
+          {
+            "type": "INSTANCE",
+            "name": "Users table",
+            "slot": "table",
+            "library": "ds",
+            "dsSlug": "table",
+            "props": {
+              "Columns": "Name, Email, Groups, License, Contact, Curator, Actions",
+              "Rows": [
+                [
+                  "User 01",
+                  "user01@example.com",
+                  "",
+                  "Explorer",
+                  "0",
+                  "0",
+                  ""
+                ],
+                [
+                  "User 02",
+                  "user02@example.com",
+                  "Explorer",
+                  "Explorer",
+                  "1",
+                  "0",
+                  ""
+                ],
+                [
+                  "User 03",
+                  "user03@example.com",
+                  "Explorer",
+                  "Explorer",
+                  "0",
+                  "0",
+                  ""
+                ],
+                [
+                  "User 04",
+                  "user04@example.com",
+                  "",
+                  "Explorer",
+                  "0",
+                  "0",
+                  ""
+                ],
+                [
+                  "User 05",
+                  "user05@example.com",
+                  "",
+                  "Explorer",
+                  "0",
+                  "0",
+                  ""
+                ],
+                [
+                  "User 06",
+                  "user06@example.com",
+                  "Catalog designer, Explorer",
+                  "Steward",
+                  "0",
+                  "0",
+                  ""
+                ],
+                [
+                  "User 07",
+                  "user07@example.com",
+                  "Explorer",
+                  "Explorer",
+                  "0",
+                  "0",
+                  ""
+                ],
+                [
+                  "User 08",
+                  "user08@example.com",
+                  "Explorer",
+                  "Explorer",
+                  "0",
+                  "0",
+                  ""
+                ],
+                [
+                  "User 09",
+                  "user09@example.com",
+                  "Explorer",
+                  "Explorer",
+                  "1",
+                  "0",
+                  ""
+                ],
+                [
+                  "User 10",
+                  "user10@example.com",
+                  "",
+                  "Explorer",
+                  "0",
+                  "0",
+                  ""
+                ]
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "sections": []
+}

@@ -13,9 +13,8 @@ tags:
   - adoption
 when: >-
   Use for the aggregate view over a whole catalog: a grid of per-type completion cards
-  beside a rail of charts. Do not use documentation-completion-dashboard, which scores
-  individual items against criteria; this one answers how the catalog is doing, not which
-  item is behind.
+  beside a rail of charts. It answers how the catalog is doing, not which item is
+  behind: do not use it to score individual items against criteria.
 components:
   - card-for-perimeter
   - progress-bar-small
