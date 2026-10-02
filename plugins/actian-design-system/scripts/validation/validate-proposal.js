@@ -785,9 +785,11 @@ function validateProposal(data) {
     if (q.recommended) checkProse(q.recommended, "", "openQuestions[" + i + "].recommended", findings);
   });
   if (openQuestions.length)
-    addPseudo("doc:open-questions", "Open questions", openQuestions.map(function (q, i) {
-      return { path: "openQuestions[" + i + "].text", text: q.text };
-    }));
+    addPseudo("doc:open-questions", "Open questions", openQuestions.reduce(function (acc, q, i) {
+      acc.push({ path: "openQuestions[" + i + "].text", text: q.text });
+      if (q.recommended) acc.push({ path: "openQuestions[" + i + "].recommended", text: q.recommended });
+      return acc;
+    }, []));
 
   // An evaluation has named the decisions and nothing else, so every check that reads an
   // option, a comparison, a pick, a drawing or a closing line has nothing to read. Skipped

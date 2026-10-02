@@ -17,8 +17,6 @@ description: Answers any Actian design system or product design question from th
 Run a script as `source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh" && "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/<path>" ...`, never with a bare `node`. Write every output file in the project directory.
 <!-- plugin-root:end -->
 
-# Actian UX
-
 **The knowledge is the source of truth.** It is vendored at `vendor/`. Its `vendor/llms.txt` is the index; for a screen start at "Building a screen".
 
 **Answer** from the knowledge, citing each file you used. If the knowledge does not say, say so; never answer from memory as if it were the knowledge.

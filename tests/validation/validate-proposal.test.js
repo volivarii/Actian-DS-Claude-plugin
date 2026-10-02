@@ -343,6 +343,11 @@ describe("validateProposal (document)", function () {
     var dash = only(d, "em-dash");
     assert.strictEqual(dash.length, 1, "the recommended answer is prose-checked like the text");
     assert.strictEqual(dash[0].path, "openQuestions[0].recommended");
+
+    d = load();
+    d.openQuestions = [{ kind: "open question", text: "q", owner: "pm", recommended: "Please simply click here." }];
+    assert.ok(only(d, "avoid-word").some(function (f) { return f.path === "openQuestions[0].recommended"; }),
+      "terminology and avoid-words read the recommended answer too");
   });
 
   it("names the decisions[] shape when handed a file that predates it", function () {

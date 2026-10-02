@@ -3,7 +3,7 @@ name: actian-ux-proposal
 description: Writes a design proposal for a ticket or an intent: each decision it forces, drawn with design system components, with options, a comparison, the pick and its cost. Discovery material for a PM's mock-up sessions and an input to the grill's UX lane. Use for a ticket, "approaches", "options", "how should we".
 ---
 
-# Proposal and intent.md
+# Proposal
 
 <!-- plugin-root:begin -->
 ## Where the plugin lives
@@ -16,8 +16,6 @@ description: Writes a design proposal for a ticket or an intent: each decision i
 
 Run a script as `source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh" && "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/<path>" ...`, never with a bare `node`. Write every output file in the project directory.
 <!-- plugin-root:end -->
-
-# Proposal
 
 **Goal.** A proposal document a PM or designer reads once and then knows what we propose, why, what it costs and what they must settle. Before an intent it serves the PM's mock-up sessions (evidence for `/intent`); in the grill's UX lane it is an input.
 
