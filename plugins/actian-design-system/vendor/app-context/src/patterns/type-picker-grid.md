@@ -5,6 +5,9 @@ slug: type-picker-grid
 label: Type picker grid
 apps:
   - studio
+reference: product
+screenshots:
+  - captures/type-picker-grid.png
 tags:
   - grid
   - picker

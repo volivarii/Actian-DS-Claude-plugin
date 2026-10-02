@@ -5,6 +5,10 @@ slug: bulk-edit
 label: Bulk Edit
 apps:
   - studio
+reference: product
+screenshots:
+  - captures/bulk-edit-menu.png
+  - captures/bulk-edit.png
 tags:
   - bulk
   - edit

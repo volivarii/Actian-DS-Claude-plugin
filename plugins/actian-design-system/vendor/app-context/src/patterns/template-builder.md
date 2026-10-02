@@ -5,6 +5,9 @@ slug: template-builder
 label: Drag-and-drop template builder
 apps:
   - studio
+reference: product
+screenshots:
+  - captures/template-builder.png
 tags:
   - configure
   - builder

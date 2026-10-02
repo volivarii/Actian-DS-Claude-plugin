@@ -6,6 +6,10 @@ label: Faceted browse
 apps:
   - studio
   - explorer
+reference: product
+screenshots:
+  - captures/faceted-browse.png
+  - captures/explorer-faceted-browse.png
 tags:
   - browse
   - search

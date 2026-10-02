@@ -7,6 +7,9 @@ apps:
   - studio
   - explorer
   - administration
+reference: product
+screenshots:
+  - captures/notification-system.png
 tags:
   - notifications
   - popover

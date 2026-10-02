@@ -1358,6 +1358,10 @@
       "apps": [
         "studio"
       ],
+      "reference": "product",
+      "screenshots": [
+        "captures/access-request-management.png"
+      ],
       "tags": [
         "queue",
         "review",
@@ -1383,6 +1387,10 @@
         "explorer",
         "studio"
       ],
+      "reference": "product",
+      "screenshots": [
+        "captures/access-request-workflow.png"
+      ],
       "tags": [
         "request",
         "approve",
@@ -1403,6 +1411,10 @@
       "apps": [
         "studio"
       ],
+      "reference": "product",
+      "screenshots": [
+        "captures/activity-timeline.png"
+      ],
       "tags": [
         "timeline",
         "history",
@@ -1418,6 +1430,7 @@
       "apps": [
         "explorer"
       ],
+      "reference": "design",
       "tags": [
         "conversation",
         "ai",
@@ -1435,6 +1448,10 @@
       "label": "Analytics dashboard",
       "apps": [
         "studio"
+      ],
+      "reference": "product",
+      "screenshots": [
+        "captures/analytics-dashboard.png"
       ],
       "tags": [
         "dashboard",
@@ -1458,6 +1475,7 @@
       "apps": [
         "explorer"
       ],
+      "reference": "design",
       "tags": [
         "search",
         "ai",
@@ -1475,6 +1493,11 @@
       "apps": [
         "studio",
         "explorer"
+      ],
+      "reference": "product",
+      "screenshots": [
+        "captures/asset-detail-360.png",
+        "captures/explorer-asset-detail.png"
       ],
       "tags": [
         "detail",
@@ -1509,6 +1532,11 @@
       "apps": [
         "studio"
       ],
+      "reference": "product",
+      "screenshots": [
+        "captures/bulk-edit-menu.png",
+        "captures/bulk-edit.png"
+      ],
       "tags": [
         "bulk",
         "edit",
@@ -1529,6 +1557,7 @@
       "apps": [
         "studio"
       ],
+      "reference": "product",
       "tags": [
         "profiling",
         "sample",
@@ -1546,6 +1575,11 @@
       "label": "Data Steward Agent Panel",
       "apps": [
         "studio"
+      ],
+      "reference": "product",
+      "screenshots": [
+        "captures/data-steward-agent-panel.png",
+        "captures/admin-agents.png"
       ],
       "tags": [
         "ai",
@@ -1567,6 +1601,7 @@
         "studio",
         "explorer"
       ],
+      "reference": "design",
       "tags": [
         "threads",
         "comments",
@@ -1587,6 +1622,11 @@
       "apps": [
         "studio",
         "explorer"
+      ],
+      "reference": "product",
+      "screenshots": [
+        "captures/faceted-browse.png",
+        "captures/explorer-faceted-browse.png"
       ],
       "tags": [
         "browse",
@@ -1614,6 +1654,10 @@
       "apps": [
         "administration"
       ],
+      "reference": "product",
+      "screenshots": [
+        "captures/filter-groups-form.png"
+      ],
       "tags": [
         "form",
         "configure",
@@ -1636,6 +1680,10 @@
       "label": "Multi-step import wizard",
       "apps": [
         "studio"
+      ],
+      "reference": "product",
+      "screenshots": [
+        "captures/import-wizard.png"
       ],
       "tags": [
         "wizard",
@@ -1661,6 +1709,11 @@
         "studio",
         "explorer"
       ],
+      "reference": "product",
+      "screenshots": [
+        "captures/interactive-graph-view-360.png",
+        "captures/interactive-graph-data-model.png"
+      ],
       "tags": [
         "graph",
         "canvas",
@@ -1682,6 +1735,10 @@
         "studio",
         "explorer"
       ],
+      "reference": "product",
+      "screenshots": [
+        "captures/lineage-graph.png"
+      ],
       "tags": [
         "graph",
         "canvas",
@@ -1702,6 +1759,10 @@
       "apps": [
         "explorer"
       ],
+      "reference": "product",
+      "screenshots": [
+        "captures/marketplace-browsing.png"
+      ],
       "tags": [
         "homepage",
         "browse",
@@ -1720,6 +1781,10 @@
       "label": "Metamodel Designer",
       "apps": [
         "studio"
+      ],
+      "reference": "product",
+      "screenshots": [
+        "captures/metamodel-designer.png"
       ],
       "tags": [
         "configure",
@@ -1743,6 +1808,10 @@
         "explorer",
         "administration"
       ],
+      "reference": "product",
+      "screenshots": [
+        "captures/notification-system.png"
+      ],
       "tags": [
         "notifications",
         "popover",
@@ -1762,6 +1831,11 @@
       "apps": [
         "studio",
         "explorer"
+      ],
+      "reference": "product",
+      "screenshots": [
+        "captures/right-sliding-drawer.png",
+        "captures/studio-quick-edit-drawer.png"
       ],
       "tags": [
         "drawer",
@@ -1783,6 +1857,10 @@
         "studio",
         "explorer"
       ],
+      "reference": "product",
+      "screenshots": [
+        "captures/admin-users.png"
+      ],
       "tags": [
         "search",
         "table",
@@ -1803,6 +1881,7 @@
         "studio",
         "explorer"
       ],
+      "reference": "product",
       "tags": [
         "suggestions",
         "ai",
@@ -1823,6 +1902,10 @@
       "apps": [
         "explorer",
         "studio"
+      ],
+      "reference": "product",
+      "screenshots": [
+        "captures/suggestion-workflow.png"
       ],
       "tags": [
         "suggestions",
@@ -1845,6 +1928,10 @@
         "administration",
         "studio"
       ],
+      "reference": "product",
+      "screenshots": [
+        "captures/admin-users.png"
+      ],
       "tags": [
         "table",
         "tabs",
@@ -1865,6 +1952,10 @@
       "apps": [
         "studio"
       ],
+      "reference": "product",
+      "screenshots": [
+        "captures/template-builder.png"
+      ],
       "tags": [
         "configure",
         "builder",
@@ -1883,6 +1974,11 @@
       "apps": [
         "explorer"
       ],
+      "reference": "product",
+      "screenshots": [
+        "captures/topic-browse.png",
+        "captures/explorer-faceted-browse.png"
+      ],
       "tags": [
         "browse",
         "curated",
@@ -1899,6 +1995,10 @@
       "label": "Type picker grid",
       "apps": [
         "studio"
+      ],
+      "reference": "product",
+      "screenshots": [
+        "captures/type-picker-grid.png"
       ],
       "tags": [
         "grid",

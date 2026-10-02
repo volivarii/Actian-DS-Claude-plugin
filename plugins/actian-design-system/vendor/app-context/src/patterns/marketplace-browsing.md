@@ -5,6 +5,9 @@ slug: marketplace-browsing
 label: Marketplace browsing
 apps:
   - explorer
+reference: product
+screenshots:
+  - captures/marketplace-browsing.png
 tags:
   - homepage
   - browse

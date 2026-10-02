@@ -5,6 +5,10 @@ slug: topic-browse
 label: Topic Browse
 apps:
   - explorer
+reference: product
+screenshots:
+  - captures/topic-browse.png
+  - captures/explorer-faceted-browse.png
 tags:
   - browse
   - curated

@@ -5,6 +5,7 @@ slug: data-profiling-sampling
 label: Data profiling and sampling
 apps:
   - studio
+reference: product
 tags:
   - profiling
   - sample

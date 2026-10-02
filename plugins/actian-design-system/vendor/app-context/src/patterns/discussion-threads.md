@@ -6,6 +6,7 @@ label: Discussion threads
 apps:
   - studio
   - explorer
+reference: design
 tags:
   - threads
   - comments

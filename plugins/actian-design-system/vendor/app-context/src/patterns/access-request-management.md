@@ -5,6 +5,9 @@ slug: access-request-management
 label: Access request management
 apps:
   - studio
+reference: product
+screenshots:
+  - captures/access-request-management.png
 tags:
   - queue
   - review

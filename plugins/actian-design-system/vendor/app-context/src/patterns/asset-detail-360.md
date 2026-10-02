@@ -6,6 +6,10 @@ label: 360-degree asset detail view
 apps:
   - studio
   - explorer
+reference: product
+screenshots:
+  - captures/asset-detail-360.png
+  - captures/explorer-asset-detail.png
 tags:
   - detail
   - single-object

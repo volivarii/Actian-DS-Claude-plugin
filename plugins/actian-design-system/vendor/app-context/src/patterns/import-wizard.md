@@ -5,6 +5,9 @@ slug: import-wizard
 label: Multi-step import wizard
 apps:
   - studio
+reference: product
+screenshots:
+  - captures/import-wizard.png
 tags:
   - wizard
   - stepper

@@ -8,7 +8,8 @@
     "_schema_version",
     "slug",
     "label",
-    "apps"
+    "apps",
+    "reference"
   ],
   "additionalProperties": false,
   "properties": {
@@ -45,6 +46,32 @@
         [
           "studio",
           "explorer"
+        ]
+      ]
+    },
+    "reference": {
+      "type": "string",
+      "enum": [
+        "product",
+        "design"
+      ],
+      "description": "What the pattern's description answers to, as the recipes' `reference` does (#716). `product`: the shipped product shows this pattern, and where the product and a design disagree the product wins; `screenshots` names where it was captured. `design`: not in the product as captured, so the description follows a design and names no screenshot.",
+      "examples": [
+        "product"
+      ]
+    },
+    "screenshots": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^captures/[a-z0-9-]+\\.png$"
+      },
+      "minItems": 1,
+      "description": "Product screenshots that show this pattern, as paths relative to app-context/src/recipes (the recipes' `derivedFrom.screenshot` convention). Only on a `product` pattern; absent where the product ships the pattern but no screenshot has captured it yet.",
+      "examples": [
+        [
+          "captures/bulk-edit-menu.png",
+          "captures/bulk-edit.png"
         ]
       ]
     },

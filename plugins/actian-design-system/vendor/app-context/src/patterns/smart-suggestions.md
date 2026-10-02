@@ -6,6 +6,7 @@ label: Smart suggestions
 apps:
   - studio
   - explorer
+reference: product
 tags:
   - suggestions
   - ai

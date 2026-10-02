@@ -6,6 +6,9 @@ label: Lineage Graph
 apps:
   - studio
   - explorer
+reference: product
+screenshots:
+  - captures/lineage-graph.png
 tags:
   - graph
   - canvas

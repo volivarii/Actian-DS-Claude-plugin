@@ -6,6 +6,9 @@ label: Tab-filtered dashboard table
 apps:
   - administration
   - studio
+reference: product
+screenshots:
+  - captures/admin-users.png
 tags:
   - table
   - tabs

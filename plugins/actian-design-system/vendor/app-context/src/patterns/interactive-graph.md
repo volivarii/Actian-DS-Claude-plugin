@@ -6,6 +6,10 @@ label: Interactive graph visualization
 apps:
   - studio
   - explorer
+reference: product
+screenshots:
+  - captures/interactive-graph-view-360.png
+  - captures/interactive-graph-data-model.png
 tags:
   - graph
   - canvas
