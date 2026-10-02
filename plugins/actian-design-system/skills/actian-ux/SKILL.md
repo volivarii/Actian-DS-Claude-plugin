@@ -1,6 +1,6 @@
 ---
 name: actian-ux
-description: Answers any Actian design system or product design question from the knowledge, citing the file, and is the UX policy entry every session loads, the unattended spec pass included. Use for questions about components, tokens, patterns, copy, accessibility, Studio/Explorer/Administration, and to find which skill fits (proposal and intent.md, prototype, audit and specs.md).
+description: Answers any Actian design system or product design question from the knowledge, citing the file, and is the UX policy entry every session loads, the grill's UX lane included. Use for questions about components, tokens, patterns, copy, accessibility, Studio/Explorer/Administration, which components a feature reuses or adds, and which skill fits (proposal, prototype, audit and the UX handover).
 ---
 
 # Actian UX
@@ -26,4 +26,6 @@ Run a script as `source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh" && "
 2. Run the checks the skill names. If one cannot run, do the work and say which check did not run.
 3. Hand over with nothing hidden: what is new, what was not checked, the open questions. With nobody to ask (an unattended run), write them into the file as flagged concerns instead of waiting.
 
-**Which skill:** a ticket, options, "how should we", intent.md → `/actian-ux-proposal`. Screens, a flow, a clickable prototype, a Figma push → `/actian-ux-prototype`. A Figma frame to review, fix, or turn into specs.md → `/actian-ux-audit`.
+**In the SDLC.** In the grill's UX lane, answer from the knowledge which components are reused or new, every state, the copy and accessibility. The PM owns `INTENT.md`, the developer `SPEC.md`; design files go in `docs/intents/<slug>/inputs/ux/`.
+
+**Which skill:** a ticket, options, "how should we", a mock-up session → `/actian-ux-proposal`. Screens, a flow, a clickable prototype, a Figma push → `/actian-ux-prototype`. A Figma frame to review, fix, or turn into the UX handover → `/actian-ux-audit`.

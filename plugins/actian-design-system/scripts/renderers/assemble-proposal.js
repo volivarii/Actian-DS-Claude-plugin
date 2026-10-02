@@ -411,8 +411,13 @@ function beforeWeBuildHtml(data) {
   var blockers = data.decisions.filter(function (d) { return d.blocker; }).map(function (d) {
     return '<p class="decision__blocker"><b>Blocker, ' + esc(partName(d)) + ".</b> " + esc(d.blocker) + "</p>";
   }).join("");
+  // An owner is the grill role that answers the question (pm.md, ux.md, archi.md or the
+  // developer's consolidation), so the label names who it waits for.
+  var OWNER = { pm: "the PM", ux: "UX", archi: "the architect", dev: "the developer" };
   var open = (data.openQuestions || []).map(function (q) {
-    return '<span class="oq__kind">' + (q.kind === "rabbit hole" ? "Risk" : "Open question") + "</span>" + esc(q.text);
+    var label = (q.kind === "rabbit hole" ? "Risk" : "Open question") + (OWNER[q.owner] ? ", for " + OWNER[q.owner] : "");
+    var rec = q.recommended ? " Recommended: " + esc(q.recommended) : "";
+    return '<span class="oq__kind">' + label + "</span>" + esc(q.text) + rec;
   });
   if (!blockers && !open.length) return "";
   return section("Before we build", blockers + (open.length ? list("doc__list oq", open) : ""));

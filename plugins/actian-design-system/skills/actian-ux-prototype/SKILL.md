@@ -1,6 +1,6 @@
 ---
 name: actian-ux-prototype
-description: A clickable HTML prototype of an Actian product flow, drawn with the design system and checked, optionally pushed to Figma as real design system instances; seeds specs.md when no final Figma exists. Use for a flow, screens, "show me how this would work", "push to Figma".
+description: A clickable HTML prototype of an Actian product flow, drawn with the design system and checked, optionally pushed to Figma as real design system instances. Discovery material before an intent, and the flow the grill's UX lane settles. Use for a flow, screens, "show me how this would work", "push to Figma".
 ---
 
 # Prototype
@@ -21,7 +21,9 @@ Run a script as `source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh" && "
 
 **Rules.** The knowledge wins over memory: never invent a component, a token or a product fact, and mark what the product lacks as new. Run the checks named here, and say which one did not run. With nobody to ask (an unattended run), write the open questions into the file as flagged concerns instead of waiting.
 
-**Start here.** The app file in `vendor/app-context/src/apps/`, the recipe and its screenshot for the page, the fragments and `render.css` (see `vendor/llms.txt`, "Building a screen"), the terminology and content rules.
+**In the SDLC** (ai-tooling's `/grill`): if `docs/intents/<slug>/INTENT.md` exists, it and `pm.md` are the brief; outputs go in `docs/intents/<slug>/inputs/ux/`. Only the grill writes `INTENT.md`, `pm.md`, `ux.md`, `SPEC.md`.
+
+**Start here.** The brief (`INTENT.md`, or the request). The app file in `vendor/app-context/src/apps/`, the recipe and its screenshot for the page, the fragments and `render.css` (see `vendor/llms.txt`, "Building a screen"), the terminology and content rules.
 
 **Make it.** The files and their rules: `prototype-files.md` here. Write the screen list, then `scripts/lib/app-context/prepare-flow.js --app <app> --screen-list <file> --direct -o brief.json`; write `body.html`, `app.js`, `extra.css`, `meta.json` in one folder; `scripts/renderers/assemble-direct.js brief.json --author <dir> -o prototype.html`.
 
@@ -33,7 +35,5 @@ Run a script as `source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh" && "
 - you looked at every step (`scripts/renderers/look-direct.js prototype.html --steps <n> -o shots/`) and fixed what you saw. No browser (Cowork): say so, and name what the person must look at.
 
 **Figma push (on request).** One JSON per screen (`figma-screen.md` here), then `scripts/renderers/figma-screen.js <screen.json> --parent-id <frame>`, its output as the code of one `use_figma` call. Colours as `var(--zen-...)` tokens, text in Roboto. Layers (drawers, toasts) as top-level content nodes with `positioning: "absolute"` and `x`, `y` in screen coordinates. One session, no helper agents. Screenshot each screen.
-
-**specs.md seed.** Only when no final Figma exists: write `specs.md` from the knowledge's template, every section `Source: Prototype` (or `+ Intent`), and `scripts/validation/check-handover.js specs specs.md --prototype prototype.html`. If it says `template not vendored yet`, hand over without the file and say so.
 
 **Hand over.** The page, the steps, what is new and why, what you could not check, what you would ask.

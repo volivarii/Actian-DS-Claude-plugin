@@ -26,7 +26,7 @@ Show me three ways to do a notification preferences page
 ```
 Show a logged-in user their roles and permissions in the account menu, a few approaches
 ```
-*Proposal: the document, and the `intent.md` the PM owns (`/actian-ux-proposal`).*
+*Proposal: the document, for the PM's mock-up sessions and the grill's UX lane (`/actian-ux-proposal`).*
 
 ### 2. URL + intent — operate on existing work
 
@@ -42,11 +42,11 @@ audit this, then fix the copy
 https://figma.com/design/FILEKEY/File?node-id=123-456
 generate the specs
 ```
-*Specs: `specs.md` from the final frame, the prototype and `intent.md` (`/actian-ux-audit`).*
+*UX handover: `ux-handover.md` from the final frame, the prototype and the intent (`/actian-ux-audit`).*
 
 ---
 
-## A feature from ticket to specs: worked example
+## A feature from ticket to UX handover: worked example
 
 A complete designer flow for adding a connection setup wizard to Administration. Each numbered step is a single message.
 
@@ -56,7 +56,7 @@ A complete designer flow for adding a connection setup wizard to Administration.
 <TICKET-ID>: let an admin set up a connection in Administration. A few approaches, and pick one.
 ```
 
-`/actian-ux-proposal` writes `proposal-data.json`, then renders `proposal.html` (each decision the ticket forces, heaviest first, its options drawn as Fat Marker fragments, a comparison and the pick with its cost) and `intent.md` from it. Business fields (value, stakeholders, metrics, constraints, deliverables) read "To fill by PM". To change it, ask for the change: the skill edits the data file and renders both again.
+`/actian-ux-proposal` writes `proposal-data.json`, then renders `proposal.html` from it (each decision the ticket forces, heaviest first, its options drawn as Fat Marker fragments, a comparison and the pick with its cost). An open question another role must answer names its owner (`pm`, `ux`, `archi`, `dev`) and a recommended answer. To change it, ask for the change: the skill edits the data file and renders it again. No `intent.md`: the PM writes `INTENT.md` with ai-tooling's `/intent` and can cite the proposal as a mock-up session.
 
 ### 2. Prototype the flow
 
@@ -97,7 +97,7 @@ One finding at a time, P0 first, looking at the result after each.
 generate the specs
 ```
 
-`specs.md` from three sources: the final frame (components by DS name and slug, copy, accessibility, screens), the prototype (flow order, states, interactions) and `intent.md` (edge cases, scope, open questions). Unfixed findings and open questions go to Flagged concerns, and the designer reviews it before it is pushed.
+`ux-handover.md` from three sources: the final frame (components by DS name and slug, copy, accessibility, screens), the prototype (flow order, states, interactions) and the intent (`INTENT.md` and the UX lane's decisions, or the ticket). Findings are fixed first; interactions and edge cases are written as observable statements the developer can turn into acceptance criteria; Flagged concerns keep only open questions, each with its owner and a recommended answer. Inside an intent folder it lands in `docs/intents/<slug>/inputs/ux/`.
 
 That's the spine. Each step is one message. The doc below is just expansion on the parts you'll use most.
 
@@ -181,8 +181,6 @@ Design a table view for the Administration users page with filters and bulk acti
 
 **Figma push, on request:** say "push to Figma" and each screen lands as design system instances, drawers and toasts as layers over the page.
 
-**specs.md seed:** when no final Figma exists, the prototype seeds `specs.md`, every section marked `Source: Prototype`.
-
 ### Copy review — content guidelines applied
 
 Share a screen and ask about the text. The audit checks against Actian content guidelines: sentence case, action verbs, error message patterns, empty state CTAs.
@@ -219,11 +217,13 @@ For a full audit with confidence-scored findings, say "audit this screen."
 DIP-I-496: show the user's roles and permissions. A few approaches, and pick one.
 ```
 
-Routes to `/actian-ux-proposal`. It reads the ticket, then the knowledge on what it touches (the app file, the entities, personas, patterns and content rules), and writes `proposal-data.json` (shape: `schemas/proposal-data.schema.json`). From that one file it renders `proposal.html` and `intent.md`, so the two never disagree. Every question the ticket forces that a reader could answer differently is a decision, heaviest first; each has options drawn inside the product as Fat Marker fragments, the design system components they use, a comparison, and a pick with its reasons and cost. Every drawn part is marked existing or new, and every product fact names its knowledge file. `validate-proposal.js` and `check-handover.js intent` must show no P0. No Figma push.
+Routes to `/actian-ux-proposal`. It reads the ticket, then the knowledge on what it touches (the app file, the entities, personas, patterns and content rules), and writes `proposal-data.json` (shape: `schemas/proposal-data.schema.json`). From that one file it renders `proposal.html`. Every question the ticket forces that a reader could answer differently is a decision, heaviest first; each has options drawn inside the product as Fat Marker fragments, the design system components they use, a comparison, and a pick with its reasons and cost. Every drawn part is marked existing or new, and every product fact names its knowledge file. `validate-proposal.js` must show no P0. No Figma push.
 
-### Handover files: intent.md and specs.md
+### The UX handover, in engineering's SDLC
 
-`intent.md` (from the proposal) and `specs.md` (from the audit, or seeded by the prototype) are checked by `scripts/validation/check-handover.js` against the knowledge's templates, vendored at `vendor/app-context/src/handover/`. If a template is missing there, the scripts print `template not vendored yet` and exit 2, and the skills hand over without the file and say so.
+The skills feed ai-tooling's chain (`/intent` → `/grill` → `/plan`). The PM owns `INTENT.md` (written by `/intent`); the designer plays the UX role in `/grill <slug> as ux`, where the grill writes `ux.md`; the developer owns `SPEC.md`. When `docs/intents/<slug>/INTENT.md` exists, the proposal, prototype and audit read it and `pm.md` as the brief and write into `docs/intents/<slug>/inputs/ux/`.
+
+`ux-handover.md` (from the audit) is checked by `scripts/validation/check-handover.js` against the knowledge's specs template, vendored at `vendor/app-context/src/handover/`. If the template is missing there, the script prints `template not vendored yet` and exits 2, and the audit hands over without the file and says so.
 
 ### Design system sync — automatic
 
@@ -238,9 +238,9 @@ Every capability is also a direct command. Use these when you know exactly what 
 | Command | When to use |
 |---------|------------|
 | `/actian-ux [question]` | An answer from the knowledge, citing each file; which skill fits a task |
-| `/actian-ux-proposal [ticket or request]` | A proposal document and `intent.md`, both from one `proposal-data.json` |
+| `/actian-ux-proposal [ticket or request]` | A proposal document, from one `proposal-data.json` |
 | `/actian-ux-prototype [description]` | A clickable HTML prototype of the flow in the real app, checked and looked at step by step; "push to Figma" to add the Figma screens |
-| `/actian-ux-audit [URL]` | Findings with evidence and a fix each; fixes on request, P0 first; `specs.md` from the final frame |
+| `/actian-ux-audit [URL]` | Findings with evidence and a fix each; fixes on request, P0 first; `ux-handover.md` from the final frame |
 
 ---
 

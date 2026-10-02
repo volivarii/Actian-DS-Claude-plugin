@@ -38,11 +38,38 @@ describe("the proposal card", () => {
   });
 });
 
-describe("the handover cards before the templates are vendored", () => {
-  ["actian-ux-proposal", "actian-ux-prototype", "actian-ux-audit"].forEach((n) => {
-    it(n + " says what to do when check-handover finds no template", () => {
-      assert.match(read("skills/" + n + "/SKILL.md"), /template not vendored/);
+describe("the handover card before the template is vendored", () => {
+  it("actian-ux-audit says what to do when check-handover finds no template", () => {
+    assert.match(read("skills/actian-ux-audit/SKILL.md"), /template not vendored/);
+  });
+});
+
+// Engineering's SDLC (ai-tooling: /intent, /grill, /plan) owns INTENT.md, the role files
+// and SPEC.md. The cards feed its UX lane and never write those files.
+describe("the cards in the SDLC", () => {
+  const CARDS = ["actian-ux", "actian-ux-proposal", "actian-ux-prototype", "actian-ux-audit"];
+  CARDS.forEach((n) => {
+    const card = read("skills/" + n + "/SKILL.md");
+    it(n + " produces no intent.md and no specs.md", () => {
+      assert.ok(!card.includes("assemble-intent"), n + " still runs assemble-intent");
+      assert.ok(!/`intent\.md`|`specs\.md`/.test(card), n + " still names intent.md or specs.md as its own file");
     });
+  });
+  ["actian-ux-proposal", "actian-ux-prototype", "actian-ux-audit"].forEach((n) => {
+    const card = read("skills/" + n + "/SKILL.md");
+    it(n + " reads INTENT.md as the brief and writes into inputs/ux/", () => {
+      assert.ok(card.includes("`INTENT.md`"), n + " does not read INTENT.md");
+      assert.ok(card.includes("docs/intents/<slug>/inputs/ux/"), n + " does not write into the intent's inputs/ux/");
+    });
+  });
+  it("the audit writes ux-handover.md, with owner-routed questions", () => {
+    const card = read("skills/actian-ux-audit/SKILL.md");
+    assert.ok(card.includes("`ux-handover.md`"));
+    assert.match(card, /owner/);
+  });
+  it("the proposal routes open questions to an owner with a recommended answer", () => {
+    const card = read("skills/actian-ux-proposal/SKILL.md");
+    assert.ok(card.includes("`owner`") && card.includes("`recommended`"));
   });
 });
 
@@ -65,7 +92,8 @@ describe("every file the cards name, and every flag they pass, exists", () => {
     });
   })(path.join(ROOT, "scripts"));
   // Files a card writes, not files beside it.
-  const OUTPUTS = ["intent.md", "specs.md", "app.js"];
+  // INTENT.md, pm.md, ux.md and SPEC.md are engineering's SDLC files, read in the project.
+  const OUTPUTS = ["intent.md", "specs.md", "ux-handover.md", "INTENT.md", "pm.md", "ux.md", "SPEC.md", "app.js"];
   const spans = (text) => [...text.matchAll(/`([^`\n]+)`/g)].map((m) => m[1]);
   const scriptFor = (word) => {
     const rel = word.replace(/^\$\{?CLAUDE_PLUGIN_ROOT\}?\//, "");

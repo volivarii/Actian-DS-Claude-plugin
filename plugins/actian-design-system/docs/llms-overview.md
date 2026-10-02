@@ -8,10 +8,11 @@ repo root.
 
 Actian's federated DS substrate, packaged as a Claude Code plugin. Provides
 4 skills: `actian-ux` (answers from the knowledge, the rules every task
-follows, which skill fits), `actian-ux-proposal` (a proposal document and its
-`intent.md`), `actian-ux-prototype` (a clickable prototype, pushed to Figma on
-request) and `actian-ux-audit` (findings with evidence and fixes, and
-`specs.md` from the final frame), through the official Figma MCP server.
+follows, which skill fits), `actian-ux-proposal` (a proposal document),
+`actian-ux-prototype` (a clickable prototype, pushed to Figma on request) and
+`actian-ux-audit` (findings with evidence and fixes, and `ux-handover.md` from
+the final frame), through the official Figma MCP server. They feed the UX lane
+of engineering's `/grill` and never write `INTENT.md` or `SPEC.md`.
 
 ## How knowledge is structured
 

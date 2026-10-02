@@ -1,6 +1,6 @@
 # Actian Design System
 
-> Actian's design system, packaged as a Claude Code plugin. 4 skills: answers from the knowledge, a proposal with its intent.md, a clickable prototype pushed to Figma on request, and an audit of a Figma frame with its specs.md, through the claude.ai Figma connector. 463 tokens (3 themes), 333 DS Kit components, 287 FM Kit wireframe components, 28 Meta Kit components.
+> Actian's design system, packaged as a Claude Code plugin. 4 skills: answers from the knowledge, a proposal, a clickable prototype pushed to Figma on request, and an audit of a Figma frame with its UX handover (ux-handover.md) for the grill's UX lane, through the claude.ai Figma connector. 463 tokens (3 themes), 333 DS Kit components, 287 FM Kit wireframe components, 28 Meta Kit components.
 
 The Actian DS is in a federated configuration (2026-05-09): the **knowledge layer** lives in [`volivarii/actian-ds-knowledge`](https://github.com/volivarii/actian-ds-knowledge); this plugin vendors a pinned snapshot, refreshed nightly. The URLs below point AI agents at the canonical knowledge repo. The plugin's own AI orientation, skill cards and Figma notes are linked at the bottom under "Plugin meta-docs".
 
@@ -32,11 +32,11 @@ The Actian DS is in a federated configuration (2026-05-09): the **knowledge laye
 ## Plugin meta-docs (skill cards + Figma notes)
 
 - [/actian-ux card](https://raw.githubusercontent.com/volivarii/Actian-DS-Claude-plugin/main/plugins/actian-design-system/skills/actian-ux/SKILL.md): answers from the knowledge, the rules every task follows, which skill fits
-- [/actian-ux-proposal card](https://raw.githubusercontent.com/volivarii/Actian-DS-Claude-plugin/main/plugins/actian-design-system/skills/actian-ux-proposal/SKILL.md): the proposal document and intent.md, from one proposal data file
-- [/actian-ux-prototype card](https://raw.githubusercontent.com/volivarii/Actian-DS-Claude-plugin/main/plugins/actian-design-system/skills/actian-ux-prototype/SKILL.md): the clickable prototype, the Figma push and the specs.md seed
+- [/actian-ux-proposal card](https://raw.githubusercontent.com/volivarii/Actian-DS-Claude-plugin/main/plugins/actian-design-system/skills/actian-ux-proposal/SKILL.md): the proposal document, from one proposal data file
+- [/actian-ux-prototype card](https://raw.githubusercontent.com/volivarii/Actian-DS-Claude-plugin/main/plugins/actian-design-system/skills/actian-ux-prototype/SKILL.md): the clickable prototype and the Figma push
 - [Prototype files](https://raw.githubusercontent.com/volivarii/Actian-DS-Claude-plugin/main/plugins/actian-design-system/skills/actian-ux-prototype/prototype-files.md): the screen list, the brief, the four author files and every check-direct finding with its fix
 - [Figma screen](https://raw.githubusercontent.com/volivarii/Actian-DS-Claude-plugin/main/plugins/actian-design-system/skills/actian-ux-prototype/figma-screen.md): the screen JSON the Figma push takes
-- [/actian-ux-audit card](https://raw.githubusercontent.com/volivarii/Actian-DS-Claude-plugin/main/plugins/actian-design-system/skills/actian-ux-audit/SKILL.md): findings with evidence and fixes, and specs.md from the final frame
+- [/actian-ux-audit card](https://raw.githubusercontent.com/volivarii/Actian-DS-Claude-plugin/main/plugins/actian-design-system/skills/actian-ux-audit/SKILL.md): findings with evidence and fixes, and ux-handover.md from the final frame
 - [Figma API traps](https://raw.githubusercontent.com/volivarii/Actian-DS-Claude-plugin/main/plugins/actian-design-system/skills/actian-ux-audit/figma-api-traps.md): catalogue of methods that throw, properties not bindable, silently-fail patterns
 
 ## Optional
