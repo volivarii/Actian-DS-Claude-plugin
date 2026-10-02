@@ -940,6 +940,26 @@
             "examples": [
               "Truncating a long group list needs a hover affordance the dropdown does not have today."
             ]
+          },
+          "owner": {
+            "description": "The grill role that answers it: pm, ux, archi or dev. The UX lane parks the question for that role in ux.md. Omit when the reader of the proposal decides it.",
+            "type": "string",
+            "enum": [
+              "pm",
+              "ux",
+              "archi",
+              "dev"
+            ],
+            "examples": [
+              "archi"
+            ]
+          },
+          "recommended": {
+            "description": "The answer we recommend, one sentence in the reader's words, so the owner can confirm or overrule it. Omit when there is no honest recommendation.",
+            "type": "string",
+            "examples": [
+              "Set the display name in Administration, whatever the directory sends."
+            ]
           }
         }
       }

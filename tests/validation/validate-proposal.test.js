@@ -325,6 +325,26 @@ describe("validateProposal (document)", function () {
     }), "an unknown kind is a P0");
   });
 
+  it("routes an open question to a grill role and rejects an unknown one", function () {
+    var d = load();
+    d.openQuestions = [{ kind: "open question", text: "Where does a synced group's display name come from?", owner: "archi", recommended: "Set it in Administration, whatever the directory says." }];
+    assert.deepStrictEqual(validateProposal(d).findings.filter(function (f) {
+      return /openQuestions/.test(f.path + " " + f.value);
+    }), [], "a known owner and a short recommended answer are clean");
+
+    d = load();
+    d.openQuestions = [{ kind: "open question", text: "q", owner: "boss" }];
+    assert.ok(validateProposal(d).findings.some(function (f) {
+      return f.severity === "P0" && /openQuestions\/\[0\]\/owner/.test(f.value);
+    }), "an owner outside pm, ux, archi, dev is a P0");
+
+    d = load();
+    d.openQuestions = [{ kind: "open question", text: "q", owner: "pm", recommended: "Ask " + EM_DASH + " then decide." }];
+    var dash = only(d, "em-dash");
+    assert.strictEqual(dash.length, 1, "the recommended answer is prose-checked like the text");
+    assert.strictEqual(dash[0].path, "openQuestions[0].recommended");
+  });
+
   it("names the decisions[] shape when handed a file that predates it", function () {
     var old = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "fixtures", "proposal-dip-i-496-legacy.json"), "utf8"));
     var f = find(validateProposal(old).findings, "old-shape");
@@ -1136,7 +1156,7 @@ describe("plain words: part and length", function () {
     d.meta.title = long; d.context.ask = long; d.context.users = [long];
     d.scope.goals[0] = long; d.scope.nonGoals[0] = long; d.change.userSide = long; d.change.adminSide = long;
     d.research.findings = [{ lane: "competitors", claim: long, source: "Example" }];
-    d.openQuestions = [{ kind: "open question", text: long }];
+    d.openQuestions = [{ kind: "open question", text: long, owner: "pm", recommended: long }];
     dec.part = long; dec.blocker = long; dec.pick.cost = long; dec.pick.reasons[0].text = long;
     dec.comparison.criteria[0].label = long;
     dec.comparison.cells[o.id][crit].text = long;
@@ -1147,7 +1167,7 @@ describe("plain words: part and length", function () {
     var expected = [
       "meta.title", "context.ask",
       "answer", "latitude", "context.product[0]", "context.users[0]", "context.gap", "scope.goals[0]", "scope.nonGoals[0]",
-      "change.userSide", "change.adminSide", "research.findings[0].claim", "openQuestions[0].text",
+      "change.userSide", "change.adminSide", "research.findings[0].claim", "openQuestions[0].text", "openQuestions[0].recommended",
       "decisions[0].part", "decisions[0].blocker", "decisions[0].pick.cost", "decisions[0].pick.reasons[0].text",
       "decisions[0].comparison.criteria[0].label",
       "decisions[0].comparison.cells." + o.id + "." + crit + ".text",

@@ -138,6 +138,7 @@ var WORD_LIMITS = {
   "scope.nonGoals[]": 12,
   "research.findings[].claim": 18,
   "openQuestions[].text": 20,
+  "openQuestions[].recommended": 20,
   "change.adminSide": 20,
   "change.userSide": 20,
   "latitude": 15,
@@ -282,7 +283,10 @@ function lengthEntries(data) {
   (data.scope.goals || []).forEach(function (s, i) { add("scope.goals[]", "scope.goals[" + i + "]", s); });
   (data.scope.nonGoals || []).forEach(function (s, i) { add("scope.nonGoals[]", "scope.nonGoals[" + i + "]", s); });
   (data.research.findings || []).forEach(function (f, i) { add("research.findings[].claim", "research.findings[" + i + "].claim", f.claim); });
-  (data.openQuestions || []).forEach(function (q, i) { add("openQuestions[].text", "openQuestions[" + i + "].text", q.text); });
+  (data.openQuestions || []).forEach(function (q, i) {
+    add("openQuestions[].text", "openQuestions[" + i + "].text", q.text);
+    add("openQuestions[].recommended", "openQuestions[" + i + "].recommended", q.recommended);
+  });
   add("change.adminSide", "change.adminSide", (data.change || {}).adminSide);
   add("change.userSide", "change.userSide", (data.change || {}).userSide);
   data.decisions.forEach(function (d, di) {
@@ -776,7 +780,10 @@ function validateProposal(data) {
   var openQuestions = data.openQuestions || [];
   if (openQuestions.length > MAX_OPEN_QUESTIONS)
     findings.push(finding("P0", "bounds", "", "openQuestions", openQuestions.length + " entries; at most " + MAX_OPEN_QUESTIONS));
-  openQuestions.forEach(function (q, i) { checkProse(q.text, "", "openQuestions[" + i + "].text", findings); });
+  openQuestions.forEach(function (q, i) {
+    checkProse(q.text, "", "openQuestions[" + i + "].text", findings);
+    if (q.recommended) checkProse(q.recommended, "", "openQuestions[" + i + "].recommended", findings);
+  });
   if (openQuestions.length)
     addPseudo("doc:open-questions", "Open questions", openQuestions.map(function (q, i) {
       return { path: "openQuestions[" + i + "].text", text: q.text };

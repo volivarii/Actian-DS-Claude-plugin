@@ -10,13 +10,15 @@ Built on Claude and connected directly to Figma, the Actian DS Plugin knows the 
 
 **Propose → Prototype → Audit.** Most design work runs through three skills, each handing a file to the next.
 
-1. **Propose.** Paste a ticket; `/actian-ux-proposal` writes a proposal document (each decision the ticket forces, drawn inside the product, with options, a comparison, the pick and its cost) and the `intent.md` the PM owns.
+1. **Propose.** Paste a ticket or point at an intent; `/actian-ux-proposal` writes a proposal document (each decision it forces, drawn inside the product, with options, a comparison, the pick and its cost), material for the PM's mock-up sessions and the grill's UX lane.
 2. **Prototype.** Describe a flow; `/actian-ux-prototype` draws a clickable HTML prototype in the real app from the design system's own markup, checks it and looks at every step. On request it pushes each screen to Figma as design system instances.
-3. **Audit.** Point at a Figma frame; `/actian-ux-audit` lists every place it departs from the design system, with evidence and a fix, applies fixes on request, and writes `specs.md` from the final frame.
+3. **Audit.** Point at a Figma frame; `/actian-ux-audit` lists every place it departs from the design system, with evidence and a fix, applies fixes on request, and writes the UX handover, `ux-handover.md`, from the final frame.
 
 `/actian-ux` answers design system questions from the knowledge, citing the file, and names the skill that fits. Every skill also runs unattended: a question it would ask, or a look it cannot take, is written into its file as a flagged concern.
 
 The guidelines hold throughout — tokens, spacing, content rules, accessibility — but the output stays creative within them.
+
+**In engineering's SDLC.** The skills feed the chain in `actian-dip-dev/ai-tooling` (`/intent` → `/grill` → `/plan` → `/implement` → `/wrap`) and never replace a step of it. Before an intent exists, a proposal or prototype is discovery material the PM can cite in `/intent`. In the grill's UX lane (`/grill <slug> as ux`), the designer uses the skills and `/actian-ux` answers which components are reused or new, the states, the copy and accessibility. When `docs/intents/<slug>/INTENT.md` exists, the skills read it and `pm.md` as the brief and write into `docs/intents/<slug>/inputs/ux/`. They never write `INTENT.md` (the PM's, through `/intent`), the role files or `SPEC.md` (the developer's).
 
 DS knowledge (tokens, components, foundations, content + accessibility guidelines) is vendored from [`volivarii/actian-ds-knowledge`](https://github.com/volivarii/actian-ds-knowledge) — the canonical source-of-truth repo synced directly from Figma. The plugin pulls a pinned snapshot nightly via `vendor-snapshot.yml`.
 
@@ -113,8 +115,8 @@ Two input shapes cover almost everything. `/actian-ux` names the skill that fits
 
 | Shape | Looks like | What you get |
 |-------|------------|--------------|
-| **Prompt** | "Design a connection setup wizard for Administration" / a pasted ticket | A clickable prototype in the right app, or a proposal document and `intent.md` |
-| **URL + intent** | `<figma url>` + "audit this" / "fix finding 3" / "generate the specs" | An audit with a fix per finding, the fixes applied on request, or `specs.md` from the final frame |
+| **Prompt** | "Design a connection setup wizard for Administration" / a pasted ticket | A clickable prototype in the right app, or a proposal document |
+| **URL + intent** | `<figma url>` + "audit this" / "fix finding 3" / "generate the specs" | An audit with a fix per finding, the fixes applied on request, or `ux-handover.md` from the final frame |
 
 ### Your first 30 minutes
 
@@ -125,7 +127,7 @@ push the screens to Figma
 fix finding 1
 ```
 
-Prototype → push → audit → fix. Every step is a single message. **Full walkthrough in [USAGE.md](USAGE.md#a-feature-from-ticket-to-specs-worked-example).**
+Prototype → push → audit → fix. Every step is a single message. **Full walkthrough in [USAGE.md](USAGE.md#a-feature-from-ticket-to-ux-handover-worked-example).**
 
 ### A few starting prompts
 
@@ -163,9 +165,9 @@ Every capability is also available as a direct command. Use these when you know 
 | Command | What it does |
 |---------|-------------|
 | `/actian-ux` | Answers from the knowledge, citing each file; the rules every Actian design task follows; which skill fits. |
-| `/actian-ux-proposal` | Propose: a document a PM or designer reads once (each decision the ticket forces, heaviest first, its options drawn inside the product as Fat Marker fragments, a comparison and the pick with its cost) and the `intent.md` the PM owns, both from one `proposal-data.json`. Business fields read "To fill by PM", never invented. HTML only, no Figma push. |
-| `/actian-ux-prototype` | Prototype: a clickable HTML page of the flow in the real app, drawn from the design system's own markup, checked by `check-direct.js` and looked at step by step. On request, each screen is pushed to Figma through `figma-screen.js`. Seeds `specs.md` when no final Figma exists. |
-| `/actian-ux-audit` | Audit: components, tokens, accessibility, copy, layout and states, each finding with the rule quoted, the fix and a confidence. Fixes one finding at a time on request, P0 first. Writes `specs.md` from the final frame. |
+| `/actian-ux-proposal` | Propose: a document a PM or designer reads once (each decision the ticket forces, heaviest first, its options drawn inside the product as Fat Marker fragments, a comparison and the pick with its cost) from one `proposal-data.json`. Open questions name the grill role that answers them and a recommended answer. Business facts are the PM's, in `INTENT.md`, never invented. HTML only, no Figma push. |
+| `/actian-ux-prototype` | Prototype: a clickable HTML page of the flow in the real app, drawn from the design system's own markup, checked by `check-direct.js` and looked at step by step. On request, each screen is pushed to Figma through `figma-screen.js`. |
+| `/actian-ux-audit` | Audit: components, tokens, accessibility, copy, layout and states, each finding with the rule quoted, the fix and a confidence. Fixes one finding at a time on request, P0 first. Writes `ux-handover.md` from the final frame. |
 
 ---
 
@@ -175,11 +177,11 @@ Every skill ends with a handover that hides nothing: what is new, what was not c
 
 | Skill | Hands over |
 |-------|-------------|
-| `/actian-ux-proposal` | `proposal.html` and `intent.md`, both rendered from `proposal-data.json`; a follow-up edits the data file and renders both again |
-| `/actian-ux-prototype` | `prototype.html` and a screenshot of every step; on request the Figma screens; `specs.md` seeded from the prototype when no final Figma exists |
-| `/actian-ux-audit` | The findings table, the fixes applied, `specs.md` from the final frame and its check result |
+| `/actian-ux-proposal` | `proposal.html`, rendered from `proposal-data.json`; a follow-up edits the data file and renders it again |
+| `/actian-ux-prototype` | `prototype.html` and a screenshot of every step; on request the Figma screens |
+| `/actian-ux-audit` | The findings table, the fixes applied, `ux-handover.md` from the final frame and its check result |
 
-`intent.md` and `specs.md` are checked by `scripts/validation/check-handover.js` against the knowledge's templates, vendored at `vendor/app-context/src/handover/`. If a template is missing there, the scripts print `template not vendored yet` and exit 2, and the skills hand over without the file and say so.
+`ux-handover.md` is checked by `scripts/validation/check-handover.js` against the knowledge's specs template, vendored at `vendor/app-context/src/handover/`. If the template is missing there, the script prints `template not vendored yet` and exits 2, and the audit hands over without the file and says so. No skill writes `intent.md` any more: the PM's `INTENT.md` comes from `/intent`.
 
 ---
 
@@ -228,7 +230,7 @@ The four skills read at runtime
 - **One brief per prototype**: `prepare-flow.js --direct` writes one brief joining the app's rail and header, each step's captured page (its regions, notes and screenshot), the design system's own component markup and usage notes, the stylesheets, the icons and the content rules.
 - **Prototype check**: `check-direct.js` checks the four author files; each finding and its fix is listed in `skills/actian-ux-prototype/prototype-files.md`. `look-direct.js` screenshots every step at two widths, and exits 2 when no browser answers.
 - **Figma push**: `figma-screen.js` resolves every `var(--zen-...)` token in the screen's app theme and stops, naming the token, on one it cannot resolve.
-- **Proposal and handover**: `validate-proposal.js` checks `proposal-data.json`; `check-handover.js` checks `intent.md` and `specs.md` against the knowledge's templates.
+- **Proposal and handover**: `validate-proposal.js` checks `proposal-data.json`; `check-handover.js` checks `ux-handover.md` against the knowledge's specs template.
 - **Auto-bump on vendor refresh**: the nightly `vendor-snapshot.yml` bumps `plugin.json` whenever the knowledge snapshot changes.
 
 ---

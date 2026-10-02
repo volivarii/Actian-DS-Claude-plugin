@@ -336,6 +336,21 @@ describe("assembleProposal (document)", function () {
     assert.strictEqual(count(out, d.decisions[1].blocker), 1, "printed once");
   });
 
+  it("names who answers an open question in the grill, and the answer we recommend", function () {
+    var d = load();
+    d.openQuestions = [
+      { kind: "open question", text: "Where does a synced group's display name come from?", owner: "archi", recommended: "Set it in Administration." },
+      { kind: "rabbit hole", text: "Long group lists." },
+    ];
+    var out = body(assembleProposal(d));
+    var sec = out.slice(at(out, ">Before we build<"));
+    sec = sec.slice(0, at(sec, "</section>"));
+    assert.ok(at(sec, ">Open question, for the architect<") !== -1, "the owner joins the label");
+    assert.ok(at(sec, "Recommended: Set it in Administration.") !== -1, "the recommended answer follows the question");
+    assert.ok(at(sec, ">Risk<") !== -1, "an item with no owner keeps its plain label");
+    assert.strictEqual(count(sec, "Recommended:"), 1, "no empty recommendation on the other item");
+  });
+
   it("omits Before we build when nothing blocks and nothing is open", function () {
     var d = load();
     delete d.decisions[0].blocker;
