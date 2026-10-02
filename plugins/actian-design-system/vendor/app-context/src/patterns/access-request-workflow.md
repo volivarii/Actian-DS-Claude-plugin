@@ -6,6 +6,9 @@ label: Access request workflow
 apps:
   - explorer
   - studio
+reference: product
+screenshots:
+  - captures/access-request-workflow.png
 tags:
   - request
   - approve

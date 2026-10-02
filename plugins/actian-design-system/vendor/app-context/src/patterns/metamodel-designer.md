@@ -5,6 +5,9 @@ slug: metamodel-designer
 label: Metamodel Designer
 apps:
   - studio
+reference: product
+screenshots:
+  - captures/metamodel-designer.png
 tags:
   - configure
   - canvas

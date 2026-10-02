@@ -5,6 +5,9 @@ slug: analytics-dashboard
 label: Analytics dashboard
 apps:
   - studio
+reference: product
+screenshots:
+  - captures/analytics-dashboard.png
 tags:
   - dashboard
   - metrics

@@ -5,6 +5,9 @@ slug: filter-groups-form
 label: Filter-groups edit form with sticky footer
 apps:
   - administration
+reference: product
+screenshots:
+  - captures/filter-groups-form.png
 tags:
   - form
   - configure

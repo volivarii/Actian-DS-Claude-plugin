@@ -5,6 +5,7 @@ slug: ask-ai
 label: Ask AI
 apps:
   - explorer
+reference: design
 tags:
   - search
   - ai

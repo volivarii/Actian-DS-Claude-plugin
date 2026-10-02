@@ -6,6 +6,10 @@ label: Right sliding drawer
 apps:
   - studio
   - explorer
+reference: product
+screenshots:
+  - captures/right-sliding-drawer.png
+  - captures/studio-quick-edit-drawer.png
 tags:
   - drawer
   - overlay

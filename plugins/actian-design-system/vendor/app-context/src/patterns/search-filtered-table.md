@@ -7,6 +7,9 @@ apps:
   - administration
   - studio
   - explorer
+reference: product
+screenshots:
+  - captures/admin-users.png
 tags:
   - search
   - table

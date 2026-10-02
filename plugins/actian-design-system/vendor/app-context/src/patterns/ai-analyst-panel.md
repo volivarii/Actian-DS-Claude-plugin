@@ -5,6 +5,7 @@ slug: ai-analyst-panel
 label: AI Analyst Panel
 apps:
   - explorer
+reference: design
 tags:
   - conversation
   - ai

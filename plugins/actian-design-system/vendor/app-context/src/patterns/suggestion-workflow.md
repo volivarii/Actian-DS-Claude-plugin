@@ -6,6 +6,9 @@ label: Suggestion workflow
 apps:
   - explorer
   - studio
+reference: product
+screenshots:
+  - captures/suggestion-workflow.png
 tags:
   - suggestions
   - review

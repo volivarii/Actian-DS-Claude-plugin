@@ -5,6 +5,10 @@ slug: data-steward-agent-panel
 label: Data Steward Agent Panel
 apps:
   - studio
+reference: product
+screenshots:
+  - captures/data-steward-agent-panel.png
+  - captures/admin-agents.png
 tags:
   - ai
   - agent

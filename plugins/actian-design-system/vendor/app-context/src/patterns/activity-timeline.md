@@ -5,6 +5,9 @@ slug: activity-timeline
 label: Activity timeline
 apps:
   - studio
+reference: product
+screenshots:
+  - captures/activity-timeline.png
 tags:
   - timeline
   - history
