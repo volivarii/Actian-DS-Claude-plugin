@@ -1,7 +1,7 @@
 {
   "name": "actian-design-system",
   "description": "Actian Design System toolkit for Claude: four skills that read the Actian design system knowledge (vendored) and feed the product team and the UX lane of engineering's SDLC: a proposal, a clickable prototype and its Figma push, an audit with fixes and the UX handover. WCAG 2.2 AA.",
-  "version": "2026.10.2",
+  "version": "2026.10.3",
   "author": {
     "name": "Actian UX Team"
   },
